@@ -17,7 +17,7 @@
 - [x] Générer le wrapper Gradle (`gradlew`, `gradlew.bat`, `gradle-wrapper.jar`).
 - [x] Premier build local : `ktlintCheck lintDebug testDebugUnitTest assembleDebug` passe.
 - [ ] Créer le dépôt GitHub privé, pousser et vérifier que la CI est verte.
-- [ ] Lancer l'app sur le S25+.
+- [x] Lancer l'app sur le S25+ (testé le 6 octobre 2026).
 
 ## Décisions techniques
 - **Dossier hors OneDrive** (`C:\Users\paulf\dev\liftapp`) : la synchronisation verrouille les fichiers de build Gradle.
