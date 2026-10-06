@@ -1,0 +1,274 @@
+{
+ "External_Rotation_with_Cable": {
+  "name": "Rotation externe d'épaule à la poulie",
+  "instructions": [
+   "Règle le câble à la hauteur de ton coude. Tiens-toi le côté gauche vers la poulie, à environ 60 cm.",
+   "Saisis la poignée de la main droite et garde le coude bien collé à ton flanc. Tu peux coincer une serviette roulée ou un bloc de mousse sous le coude pour le maintenir en place.",
+   "Le haut du bras en place, ton coude est plié à 90 degrés, la main devant ton buste. C'est ta position de départ.",
+   "Fais pivoter le bras vers l'extérieur, comme un revers de tennis, en gardant le coude en place."
+  ]
+ },
+ "Face_Pull": {
+  "name": "Face pull",
+  "instructions": [
+   "Face à une poulie haute équipée d'une corde ou de deux poignées, tire la charge droit vers ton visage en écartant les mains. Garde le haut des bras parallèle au sol."
+  ]
+ },
+ "Farmers_Walk": {
+  "name": "Marche du fermier",
+  "instructions": [
+   "Plusieurs agrès existent pour la marche du fermier ; à défaut, utilise des haltères lourds ou des barres courtes. Place-toi entre les deux charges.",
+   "Saisis les poignées et soulève-les en poussant dans les talons, dos droit et tête haute.",
+   "Marche à petits pas rapides sans oublier de respirer. Parcours la distance prévue, généralement 15 à 30 mètres, le plus vite possible."
+  ]
+ },
+ "Fast_Skipping": {
+  "name": "Sautillements rapides",
+  "instructions": [
+   "Commence détendu, une jambe légèrement en avant. C'est ta position de départ.",
+   "Sautille en enchaînant pas et petit saut : droite-droite puis gauche-gauche, en alternant.",
+   "Sautille vite en restant au plus près du sol et en limitant le temps en l'air, le plus rapidement possible."
+  ]
+ },
+ "Finger_Curls": {
+  "name": "Curl des doigts à la barre",
+  "instructions": [
+   "Tiens une barre à deux mains, paumes vers le haut, mains écartées d'environ la largeur des épaules.",
+   "Pose les pieds à plat au sol, un peu plus écartés que les épaules. C'est ta position de départ.",
+   "Descends la barre le plus bas possible en ouvrant les doigts : laisse-la rouler dans tes mains et retiens-la avec la dernière phalange.",
+   "Remonte la barre le plus haut possible en refermant les mains, en expirant. Tiens la contraction en haut."
+  ]
+ },
+ "Flat_Bench_Cable_Flyes": {
+  "name": "Écarté couché à la poulie",
+  "instructions": [
+   "Place un banc plat entre deux poulies basses, de façon que ta poitrine soit alignée avec les poulies une fois allongé.",
+   "Allonge-toi à plat sur le banc, pieds au sol.",
+   "Fais-toi passer une poignée dans chaque main et saisis-les paumes vers le haut.",
+   "Écarte les bras sur les côtés avec une légère flexion des coudes. Conseil : garde cette flexion constante pendant tout le mouvement. Tes bras sont parallèles au sol. C'est ta position de départ.",
+   "Monte les bras en demi-cercle devant toi en rapprochant les câbles, jusqu'à ce que tes mains se rejoignent en haut. Serre les pectoraux et expire pendant ce mouvement, puis tiens la contraction une seconde. Conseil : bien exécuté, tes bras sont perpendiculaires au buste et au sol en haut, mains jointes au-dessus de ta poitrine.",
+   "Reviens lentement à la position de départ.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Flat_Bench_Leg_Pull-In": {
+  "name": "Ramené de jambes sur banc plat",
+  "instructions": [
+   "Allonge-toi sur un tapis ou un banc plat, les jambes dépassant du bout.",
+   "Place les mains sous tes fessiers, paumes vers le bas, ou sur les côtés en te tenant au banc (ou paumes au sol sur un tapis). Tends les jambes. C'est ta position de départ.",
+   "Fléchis les genoux et ramène les cuisses vers ton ventre en expirant, jusqu'à ce que tes genoux soient près de ta poitrine. Tiens la contraction une seconde.",
+   "En inspirant, reviens lentement à la position de départ.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Flat_Bench_Lying_Leg_Raise": {
+  "name": "Relevé de jambes allongé sur banc plat",
+  "instructions": [
+   "Allonge-toi le dos à plat sur un banc, les jambes tendues dépassant du bout.",
+   "Place les mains sous tes fessiers, paumes vers le bas, ou sur les côtés en te tenant au banc. C'est ta position de départ.",
+   "Jambes tendues, aussi droites que possible avec une légère flexion fixe des genoux, monte-les jusqu'à ce qu'elles forment un angle de 90 degrés avec le sol. Expire pendant cette phase et tiens la contraction une seconde en haut.",
+   "En inspirant, redescends lentement les jambes à la position de départ."
+  ]
+ },
+ "Flexor_Incline_Dumbbell_Curls": {
+  "name": "Curl incliné aux haltères poignets en extension",
+  "instructions": [
+   "Tiens l'haltère en décalant ta main vers le disque extérieur, pour que le côté intérieur soit plus lourd (cette astuce fonctionne pour tous les curls aux haltères). Fais un curl incliné classique, mais garde les poignets le plus en arrière possible pour neutraliser la contrainte sur eux.",
+   "Assieds-toi sur un banc incliné à 45 degrés, un haltère dans chaque main.",
+   "Laisse pendre les bras sur les côtés, coudes serrés, paumes vers l'avant et pouces tournés vers l'extérieur. Conseil : garde cette position des mains pendant tout le mouvement, sans les tourner en montant. C'est ta position de départ.",
+   "Monte les deux haltères en même temps jusqu'à contraction complète des biceps, en expirant. Conseil : ne balance pas les bras et ne prends pas d'élan, garde un mouvement contrôlé. Tiens la contraction une seconde en haut.",
+   "En inspirant, reviens lentement à la position de départ.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Floor_Glute-Ham_Raise": {
+  "name": "Glute-ham raise au sol (nordic curl)",
+  "instructions": [
+   "Fais-toi aider d'un partenaire ou cale tes pieds sous un support stable.",
+   "Mets-toi à genoux, cuisses et buste droits. Ton partenaire te tient fermement les pieds. C'est ta position de départ.",
+   "Descends vers l'avant en tendant les genoux, en veillant à NE PAS fléchir les hanches.",
+   "Pose les mains devant toi en arrivant au sol. Ce mouvement est très difficile et tu ne pourras peut-être pas le faire sans aide : pousse légèrement sur le sol avec les bras pour t'aider à revenir à la position de départ."
+  ]
+ },
+ "Floor_Press": {
+  "name": "Développé au sol à la barre",
+  "instructions": [
+   "Règle les crochets à la bonne hauteur pour poser la barre. Allonge-toi au sol, la tête près du bout de la cage. Omoplates serrées, décroche la barre.",
+   "Descends la barre vers le bas de ta poitrine ou le haut du ventre, en la serrant fort comme pour l'écarter. Garde les coudes rentrés pendant tout le mouvement. Descends jusqu'à ce que le haut de tes bras touche le sol et marque une pause, sans claquer ni rebondir.",
+   "Remonte la barre le plus vite possible, barre, poignets et coudes alignés."
+  ]
+ },
+ "Floor_Press_with_Chains": {
+  "name": "Développé au sol avec chaînes",
+  "instructions": [
+   "Règle les crochets à la bonne hauteur pour poser la barre. Pour cet exercice, pose les chaînes directement sur les extrémités de la barre, en les gardant à l'écart des disques.",
+   "Allonge-toi au sol, la tête près du bout de la cage. Omoplates serrées, décroche la barre.",
+   "Descends la barre vers le bas de ta poitrine ou le haut du ventre, en la serrant fort comme pour l'écarter. Garde les coudes rentrés pendant tout le mouvement. Descends jusqu'à ce que le haut de tes bras touche le sol et marque une pause, sans claquer ni rebondir.",
+   "Remonte la barre le plus vite possible, barre, poignets et coudes alignés."
+  ]
+ },
+ "Flutter_Kicks": {
+  "name": "Battements de jambes sur banc",
+  "instructions": [
+   "Allonge-toi à plat ventre sur un banc plat, les hanches au bord du banc, jambes tendues et pieds bien au-dessus du sol, mains tenant l'avant du banc.",
+   "Serre les fessiers et les ischio-jambiers et tends les jambes jusqu'à ce qu'elles soient à hauteur des hanches. C'est ta position de départ.",
+   "Monte la jambe gauche plus haut que la droite.",
+   "Redescends la jambe gauche en montant la droite.",
+   "Continue en alternant ainsi (comme des battements de jambes en natation) jusqu'à avoir fait le nombre de répétitions prévu pour chaque jambe. Garde un mouvement contrôlé en permanence. Conseil : respire normalement pendant l'exercice."
+  ]
+ },
+ "Forward_Drag_with_Press": {
+  "name": "Traîneau tiré vers l'avant avec poussée",
+  "instructions": [
+   "Accroche au traîneau une chaîne ou une corde à deux poignées. Tourne le dos au traîneau, une poignée dans chaque main.",
+   "Avance d'un pas. Penché en avant, pousse sur les jambes et les hanches pour avancer, en marquant une pause à chaque pas pour tendre les coudes et pousser les mains vers l'avant. Avance jusqu'à revenir en position de départ, prêt à pousser."
+  ]
+ },
+ "Frankenstein_Squat": {
+  "name": "Squat Frankenstein",
+  "instructions": [
+   "Cet exercice apprend le bon placement de la barre et du corps à l'épaulé et au squat avant.",
+   "Pose la barre sur l'avant des épaules, lâche la prise et tends les bras devant toi. Avance les épaules pour former un support : la barre touche ta gorge. N'avance que les omoplates, sans arrondir le haut du dos.",
+   "Descends en squat en fléchissant genoux et hanches, en t'asseyant entre tes jambes. Garde le buste droit, les bras levés et les épaules avancées : la barre reste en place. Descends jusqu'en bas, ischio-jambiers contre les mollets.",
+   "Remonte en poussant avec l'avant des talons et en tendant genoux et hanches."
+  ]
+ },
+ "Freehand_Jump_Squat": {
+  "name": "Squat sauté au poids du corps",
+  "instructions": [
+   "Croise les bras sur la poitrine.",
+   "Tête haute et dos droit, place tes pieds à largeur d'épaules.",
+   "Dos droit et poitrine haute, descends en squat en inspirant jusqu'à ce que tes cuisses soient parallèles au sol, ou plus bas.",
+   "En poussant surtout avec l'avant des pieds, saute droit vers le haut le plus haut possible, en utilisant tes cuisses comme des ressorts. Expire pendant cette phase.",
+   "Dès que tu retouches le sol, redescends en squat et ressaute.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Frog_Sit-Ups": {
+  "name": "Relevé de buste grenouille",
+  "instructions": [
+   "Allonge-toi le dos à plat au sol (ou sur un tapis), jambes tendues devant toi.",
+   "Fléchis les genoux et laisse l'extérieur des cuisses tomber vers le sol en joignant les plantes de pieds.",
+   "Ramène les plantes de pieds jointes le plus près possible de toi en gardant l'extérieur des cuisses au sol (ou presque). Conseil : tes jambes forment un losange.",
+   "Croise les bras devant toi en touchant les épaules opposées. C'est ta position de départ.",
+   "En expirant, plaque le bas du dos au sol en enroulant le buste vers le haut. Conseil : c'est comme le premier quart d'un relevé de buste. Tiens une seconde en haut.",
+   "En inspirant, redescends lentement à la position de départ.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Front_Barbell_Squat": {
+  "name": "Squat avant à la barre",
+  "instructions": [
+   "Pour ta sécurité, fais cet exercice dans une cage à squat. Règle la barre à la hauteur qui te convient. Une fois la hauteur choisie et la barre chargée, passe les bras sous la barre, coudes hauts et haut des bras légèrement au-dessus de l'horizontale. Pose la barre sur l'avant des épaules et croise les bras en tenant la barre pour bien la contrôler.",
+   "Décroche la barre du support en poussant sur les jambes tout en redressant le buste.",
+   "Recule hors du support et place tes pieds à largeur d'épaules, pointes légèrement tournées vers l'extérieur. Garde la tête haute en permanence (regarder en bas te déséquilibre) et le dos droit. C'est ta position de départ. (Cet écartement moyen travaille l'ensemble des jambes ; tu peux aussi choisir un écartement plus serré ou plus large.)",
+   "Descends lentement en fléchissant les genoux, buste droit et tête haute, jusqu'à ce que l'angle entre cuisse et mollet soit un peu inférieur à 90 degrés (cuisses sous l'horizontale). Inspire pendant cette phase. Conseil : bien exécuté, l'avant de tes genoux forme une ligne verticale imaginaire avec tes orteils. Si tes genoux dépassent nettement cette ligne, tu charges trop le genou.",
+   "Remonte en expirant, en poussant le sol surtout avec le milieu du pied et en tendant les jambes jusqu'à la position de départ.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Front_Barbell_Squat_To_A_Bench": {
+  "name": "Squat avant à la barre jusqu'au banc",
+  "instructions": [
+   "Pour ta sécurité, fais cet exercice dans une cage à squat. Place un banc plat derrière toi et règle la barre à la hauteur qui te convient. Une fois la hauteur choisie et la barre chargée, passe les bras sous la barre, coudes hauts et haut des bras légèrement au-dessus de l'horizontale. Pose la barre sur l'avant des épaules et croise les bras en tenant la barre pour bien la contrôler.",
+   "Décroche la barre du support en poussant sur les jambes tout en redressant le buste.",
+   "Recule hors du support et place tes pieds à largeur d'épaules, pointes légèrement tournées vers l'extérieur. Garde la tête haute en permanence (regarder en bas te déséquilibre) et le dos droit. C'est ta position de départ. (Cet écartement moyen travaille l'ensemble des jambes ; tu peux aussi choisir un écartement plus serré ou plus large.)",
+   "Descends lentement en fléchissant les genoux, buste droit et tête haute, jusqu'à toucher le banc avec les fessiers. Inspire pendant cette phase. Conseil : bien exécuté, l'avant de tes genoux forme une ligne verticale imaginaire avec tes orteils. Si tes genoux dépassent nettement cette ligne, tu charges trop le genou.",
+   "Remonte en expirant, en poussant le sol surtout avec les talons et en tendant les jambes jusqu'à la position de départ.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Front_Box_Jump": {
+  "name": "Box jump",
+  "instructions": [
+   "Place une box de hauteur adaptée à 30 à 60 cm devant toi. Tiens-toi debout, pieds à largeur d'épaules. C'est ta position de départ.",
+   "Fais une petite flexion pour préparer le saut, en lançant les bras derrière toi.",
+   "Rebondis depuis cette position en tendant hanches, genoux et chevilles pour sauter le plus haut possible, en lançant les bras vers l'avant et le haut.",
+   "Atterris sur la box genoux fléchis, en amortissant avec les jambes. Tu peux redescendre en sautant, ou de préférence une jambe après l'autre."
+  ]
+ },
+ "Front_Cable_Raise": {
+  "name": "Élévation frontale à la poulie",
+  "instructions": [
+   "Choisis la charge sur une poulie basse et saisis la poignée simple de la main gauche.",
+   "Dos à la poulie, laisse le bras tendu vers le bas, la poignée devant tes cuisses, paume vers les cuisses. C'est ta position de départ.",
+   "Buste immobile (sans balancer), monte le bras gauche devant toi, coude légèrement fléchi et paume toujours vers le bas, jusqu'à ce qu'il soit légèrement au-dessus de l'horizontale. Expire pendant cette phase et marque une pause d'une seconde en haut.",
+   "En inspirant, redescends lentement le bras à la position de départ.",
+   "Une fois toutes les répétitions faites avec ce bras, change de bras."
+  ]
+ },
+ "Front_Cone_Hops_or_hurdle_hops": {
+  "name": "Sauts de plots (ou de haies)",
+  "instructions": [
+   "Aligne des plots ou de petites haies, espacés d'environ un mètre.",
+   "Tiens-toi devant le premier plot, pieds à largeur d'épaules. C'est ta position de départ.",
+   "Saute à pieds joints par-dessus le premier plot en lançant les deux bras.",
+   "Amortis la réception en fléchissant les genoux et rebondis immédiatement par-dessus le plot suivant.",
+   "Continue jusqu'à avoir sauté tous les plots."
+  ]
+ },
+ "Front_Dumbbell_Raise": {
+  "name": "Élévation frontale alternée aux haltères",
+  "instructions": [
+   "Prends deux haltères et tiens-toi debout, buste droit, les haltères devant les cuisses, bras tendus, paumes vers les cuisses. C'est ta position de départ.",
+   "Buste immobile (sans balancer), monte l'haltère gauche devant toi, coude légèrement fléchi et paume toujours vers le bas, jusqu'à ce que le bras soit légèrement au-dessus de l'horizontale. Expire pendant cette phase et marque une pause d'une seconde en haut. Inspire après la pause.",
+   "Redescends lentement l'haltère à la position de départ pendant que tu montes l'haltère droit.",
+   "Continue en alternant ainsi jusqu'à avoir fait le nombre de répétitions prévu pour chaque bras."
+  ]
+ },
+ "Front_Incline_Dumbbell_Raise": {
+  "name": "Élévation frontale aux haltères sur banc incliné",
+  "instructions": [
+   "Assieds-toi sur un banc incliné entre 30 et 60 degrés, un haltère dans chaque main. Conseil : change l'angle d'une séance à l'autre pour solliciter le muscle un peu différemment.",
+   "Tends les bras droit devant toi, paumes vers le bas, haltères à environ 2 cm au-dessus des cuisses. C'est ta position de départ.",
+   "Monte lentement les haltères droit devant jusqu'à ce qu'ils soient légèrement au-dessus des épaules, coudes verrouillés. Serre une seconde en haut et expire pendant cette phase. Conseil : garde la tête appuyée contre le banc et les pieds au sol en permanence.",
+   "Redescends les bras à la position de départ en inspirant.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Front_Plate_Raise": {
+  "name": "Élévation frontale avec disque",
+  "instructions": [
+   "Debout, tiens un disque à deux mains, à 3 h et 9 h. Tes paumes sont face à face, bras tendus avec une légère flexion fixe des coudes, et le disque est en bas devant ta taille. Conseil : les bras gardent cette position pendant tout l'exercice. C'est ta position de départ.",
+   "Monte lentement le disque en expirant jusqu'à ce qu'il soit un peu au-dessus des épaules. Tiens la contraction une seconde. Conseil : ne balance pas la charge et ne plie pas les coudes. Ton buste reste immobile pendant tout le mouvement.",
+   "En inspirant, redescends lentement le disque à la position de départ.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Front_Raise_And_Pullover": {
+  "name": "Élévation frontale et pull-over à la barre",
+  "instructions": [
+   "Allonge-toi sur un banc plat en tenant une barre en pronation, mains écartées d'environ 40 cm.",
+   "Pose la barre sur le haut de tes cuisses, bras tendus et verrouillés avec une légère flexion des coudes. C'est ta position de départ.",
+   "Monte la charge en demi-cercle en gardant les bras tendus, en inspirant. Continue jusqu'à ce que la barre soit de l'autre côté, derrière ta tête (conseil : la barre parcourt environ 180 degrés). Tes bras sont alors parallèles au sol, paumes vers le plafond.",
+   "Ramène la barre à la position de départ par le même chemin en expirant.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Front_Squat_Clean_Grip": {
+  "name": "Squat avant prise d'épaulé",
+  "instructions": [
+   "Règle la barre dans un rack un peu sous la hauteur des épaules. Pose la barre sur l'avant des épaules, appuyée sur les clavicules et effleurant la gorge. Tes mains sont en prise d'épaulé et ne touchent la barre que du bout des doigts pour la maintenir.",
+   "Décroche la barre en poussant sur les jambes tout en redressant le buste. Recule hors du support et place tes pieds à largeur d'épaules, pointes légèrement tournées vers l'extérieur. Garde la tête et les coudes hauts en permanence. C'est ta position de départ.",
+   "Fléchis les genoux en t'asseyant entre tes jambes. Descends jusqu'à ce que tes ischio-jambiers touchent tes mollets. Garde les genoux alignés avec les pieds en les poussant activement vers l'extérieur pendant la descente.",
+   "Remonte en expirant, en poussant le sol surtout avec les talons ou le milieu du pied et en tendant les jambes jusqu'à la position de départ."
+  ]
+ },
+ "Front_Squats_With_Two_Kettlebells": {
+  "name": "Squat avant à deux kettlebells",
+  "instructions": [
+   "Épaule deux kettlebells : tends les jambes et les hanches en les tirant vers les épaules, en tournant les poignets pendant le mouvement.",
+   "En regardant droit devant toi en permanence, descends en squat le plus bas possible et marque une pause en bas. Pousse les genoux vers l'extérieur en descendant. Descends entre tes jambes, buste droit, tête et poitrine hautes.",
+   "Remonte en poussant dans les talons et répète."
+  ]
+ },
+ "Front_Two-Dumbbell_Raise": {
+  "name": "Élévation frontale aux haltères",
+  "instructions": [
+   "Prends deux haltères et tiens-toi debout, buste droit, les haltères devant les cuisses, bras tendus, paumes vers les cuisses. C'est ta position de départ.",
+   "Buste immobile (sans balancer), monte les haltères devant toi, coudes légèrement fléchis et paumes toujours vers le bas, jusqu'à ce que les bras soient légèrement au-dessus de l'horizontale. Expire pendant cette phase et marque une pause d'une seconde en haut.",
+   "En inspirant, redescends lentement les haltères à la position de départ.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ }
+}

@@ -1,0 +1,90 @@
+{
+ "Wide_Stance_Barbell_Squat": {
+  "name": "Squat à la barre pieds écartés",
+  "instructions": [
+   "Pour ta sécurité, fais cet exercice dans une cage à squat. Règle la barre à la hauteur qui te convient. Une fois la hauteur choisie et la barre chargée, passe sous la barre et place-la en travers du haut du dos (juste sous la nuque).",
+   "Tiens la barre à deux mains de chaque côté et décroche-la du support en poussant sur les jambes tout en redressant le buste.",
+   "Recule hors du support et place tes pieds plus écartés que les épaules, pointes légèrement tournées vers l'extérieur. Garde la tête haute en permanence (regarder en bas te déséquilibre) et le dos droit. C'est ta position de départ.",
+   "Descends lentement en fléchissant les genoux, buste droit et tête haute, jusqu'à ce que l'angle entre cuisse et mollet soit un peu inférieur à 90 degrés (cuisses sous l'horizontale). Inspire pendant cette phase. Conseil : bien exécuté, l'avant de tes genoux forme une ligne verticale imaginaire avec tes orteils. Si tes genoux dépassent nettement cette ligne, tu charges trop le genou.",
+   "Remonte en expirant, en poussant le sol avec les talons et en tendant les jambes jusqu'à la position de départ.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Wide_Stance_Stiff_Legs": {
+  "name": "Soulevé de terre jambes tendues pieds écartés",
+  "instructions": [
+   "Commence avec une barre chargée au sol. Écarte largement les pieds, puis penche-toi depuis les hanches pour saisir la barre : hanches le plus en arrière possible, jambes presque tendues, dos droit, tête et poitrine hautes. C'est ta position de départ.",
+   "Engage les hanches en les poussant vers l'avant, bras tendus pendants. Continue jusqu'à être debout, puis redescends lentement la charge à la position de départ. Entre les répétitions, la barre n'a pas besoin de toucher le sol."
+  ]
+ },
+ "Wind_Sprints": {
+  "name": "Sprints suspendus",
+  "instructions": [
+   "Suspends-toi à une barre de traction en pronation, bras et jambes tendus. C'est ta position de départ.",
+   "Monte rapidement un genou le plus haut possible, sans balancer le corps ni les jambes.",
+   "Inverse immédiatement le mouvement en ramenant cette jambe à la position de départ, tout en montant l'autre genou le plus haut possible.",
+   "Continue en alternant les jambes jusqu'à la fin de la série."
+  ]
+ },
+ "Wrist_Roller": {
+  "name": "Rouleau à poignets",
+  "instructions": [
+   "Tiens-toi droit en tenant un rouleau à poignets en pronation (paumes vers le bas), pieds à largeur d'épaules.",
+   "Monte lentement les deux bras jusqu'à ce qu'ils soient tendus et parallèles au sol devant toi. Remarque : la corde ne doit pas être enroulée au départ. Tout ton corps reste immobile sauf les avant-bras. C'est ta position de départ.",
+   "Tourne un poignet après l'autre vers le haut pour enrouler la corde autour du rouleau et monter la charge jusqu'à la barre.",
+   "Une fois la charge arrivée à la barre, redescends-la lentement en tournant les poignets dans l'autre sens jusqu'à la position de départ.",
+   "Répète pour le nombre de répétitions prévu dans ton programme."
+  ]
+ },
+ "Wrist_Rotations_with_Straight_Bar": {
+  "name": "Rotations de poignets à la barre",
+  "instructions": [
+   "Tiens une barre à deux mains, paumes vers le bas, mains écartées d'environ la largeur des épaules. C'est ta position de départ.",
+   "En alternant les mains, étends le poignet comme si tu enroulais un journal. Continue en alternant jusqu'à l'échec.",
+   "Inverse le mouvement en fléchissant le poignet pour enrouler dans l'autre sens. Continue en alternant jusqu'à l'échec."
+  ]
+ },
+ "Yoke_Walk": {
+  "name": "Marche au joug (yoke)",
+  "instructions": [
+   "Le yoke se fait généralement avec un joug, mais parfois avec des réfrigérateurs ou d'autres objets lourds.",
+   "Place le joug en travers de l'arrière de tes épaules. Regard devant et dos cambré, soulève-le en poussant dans les talons.",
+   "Marche le plus vite possible à petits pas rapides. Tu peux tenir les montants latéraux du joug pour le stabiliser. Parcours la distance prévue, généralement 20 à 30 mètres, le plus vite possible."
+  ]
+ },
+ "Zercher_Squats": {
+  "name": "Squat Zercher",
+  "instructions": [
+   "Pour ta sécurité, fais cet exercice dans une cage à squat. Règle la barre à une hauteur entre la taille et la poitrine. Une fois la hauteur choisie et la barre chargée, joins tes mains et place la barre dans le creux des coudes, entre avant-bras et bras.",
+   "Soulève la barre pour qu'elle repose sur tes avant-bras. Bien tenue, on dirait que tu as les bras croisés avec une barre posée dessus.",
+   "Recule hors du support et place tes pieds à largeur d'épaules, pointes légèrement tournées vers l'extérieur. Garde la tête haute en permanence (regarder en bas te déséquilibre) et le dos droit. C'est ta position de départ. (Cet écartement moyen travaille l'ensemble des jambes ; tu peux aussi choisir un écartement plus serré ou plus large.)",
+   "Descends en fléchissant les genoux, buste droit et tête haute, jusqu'à ce que l'angle entre cuisse et mollet soit un peu inférieur à 90 degrés (cuisses sous l'horizontale). Inspire pendant cette phase. Conseil : bien exécuté, l'avant de tes genoux forme une ligne verticale imaginaire avec tes orteils. Si tes genoux dépassent nettement cette ligne, tu charges trop le genou.",
+   "Remonte en expirant, en poussant le sol surtout avec l'avant des pieds et en tendant les jambes jusqu'à la position de départ.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Zottman_Curl": {
+  "name": "Curl Zottman",
+  "instructions": [
+   "Tiens-toi debout, buste droit, un haltère dans chaque main, bras tendus, coudes près du buste.",
+   "Tes paumes sont face à face. C'est ta position de départ.",
+   "Le haut des bras immobile, monte les haltères en contractant les biceps et en expirant. Seuls les avant-bras bougent. Tourne les poignets pour finir en supination (paumes vers le haut). Continue jusqu'à contraction complète des biceps, haltères à hauteur d'épaules.",
+   "Tiens une seconde en serrant les biceps.",
+   "En contraction, tourne les poignets pour passer en pronation (paumes vers le bas), le pouce plus haut que le petit doigt.",
+   "Redescends lentement les haltères en gardant la pronation.",
+   "Quand les haltères approchent de tes cuisses, tourne les poignets pour revenir en prise neutre (paumes vers ton corps).",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Zottman_Preacher_Curl": {
+  "name": "Curl Zottman au pupitre",
+  "instructions": [
+   "Prends un haltère dans chaque main et pose le haut des bras sur un pupitre à curl ou un banc incliné. Tiens les haltères à hauteur d'épaules, coudes fléchis, paumes vers le bas. C'est ta position de départ.",
+   "En inspirant, descends lentement les haltères, paumes vers le bas, jusqu'à avoir les bras tendus et les biceps complètement étirés.",
+   "En bas du mouvement, tourne les poignets pour que les paumes regardent vers le haut.",
+   "En expirant, monte la charge avec les biceps jusqu'à contraction complète, haltères à hauteur d'épaules. Pour une contraction complète, monte le petit doigt plus haut que le pouce.",
+   "Serre fort les biceps une seconde en contraction, puis tourne les poignets pour que les paumes regardent à nouveau vers le bas.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ }
+}

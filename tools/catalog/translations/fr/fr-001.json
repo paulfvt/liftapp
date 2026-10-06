@@ -1,0 +1,349 @@
+{
+ "3_4_Sit-Up": {
+  "name": "Relevé de buste aux 3/4",
+  "instructions": [
+   "Allonge-toi au sol et bloque tes pieds. Tes jambes sont fléchies au niveau des genoux.",
+   "Place tes mains derrière la tête ou sur les côtés. Tu commences le dos au sol. C'est ta position de départ.",
+   "Fléchis les hanches et la colonne pour monter le buste vers les genoux.",
+   "En haut du mouvement, ton buste est perpendiculaire au sol. Redescends en ne faisant que les trois quarts du chemin.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Ab_Crunch_Machine": {
+  "name": "Crunch à la machine",
+  "instructions": [
+   "Choisis une charge légère et assieds-toi sur la machine à abdos, les pieds sous les boudins et les mains sur les poignées du haut. Tes bras sont pliés à 90 degrés, les triceps posés sur les appuis. C'est ta position de départ.",
+   "En même temps, monte les jambes et enroule le haut du buste. Expire pendant ce mouvement. Conseil : garde un mouvement lent et contrôlé. Concentre-toi sur les abdos pour déplacer la charge en relâchant les jambes et les pieds.",
+   "Après une pause d'une seconde, reviens lentement à la position de départ en inspirant.",
+   "Répète le mouvement pour le nombre de répétitions prévu."
+  ]
+ },
+ "Ab_Roller": {
+  "name": "Roue abdominale",
+  "instructions": [
+   "Tiens la roue abdominale à deux mains et mets-toi à genoux au sol.",
+   "Pose la roue au sol devant toi pour être en appui sur les mains et les genoux (comme pour des pompes sur les genoux). C'est ta position de départ.",
+   "Fais rouler lentement la roue droit devant toi en allongeant le corps. Conseil : descends aussi bas que possible sans toucher le sol avec le corps. Inspire pendant cette phase.",
+   "Après une pause en position allongée, reviens à la position de départ en expirant. Conseil : va lentement et garde les abdos contractés en permanence."
+  ]
+ },
+ "Advanced_Kettlebell_Windmill": {
+  "name": "Moulin avancé au kettlebell",
+  "instructions": [
+   "Monte un kettlebell au-dessus de la tête d'un bras, en épaulé puis développé.",
+   "En gardant le kettlebell bras tendu en permanence, pousse les fesses du côté du kettlebell. Garde le bras libre derrière le dos et tourne les pieds à 45 degrés par rapport au bras qui tient le kettlebell.",
+   "Descends aussi bas que possible.",
+   "Marque une pause d'une seconde puis remonte jusqu'à la position de départ."
+  ]
+ },
+ "Air_Bike": {
+  "name": "Crunch bicyclette",
+  "instructions": [
+   "Allonge-toi au sol, le bas du dos plaqué au sol. Place les mains de chaque côté de la tête, sans tirer sur la nuque pendant l'exercice. Décolle les épaules comme pour un crunch.",
+   "Monte les genoux pour que les cuisses soient perpendiculaires au sol et les tibias parallèles au sol. C'est ta position de départ.",
+   "Simultanément, fais lentement un mouvement de pédalage : tends la jambe droite et ramène le genou gauche. Rapproche le coude droit du genou gauche en enroulant le buste sur le côté, en expirant.",
+   "Reviens à la position initiale en inspirant.",
+   "Enroule de l'autre côté en pédalant et rapproche le coude gauche du genou droit en expirant.",
+   "Continue en alternant ainsi jusqu'à avoir fait toutes les répétitions prévues de chaque côté."
+  ]
+ },
+ "Alternate_Hammer_Curl": {
+  "name": "Curl marteau alterné",
+  "instructions": [
+   "Tiens-toi debout, buste droit, un haltère dans chaque main, bras tendus. Les coudes restent près du buste.",
+   "Les paumes sont tournées vers ton corps. C'est ta position de départ.",
+   "En gardant le haut du bras immobile, monte l'haltère droit en contractant le biceps et en expirant. Continue jusqu'à ce que le biceps soit complètement contracté et l'haltère à hauteur d'épaule. Tiens la contraction une seconde en serrant le biceps. Conseil : seuls les avant-bras bougent.",
+   "Redescends lentement l'haltère à la position de départ en inspirant.",
+   "Répète le mouvement avec la main gauche. Cela fait une répétition.",
+   "Continue en alternant ainsi pour le nombre de répétitions prévu."
+  ]
+ },
+ "Alternate_Heel_Touchers": {
+  "name": "Touchers de talons alternés",
+  "instructions": [
+   "Allonge-toi au sol, genoux fléchis, pieds au sol écartés d'environ 45 à 60 cm. Tes bras sont tendus le long du corps. C'est ta position de départ.",
+   "Enroule le buste vers l'avant et le haut d'environ 8 à 10 cm vers la droite et touche ton talon droit en tenant la contraction une seconde. Expire pendant ce mouvement.",
+   "Reviens lentement à la position de départ en inspirant.",
+   "Enroule ensuite le buste d'environ 8 à 10 cm vers la gauche et touche ton talon gauche en tenant la contraction une seconde. Expire pendant le mouvement, puis reviens à la position de départ en inspirant. Une fois les deux talons touchés, cela compte pour une répétition.",
+   "Continue en alternant les côtés jusqu'à avoir fait toutes les répétitions prévues."
+  ]
+ },
+ "Alternate_Incline_Dumbbell_Curl": {
+  "name": "Curl incliné alterné aux haltères",
+  "instructions": [
+   "Assieds-toi sur un banc incliné, un haltère dans chaque main, bras tendus. Conseil : garde les coudes près du buste. C'est ta position de départ.",
+   "En gardant le haut du bras immobile, monte l'haltère droit en contractant le biceps et en expirant. Pendant la montée, tourne la main pour que la paume regarde vers le haut. Continue jusqu'à ce que le biceps soit complètement contracté et l'haltère à hauteur d'épaule. Tiens la contraction une seconde en serrant le biceps. Conseil : seuls les avant-bras bougent.",
+   "Redescends lentement l'haltère à la position de départ en inspirant.",
+   "Répète le mouvement avec la main gauche. Cela fait une répétition.",
+   "Continue en alternant ainsi pour le nombre de répétitions prévu."
+  ]
+ },
+ "Alternate_Leg_Diagonal_Bound": {
+  "name": "Bonds diagonaux alternés",
+  "instructions": [
+   "Mets-toi dans une position confortable, un pied légèrement devant l'autre.",
+   "Pousse sur la jambe avant en projetant le genou opposé vers l'avant, le plus haut possible, avant de te réceptionner. Essaie de couvrir le plus de distance possible de chaque côté à chaque bond.",
+   "Une ligne au sol peut t'aider à évaluer la distance d'un côté à l'autre.",
+   "Répète la séquence avec l'autre jambe."
+  ]
+ },
+ "Alternating_Cable_Shoulder_Press": {
+  "name": "Développé épaules alterné à la poulie",
+  "instructions": [
+   "Place les poulies en bas de la colonne et choisis une charge adaptée.",
+   "Saisis les poignées et tiens-les à hauteur d'épaule, paumes vers l'avant. C'est ta position de départ.",
+   "En gardant la tête et la poitrine hautes, tends le coude pour pousser une poignée droit au-dessus de la tête.",
+   "Après une pause en haut, reviens à la position de départ et répète de l'autre côté."
+  ]
+ },
+ "Alternating_Deltoid_Raise": {
+  "name": "Élévations frontales et latérales alternées",
+  "instructions": [
+   "Debout, tiens une paire d'haltères le long du corps.",
+   "Coudes légèrement fléchis, monte les haltères droit devant toi jusqu'à hauteur d'épaule, sans balancer ni tricher.",
+   "Ramène les haltères le long du corps.",
+   "À la répétition suivante, monte les haltères sur les côtés jusqu'à hauteur d'épaule environ.",
+   "Ramène les haltères à la position de départ et continue en alternant devant et sur les côtés."
+  ]
+ },
+ "Alternating_Floor_Press": {
+  "name": "Développé au sol alterné aux kettlebells",
+  "instructions": [
+   "Allonge-toi au sol avec deux kettlebells à côté des épaules.",
+   "Place un kettlebell sur ta poitrine puis l'autre, en les tenant par la poignée, paumes vers l'avant.",
+   "Tends les deux bras pour tenir les kettlebells au-dessus de ta poitrine. Descends un kettlebell jusqu'à la poitrine en tournant le poignet vers le kettlebell resté en haut.",
+   "Remonte le kettlebell et répète de l'autre côté."
+  ]
+ },
+ "Alternating_Hang_Clean": {
+  "name": "Épaulé alterné aux kettlebells depuis la suspension",
+  "instructions": [
+   "Place deux kettlebells entre tes pieds. Pour te mettre en position de départ, pousse les fesses en arrière et regarde droit devant.",
+   "Épaule un kettlebell en gardant l'autre en suspension. Pour épauler, tends les jambes et les hanches en tirant le kettlebell vers l'épaule, en tournant le poignet pendant le mouvement.",
+   "Redescends le kettlebell en suspension et épaule l'autre. Répète."
+  ]
+ },
+ "Alternating_Kettlebell_Press": {
+  "name": "Développé alterné aux kettlebells",
+  "instructions": [
+   "Épaule deux kettlebells : tends les jambes et les hanches en tirant les kettlebells vers les épaules, en tournant les poignets pendant le mouvement.",
+   "Pousse un kettlebell droit au-dessus de la tête en tendant le coude et en tournant la paume vers l'avant, pendant que l'autre reste immobile.",
+   "Redescends le kettlebell à la position de départ et pousse immédiatement avec l'autre bras."
+  ]
+ },
+ "Alternating_Kettlebell_Row": {
+  "name": "Rowing alterné aux kettlebells",
+  "instructions": [
+   "Place deux kettlebells devant tes pieds. Fléchis légèrement les genoux et pousse les fesses en arrière autant que possible. En te penchant pour te mettre en position de départ, saisis les deux kettlebells par la poignée.",
+   "Décolle un kettlebell du sol en tenant l'autre. Serre l'omoplate du côté qui travaille en pliant le coude, et tire le kettlebell vers ton ventre ou tes côtes.",
+   "Redescends le kettlebell et répète avec l'autre bras."
+  ]
+ },
+ "Alternating_Renegade_Row": {
+  "name": "Rowing renegade alterné",
+  "instructions": [
+   "Pose deux kettlebells au sol, écartés d'environ la largeur des épaules. Mets-toi en appui sur la pointe des pieds et les mains comme pour des pompes, le corps droit et gainé. Appuie-toi sur les poignées des kettlebells. Tu peux écarter les pieds pour plus de stabilité.",
+   "Appuie un kettlebell dans le sol et tire l'autre vers toi : serre l'omoplate du côté qui travaille en pliant le coude, jusqu'à ramener le kettlebell contre ton flanc.",
+   "Redescends le kettlebell au sol et fais de même avec l'autre main. Répète pour plusieurs répétitions."
+  ]
+ },
+ "Anti-Gravity_Press": {
+  "name": "Développé anti-gravité",
+  "instructions": [
+   "Pose une barre au sol, derrière la tête d'un banc incliné.",
+   "Allonge-toi sur le ventre sur le banc. En pronation, ramasse la barre au sol. Plie les coudes en faisant un curl inversé pour amener la barre près de ta poitrine. C'est ta position de départ.",
+   "Pousse la barre devant ta tête en tendant les coudes. Garde les bras parallèles au sol pendant tout le mouvement.",
+   "Reviens à la position de départ et répète pour terminer la série."
+  ]
+ },
+ "Arnold_Dumbbell_Press": {
+  "name": "Développé Arnold aux haltères",
+  "instructions": [
+   "Assieds-toi sur un banc avec dossier et tiens deux haltères devant toi, à hauteur du haut de la poitrine, paumes vers toi et coudes pliés. Conseil : tes bras sont le long du buste. La position de départ ressemble au haut d'un curl aux haltères.",
+   "Monte les haltères en tournant les paumes jusqu'à ce qu'elles regardent vers l'avant.",
+   "Continue à monter les haltères jusqu'à avoir les bras tendus au-dessus de toi. Expire pendant cette phase.",
+   "Après une pause d'une seconde en haut, redescends les haltères à la position de départ en tournant les paumes vers toi. Conseil : le bras gauche tourne dans le sens inverse des aiguilles d'une montre et le bras droit dans le sens des aiguilles. Inspire pendant cette phase.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Around_The_Worlds": {
+  "name": "Tour du monde aux haltères",
+  "instructions": [
+   "Allonge-toi sur un banc plat, un haltère dans chaque main, paumes vers le plafond. Conseil : tes bras sont parallèles au sol, près des cuisses. Pour éviter de te blesser, garde les coudes légèrement fléchis. C'est ta position de départ.",
+   "Fais décrire un demi-cercle aux haltères, de la position de départ jusqu'au-dessus de la tête. Les bras restent parallèles au sol pendant tout le mouvement. Inspire pendant cette phase.",
+   "Fais le mouvement inverse pour revenir à la position de départ en expirant."
+  ]
+ },
+ "Atlas_Stone_Trainer": {
+  "name": "Simulateur de pierre d'Atlas",
+  "instructions": [
+   "Cet accessoire, généralement fait d'embouts de barre ou de tube lourd, développe la force pour les pierres d'Atlas quand on n'a pas de pierres à disposition.",
+   "Charge le poids voulu sur la barre. Place-toi au-dessus, entoure l'accessoire de tes bras en te penchant depuis les hanches.",
+   "Tire le poids au-dessus des genoux en tendant les hanches. Une fois les genoux passés, pose-le sur tes cuisses en t'asseyant en arrière, serré contre ta poitrine.",
+   "Termine en tendant les hanches et les genoux pour monter le poids le plus haut possible. Repose-le sur tes cuisses ou au sol pour les répétitions suivantes."
+  ]
+ },
+ "Atlas_Stones": {
+  "name": "Pierres d'Atlas",
+  "instructions": [
+   "Commence avec la pierre entre tes pieds. Penche-toi depuis les hanches pour entourer la pierre de tes bras, en essayant de glisser les doigts dessous. Beaucoup de pierres ont un petit méplat en dessous qui facilite la prise.",
+   "En plaquant la pierre contre ton buste, pousse sur l'arrière des pieds pour la décoller du sol.",
+   "Quand la pierre passe les genoux, pose-la sur tes cuisses en t'asseyant en arrière.",
+   "Reste bas et remonte la pierre haut sur ta poitrine en changeant de prise pour passer les mains par-dessus. Relève-toi en poussant avec les hanches. Approche-toi de la plateforme et penche-toi en arrière en tendant les hanches pour monter la pierre le plus haut possible."
+  ]
+ },
+ "Axle_Deadlift": {
+  "name": "Soulevé de terre à l'axle",
+  "instructions": [
+   "Place-toi pour que la barre soit au milieu de tes pieds, écartés d'environ la largeur des hanches. Penche-toi depuis les hanches et saisis la barre à largeur d'épaules, en laissant les omoplates s'écarter. On utilise généralement une prise mixte.",
+   "Pieds et prise en place, prends une grande inspiration, baisse les hanches et fléchis les genoux jusqu'à ce que les tibias touchent la barre. Regarde devant toi, poitrine haute et dos cambré, puis pousse dans les talons pour monter la charge.",
+   "Une fois la barre au-dessus des genoux, tire-la franchement vers toi en serrant les omoplates et en avançant les hanches vers la barre.",
+   "Redescends la barre en te penchant depuis les hanches et en la guidant jusqu'au sol."
+  ]
+ },
+ "Back_Flyes_-_With_Bands": {
+  "name": "Écarté arrière à l'élastique",
+  "instructions": [
+   "Fais passer un élastique autour d'un poteau fixe, comme celui d'une cage à squat.",
+   "Saisis l'élastique par les poignées et recule pour mettre l'élastique en tension.",
+   "Tends les bras droit devant toi. Conseil : tes bras sont tendus, parallèles au sol et perpendiculaires au buste. Tes pieds sont bien ancrés au sol, écartés à largeur d'épaules. C'est ta position de départ.",
+   "En expirant, écarte les bras sur les côtés et vers l'arrière, en les gardant tendus et parallèles au sol. Continue jusqu'à ce que les bras soient tendus sur les côtés.",
+   "Après une pause, reviens à la position de départ en inspirant.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Backward_Drag": {
+  "name": "Traîneau tiré en reculant",
+  "instructions": [
+   "Charge un traîneau avec le poids voulu et attache-y une corde ou des sangles à tenir.",
+   "Recule sur une distance donnée. Penché en arrière, pousse sur les jambes à petits pas pour avancer le plus vite possible."
+  ]
+ },
+ "Backward_Medicine_Ball_Throw": {
+  "name": "Lancer de médecine-ball vers l'arrière",
+  "instructions": [
+   "Cet exercice se fait idéalement avec un partenaire. Sans partenaire, lance le ballon et va le chercher, ou lance-le contre un mur.",
+   "Place-toi à quelques mètres devant ton partenaire, tous les deux tournés dans la même direction. Tiens le ballon entre tes jambes.",
+   "Descends en squat puis inverse le mouvement avec force, jusqu'à l'extension complète, en lançant le ballon par-dessus ta tête vers ton partenaire.",
+   "Ton partenaire peut te renvoyer le ballon en le faisant rouler. Répète pour le nombre de répétitions voulu."
+  ]
+ },
+ "Balance_Board": {
+  "name": "Planche d'équilibre",
+  "instructions": [
+   "Pose une planche d'équilibre devant toi.",
+   "Monte dessus et essaie de garder l'équilibre.",
+   "Tiens l'équilibre aussi longtemps que tu le souhaites."
+  ]
+ },
+ "Ball_Leg_Curl": {
+  "name": "Leg curl sur swiss ball",
+  "instructions": [
+   "Allonge-toi sur le dos au sol, les pieds sur le ballon.",
+   "Place le ballon pour que tes chevilles soient dessus quand tes jambes sont tendues. C'est ta position de départ.",
+   "Décolle les hanches du sol, en appui sur les omoplates et les pieds.",
+   "Fléchis les genoux pour ramener le ballon le plus près possible de toi, en contractant les ischio-jambiers.",
+   "Après une courte pause, reviens à la position de départ."
+  ]
+ },
+ "Band_Assisted_Pull-Up": {
+  "name": "Traction assistée à l'élastique",
+  "instructions": [
+   "Attache l'élastique en nœud coulant au centre de la barre de traction. Différents élastiques donnent plus ou moins d'assistance.",
+   "Tire l'extrémité de l'élastique vers le bas et place un genou plié dans la boucle, en vérifiant qu'il ne peut pas glisser. Saisis la barre avec une prise moyenne à large. C'est ta position de départ.",
+   "Monte en contractant les grands dorsaux et en pliant les coudes, que tu ramènes le long du corps. Tire vers l'avant pour passer le menton au-dessus de la barre. Évite les balancements et les à-coups.",
+   "Après une courte pause, reviens à la position de départ."
+  ]
+ },
+ "Band_Good_Morning": {
+  "name": "Good morning à l'élastique",
+  "instructions": [
+   "Avec un élastique d'environ 1 m, mets-toi debout sur une extrémité, pieds légèrement écartés. Penche-toi depuis les hanches pour passer l'autre extrémité derrière ta nuque. C'est ta position de départ.",
+   "Jambes tendues, tends les hanches jusqu'à être presque à la verticale.",
+   "Veille à ne pas arrondir le dos en redescendant à la position de départ."
+  ]
+ },
+ "Band_Good_Morning_Pull_Through": {
+  "name": "Good morning à l'élastique (pull through)",
+  "instructions": [
+   "Fais passer l'élastique autour d'un poteau. Éloigne-toi un peu et passe l'autre extrémité autour de ta nuque. Tes mains peuvent aider à maintenir l'élastique.",
+   "Penche-toi depuis les hanches en reculant les fesses le plus possible. Garde le dos plat et penche-toi jusqu'à environ 90 degrés. Tes genoux ne sont que légèrement fléchis.",
+   "Reviens à la position de départ en poussant avec les hanches jusqu'à être debout."
+  ]
+ },
+ "Band_Hip_Adductions": {
+  "name": "Adduction de hanche à l'élastique",
+  "instructions": [
+   "Attache un élastique à un poteau solide ou à un autre point fixe.",
+   "Tiens-toi debout, le côté gauche vers le poteau, et passe le pied droit dans l'élastique, autour de la cheville.",
+   "Tiens-toi droit et accroche-toi au poteau si besoin. C'est ta position de départ.",
+   "Genou tendu, écarte la jambe droite sur le côté aussi loin que possible.",
+   "Reviens à la position de départ et répète pour le nombre de répétitions voulu.",
+   "Change de côté."
+  ]
+ },
+ "Band_Pull_Apart": {
+  "name": "Band pull apart",
+  "instructions": [
+   "Commence les bras tendus devant toi, l'élastique tenu à deux mains.",
+   "Lance le mouvement comme un écarté arrière, en écartant les mains sur les côtés.",
+   "Garde les coudes tendus pendant tout le mouvement, en amenant l'élastique contre ta poitrine. Garde les épaules en arrière pendant l'exercice.",
+   "Marque une pause en fin de mouvement, puis reviens à la position de départ en contrôlant."
+  ]
+ },
+ "Band_Skull_Crusher": {
+  "name": "Barre au front à l'élastique",
+  "instructions": [
+   "Fixe un élastique au pied d'un rack ou du banc. Allonge-toi sur le banc pour que l'élastique soit aligné avec ta tête.",
+   "Saisis l'élastique et monte les coudes pour que le haut des bras soit perpendiculaire au sol. Coudes pliés, l'élastique se trouve au-dessus de ta tête. C'est ta position de départ.",
+   "Tends le coude pour allonger le bras, en gardant le haut du bras immobile. Marque une pause en haut, puis reviens à la position de départ."
+  ]
+ },
+ "Barbell_Ab_Rollout": {
+  "name": "Rollout abdominal à la barre",
+  "instructions": [
+   "Mets-toi en position de pompe, mais au lieu d'avoir les mains au sol, tiens une barre olympique chargée de 2 à 5 kg de chaque côté. C'est ta position de départ.",
+   "En gardant le dos légèrement cambré, monte les hanches et fais rouler la barre vers tes pieds en expirant. Conseil : pendant le mouvement, tes fessiers montent, tes abdos restent contractés et ta posture de dos ne change pas. Tes bras restent perpendiculaires au sol pendant tout le mouvement ; sinon, tu travailleras plus les épaules et le dos que les abdos.",
+   "Après une seconde de contraction en haut, fais rouler lentement la barre vers l'avant jusqu'à la position de départ en inspirant.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Barbell_Ab_Rollout_-_On_Knees": {
+  "name": "Rollout abdominal à la barre à genoux",
+  "instructions": [
+   "Tiens une barre olympique chargée de 2 à 5 kg de chaque côté et mets-toi à genoux au sol.",
+   "Pose la barre au sol devant toi pour être en appui sur les mains et les genoux (comme pour des pompes sur les genoux). C'est ta position de départ.",
+   "Fais rouler lentement la barre droit devant toi en allongeant le corps. Conseil : descends aussi bas que possible sans toucher le sol avec le corps. Inspire pendant cette phase.",
+   "Après une seconde de pause en position allongée, reviens à la position de départ en expirant. Conseil : va lentement et garde les abdos contractés en permanence."
+  ]
+ },
+ "Barbell_Bench_Press_-_Medium_Grip": {
+  "name": "Développé couché à la barre",
+  "instructions": [
+   "Allonge-toi sur un banc plat. Avec une prise moyenne (avant-bras et bras formant un angle de 90 degrés au milieu du mouvement), sors la barre du support et tiens-la au-dessus de toi, bras tendus. C'est ta position de départ.",
+   "Depuis cette position, inspire et descends lentement jusqu'à ce que la barre touche le milieu de ta poitrine.",
+   "Après une courte pause, pousse la barre jusqu'à la position de départ en expirant. Concentre-toi sur la poussée avec les pectoraux. Tends les bras et serre les pectoraux en haut du mouvement, tiens une seconde, puis redescends lentement. Conseil : la descente devrait idéalement durer deux fois plus longtemps que la montée.",
+   "Répète le mouvement pour le nombre de répétitions prévu.",
+   "Quand tu as terminé, repose la barre sur le support."
+  ]
+ },
+ "Barbell_Curl": {
+  "name": "Curl à la barre",
+  "instructions": [
+   "Tiens-toi debout, buste droit, une barre en main avec une prise à largeur d'épaules. Les paumes regardent vers l'avant et les coudes restent près du buste. C'est ta position de départ.",
+   "En gardant le haut des bras immobile, monte la barre en contractant les biceps et en expirant. Conseil : seuls les avant-bras bougent.",
+   "Continue jusqu'à ce que les biceps soient complètement contractés et la barre à hauteur d'épaules. Tiens la contraction une seconde en serrant fort les biceps.",
+   "Redescends lentement la barre à la position de départ en inspirant.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Barbell_Curls_Lying_Against_An_Incline": {
+  "name": "Curl à la barre allongé sur banc incliné",
+  "instructions": [
+   "Allonge-toi contre un banc incliné, une barre en main, bras pendants. C'est ta position de départ.",
+   "En gardant le haut des bras immobile, monte la barre le plus haut possible en serrant les biceps. Expire pendant cette phase. Conseil : seuls les avant-bras bougent. Ne balance pas les bras.",
+   "Après une seconde de contraction, redescends lentement à la position de départ en inspirant. Conseil : descends complètement.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ }
+}

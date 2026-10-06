@@ -1,0 +1,315 @@
+{
+ "One-Arm_Flat_Bench_Dumbbell_Flye": {
+  "name": "Écarté unilatéral à l'haltère sur banc plat",
+  "instructions": [
+   "Allonge-toi sur un banc plat, un haltère dans une main posé sur la cuisse, en prise neutre.",
+   "En t'aidant de la cuisse, monte l'haltère pour le tenir devant toi, bras qui travaille complètement tendu. Garde la prise neutre pendant tout l'exercice. La main libre tient le côté du banc pour plus de stabilité. C'est ta position de départ.",
+   "Coude légèrement fléchi pour protéger le tendon du biceps, ouvre le bras chargé en un large arc de cercle jusqu'à sentir un étirement dans la poitrine. Inspire pendant cette phase. Conseil : le bras ne change pas d'angle, seule l'articulation de l'épaule bouge.",
+   "Ramène le bras à la position de départ en serrant les pectoraux et en expirant. Conseil : passe par le même arc de cercle qu'à la descente.",
+   "Tiens une seconde en contraction et répète pour le nombre de répétitions prévu.",
+   "Change de bras et recommence."
+  ]
+ },
+ "One-Arm_High-Pulley_Cable_Side_Bends": {
+  "name": "Flexion latérale unilatérale à la poulie haute",
+  "instructions": [
+   "Accroche une poignée simple à une colonne et place le câble sur la poulie la plus haute.",
+   "Tiens-toi de côté par rapport au câble. D'une main, attrape la poignée en supination.",
+   "Tire le câble vers le bas jusqu'à ce que ton coude touche ton flanc et que la poignée soit près de ton épaule.",
+   "Pieds écartés à largeur de hanches, pose la main libre sur la hanche pour repérer le point de pivot.",
+   "Garde le bras fixe. Contracte les obliques pour descendre la charge en enroulant le buste sur le côté.",
+   "En contraction maximale, ramène lentement la charge à la position de départ, sans jamais la reposer : le but est une tension constante pendant toute la série.",
+   "Répète jusqu'à l'échec.",
+   "Change ensuite de côté et répète la même série de mouvements."
+  ]
+ },
+ "One-Arm_Incline_Lateral_Raise": {
+  "name": "Élévation latérale unilatérale allongé sur banc incliné",
+  "instructions": [
+   "Allonge-toi sur le côté sur un banc incliné, un haltère en main. L'épaule appuie contre le banc et le bras passe devant ton corps, la paume vers ton nombril.",
+   "Tiens l'haltère avec le bras du dessus, tendu devant toi et parallèle au sol. C'est ta position de départ.",
+   "En gardant l'haltère parallèle au sol, fais une élévation latérale : ton bras monte droit jusqu'à pointer vers le plafond. Conseil : expire pendant ce mouvement. Tiens l'haltère en haut une seconde en sentant la contraction de l'épaule.",
+   "En inspirant, redescends la charge devant ton corps jusqu'à la position de départ.",
+   "Répète pour le nombre de répétitions prévu.",
+   "Change de bras et recommence."
+  ]
+ },
+ "One-Arm_Kettlebell_Clean": {
+  "name": "Épaulé unilatéral au kettlebell",
+  "instructions": [
+   "Place un kettlebell entre tes pieds. En te penchant pour le saisir, pousse les fesses en arrière et regarde devant toi.",
+   "Épaule le kettlebell : tends les jambes et les hanches en le montant vers l'épaule, en tournant le poignet pendant le mouvement.",
+   "Ramène la charge à la position de départ."
+  ]
+ },
+ "One-Arm_Kettlebell_Clean_and_Jerk": {
+  "name": "Épaulé-jeté unilatéral au kettlebell",
+  "instructions": [
+   "Tiens un kettlebell par la poignée.",
+   "Épaule-le : tends les jambes et les hanches en le tirant vers l'épaule, en tournant le poignet pour que la paume regarde vers l'avant.",
+   "Fléchis légèrement les genoux, buste droit.",
+   "Inverse immédiatement le mouvement en poussant dans les talons, comme un saut, pour créer de l'élan. En même temps, pousse le kettlebell au-dessus de ta tête jusqu'au verrouillage, en profitant de l'élan du corps.",
+   "Réceptionne la charge au-dessus de la tête en redescendant en squat sous elle.",
+   "En gardant la charge au-dessus de la tête, relève-toi. Redescends la charge au sol pour la répétition suivante."
+  ]
+ },
+ "One-Arm_Kettlebell_Floor_Press": {
+  "name": "Développé au sol unilatéral au kettlebell",
+  "instructions": [
+   "Allonge-toi au sol en tenant un kettlebell d'une main, le haut du bras appuyé au sol, paume vers l'intérieur.",
+   "Pousse le kettlebell droit vers le plafond en tournant le poignet.",
+   "Redescends le kettlebell à la position de départ et répète."
+  ]
+ },
+ "One-Arm_Kettlebell_Jerk": {
+  "name": "Jeté unilatéral au kettlebell",
+  "instructions": [
+   "Tiens un kettlebell par la poignée et épaule-le : tends les jambes et les hanches en le tirant vers l'épaule, en tournant le poignet pour que la paume regarde vers l'avant. C'est ta position de départ.",
+   "Fléchis légèrement les genoux, buste droit.",
+   "Inverse immédiatement le mouvement en poussant dans les talons, comme un saut, pour créer de l'élan. En même temps, pousse le kettlebell au-dessus de ta tête jusqu'au verrouillage, en profitant de l'élan du corps. Réceptionne la charge en redescendant en squat sous elle, puis relève-toi en gardant la charge au-dessus de la tête.",
+   "Redescends la charge pour la répétition suivante."
+  ]
+ },
+ "One-Arm_Kettlebell_Military_Press_To_The_Side": {
+  "name": "Développé militaire unilatéral au kettlebell",
+  "instructions": [
+   "Épaule un kettlebell : tends les jambes et les hanches en le tirant vers l'épaule, en tournant le poignet pour que la paume regarde vers l'intérieur. C'est ta position de départ.",
+   "Regarde le kettlebell et pousse-le vers le haut et l'extérieur jusqu'à le verrouiller au-dessus de ta tête.",
+   "Redescends le kettlebell à l'épaule en contrôlant et répète. Contracte fortement le grand dorsal, les fessiers et les abdos pour plus de stabilité et de force."
+  ]
+ },
+ "One-Arm_Kettlebell_Para_Press": {
+  "name": "Développé para unilatéral au kettlebell",
+  "instructions": [
+   "Épaule un kettlebell : tends les jambes et les hanches en le tirant vers l'épaule, en tournant le poignet pour que la paume regarde vers l'avant. C'est ta position de départ.",
+   "Tiens le kettlebell coude écarté sur le côté et pousse-le vers le haut et l'extérieur jusqu'à le verrouiller au-dessus de ta tête.",
+   "Redescends le kettlebell à l'épaule en contrôlant et répète. Contracte fortement le grand dorsal, les fessiers et les abdos pour plus de stabilité et de force."
+  ]
+ },
+ "One-Arm_Kettlebell_Push_Press": {
+  "name": "Push press unilatéral au kettlebell",
+  "instructions": [
+   "Tiens un kettlebell par la poignée et épaule-le : tends les jambes et les hanches en le tirant vers l'épaule, en tournant le poignet pour que la paume regarde vers l'avant. C'est ta position de départ.",
+   "Fléchis légèrement les genoux, buste droit.",
+   "Inverse immédiatement le mouvement en poussant dans les talons, comme un saut, pour créer de l'élan. En même temps, pousse le kettlebell au-dessus de ta tête jusqu'au verrouillage, en profitant de l'élan du corps. Redescends la charge pour la répétition suivante."
+  ]
+ },
+ "One-Arm_Kettlebell_Row": {
+  "name": "Rowing unilatéral au kettlebell",
+  "instructions": [
+   "Place un kettlebell devant tes pieds. Fléchis légèrement les genoux et pousse les fesses en arrière autant que possible en te penchant pour te mettre en position. Saisis le kettlebell et tire-le vers ton ventre en serrant l'omoplate et en pliant le coude. Garde le dos droit. Redescends et répète."
+  ]
+ },
+ "One-Arm_Kettlebell_Snatch": {
+  "name": "Arraché unilatéral au kettlebell",
+  "instructions": [
+   "Place un kettlebell entre tes pieds. Fléchis les genoux et pousse les fesses en arrière pour te mettre en position de départ.",
+   "Regarde droit devant et balance le kettlebell en arrière entre tes jambes.",
+   "Inverse immédiatement le mouvement en poussant avec les hanches et les genoux pour accélérer le kettlebell vers le haut. Quand il arrive à hauteur d'épaule, tourne la main et pousse droit vers le haut, en profitant de l'élan pour le réceptionner bras verrouillé au-dessus de ta tête."
+  ]
+ },
+ "One-Arm_Kettlebell_Split_Jerk": {
+  "name": "Jeté fendu unilatéral au kettlebell",
+  "instructions": [
+   "Tiens un kettlebell par la poignée et épaule-le : tends les jambes et les hanches en le tirant vers l'épaule, en tournant le poignet pour que la paume regarde vers l'avant. C'est ta position de départ.",
+   "Fléchis légèrement les genoux, buste droit.",
+   "Inverse immédiatement le mouvement en poussant dans les talons, comme un saut, pour créer de l'élan. En même temps, pousse le kettlebell au-dessus de ta tête jusqu'au verrouillage, en profitant de l'élan du corps.",
+   "Réceptionne la charge au-dessus de la tête en descendant sous elle, une jambe devant et une jambe derrière.",
+   "En gardant la charge au-dessus de la tête, relève-toi en ramenant les pieds. Redescends la charge pour la répétition suivante."
+  ]
+ },
+ "One-Arm_Kettlebell_Split_Snatch": {
+  "name": "Arraché fendu unilatéral au kettlebell",
+  "instructions": [
+   "Tiens un kettlebell d'une main par la poignée.",
+   "Fléchis les jambes vers le sol, puis inverse le mouvement en tendant les hanches, les genoux et enfin les chevilles pour monter le kettlebell au-dessus de ta tête.",
+   "Après l'extension complète, descends en fente pour réceptionner la charge au-dessus de la tête, une jambe devant et une jambe derrière. Pousse avec les hanches et verrouille le kettlebell au-dessus de ta tête en un seul mouvement continu.",
+   "Relève-toi en gardant la charge au-dessus de la tête et ramène les pieds. Redescends la charge à la position de départ."
+  ]
+ },
+ "One-Arm_Kettlebell_Swings": {
+  "name": "Swing unilatéral au kettlebell",
+  "instructions": [
+   "Place un kettlebell au sol devant toi, pieds un peu plus écartés que les épaules. Penche-toi depuis les hanches, dos plat, et saisis la poignée d'une main. C'est ta position de départ.",
+   "Balance le kettlebell vers l'arrière entre tes jambes en reculant les hanches, genoux légèrement fléchis.",
+   "Tends vigoureusement les hanches pour projeter le kettlebell vers l'avant jusqu'à hauteur de poitrine, bras tendu. C'est l'élan des hanches qui monte la charge, pas le bras.",
+   "Laisse redescendre le kettlebell entre tes jambes en reculant les hanches et enchaîne. Fais le nombre de répétitions prévu, puis change de main."
+  ]
+ },
+ "One-Arm_Long_Bar_Row": {
+  "name": "Rowing unilatéral à la barre landmine",
+  "instructions": [
+   "Place une barre dans un support landmine ou dans un coin pour qu'elle ne bouge pas. Charge ton extrémité avec un poids adapté.",
+   "Tiens-toi à côté de la barre et saisis-la d'une main près du manchon. Relève-toi en t'aidant des hanches et des jambes.",
+   "Genoux fléchis, hanches en arrière et poitrine haute, le bras tendu. C'est ta position de départ.",
+   "Tire la charge vers ton flanc en serrant l'omoplate et en pliant le coude, sans à-coup ni triche.",
+   "Après une brève pause, reviens à la position de départ."
+  ]
+ },
+ "One-Arm_Medicine_Ball_Slam": {
+  "name": "Slam unilatéral au médecine-ball",
+  "instructions": [
+   "Debout, pieds décalés en position athlétique, tiens un médecine-ball d'une main, du même côté que ta jambe arrière. C'est ta position de départ.",
+   "Arme le bras en montant le ballon au-dessus de ta tête, tout en tendant hanches, genoux et chevilles pour préparer le lancer.",
+   "Au sommet de l'extension, fléchis les épaules, la colonne et les hanches pour projeter le ballon avec force au sol, juste devant toi.",
+   "Rattrape le ballon au rebond et continue pour le nombre de répétitions voulu."
+  ]
+ },
+ "One-Arm_Open_Palm_Kettlebell_Clean": {
+  "name": "Épaulé unilatéral main ouverte au kettlebell",
+  "instructions": [
+   "Place un kettlebell entre tes pieds.",
+   "Saisis la poignée d'une main et monte vivement le kettlebell, en le laissant basculer pour que la boule retombe dans ta paume.",
+   "Relance le kettlebell devant toi et rattrape la poignée d'une main.",
+   "Redescends le kettlebell au sol et répète. Travaille les deux bras."
+  ]
+ },
+ "One-Arm_Overhead_Kettlebell_Squats": {
+  "name": "Squat unilatéral au kettlebell au-dessus de la tête",
+  "instructions": [
+   "Épaule et développe un kettlebell d'un bras : tends les jambes et les hanches en le tirant vers l'épaule en tournant le poignet, puis pousse-le au-dessus de ta tête en tendant le coude. C'est ta position de départ.",
+   "En regardant droit devant et en gardant le kettlebell verrouillé au-dessus de toi, fléchis les genoux et les hanches pour descendre le buste entre tes jambes, tête et poitrine hautes.",
+   "Marque une pause d'une seconde en bas, puis remonte en poussant dans les talons."
+  ]
+ },
+ "One-Arm_Side_Deadlift": {
+  "name": "Soulevé de terre unilatéral de côté",
+  "instructions": [
+   "Tiens-toi à côté d'une barre, au niveau de son centre. Fléchis les genoux et descends jusqu'à pouvoir atteindre la barre.",
+   "Saisis la barre comme une valise (paume vers toi, puisque la barre est de côté). Avec une charge importante, des sangles peuvent aider. C'est ta position de départ.",
+   "Soulève la barre en poussant sur les jambes et en expirant. Ton bras reste complètement tendu pendant que tu te redresses jusqu'à être debout.",
+   "Redescends lentement la barre en inspirant. Conseil : fléchis bien les genoux en descendant la charge pour éviter de te blesser.",
+   "Répète pour le nombre de répétitions prévu.",
+   "Change de bras et recommence."
+  ]
+ },
+ "One-Arm_Side_Laterals": {
+  "name": "Élévation latérale unilatérale à l'haltère",
+  "instructions": [
+   "Prends un haltère dans une main. De l'autre main, tiens-toi à un support stable, comme un banc incliné. Penche-toi légèrement du côté du bras qui travaille, à l'opposé du support, pour garder l'équilibre.",
+   "Tiens-toi buste droit, l'haltère le long du corps bras tendu, paume vers toi. C'est ta position de départ.",
+   "Buste immobile (sans balancer), monte l'haltère sur le côté, coude légèrement fléchi et main légèrement inclinée vers l'avant comme pour verser de l'eau dans un verre. Continue jusqu'à ce que le bras soit parallèle au sol. Expire pendant ce mouvement et marque une pause d'une seconde en haut.",
+   "Redescends lentement l'haltère à la position de départ en inspirant.",
+   "Répète pour le nombre de répétitions prévu.",
+   "Change de bras et recommence."
+  ]
+ },
+ "One-Legged_Cable_Kickback": {
+  "name": "Kickback unilatéral à la poulie",
+  "instructions": [
+   "Accroche une sangle de cheville à une poulie basse, puis fixe-la à ta cheville.",
+   "Fais face à la colonne de charges, à environ 60 cm, en te tenant au cadre de la machine.",
+   "Genoux et hanches légèrement fléchis, abdos gainés, contracte les fessiers pour envoyer lentement la jambe qui travaille vers l'arrière, en arc de cercle, aussi haut que c'est confortable, en expirant. Conseil : en extension complète, serre les fessiers une seconde pour une contraction maximale.",
+   "Ramène lentement la jambe vers l'avant en résistant à la traction du câble, jusqu'à la position de départ.",
+   "Répète pour le nombre de répétitions prévu.",
+   "Change de jambe et recommence."
+  ]
+ },
+ "One_Arm_Chin-Up": {
+  "name": "Traction à un bras avec serviette",
+  "instructions": [
+   "Passe une serviette autour d'une barre de traction.",
+   "Saisis la barre d'une main, paume vers toi, et la serviette de l'autre main.",
+   "Penche le buste en arrière d'environ 30 degrés en cambrant le bas du dos et en sortant la poitrine. C'est ta position de départ.",
+   "Monte le buste jusqu'à ce que la barre touche le haut de ta poitrine, en ramenant les épaules et le haut des bras vers le bas et l'arrière. Expire pendant cette phase. Conseil : serre les muscles du dos en contraction maximale. Le haut du corps ne fait que se déplacer, seuls les bras travaillent. Les avant-bras ne font que tenir la barre.",
+   "Après une seconde en contraction, inspire et redescends lentement jusqu'à avoir les bras complètement tendus et les grands dorsaux étirés.",
+   "Répète pour le nombre de répétitions prévu.",
+   "Change de bras et recommence."
+  ]
+ },
+ "One_Arm_Dumbbell_Bench_Press": {
+  "name": "Développé couché unilatéral à l'haltère",
+  "instructions": [
+   "Allonge-toi sur un banc plat, un haltère dans une main posé sur la cuisse.",
+   "En t'aidant de la cuisse, monte l'haltère pour le tenir devant toi, à largeur d'épaules. Aide-toi de la main libre pour bien placer l'haltère au-dessus de toi.",
+   "Tourne ensuite le poignet vers l'avant pour que ta paume regarde loin de toi. C'est ta position de départ.",
+   "Descends lentement la charge sur le côté en inspirant, en gardant le contrôle de l'haltère en permanence. Conseil : au début, aide-toi de la main libre pour équilibrer l'haltère, seulement si nécessaire ; sinon, laisse-la sur le côté.",
+   "En expirant, pousse l'haltère vers le haut avec les pectoraux. Tends le bras, serre les pectoraux, tiens une seconde, puis redescends lentement. Conseil : la descente doit durer au moins deux fois plus longtemps que la montée.",
+   "Répète le mouvement pour le nombre de répétitions prévu dans ton programme.",
+   "Change de bras et recommence."
+  ]
+ },
+ "One_Arm_Dumbbell_Preacher_Curl": {
+  "name": "Curl pupitre unilatéral à l'haltère",
+  "instructions": [
+   "Prends un haltère de la main droite et pose le haut du bras sur un pupitre à curl ou un banc incliné. Tiens l'haltère à hauteur d'épaule. C'est ta position de départ.",
+   "En inspirant, descends lentement l'haltère jusqu'à avoir le bras tendu et le biceps complètement étiré.",
+   "En expirant, monte la charge avec le biceps jusqu'à contraction complète, haltère à hauteur d'épaule. Pour une contraction complète, monte le petit doigt plus haut que le pouce.",
+   "Serre fort le biceps une seconde en contraction et répète pour le nombre de répétitions prévu.",
+   "Change de bras et recommence."
+  ]
+ },
+ "One_Arm_Floor_Press": {
+  "name": "Développé au sol unilatéral à la barre",
+  "instructions": [
+   "Allonge-toi sur une surface plane, le dos plaqué au sol ou sur un tapis, genoux fléchis.",
+   "Fais-toi passer la barre dans une main. Au départ, ton bras est presque complètement tendu, comme au départ d'un développé couché, mais en prise neutre (paume vers ton buste).",
+   "Laisse la main libre le long du corps.",
+   "Descends la barre jusqu'à ce que ton coude touche le sol, en inspirant pendant cette phase de descente.",
+   "Remonte la barre à la position de départ en expirant pendant la phase de montée.",
+   "Répète jusqu'à avoir fait le nombre de répétitions prévu.",
+   "Change de bras et recommence."
+  ]
+ },
+ "One_Arm_Lat_Pulldown": {
+  "name": "Tirage vertical unilatéral",
+  "instructions": [
+   "Choisis une charge adaptée et règle le boudin des genoux pour te maintenir assis. Saisis la poignée en pronation. C'est ta position de départ.",
+   "Tire la poignée vers le bas en pliant le coude et en le ramenant contre ton flanc.",
+   "Marque une pause en bas, puis remonte lentement la poignée à la position de départ.",
+   "Entre les répétitions, ne laisse pas complètement remonter la charge, pour garder les muscles sous tension."
+  ]
+ },
+ "One_Arm_Pronated_Dumbbell_Triceps_Extension": {
+  "name": "Extension triceps unilatérale couché en pronation",
+  "instructions": [
+   "Allonge-toi à plat sur un banc en tenant un haltère bras tendu, perpendiculaire à ton corps, paume tournée vers tes pieds (pronation).",
+   "Pose la main libre sur ton biceps pour soutenir le bras.",
+   "Descends lentement l'haltère en inspirant.",
+   "Remonte l'haltère en contractant le triceps, en expirant pendant la montée.",
+   "Répète jusqu'à avoir fait les répétitions de ta série.",
+   "Change de bras et recommence."
+  ]
+ },
+ "One_Arm_Supinated_Dumbbell_Triceps_Extension": {
+  "name": "Extension triceps unilatérale couché en supination",
+  "instructions": [
+   "Allonge-toi à plat sur un banc en tenant un haltère bras tendu, perpendiculaire à ton corps, paume tournée vers ton visage (supination).",
+   "Pose la main libre sur ton biceps pour soutenir le bras.",
+   "Descends lentement l'haltère en inspirant.",
+   "Remonte l'haltère en contractant le triceps, en expirant pendant la montée.",
+   "Répète jusqu'à avoir fait les répétitions de ta série.",
+   "Change de bras et recommence.",
+   "Alterne ainsi les bras jusqu'à la fin de l'exercice."
+  ]
+ },
+ "One_Leg_Barbell_Squat": {
+  "name": "Squat bulgare à la barre",
+  "instructions": [
+   "Tiens-toi à 60 à 90 cm devant un banc plat, dos au banc, une barre au sol devant toi. Conseil : tes pieds sont écartés à largeur d'épaules.",
+   "Fléchis les genoux et, en pronation avec une prise plus large que les épaules, monte la barre jusqu'à la poser sur ta poitrine.",
+   "Passe ensuite la barre au-dessus de ta tête et pose-la à la base de ta nuque. Recule un pied pour poser le dessus des orteils sur le banc ; l'autre pied reste fixe devant toi. Garde la tête haute en permanence (regarder en bas te déséquilibre) et le dos droit. Conseil : dos droit et poitrine sortie pendant tout l'exercice.",
+   "En inspirant, descends lentement jusqu'à ce que ta cuisse avant soit parallèle au sol. Ton genou est alors au-dessus de tes orteils et ta poitrine juste au-dessus du milieu de la cuisse.",
+   "En menant avec la poitrine et les hanches et en contractant les quadriceps, remonte à la position de départ en expirant.",
+   "Répète pour le nombre de répétitions prévu.",
+   "Change de jambe et recommence."
+  ]
+ },
+ "Open_Palm_Kettlebell_Clean": {
+  "name": "Épaulé main ouverte au kettlebell",
+  "instructions": [
+   "Place un kettlebell entre tes pieds. Épaule-le en tendant les jambes et les hanches pour le monter vers tes épaules.",
+   "Lâche la poignée pendant la montée et laisse le kettlebell basculer pour que la boule retombe dans tes paumes.",
+   "Relance le kettlebell devant toi et rattrape la poignée à deux mains. Redescends le kettlebell à la position de départ et répète."
+  ]
+ },
+ "Otis-Up": {
+  "name": "Otis-up",
+  "instructions": [
+   "Bloque tes pieds et allonge-toi au sol, genoux fléchis. Tiens une charge à deux mains contre ta poitrine. C'est ta position de départ.",
+   "Fléchis les hanches et la colonne pour décoller le buste du sol.",
+   "En montant, pousse la charge pour qu'elle soit au-dessus de ta tête en haut du mouvement.",
+   "Ramène la charge à ta poitrine en redescendant, sans aller jusqu'au sol."
+  ]
+ }
+}

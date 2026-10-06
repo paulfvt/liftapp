@@ -1,0 +1,229 @@
+{
+ "Smith_Machine_Incline_Bench_Press": {
+  "name": "Développé incliné à la Smith machine",
+  "instructions": [
+   "Place un banc incliné sous la Smith machine. Règle la barre à une hauteur que tu atteins allongé, bras presque tendus. Une fois la charge choisie, allonge-toi sur le banc, le haut de ta poitrine aligné avec la barre. Avec une prise en pronation (paumes vers l'avant) plus large que les épaules, déverrouille la barre et tiens-la au-dessus de toi, bras tendus. C'est ta position de départ.",
+   "En inspirant, descends lentement jusqu'à sentir la barre sur le haut de ta poitrine.",
+   "Après une pause d'une seconde, remonte la barre à la position de départ en expirant, en poussant avec les pectoraux. Tends les bras, tiens une seconde, puis redescends lentement. Conseil : la descente doit durer au moins deux fois plus longtemps que la montée.",
+   "Répète le mouvement pour le nombre de répétitions prévu.",
+   "Quand tu as terminé, repose la barre sur le support."
+  ]
+ },
+ "Smith_Machine_Leg_Press": {
+  "name": "Presse à cuisses à la Smith machine",
+  "instructions": [
+   "Règle la barre de la Smith machine à environ 60 cm du sol, posée sur les sécurités. Après l'avoir chargée, allonge-toi sous la barre. Pose le milieu de tes pieds sur la barre, genoux ramenés vers la poitrine. C'est ta position de départ.",
+   "Pousse avec les pieds pour monter la barre en tendant hanches et genoux, sans verrouiller les genoux.",
+   "Marque une brève pause en haut avant de revenir à la position de départ."
+  ]
+ },
+ "Smith_Machine_One-Arm_Upright_Row": {
+  "name": "Rowing menton unilatéral à la Smith machine",
+  "instructions": [
+   "Règle la barre à hauteur de cuisses et charge un poids adapté.",
+   "Saisis la barre avec une prise large, décroche-la, puis lâche la main libre. Ton bras est tendu, tu es debout, tête et poitrine hautes. C'est ta position de départ.",
+   "Plie le coude pour monter le haut du bras, coude pointé vers l'extérieur, jusqu'à ce que le haut du bras soit parallèle au sol.",
+   "Après une brève pause, redescends la charge à la position de départ.",
+   "Répète pour le nombre de répétitions voulu, puis raccroche la barre."
+  ]
+ },
+ "Smith_Machine_Overhead_Shoulder_Press": {
+  "name": "Développé épaules à la Smith machine",
+  "instructions": [
+   "Place un banc plat (idéalement avec dossier) sous une Smith machine. Règle la barre à une hauteur telle qu'une fois assis, tu doives presque tendre les bras pour l'atteindre.",
+   "À la bonne hauteur, assieds-toi légèrement derrière la barre, de façon à avoir une ligne droite imaginaire entre le bout de ton nez et la barre. Pieds fixes, saisis la barre paumes vers l'avant, déverrouille-la et monte-la bras complètement tendus. C'est ta position de départ.",
+   "Descends lentement la barre jusqu'au niveau de ton menton en inspirant.",
+   "Remonte la barre à la position de départ avec les épaules en expirant.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Smith_Machine_Pistol_Squat": {
+  "name": "Pistol squat à la Smith machine",
+  "instructions": [
+   "Règle la barre à la hauteur qui te convient. Passe dessous et place-la en travers de l'arrière des épaules.",
+   "Saisis la barre, paumes vers l'avant, déverrouille-la et soulève-la du support en tendant les jambes.",
+   "Avance un pied d'environ 30 cm devant la barre. Tends l'autre jambe devant toi, décollée du sol. Regarde devant toi en permanence et garde le dos neutre ou légèrement cambré. C'est ta position de départ.",
+   "En gardant une bonne posture, descends en fléchissant genou et hanche, aussi bas que ta souplesse le permet.",
+   "Marque une brève pause en bas, puis remonte à la position de départ en poussant dans le talon, en tendant genou et hanche."
+  ]
+ },
+ "Smith_Machine_Reverse_Calf_Raises": {
+  "name": "Relevé de pointes de pieds à la Smith machine",
+  "instructions": [
+   "Règle la barre de la Smith machine à ta taille et place une plateforme surélevée juste dessous.",
+   "Monte sur la plateforme, les talons bien posés dessus et l'avant des pieds dans le vide, pointes vers l'avant, pieds à largeur d'épaules.",
+   "Place tes épaules sous la barre en gardant cette position des pieds, puis pousse la barre en tendant hanches et genoux jusqu'à être debout. Genoux légèrement fléchis, jamais verrouillés. C'est ta position de départ. Conseil : la barre sur ton dos ne sert qu'à l'équilibre.",
+   "Monte l'avant des pieds en expirant, en relevant les orteils le plus haut possible et en contractant les muscles de l'avant de la jambe. Garde les genoux immobiles en permanence, sans jamais les plier. Tiens la contraction une seconde avant de redescendre.",
+   "Redescends lentement à la position de départ en inspirant, en baissant l'avant des pieds et les orteils.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Smith_Machine_Squat": {
+  "name": "Squat à la Smith machine",
+  "instructions": [
+   "Règle la barre à la hauteur qui te convient. Une fois la hauteur choisie et la barre chargée, passe sous la barre et place-la en travers du haut du dos (juste sous la nuque).",
+   "Tiens la barre à deux mains de chaque côté (paumes vers l'avant), déverrouille-la et soulève-la du support en poussant sur les jambes tout en redressant le buste.",
+   "Place tes pieds à largeur d'épaules, pointes légèrement tournées vers l'extérieur. Garde la tête haute et le dos droit en permanence. C'est ta position de départ. (Cet écartement moyen travaille l'ensemble des jambes ; tu peux aussi choisir un écartement plus serré ou plus large.)",
+   "Descends lentement en fléchissant les genoux, buste droit et tête haute, jusqu'à ce que l'angle entre cuisse et mollet soit un peu inférieur à 90 degrés (cuisses sous l'horizontale). Inspire pendant cette phase. Conseil : bien exécuté, l'avant de tes genoux forme une ligne verticale imaginaire avec tes orteils. Si tes genoux dépassent nettement cette ligne, tu charges trop le genou.",
+   "Remonte en expirant, en poussant le sol avec les talons et en tendant les jambes jusqu'à la position de départ.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Smith_Machine_Stiff-Legged_Deadlift": {
+  "name": "Soulevé de terre jambes tendues à la Smith machine",
+  "instructions": [
+   "Règle la barre de la Smith machine à environ mi-cuisse. Une fois la hauteur choisie et la barre chargée, saisis-la en pronation (paumes vers l'arrière) à largeur d'épaules. Avec une charge importante, des sangles peuvent aider.",
+   "Monte la barre en tendant complètement les bras, dos droit. Tiens-toi debout, buste droit, pieds à largeur d'épaules ou plus serrés, genoux légèrement fléchis. C'est ta position de départ.",
+   "Genoux fixes, descends la barre jusqu'au-dessus de tes pieds en te penchant depuis la taille, dos droit, comme pour ramasser quelque chose au sol, jusqu'à sentir un étirement des ischio-jambiers. Expire pendant ce mouvement.",
+   "Dès que tu sens l'étirement, redresse le buste en tendant les hanches jusqu'à la position de départ. Inspire pendant ce mouvement.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Smith_Machine_Upright_Row": {
+  "name": "Rowing menton à la Smith machine",
+  "instructions": [
+   "Règle la barre de la Smith machine à environ mi-cuisse. Une fois la hauteur choisie et la barre chargée, saisis-la en pronation à largeur d'épaules. Avec une charge importante, des sangles peuvent aider.",
+   "Monte la barre et tends complètement les bras, dos droit, coudes légèrement fléchis. C'est ta position de départ.",
+   "Monte la barre avec les deltoïdes latéraux en expirant, près du corps, jusqu'à ce qu'elle touche presque ton menton. Conseil : ce sont les coudes qui mènent le mouvement et ils restent toujours plus hauts que les avant-bras. Garde le buste immobile et marque une pause d'une seconde en haut.",
+   "Redescends lentement la barre à la position de départ en inspirant.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Smith_Single-Leg_Split_Squat": {
+  "name": "Squat bulgare à la Smith machine",
+  "instructions": [
+   "Place un banc plat à 60 à 90 cm derrière la Smith machine. Règle la barre à la hauteur qui te convient. Une fois la hauteur choisie et la barre chargée, passe sous la barre et place-la en travers du haut du dos (juste sous la nuque).",
+   "Tiens la barre à deux mains de chaque côté (paumes vers l'avant), déverrouille-la et soulève-la du support en poussant sur les jambes tout en redressant le buste.",
+   "Place un pied légèrement en avant sous la barre et tends l'autre jambe en arrière, le dessus du pied posé sur le banc. C'est ta position de départ.",
+   "Descends lentement en fléchissant le genou, buste droit et tête haute, jusqu'à ce que l'angle entre cuisse et mollet soit un peu inférieur à 90 degrés (cuisse sous l'horizontale). Inspire pendant cette phase. Conseil : bien exécuté, l'avant de ton genou forme une ligne verticale imaginaire avec tes orteils. Si ton genou dépasse nettement cette ligne, tu le charges trop.",
+   "Remonte en expirant, en poussant le sol surtout avec le talon et en tendant la jambe jusqu'à la position de départ.",
+   "Répète pour le nombre de répétitions prévu.",
+   "Change de jambe et recommence."
+  ]
+ },
+ "Snatch": {
+  "name": "Arraché",
+  "instructions": [
+   "Place tes pieds à largeur d'épaules, la barre juste au-dessus de la jonction entre les orteils et le reste du pied.",
+   "Fléchis les genoux et, dos plat, saisis la barre en pronation avec une prise plus large que les épaules. Baisse les hanches comme pour t'asseoir sur une chaise. C'est ta position de départ.",
+   "Pousse le sol avec les pieds, comme s'il s'agissait d'une plateforme mobile, et commence à monter la barre en la gardant près des jambes.",
+   "Quand la barre atteint le milieu des cuisses, pousse fort dans le sol et tends tout le corps de façon explosive.",
+   "Hausse les épaules vers l'arrière en montant la barre, coudes levés sur les côtés et gardés au-dessus de la barre le plus longtemps possible.",
+   "D'un mouvement très rapide et puissant, passe sous la barre quand elle est assez haute pour être contrôlée : descends en squat en verrouillant les bras, la barre au-dessus de la tête.",
+   "Termine en te relevant du squat. En fin de mouvement, tes pieds sont alignés et tes bras complètement tendus, la barre au-dessus de la tête."
+  ]
+ },
+ "Snatch_Balance": {
+  "name": "Snatch balance",
+  "instructions": [
+   "Commence pieds en position de tirage, la barre posée sur l'arrière des épaules, mains en prise large d'arraché.",
+   "Fais décoller la barre par une flexion brève suivie d'une poussée des genoux, puis plonge vigoureusement sous la barre en plaçant les pieds en position de réception.",
+   "Réceptionne la barre bras verrouillés au-dessus de la tête, près du bas du squat. Le buste reste vertical, les hanches descendent entre les jambes.",
+   "Descends jusqu'en bas, puis relève-toi. Redescends la charge avec précaution."
+  ]
+ },
+ "Snatch_Deadlift": {
+  "name": "Soulevé de terre d'arraché",
+  "instructions": [
+   "Ce mouvement renforce le premier tirage de l'arraché. Commence en prise large d'arraché, la barre posée au sol. Pieds sous les hanches, tournés vers l'extérieur. Descends jusqu'à la barre, dos en extension complète et regard devant.",
+   "Pousse dans les talons en montant les hanches. L'angle du dos ne change pas jusqu'à ce que la barre passe les genoux.",
+   "À ce moment, pousse les hanches vers la barre en basculant en arrière. Redescends la barre au sol en faisant le mouvement inverse."
+  ]
+ },
+ "Snatch_Pull": {
+  "name": "Tirage d'arraché",
+  "instructions": [
+   "La barre au sol près des tibias, prends une prise large d'arraché. Baisse les hanches avec le poids sur les talons, dos droit, regard devant, poitrine haute, épaules juste devant la barre. C'est ta position de départ.",
+   "Lance le premier tirage en poussant dans les talons et en tendant les genoux. L'angle du dos ne change pas et les bras restent tendus. Monte la charge en contrôlant jusqu'au-dessus des genoux.",
+   "Vient ensuite le deuxième tirage, principale source d'accélération. Quand la barre arrive à mi-cuisse, commence à tendre les hanches. Comme pour un saut, accélère en tendant hanches, genoux et chevilles, en utilisant la vitesse pour monter la barre.",
+   "Inutile de tirer activement avec les bras : en fin de deuxième tirage, le corps est complètement tendu, légèrement penché en arrière. L'extension doit être violente et brève, sans la prolonger plus que nécessaire."
+  ]
+ },
+ "Snatch_Shrug": {
+  "name": "Shrug d'arraché",
+  "instructions": [
+   "Commence avec une prise large, la barre à mi-cuisse, en prise crochet ou en pronation. Ton dos est droit et légèrement penché en avant.",
+   "Hausse les épaules vers les oreilles. Cet exercice se fait généralement plus lourd qu'un arraché, mais évite de charger au point de ralentir l'exécution."
+  ]
+ },
+ "Snatch_from_Blocks": {
+  "name": "Arraché depuis les blocs",
+  "instructions": [
+   "Commence avec une barre chargée posée sur des blocs à la hauteur voulue, prise large. Pieds sous les hanches, tournés vers l'extérieur si besoin. Baisse les hanches, poitrine haute et regard devant, épaules juste devant la barre, coudes tournés vers l'extérieur. C'est ta position de départ.",
+   "Lance le premier tirage en poussant avec l'avant des talons pour décoller la barre des blocs.",
+   "Enchaîne sur le deuxième tirage en tendant hanches, genoux et chevilles pour monter la barre le plus vite possible, près du corps. Au sommet de l'extension, hausse les épaules et laisse les coudes se fléchir sur les côtés.",
+   "En plaçant tes pieds en position de réception, juste à l'extérieur des hanches et tournés vers l'extérieur, tire-toi avec force sous la barre en la montant au-dessus de ta tête. Réceptionne-la le plus bas possible, bras complètement tendus.",
+   "La barre alignée au-dessus de l'avant des talons, tête et poitrine hautes, pousse dans les talons pour te relever. Repose la barre sur les blocs avec précaution."
+  ]
+ },
+ "Speed_Band_Overhead_Triceps": {
+  "name": "Extension triceps rapide à l'élastique",
+  "instructions": [
+   "Fixe un élastique au sol, par exemple au pied d'un banc incliné en te tenant au-dessus du banc, ou simplement sous tes pieds.",
+   "Tire l'élastique derrière ta tête, en pronation, coudes levés. C'est ta position de départ.",
+   "Tends les coudes pour allonger les bras, en gardant le haut des bras en place.",
+   "Marque une pause, puis reviens à la position de départ."
+  ]
+ },
+ "Speed_Box_Squat": {
+  "name": "Box squat de vitesse",
+  "instructions": [
+   "Attache à la barre des élastiques bien ancrés près du sol. Il faudra peut-être les raccourcir pour obtenir assez de tension.",
+   "Utilise une box de hauteur adaptée. Charge la barre avec un poids qui demande un effort sans ralentir le mouvement, généralement 50 à 70 % de ton maximum sur une répétition.",
+   "Place la barre sur le haut du dos, omoplates serrées, dos cambré, tout le corps gainé. C'est ta position de départ.",
+   "Décroche la barre et place-toi devant la box. Recule les hanches jusqu'à être assis sur la box, en contrôlant la descente sans t'écraser dessus.",
+   "Marque une brève pause, puis explose hors de la box en tendant hanches et genoux."
+  ]
+ },
+ "Speed_Squats": {
+  "name": "Squat de vitesse",
+  "instructions": [
+   "Pour ta sécurité, fais cet exercice dans une cage à squat. Règle la barre à la hauteur qui te convient. Une fois la hauteur choisie et la barre chargée, passe sous la barre et place-la en travers du haut du dos (juste sous la nuque).",
+   "Tiens la barre à deux mains de chaque côté et décroche-la du support en poussant sur les jambes tout en redressant le buste.",
+   "Recule hors du support et place tes pieds à largeur d'épaules, pointes légèrement tournées vers l'extérieur. Garde la tête haute en permanence (regarder en bas te déséquilibre) et le dos droit. C'est ta position de départ. (Cet écartement moyen travaille l'ensemble des jambes ; tu peux aussi choisir un écartement plus serré ou plus large.)",
+   "Descends en fléchissant les genoux, buste droit et tête haute, jusqu'à ce que l'angle entre cuisse et mollet soit un peu inférieur à 90 degrés (cuisses sous l'horizontale). Inspire pendant cette phase. Conseil : bien exécuté, l'avant de tes genoux forme une ligne verticale imaginaire avec tes orteils. Si tes genoux dépassent nettement cette ligne, tu charges trop le genou.",
+   "Remonte le plus vite possible, sans prendre d'élan, en expirant et en poussant surtout avec les talons jusqu'à la position de départ. Remarque : sois le plus rapide possible sans jamais dégrader ta technique ni prendre d'élan.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Spell_Caster": {
+  "name": "Spell caster aux haltères",
+  "instructions": [
+   "Tiens un haltère dans chaque main en pronation, pieds largement écartés, hanches et genoux tendus. C'est ta position de départ.",
+   "Amène les deux haltères d'un côté, près de ta hanche, en faisant pivoter le buste.",
+   "Bras tendus et haltères parallèles au sol, fais pivoter le buste pour balancer les charges de l'autre côté.",
+   "Continue en alternant d'un côté à l'autre jusqu'à la fin de la série."
+  ]
+ },
+ "Spider_Crawl": {
+  "name": "Marche de l'araignée",
+  "instructions": [
+   "Allonge-toi face au sol, en appui sur les mains et la pointe des pieds, pieds joints et corps droit, bras pliés à 90 degrés. C'est ta position de départ.",
+   "Décolle un pied du sol. Ouvre la jambe vers l'extérieur et amène le genou vers ton coude, le plus loin possible vers l'avant.",
+   "Ramène la jambe à la position de départ et répète de l'autre côté."
+  ]
+ },
+ "Spider_Curl": {
+  "name": "Spider curl",
+  "instructions": [
+   "Pose la barre sur la partie du pupitre à curl où tu t'assieds habituellement, bien centrée pour qu'elle ne tombe pas.",
+   "Passe de l'autre côté du pupitre (là où se posent normalement les bras) et penche-toi à 45 degrés, buste et ventre appuyés contre le pupitre.",
+   "Pose bien tes pieds au sol, surtout la pointe, et place le haut de tes bras sur l'appui situé à l'intérieur du pupitre.",
+   "Saisis la barre en supination (paumes vers le haut), mains écartées à largeur d'épaules ou un peu moins.",
+   "Monte lentement la barre en expirant. Tiens la contraction une seconde en serrant les biceps.",
+   "Redescends lentement la barre à la position de départ en inspirant.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Split_Clean": {
+  "name": "Épaulé en fente",
+  "instructions": [
+   "La barre au sol près des tibias, saisis-la en pronation juste à l'extérieur des jambes. Baisse les hanches avec le poids sur les talons, dos droit, regard devant, poitrine haute, épaules juste devant la barre. C'est ta position de départ.",
+   "Lance le premier tirage en poussant dans les talons et en tendant les genoux. L'angle du dos ne change pas et les bras restent tendus. Monte la charge en contrôlant jusqu'au-dessus des genoux.",
+   "Vient ensuite le deuxième tirage, principale source d'accélération de l'épaulé. Quand la barre arrive à mi-cuisse, commence à tendre les hanches. Comme pour un saut, accélère en tendant hanches, genoux et chevilles, en utilisant la vitesse pour monter la barre. Inutile de tirer activement avec les bras : en fin de deuxième tirage, le corps est complètement tendu, légèrement penché en arrière, bras toujours tendus.",
+   "À l'extension complète, enchaîne sur le troisième tirage en haussant franchement les épaules et en pliant les bras, coudes hauts et écartés. Au sommet de l'extension, tire-toi vigoureusement sous la barre en faisant passer les coudes dessous.",
+   "Réceptionne la barre en fente, en envoyant vivement un pied devant et un pied derrière. La barre repose sur les épaules avancées, effleurant la gorge, mains relâchées. Descends jusqu'en bas de la fente, ce qui aide à la remontée.",
+   "Remonte immédiatement en poussant dans les talons, buste droit et coudes hauts, en ramenant les pieds l'un à côté de l'autre."
+  ]
+ }
+}

@@ -56,8 +56,14 @@ En cas d'ambiguïté ou de point non couvert, pose la question au lieu d'invente
   le tonnage ni dans le 1RM.
 - Arrondi d'affichage : pas de 0,5 kg en kilos, 1,25 lb en livres.
 - Pas de superset en V1.
-- Séries d'échauffement affichées, mais exclues des records et des statistiques.
-- Performance précédente : dernière séance de cet exercice **dans le même template**.
+- Types de série : échauffement, travail, dégressive (pas de type « échec »). Les échauffements sont affichés mais
+  exclus des records et des statistiques.
+- Performance précédente : dernière séance de cet exercice **dans le même template**, sinon dernière fois tous
+  templates confondus.
+- Catalogue : sans étirements ni rouleau de massage (753 exercices), 2 images WebP 480 px par exercice, noms et
+  instructions traduits en français (tutoiement). Toute modification passe par `tools/catalog/build_catalog.py`
+  et une hausse de `CATALOG_VERSION`.
+- Onglet « Progrès » plutôt que « Progression » (libellé plus court, mieux centré).
 - Prochaine séance sur l'accueil : template suivant le dernier utilisé dans son dossier, sinon le dernier utilisé.
 - Semaine du lundi au dimanche, fuseau du téléphone. La semaine en cours ne casse jamais la streak.
   Une séance compte pour sa date de début.

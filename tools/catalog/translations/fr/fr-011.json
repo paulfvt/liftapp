@@ -1,0 +1,319 @@
+{
+ "Incline_Bench_Pull": {
+  "name": "Tirage aux haltères sur banc incliné",
+  "instructions": [
+   "Prends un haltère dans chaque main et allonge-toi à plat ventre sur un banc incliné à environ 30 degrés.",
+   "Laisse pendre les bras complètement tendus de chaque côté, vers le sol.",
+   "Tourne les poignets pour être en pronation (paumes vers le bas).",
+   "Écarte les coudes. C'est ta position de départ.",
+   "En expirant, tire les haltères vers le haut comme un développé couché inversé : plie les coudes et monte le haut des bras en laissant pendre les avant-bras. Continue jusqu'à ce que le haut des bras soit au niveau de ton dos. Conseil : les coudes partent sur les côtés, et tes bras et ton buste forment un « T » en haut du mouvement. Tiens la contraction une seconde.",
+   "Redescends lentement à la position de départ en inspirant.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Incline_Cable_Chest_Press": {
+  "name": "Développé incliné à la poulie",
+  "instructions": [
+   "Règle une charge adaptée et assieds-toi en tenant les poignées. Le haut de tes bras forme un angle d'environ 45 degrés avec ton corps, tête et poitrine hautes, coudes pliés à environ 90 degrés. C'est ta position de départ.",
+   "Tends les coudes pour pousser les poignées l'une vers l'autre, droit devant toi. Garde les omoplates serrées pendant le mouvement.",
+   "Après une pause bras tendus, reviens à la position de départ en gardant les câbles en tension."
+  ]
+ },
+ "Incline_Cable_Flye": {
+  "name": "Écarté incliné à la poulie",
+  "instructions": [
+   "Règle les poulies au niveau du sol (position la plus basse, sous ton buste).",
+   "Place un banc incliné à 45 degrés entre les poulies, choisis la charge de chaque côté et prends une poignée dans chaque main.",
+   "Une poignée dans chaque main, allonge-toi sur le banc incliné et rejoins les mains bras tendus devant ton visage. C'est ta position de départ.",
+   "Coudes légèrement fléchis pour protéger le tendon du biceps, ouvre les bras sur les côtés en un large arc de cercle jusqu'à sentir un étirement dans la poitrine. Inspire pendant cette phase. Conseil : les bras ne changent pas d'angle, seule l'articulation de l'épaule bouge.",
+   "Ramène les bras à la position de départ en serrant les pectoraux et en expirant. Tiens la contraction une seconde. Conseil : passe par le même arc de cercle qu'à la descente.",
+   "Répète le mouvement pour le nombre de répétitions prévu."
+  ]
+ },
+ "Incline_Dumbbell_Bench_With_Palms_Facing_In": {
+  "name": "Développé incliné aux haltères paumes face à face",
+  "instructions": [
+   "Allonge-toi sur un banc incliné avec un haltère dans chaque main posé sur les cuisses, paumes face à face.",
+   "En t'aidant des cuisses, monte les haltères un bras après l'autre pour les tenir à largeur d'épaules.",
+   "À largeur d'épaules, garde les mains en prise neutre (paumes face à face). Coudes écartés, haut des bras aligné avec les épaules (perpendiculaire au buste) et coudes pliés à 90 degrés. C'est ta position de départ.",
+   "Descends lentement les haltères sur les côtés en inspirant, en gardant le contrôle en permanence.",
+   "En expirant, pousse les haltères vers le haut avec les pectoraux. Tends les bras, tiens une seconde, puis redescends lentement. Conseil : la descente doit durer au moins deux fois plus longtemps que la montée.",
+   "Répète le mouvement pour le nombre de répétitions prévu.",
+   "Quand tu as terminé, repose les haltères sur tes cuisses puis au sol : c'est la façon la plus sûre de les poser."
+  ]
+ },
+ "Incline_Dumbbell_Curl": {
+  "name": "Curl incliné aux haltères",
+  "instructions": [
+   "Assieds-toi sur un banc incliné, un haltère dans chaque main, bras tendus. Garde les coudes près du buste et tourne les paumes vers l'avant. C'est ta position de départ.",
+   "Le haut des bras immobile, monte les haltères en contractant les biceps et en expirant. Seuls les avant-bras bougent. Continue jusqu'à ce que les biceps soient complètement contractés et les haltères à hauteur d'épaules. Tiens la contraction une seconde.",
+   "Redescends lentement les haltères à la position de départ en inspirant.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Incline_Dumbbell_Flyes": {
+  "name": "Écarté incliné aux haltères",
+  "instructions": [
+   "Un haltère dans chaque main, allonge-toi sur un banc incliné à 30 degrés au maximum.",
+   "Tends les bras au-dessus de toi, coudes légèrement fléchis.",
+   "Tourne les poignets pour que tes paumes regardent vers toi. Conseil : tes petits doigts sont côte à côte. C'est ta position de départ.",
+   "En inspirant, descends lentement les bras sur les côtés en les gardant tendus, tout en tournant les poignets jusqu'à ce que les paumes soient face à face. Conseil : en fin de mouvement, tes bras sont sur les côtés, paumes vers le plafond.",
+   "En expirant, remonte les haltères à la position de départ par le même chemin, en tournant les mains pour que les petits doigts se retrouvent côte à côte. Conseil : seules les épaules et les poignets bougent, jamais les coudes.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Incline_Dumbbell_Flyes_-_With_A_Twist": {
+  "name": "Écarté incliné aux haltères avec rotation",
+  "instructions": [
+   "Un haltère dans chaque main, allonge-toi sur un banc incliné à 30 degrés au maximum.",
+   "Tends les bras au-dessus de toi, coudes légèrement fléchis.",
+   "Tourne les poignets pour que tes paumes regardent vers toi. Conseil : tes petits doigts sont côte à côte. C'est ta position de départ.",
+   "En inspirant, descends lentement les bras sur les côtés en les gardant tendus, tout en tournant les poignets jusqu'à ce que les paumes soient face à face. Conseil : en fin de mouvement, tes bras sont sur les côtés, paumes vers le plafond.",
+   "En expirant, remonte les haltères à la position de départ par le même chemin, en tournant les mains pour que les petits doigts se retrouvent côte à côte. Conseil : seules les épaules et les poignets bougent, jamais les coudes.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Incline_Dumbbell_Press": {
+  "name": "Développé incliné aux haltères",
+  "instructions": [
+   "Allonge-toi sur un banc incliné avec un haltère dans chaque main posé sur les cuisses, paumes face à face.",
+   "En t'aidant des cuisses, monte les haltères un par un pour les tenir à largeur d'épaules.",
+   "Une fois les haltères à largeur d'épaules, tourne les poignets vers l'avant pour que tes paumes regardent loin de toi. C'est ta position de départ.",
+   "Garde le contrôle des haltères en permanence. Expire et pousse les haltères vers le haut avec les pectoraux.",
+   "Tends les bras en haut, tiens une seconde, puis redescends lentement. Conseil : la descente devrait idéalement durer deux fois plus longtemps que la montée.",
+   "Répète le mouvement pour le nombre de répétitions prévu.",
+   "Quand tu as terminé, repose les haltères sur tes cuisses puis au sol : c'est la façon la plus sûre de les lâcher."
+  ]
+ },
+ "Incline_Hammer_Curls": {
+  "name": "Curl marteau incliné",
+  "instructions": [
+   "Assieds-toi sur un banc incliné, un haltère dans chaque main, le dos bien plaqué contre le dossier et les pieds joints. Laisse les haltères pendre le long du corps en prise neutre. C'est ta position de départ.",
+   "Plie les coudes en gardant le haut des bras immobile.",
+   "Monte jusqu'en haut du mouvement et marque une pause, puis redescends lentement à la position de départ."
+  ]
+ },
+ "Incline_Inner_Biceps_Curl": {
+  "name": "Curl incliné vers l'extérieur",
+  "instructions": [
+   "Un haltère dans chaque main, allonge-toi sur un banc incliné.",
+   "Les haltères pendent de chaque côté, bras tendus, paumes tournées vers l'extérieur. C'est ta position de départ.",
+   "En expirant, monte les haltères vers l'extérieur et le haut, avant-bras alignés avec les deltoïdes latéraux. Continue jusqu'à ce que les haltères soient à hauteur d'épaules, sur les côtés des deltoïdes. Conseil : la fin du mouvement ressemble à une pose « double biceps ».",
+   "Après une seconde de contraction en haut, inspire et redescends lentement les haltères par le même chemin jusqu'à la position de départ.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Incline_Push-Up": {
+  "name": "Pompes inclinées",
+  "instructions": [
+   "Tiens-toi face à un banc ou à une plateforme surélevée stable. Pose les mains sur le bord, un peu plus écartées que les épaules.",
+   "Recule les pieds, bras et corps tendus. Tes bras sont perpendiculaires à ton corps. Corps droit, descends la poitrine jusqu'au bord en pliant les bras.",
+   "Pousse jusqu'à avoir les bras tendus. Répète."
+  ]
+ },
+ "Incline_Push-Up_Close-Grip": {
+  "name": "Pompes inclinées prise serrée",
+  "instructions": [
+   "Tiens-toi face à une barre de Smith machine ou à une plateforme stable à hauteur adaptée.",
+   "Pose les mains côte à côte sur la barre.",
+   "Recule les pieds, bras et corps tendus. C'est ta position de départ.",
+   "Corps droit, descends la poitrine jusqu'à la barre en pliant les bras.",
+   "Reviens à la position de départ en tendant les coudes."
+  ]
+ },
+ "Incline_Push-Up_Depth_Jump": {
+  "name": "Pompes inclinées pliométriques",
+  "instructions": [
+   "Il te faut une box d'environ 30 cm de haut et deux tapis épais ou steps.",
+   "Place les steps juste à l'extérieur de tes épaules et pose les pieds sur la box, en position de pompe inclinée, les mains juste à l'intérieur des steps. C'est ta position de départ.",
+   "Plie les coudes pour descendre, puis inverse rapidement le mouvement pour décoller du sol. En décollant, pose les mains sur les steps en pliant les coudes pour amortir.",
+   "Fais le mouvement inverse pour revenir à la position de départ."
+  ]
+ },
+ "Incline_Push-Up_Medium": {
+  "name": "Pompes inclinées prise moyenne",
+  "instructions": [
+   "Tiens-toi face à une barre de Smith machine ou à une plateforme stable à hauteur adaptée.",
+   "Pose les mains sur la barre, écartées d'environ la largeur des épaules.",
+   "Recule les pieds, bras et corps tendus. C'est ta position de départ.",
+   "Corps droit, descends la poitrine jusqu'à la barre en pliant les bras.",
+   "Reviens à la position de départ en tendant les coudes."
+  ]
+ },
+ "Incline_Push-Up_Reverse_Grip": {
+  "name": "Pompes inclinées prise inversée",
+  "instructions": [
+   "Tiens-toi face à une barre de Smith machine ou à une plateforme stable à hauteur adaptée.",
+   "Pose les mains sur la barre paumes vers le haut, écartées d'environ la largeur des épaules.",
+   "Recule les pieds, bras et corps tendus. C'est ta position de départ.",
+   "Corps droit, descends la poitrine jusqu'à la barre en pliant les bras.",
+   "Reviens à la position de départ en tendant les coudes."
+  ]
+ },
+ "Incline_Push-Up_Wide": {
+  "name": "Pompes inclinées prise large",
+  "instructions": [
+   "Tiens-toi face à une barre de Smith machine ou à une plateforme stable à hauteur adaptée.",
+   "Pose les mains sur la barre, plus écartées que les épaules.",
+   "Recule les pieds, bras et corps tendus. Tes bras sont perpendiculaires à ton corps. C'est ta position de départ.",
+   "Corps droit, descends la poitrine jusqu'à la barre en pliant les bras.",
+   "Reviens à la position de départ en tendant les coudes."
+  ]
+ },
+ "Internal_Rotation_with_Band": {
+  "name": "Rotation interne d'épaule à l'élastique",
+  "instructions": [
+   "Fixe l'élastique en nœud coulant autour d'un poteau, à hauteur de ton coude. Tiens-toi le côté droit vers l'élastique, à environ 60 cm.",
+   "Saisis l'extrémité de l'élastique de la main droite et garde le coude bien collé à ton flanc. Tu peux coincer une serviette roulée ou un bloc de mousse sous le coude pour le maintenir en place.",
+   "Le haut du bras en place, ton coude est plié à 90 degrés, la main tendue loin de ton buste. C'est ta position de départ.",
+   "Fais pivoter le bras vers l'intérieur, comme un coup droit de tennis, en gardant le coude en place.",
+   "Va aussi loin que possible, marque une pause, puis reviens à la position de départ."
+  ]
+ },
+ "Inverted_Row": {
+  "name": "Rowing inversé",
+  "instructions": [
+   "Place une barre dans un rack à hauteur de taille environ. Tu peux aussi utiliser une Smith machine.",
+   "Saisis la barre avec une prise plus large que les épaules et suspends-toi dessous. Corps droit, talons au sol, bras complètement tendus. C'est ta position de départ.",
+   "Plie les coudes pour tirer ta poitrine vers la barre, en serrant les omoplates pendant le mouvement.",
+   "Marque une pause en haut, puis reviens à la position de départ.",
+   "Répète pour le nombre de répétitions voulu."
+  ]
+ },
+ "Inverted_Row_with_Straps": {
+  "name": "Rowing inversé aux sangles",
+  "instructions": [
+   "Suspends une corde ou des sangles de suspension à un rack ou à un autre support stable. Saisis les extrémités et suspends-toi dessous, sur le dos. Corps droit, talons au sol, bras complètement tendus. C'est ta position de départ.",
+   "Plie les coudes pour tirer ta poitrine vers tes mains, en serrant les omoplates pendant le mouvement.",
+   "Marque une pause en haut, puis reviens à la position de départ.",
+   "Répète pour le nombre de répétitions voulu."
+  ]
+ },
+ "Iron_Cross": {
+  "name": "Croix de fer aux haltères",
+  "instructions": [
+   "Debout, pieds à largeur d'épaules, tiens un haltère léger dans chaque main, bras tendus le long du corps, paumes vers l'avant. C'est ta position de départ.",
+   "Bras tendus, monte les haltères sur les côtés jusqu'à hauteur d'épaules, de façon que ton corps forme une croix. Expire pendant la montée.",
+   "Tiens la position une à deux secondes, puis redescends lentement les haltères le long du corps en inspirant.",
+   "Répète pour le nombre de répétitions prévu, sans balancer le buste."
+  ]
+ },
+ "Isometric_Chest_Squeezes": {
+  "name": "Contraction isométrique des pectoraux",
+  "instructions": [
+   "Assis ou debout, plie les bras à 90 degrés et joins tes paumes devant ta poitrine. Conseil : mains ouvertes, paumes collées, doigts vers l'avant (perpendiculaires au buste).",
+   "Presse les mains l'une contre l'autre en contractant les pectoraux. Commence doucement et augmente progressivement la tension. Respire normalement pendant la contraction.",
+   "Tiens le nombre de secondes prévu.",
+   "Relâche lentement la tension.",
+   "Récupère le temps prévu et recommence."
+  ]
+ },
+ "Isometric_Neck_Exercise_-_Front_And_Back": {
+  "name": "Isométrie du cou avant et arrière",
+  "instructions": [
+   "Tête et cou en position neutre (tête droite, regard devant), place tes deux mains sur ton front.",
+   "Pousse doucement la tête vers l'avant en contractant les muscles du cou, tout en résistant avec les mains pour empêcher tout mouvement. Commence doucement et augmente progressivement la tension. Respire normalement pendant la contraction.",
+   "Tiens le nombre de secondes prévu.",
+   "Relâche lentement la tension.",
+   "Récupère le temps prévu et recommence avec les mains placées derrière la tête."
+  ]
+ },
+ "Isometric_Neck_Exercise_-_Sides": {
+  "name": "Isométrie du cou latérale",
+  "instructions": [
+   "Tête et cou en position neutre (tête droite, regard devant), place la main gauche sur le côté gauche de ta tête.",
+   "Pousse doucement la tête vers la gauche en contractant les muscles du cou, tout en résistant avec la main pour empêcher tout mouvement. Commence doucement et augmente progressivement la tension. Respire normalement pendant la contraction.",
+   "Tiens le nombre de secondes prévu.",
+   "Relâche lentement la tension.",
+   "Récupère le temps prévu et recommence avec la main droite sur le côté droit de ta tête."
+  ]
+ },
+ "Isometric_Wipers": {
+  "name": "Essuie-glaces en position de pompe",
+  "instructions": [
+   "Mets-toi en position de pompe, en appui sur les mains et la pointe des pieds, corps droit. Tes mains sont juste un peu plus écartées que les épaules. C'est ta position de départ.",
+   "Déplace ton poids le plus possible d'un côté, en laissant le coude de ce côté se fléchir pour descendre.",
+   "Inverse le mouvement en tendant le bras fléchi, remonte puis descends de l'autre côté.",
+   "Répète pour le nombre de répétitions voulu."
+  ]
+ },
+ "JM_Press": {
+  "name": "JM press",
+  "instructions": [
+   "Commence comme pour un développé couché prise serrée : allongé sur un banc plat, barre tenue bras tendus, coudes serrés. Mais au lieu d'avoir les bras perpendiculaires au buste, place la barre à la verticale du haut de ta poitrine. C'est ta position de départ.",
+   "Depuis les bras tendus, descends la barre comme pour une barre au front, en inspirant. À mi-parcours, laisse la barre reculer de 2 à 3 cm en ramenant le haut des bras vers tes jambes, jusqu'à ce qu'ils soient perpendiculaires au buste. Conseil : garde le même angle aux coudes en avançant le haut des bras.",
+   "En expirant, repousse la barre vers le haut avec les triceps, comme pour un développé couché prise serrée.",
+   "Reviens à la position de départ et recommence.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Jackknife_Sit-Up": {
+  "name": "Relevé de buste en V (jackknife)",
+  "instructions": [
+   "Allonge-toi à plat sur le dos au sol (ou sur un tapis), bras tendus derrière la tête et jambes tendues. C'est ta position de départ.",
+   "En expirant, plie-toi à la taille en montant simultanément les jambes et les bras pour qu'ils se rejoignent, comme un couteau qui se replie. Conseil : jambes tendues, montées à environ 35 à 45 degrés du sol, bras tendus parallèles aux jambes. Le haut du buste décolle du sol.",
+   "En inspirant, redescends bras et jambes à la position de départ.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Janda_Sit-Up": {
+  "name": "Relevé de buste Janda",
+  "instructions": [
+   "Mets-toi au sol en position de relevé de buste classique : genoux à 90 degrés, pieds à plat, bras croisés sur la poitrine ou le long du corps. C'est ta position de départ.",
+   "Contracte fortement les fessiers et les ischio-jambiers, remplis tes poumons, puis monte lentement (sur trois à six secondes) en expirant doucement. Conseil : contracter les fessiers et les ischio-jambiers désactive les fléchisseurs de hanche par inhibition réciproque : les muscles opposés à ceux qui se contractent se relâchent.",
+   "En inspirant, redescends lentement et en contrôlant jusqu'à la position de départ.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Jefferson_Squats": {
+  "name": "Squat Jefferson",
+  "instructions": [
+   "Pose une barre au sol.",
+   "Place-toi à cheval au milieu de la barre, dans le sens de la longueur.",
+   "Descends en fléchissant les genoux, dos droit, et saisis l'avant de la barre de la main droite, en prise neutre, paume tournée vers la gauche.",
+   "Saisis l'arrière de la barre de la main gauche, en prise neutre, paume tournée vers la droite. Conseil : équilibre bien ta prise. Ton buste est au milieu de la barre, à égale distance de ta main droite (devant) et de ta main gauche (derrière).",
+   "Relève-toi avec la charge. Conseil : tes pieds sont écartés à largeur d'épaules, pointes légèrement tournées vers l'extérieur.",
+   "Descends en squat en fléchissant les genoux, dos droit, jusqu'à ce que tes cuisses soient parallèles au sol. Conseil : garde le dos le plus vertical possible et la tête haute, et ne laisse pas tes genoux dépasser tes orteils. Inspire pendant cette phase.",
+   "Remonte à la position de départ en poussant avec les pieds. Conseil : la barre pend au bout de tes bras, coudes tendus avec une légère flexion. Les bras ne servent que de crochets : c'est avec les cuisses que tu soulèves, pas avec les bras."
+  ]
+ },
+ "Jerk_Balance": {
+  "name": "Jerk balance",
+  "instructions": [
+   "Cet exercice t'apprend à descendre assez bas au jeté et corrige la tendance à reculer pendant le mouvement. Commence la barre en position de jeté, épaules avancées, buste droit, pieds légèrement en fente.",
+   "Lance le mouvement comme un jeté classique : fléchis les genoux en gardant le buste vertical, puis repousse avec force en utilisant l'élan, pas les bras, pour monter la charge.",
+   "Garde le pied arrière en place et sers-t'en pour propulser ton corps vers l'avant en fente complète pendant que tu jettes la charge. Relève-toi avec la charge au-dessus de la tête."
+  ]
+ },
+ "Jerk_Dip_Squat": {
+  "name": "Flexion de jeté",
+  "instructions": [
+   "Ce mouvement renforce la phase de flexion du jeté. Commence la barre en position de jeté, épaules avancées pour former un support, la barre effleurant la gorge. Pieds sous les hanches, tournés vers l'extérieur comme tu le sens.",
+   "Buste vertical, fléchis les genoux en les laissant avancer, sans reculer les hanches. La flexion ne doit pas être trop profonde. Remonte en poussant avec force dans les pieds."
+  ]
+ },
+ "Jogging_Treadmill": {
+  "name": "Jogging sur tapis de course",
+  "instructions": [
+   "Monte sur le tapis et choisis l'option voulue dans le menu. La plupart des tapis ont un mode manuel, ou tu peux choisir un programme. En général, tu peux saisir ton âge et ton poids pour estimer les calories dépensées. L'inclinaison peut être réglée pour modifier l'intensité.",
+   "Le tapis est pratique, bon pour le cœur et généralement moins traumatisant que le jogging en extérieur. Une personne de 70 kg brûle près de 250 calories en 30 minutes de jogging, contre plus de 450 en courant. Garde une bonne posture et ne tiens les poignées que si nécessaire, par exemple pour descendre ou mesurer ta fréquence cardiaque."
+  ]
+ },
+ "Keg_Load": {
+  "name": "Chargement de fûts",
+  "instructions": [
+   "Place le nombre de fûts voulu à distance de la plateforme de chargement, généralement 10 à 15 mètres.",
+   "Saisis la poignée la plus proche du premier fût et bascule-le sur le côté pour attraper le bord opposé du fond. Monte le fût contre ta poitrine.",
+   "Plus tu tiens le fût haut, plus tu peux avancer vite vers la plateforme. Le poser sur l'épaule est généralement interdit. Garde une prise ferme. Avance le plus vite possible jusqu'à la plateforme et charge le fût en tendant hanches, genoux et chevilles pour le monter le plus haut possible.",
+   "Retourne au départ chercher le fût suivant et répète jusqu'à la fin de l'épreuve."
+  ]
+ },
+ "Kettlebell_Arnold_Press": {
+  "name": "Développé Arnold au kettlebell",
+  "instructions": [
+   "Épaule un kettlebell : tends les jambes et les hanches en le montant vers l'épaule. La paume est tournée vers l'intérieur.",
+   "En regardant droit devant, pousse le kettlebell vers l'avant et au-dessus de ta tête, en tournant le poignet pour que la paume regarde vers l'avant en haut.",
+   "Ramène le kettlebell à la position de départ, paume vers l'intérieur."
+  ]
+ }
+}

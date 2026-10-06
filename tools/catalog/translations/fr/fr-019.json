@@ -1,0 +1,295 @@
+{
+ "Seated_Bent-Over_Two-Arm_Dumbbell_Triceps_Extension": {
+  "name": "Kickback triceps assis buste penché aux deux haltères",
+  "instructions": [
+   "Assieds-toi au bout d'un banc plat, un haltère dans chaque main en prise neutre (paumes vers toi).",
+   "Fléchis légèrement les genoux et penche le buste en avant depuis la taille, dos droit, jusqu'à ce qu'il soit presque parallèle au sol. Garde la tête haute.",
+   "Le haut des bras est près du buste et aligné avec lui (monté parallèle au sol), les avant-bras pointés vers le sol. Conseil : bras et avant-bras forment un angle de 90 degrés. C'est ta position de départ.",
+   "Le haut des bras immobile, monte la charge avec les triceps en expirant, jusqu'à ce que les avant-bras soient parallèles au sol et les bras complètement tendus. Seuls les avant-bras bougent.",
+   "Après une seconde de contraction en haut, redescends lentement les haltères à la position de départ en inspirant.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Seated_Cable_Rows": {
+  "name": "Rowing assis à la poulie",
+  "instructions": [
+   "Il te faut une machine de rowing à la poulie basse avec une poignée triangle, qui permet une prise neutre (paumes face à face). Assieds-toi sur la machine et place les pieds sur les appuis avant, genoux légèrement fléchis et non verrouillés.",
+   "Penche-toi en gardant l'alignement naturel du dos et saisis la poignée triangle.",
+   "Bras tendus, recule jusqu'à ce que ton buste forme un angle de 90 degrés avec tes jambes, dos légèrement cambré et poitrine sortie. Tu sens un bon étirement dans les grands dorsaux en tenant la poignée devant toi. C'est ta position de départ.",
+   "Buste immobile, tire la poignée vers ton buste, bras près du corps, jusqu'à toucher tes abdos. Expire pendant ce mouvement et serre fort les muscles du dos. Tiens la contraction une seconde, puis reviens lentement à la position de départ en inspirant.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Seated_Cable_Shoulder_Press": {
+  "name": "Développé épaules assis à la poulie",
+  "instructions": [
+   "Règle une charge adaptée et assieds-toi en tenant les poignées. Le haut de tes bras forme un angle d'environ 90 degrés avec ton corps, tête et poitrine hautes, coudes pliés à environ 90 degrés. C'est ta position de départ.",
+   "Tends les coudes pour pousser les poignées l'une vers l'autre au-dessus de ta tête.",
+   "Après une pause en haut, ramène les poignées à la position de départ en gardant les câbles en tension.",
+   "Tu peux aussi faire ce mouvement le dos décollé du dossier, ou en alternant les mains."
+  ]
+ },
+ "Seated_Calf_Raise": {
+  "name": "Mollets assis à la machine",
+  "instructions": [
+   "Assieds-toi sur la machine et pose l'avant des pieds sur le bas de la plateforme, talons dans le vide. Oriente les pointes de pieds vers l'avant, l'intérieur ou l'extérieur selon la zone ciblée.",
+   "Place le bas de tes cuisses sous le levier rembourré, réglé à la hauteur de tes cuisses. Pose les mains sur le levier pour l'empêcher de glisser vers l'avant.",
+   "Soulève légèrement le levier en montant les talons et libère la sécurité. C'est ta position de départ.",
+   "Descends lentement les talons en fléchissant les chevilles jusqu'à étirer complètement les mollets. Inspire pendant ce mouvement.",
+   "Monte les talons en tendant les chevilles le plus possible, en contractant les mollets et en expirant. Tiens la contraction une seconde en haut.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Seated_Close-Grip_Concentration_Barbell_Curl": {
+  "name": "Curl concentré assis à la barre prise serrée",
+  "instructions": [
+   "Assieds-toi sur un banc plat avec une barre droite ou EZ devant toi, entre tes jambes. Jambes écartées, genoux fléchis, pieds au sol.",
+   "Ramasse la barre et cale l'arrière du haut des bras contre l'intérieur des cuisses (à environ 9 cm de l'avant du genou). Prends une prise en supination plus serrée que les épaules. Conseil : tes bras sont tendus et la barre ne touche pas le sol. C'est ta position de départ.",
+   "Le haut des bras immobile, monte la barre en contractant les biceps et en expirant. Seuls les avant-bras bougent. Continue jusqu'à contraction complète des biceps, barre à hauteur d'épaules. Tiens une seconde en serrant les biceps.",
+   "Redescends lentement la barre à la position de départ en inspirant. Conseil : évite tout balancement.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Seated_Dumbbell_Curl": {
+  "name": "Curl assis aux haltères",
+  "instructions": [
+   "Assieds-toi sur un banc plat, un haltère dans chaque main, bras tendus. Les coudes restent près du buste.",
+   "Tourne les paumes vers ton buste. C'est ta position de départ.",
+   "Le haut des bras immobile, monte les haltères et, une fois les cuisses dépassées, tourne les poignets pour que les paumes regardent vers l'avant en fin de mouvement. Contracte les biceps en expirant ; seuls les avant-bras bougent. Continue jusqu'à contraction complète, haltères à hauteur d'épaules. Tiens une seconde en serrant les biceps.",
+   "Redescends lentement les haltères à la position de départ en inspirant, en ramenant les poignets en prise neutre.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Seated_Dumbbell_Inner_Biceps_Curl": {
+  "name": "Curl assis vers l'extérieur aux haltères",
+  "instructions": [
+   "Assieds-toi au bout d'un banc plat, un haltère dans chaque main, bras tendus. Les coudes restent près du buste.",
+   "Tourne les paumes vers l'intérieur, en prise neutre. C'est ta position de départ.",
+   "Le haut des bras immobile, monte les haltères vers l'extérieur et le haut en tournant les paumes vers l'extérieur, avant-bras alignés avec les deltoïdes latéraux.",
+   "Seuls les avant-bras bougent. Continue jusqu'à contraction complète des biceps, haltères à hauteur d'épaules. Tiens une seconde en serrant les biceps.",
+   "Redescends lentement les haltères à la position de départ en inspirant, en tournant les bras pour revenir en prise neutre.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Seated_Dumbbell_Palms-Down_Wrist_Curl": {
+  "name": "Extension des poignets assis aux haltères",
+  "instructions": [
+   "Pose deux haltères au sol devant un banc plat.",
+   "Assieds-toi au bord du banc, jambes écartées d'environ la largeur des épaules, pieds bien au sol.",
+   "Saisis les deux haltères et pose tes avant-bras sur tes cuisses, paumes vers le bas. Tes poignets dépassent du bord des cuisses.",
+   "Monte les poignets en expirant.",
+   "Redescends lentement les poignets à la position de départ, en inspirant pendant cette phase. Conseil : les avant-bras restent immobiles, seuls les poignets bougent.",
+   "Répète pour le nombre de répétitions prévu.",
+   "À la fin, repose simplement les haltères au sol."
+  ]
+ },
+ "Seated_Dumbbell_Palms-Up_Wrist_Curl": {
+  "name": "Curl poignets assis aux haltères",
+  "instructions": [
+   "Pose deux haltères au sol devant un banc plat.",
+   "Assieds-toi au bord du banc, jambes écartées d'environ la largeur des épaules, pieds bien au sol.",
+   "Saisis les deux haltères et pose tes avant-bras sur tes cuisses, paumes vers le haut. Tes poignets dépassent du bord des cuisses.",
+   "Enroule les poignets vers le haut en expirant.",
+   "Redescends lentement les poignets à la position de départ, en inspirant pendant cette phase. Conseil : les avant-bras restent immobiles, seuls les poignets bougent.",
+   "Répète pour le nombre de répétitions prévu.",
+   "À la fin, repose simplement les haltères au sol."
+  ]
+ },
+ "Seated_Dumbbell_Press": {
+  "name": "Développé épaules assis aux haltères",
+  "instructions": [
+   "Prends deux haltères et assieds-toi sur un banc de développé militaire ou un banc avec dossier, les haltères posés debout sur tes cuisses.",
+   "Monte les haltères un par un à hauteur d'épaules de chaque côté, en t'aidant des cuisses.",
+   "Tourne les poignets pour que tes paumes regardent vers l'avant. C'est ta position de départ.",
+   "En expirant, pousse les haltères vers le haut jusqu'à ce qu'ils se touchent.",
+   "Après une pause d'une seconde, redescends lentement à la position de départ en inspirant.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Seated_Flat_Bench_Leg_Pull-In": {
+  "name": "Ramené de jambes assis sur banc plat",
+  "instructions": [
+   "Assieds-toi sur un banc, jambes tendues devant toi légèrement sous l'horizontale, mains tenant les côtés du banc. Ton buste est penché en arrière à environ 45 degrés. C'est ta position de départ.",
+   "Ramène les genoux vers toi en rapprochant en même temps le buste. Expire pendant ce mouvement.",
+   "Après une pause d'une seconde, reviens à la position de départ en inspirant.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Seated_Good_Mornings": {
+  "name": "Good morning assis",
+  "instructions": [
+   "Installe une box dans une cage, sécurités à la bonne hauteur. Passe sous la barre et place-la en travers de l'arrière des épaules, pas sur les trapèzes. Serre les omoplates et tourne les coudes vers l'avant, comme pour plier la barre sur tes épaules.",
+   "Décroche la barre en cambrant fermement le bas du dos, regard devant. Dos, épaules et tronc gainés, pousse les genoux et les fesses vers l'extérieur pour commencer la descente. Recule les hanches jusqu'à être assis sur la box. C'est ta position de départ.",
+   "Barre bien plaquée, penche-toi en avant depuis les hanches autant que possible. Si les sécurités sont réglées à hauteur de la parallèle, elles te protègent en cas d'échec et t'indiquent quand t'arrêter.",
+   "Marque une pause juste au-dessus des sécurités et inverse le mouvement jusqu'à avoir le buste droit."
+  ]
+ },
+ "Seated_Head_Harness_Neck_Resistance": {
+  "name": "Flexion du cou au harnais assis",
+  "instructions": [
+   "Pose un harnais de nuque au sol au bout d'un banc plat. Une fois les charges choisies, assieds-toi au bout du banc, pieds plus écartés que les épaules, pointes tournées vers l'extérieur.",
+   "Penche lentement le buste en avant jusqu'à ce qu'il soit presque parallèle au sol. À deux mains, place bien le harnais autour de ta tête. Conseil : laisse les charges au sol à ce moment-là pour ne pas forcer sur la nuque. Saisis ensuite la charge à deux mains en redressant le buste jusqu'à ce qu'il soit presque vertical. Remarque : ta tête et ton buste restent légèrement penchés en avant pendant l'exercice.",
+   "Pose les deux mains sur tes genoux. C'est ta position de départ.",
+   "Baisse lentement la tête jusqu'à ce que ton menton touche le haut de ta poitrine, en inspirant.",
+   "En expirant, ramène la tête à la position de départ.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Seated_Leg_Curl": {
+  "name": "Leg curl assis",
+  "instructions": [
+   "Règle le levier de la machine à ta taille et assieds-toi, le dos contre le dossier.",
+   "Pose l'arrière du bas des jambes sur le levier rembourré, quelques centimètres sous les mollets, et serre l'appui de cuisses juste au-dessus des genoux. Saisis les poignées latérales, pointes de pieds droites (ou tournées selon la zone ciblée), jambes complètement tendues devant toi. C'est ta position de départ.",
+   "En expirant, ramène le levier le plus loin possible sous tes cuisses en fléchissant les genoux. Garde le buste immobile en permanence. Tiens la contraction une seconde.",
+   "Reviens lentement à la position de départ en inspirant.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Seated_Leg_Tucks": {
+  "name": "Ramené de genoux assis",
+  "instructions": [
+   "Assieds-toi sur un banc, jambes tendues devant toi légèrement sous l'horizontale, mains tenant les côtés du banc. Ton buste est penché en arrière à environ 45 degrés. C'est ta position de départ.",
+   "Ramène les genoux vers toi en rapprochant en même temps le buste. Expire pendant ce mouvement.",
+   "Après une pause d'une seconde, reviens à la position de départ en inspirant.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Seated_One-Arm_Dumbbell_Palms-Down_Wrist_Curl": {
+  "name": "Extension du poignet assis unilatérale à l'haltère",
+  "instructions": [
+   "Assieds-toi sur un banc plat, un haltère dans la main droite.",
+   "Pose les pieds à plat au sol, un peu plus écartés que les épaules.",
+   "Penche-toi en avant et pose l'avant-bras droit sur le haut de ta cuisse droite, paume vers le bas. Conseil : le dos du poignet repose sur ton genou. C'est ta position de départ.",
+   "Descends l'haltère le plus bas possible en gardant une prise ferme. Inspire pendant ce mouvement.",
+   "Monte l'haltère le plus haut possible en contractant l'avant-bras et en expirant. Tiens la contraction une seconde avant de redescendre. Conseil : seul le poignet bouge.",
+   "Fais le nombre de répétitions prévu, puis change de bras et recommence."
+  ]
+ },
+ "Seated_One-Arm_Dumbbell_Palms-Up_Wrist_Curl": {
+  "name": "Curl poignet assis unilatéral à l'haltère",
+  "instructions": [
+   "Assieds-toi sur un banc plat, un haltère dans la main droite.",
+   "Pose les pieds à plat au sol, un peu plus écartés que les épaules.",
+   "Penche-toi en avant et pose l'avant-bras droit sur le haut de ta cuisse droite, paume vers le haut. Conseil : l'intérieur du poignet repose sur ton genou. C'est ta position de départ.",
+   "Descends l'haltère le plus bas possible en gardant une prise ferme. Inspire pendant ce mouvement.",
+   "Monte l'haltère le plus haut possible en contractant l'avant-bras et en expirant. Tiens la contraction une seconde avant de redescendre. Conseil : seul le poignet bouge.",
+   "Fais le nombre de répétitions prévu, puis change de bras et recommence."
+  ]
+ },
+ "Seated_One-arm_Cable_Pulley_Rows": {
+  "name": "Rowing assis unilatéral à la poulie",
+  "instructions": [
+   "Assieds-toi sur la machine et place les pieds sur les appuis avant, genoux légèrement fléchis et non verrouillés.",
+   "Penche-toi en gardant l'alignement naturel du dos et saisis la poignée simple de la main gauche, en pronation.",
+   "Bras tendu, recule jusqu'à ce que ton buste forme un angle de 90 degrés avec tes jambes, dos légèrement cambré et poitrine sortie. Tu sens un bon étirement dans le grand dorsal en tenant la poignée devant toi. Le bras droit peut rester à la taille. C'est ta position de départ.",
+   "Buste immobile, tire la poignée vers ton buste, bras près du corps, en tournant le poignet pour arriver en prise neutre (paume vers le buste) au niveau des abdos. Expire pendant ce mouvement et serre fort les muscles du dos.",
+   "Tiens la contraction une seconde, puis reviens lentement à la position de départ en inspirant. Conseil : retourne le poignet en revenant pour que la paume regarde à nouveau vers le bas.",
+   "Répète pour le nombre de répétitions prévu, puis fais de même avec la main droite."
+  ]
+ },
+ "Seated_Palm-Up_Barbell_Wrist_Curl": {
+  "name": "Curl poignets assis à la barre",
+  "instructions": [
+   "Tiens une barre à deux mains, paumes vers le haut, mains écartées d'environ la largeur des épaules.",
+   "Pose les pieds à plat au sol, un peu plus écartés que les épaules.",
+   "Penche-toi en avant et pose tes avant-bras sur le haut de tes cuisses, paumes vers le haut. Conseil : l'intérieur des poignets repose sur tes genoux. C'est ta position de départ.",
+   "Descends la barre le plus bas possible en inspirant, en gardant une prise ferme.",
+   "Monte la barre le plus haut possible en contractant les avant-bras et en expirant. Tiens la contraction une seconde en haut. Conseil : seuls les poignets bougent."
+  ]
+ },
+ "Seated_Palms-Down_Barbell_Wrist_Curl": {
+  "name": "Extension des poignets assis à la barre",
+  "instructions": [
+   "Tiens une barre à deux mains, paumes vers le bas, mains écartées d'environ la largeur des épaules.",
+   "Pose les pieds à plat au sol, un peu plus écartés que les épaules.",
+   "Penche-toi en avant et pose tes avant-bras sur le haut de tes cuisses, paumes vers le bas. Conseil : le dos des poignets repose sur tes genoux. C'est ta position de départ.",
+   "Descends la barre le plus bas possible en inspirant, en gardant une prise ferme.",
+   "Monte la barre le plus haut possible en contractant les avant-bras et en expirant. Tiens la contraction une seconde en haut. Conseil : seuls les poignets bougent."
+  ]
+ },
+ "Seated_Side_Lateral_Raise": {
+  "name": "Élévations latérales assis",
+  "instructions": [
+   "Prends deux haltères et assieds-toi au bout d'un banc plat, pieds bien au sol. Tiens les haltères paumes vers l'intérieur, bras tendus le long du corps. C'est ta position de départ.",
+   "Buste immobile (sans balancer), monte les haltères sur les côtés, coudes légèrement fléchis et mains légèrement inclinées vers l'avant comme pour verser de l'eau dans un verre. Continue jusqu'à ce que les bras soient parallèles au sol. Expire pendant ce mouvement et marque une pause d'une seconde en haut.",
+   "Redescends lentement les haltères à la position de départ en inspirant.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Seated_Triceps_Press": {
+  "name": "Extension triceps assis à l'haltère",
+  "instructions": [
+   "Assieds-toi sur un banc avec dossier, saisis un haltère à deux mains et tiens-le au-dessus de ta tête, bras tendus. Conseil : idéalement, fais-toi passer l'haltère, surtout s'il est lourd. Le disque repose dans tes paumes, les pouces autour de la barre, paumes vers l'intérieur. C'est ta position de départ.",
+   "Haut des bras près de la tête (coudes serrés) et perpendiculaire au sol, descends la charge en demi-cercle derrière ta tête jusqu'à ce que tes avant-bras touchent tes biceps. Conseil : le haut des bras reste immobile, seuls les avant-bras bougent. Inspire pendant cette étape.",
+   "Remonte l'haltère à la position de départ avec les triceps. Expire pendant cette étape.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl": {
+  "name": "Curl poignets assis à la poulie basse",
+  "instructions": [
+   "Place un banc devant une poulie basse équipée d'une barre droite ou EZ.",
+   "Éloigne suffisamment le banc pour que le câble soit en tension (la charge décollée) quand tu ramènes la barre sur tes cuisses.",
+   "Tiens la barre à deux mains, paumes vers le haut, prise à largeur d'épaules.",
+   "Recule et assieds-toi sur le banc, pieds écartés à largeur d'épaules et bien à plat.",
+   "Penche-toi en avant et pose tes avant-bras sur tes cuisses, poignets dépassant des genoux. C'est ta position de départ.",
+   "Descends la barre le plus bas possible en inspirant, en gardant une prise ferme.",
+   "Monte la barre le plus haut possible en contractant les avant-bras. Conseil : seuls les poignets bougent, pas les avant-bras.",
+   "Après une seconde de contraction en haut, reviens à la position de départ en inspirant.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "See-Saw_Press_Alternating_Side_Press": {
+  "name": "Développé en balançoire (développé latéral alterné)",
+  "instructions": [
+   "Prends un haltère dans chaque main et tiens-toi droit.",
+   "Monte les haltères à hauteur de poitrine et d'épaules, puis tourne les poignets pour que tes paumes soient tournées vers toi, comme au départ d'un développé Arnold. C'est ta position de départ.",
+   "Tends le bras gauche au-dessus de ta tête en tournant le poignet pour que la paume regarde vers l'avant en haut, coude écarté pendant la montée. En même temps, penche-toi depuis la hanche du côté opposé. Conseil : bien exécuté, c'est comme si tu voulais attraper quelque chose en hauteur à ta droite avec ton bras gauche. Expire pendant ce mouvement.",
+   "Une fois en haut, inspire. Ensuite, la charge bras tendu au-dessus de la tête et penché à droite, commence le mouvement vers la gauche.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Shotgun_Row": {
+  "name": "Shotgun row à la poulie",
+  "instructions": [
+   "Accroche une poignée simple à une poulie basse.",
+   "Choisis la charge et recule d'environ 60 cm, en fente large. Ton bras est tendu et ton épaule en avant. C'est ta position de départ.",
+   "Serre l'omoplate et plie le coude. Pendant le tirage, tourne le poignet en supination, paume vers le haut.",
+   "Après une brève pause, reviens à la position de départ."
+  ]
+ },
+ "Shoulder_Press_-_With_Bands": {
+  "name": "Développé épaules à l'élastique",
+  "instructions": [
+   "Place-toi sur un élastique pour qu'il soit en tension bras tendus. Saisis les poignées et monte-les à hauteur d'épaules, de chaque côté.",
+   "Tourne les poignets pour que tes paumes regardent vers l'avant. Coudes pliés, haut des bras et avant-bras alignés avec le buste. C'est ta position de départ.",
+   "En expirant, monte les poignées jusqu'à avoir les bras complètement tendus au-dessus de la tête."
+  ]
+ },
+ "Side_Bridge": {
+  "name": "Gainage latéral",
+  "instructions": [
+   "Allonge-toi sur le côté, jambes tendues et superposées, en appui sur l'avant-bras, coude juste sous l'épaule.",
+   "Décolle les hanches du sol pour que ton corps forme une ligne droite de la tête aux pieds. C'est la position à tenir.",
+   "Garde les abdos et les fessiers contractés et respire normalement, sans laisser les hanches s'affaisser.",
+   "Tiens le temps prévu, puis change de côté."
+  ]
+ },
+ "Side_Hop-Sprint": {
+  "name": "Sauts latéraux puis sprint",
+  "instructions": [
+   "Tiens-toi à côté d'un plot ou d'une haie.",
+   "Saute latéralement par-dessus l'obstacle, puis rebondis dès la réception pour revenir à ton point de départ.",
+   "Enchaîne le nombre de sauts prévu le plus vite possible, puis termine par un court sprint dès la réception du dernier saut."
+  ]
+ },
+ "Side_Jackknife": {
+  "name": "Jackknife latéral",
+  "instructions": [
+   "Allonge-toi sur le côté droit, jambes tendues et superposées, le bras droit au sol devant toi et la main gauche derrière la tête. C'est ta position de départ.",
+   "En expirant, monte en même temps la jambe gauche tendue et le buste, pour rapprocher ton coude gauche de ton genou gauche, en contractant les obliques.",
+   "Redescends lentement à la position de départ en inspirant.",
+   "Répète pour le nombre de répétitions prévu, puis change de côté."
+  ]
+ }
+}

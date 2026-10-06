@@ -1,0 +1,244 @@
+{
+ "Calf_Press_On_The_Leg_Press_Machine": {
+  "name": "Mollets à la presse à cuisses",
+  "instructions": [
+   "Assieds-toi sur la presse à cuisses et place les pieds sur la plateforme devant toi, écartés à largeur d'épaules.",
+   "Abaisse les sécurités qui retiennent la plateforme et pousse-la jusqu'à avoir les jambes tendues devant toi, sans verrouiller les genoux. (Sur certaines presses, tu peux laisser les sécurités en place : si c'est le cas, c'est la méthode à privilégier.) Ton buste et tes jambes forment un angle de 90 degrés. Place ensuite avec précaution les orteils et l'avant des pieds sur le bas de la plateforme, talons dans le vide. Les pointes de pieds sont tournées vers l'avant, l'extérieur ou l'intérieur selon la partie du mollet que tu veux cibler. C'est ta position de départ.",
+   "Pousse la plateforme en montant les talons et en expirant : tends les chevilles le plus possible en contractant les mollets. Garde les genoux immobiles en permanence, sans jamais les plier. Tiens la contraction une seconde avant de redescendre.",
+   "Reviens lentement à la position de départ en inspirant, en baissant les talons jusqu'à étirer les mollets.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Calf_Raise_On_A_Dumbbell": {
+  "name": "Mollets debout sur un haltère",
+  "instructions": [
+   "Tiens-toi à un support solide pour l'équilibre et monte sur la poignée d'un haltère, idéalement avec des disques ronds pour qu'il roule : tu dois alors davantage te stabiliser, ce qui rend l'exercice plus efficace.",
+   "Fais rouler légèrement ton pied vers l'avant pour bien étirer le mollet. C'est ta position de départ.",
+   "Monte sur la pointe en faisant rouler ton pied par-dessus la poignée jusqu'à l'extension complète. Expire pendant ce mouvement. Contracte fort le mollet en haut et tiens une seconde. Conseil : en montant, fais rouler légèrement l'haltère vers l'arrière.",
+   "Inspire en faisant rouler l'haltère légèrement vers l'avant pendant la descente, pour mieux étirer.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Calf_Raises_-_With_Bands": {
+  "name": "Mollets debout à l'élastique",
+  "instructions": [
+   "Prends un élastique et place-toi dessus avec l'avant des pieds, en vérifiant que la longueur entre pieds et mains est la même des deux côtés.",
+   "En tenant les poignées, monte les mains de chaque côté de la tête comme pour un développé épaules. Les paumes regardent vers l'avant, coudes pliés et écartés. L'élastique est ainsi en tension. C'est ta position de départ.",
+   "Mains à hauteur d'épaules, monte sur la pointe des pieds en expirant et contracte fort les mollets en haut du mouvement.",
+   "Après une seconde de contraction, redescends lentement à la position de départ.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Car_Deadlift": {
+  "name": "Soulevé de terre de voiture",
+  "instructions": [
+   "Cet agrès de strongman a généralement des poignées en prise neutre, mais certains ont une barre droite que tu abordes comme un soulevé de terre classique. Il peut être chargé avec un véhicule ou d'autres objets lourds comme des pneus de tracteur ou des fûts.",
+   "Place-toi au centre des poignées si tu es fort en squat, ou quelques centimètres en arrière si tu es fort en soulevé de terre. Tes pieds sont écartés d'environ la largeur des hanches. Penche-toi depuis les hanches pour saisir les poignées. Pieds et prise en place, prends une grande inspiration, baisse les hanches et fléchis les genoux.",
+   "Regarde devant toi, poitrine haute et dos cambré, puis pousse dans les talons pour monter la charge. Pendant la montée, serre les omoplates en avançant les hanches.",
+   "Redescends la charge en te penchant depuis les hanches et en la guidant jusqu'au sol."
+  ]
+ },
+ "Car_Drivers": {
+  "name": "Volant avec disque",
+  "instructions": [
+   "Debout, tiens un disque à deux mains, à 3 h et 9 h. Tes paumes sont face à face et tes bras tendus droit devant toi. C'est ta position de départ.",
+   "Fais pivoter le disque le plus loin possible d'un côté, comme si tu tournais un volant.",
+   "Inverse le mouvement en tournant jusqu'au bout de l'autre côté.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Carioca_Quick_Step": {
+  "name": "Pas croisés carioca",
+  "instructions": [
+   "Commence pieds écartés de quelques centimètres, bras gauche levé, en position athlétique détendue.",
+   "Avec le pied droit, fais un pas rapide croisé derrière et monte le genou.",
+   "Relance les bras vers le haut quand tu montes le genou droit, en veillant à ce que le genou monte et descende bien à la verticale. Ne tourne pas les pieds en avançant et continue de regarder devant toi en te déplaçant sur le côté."
+  ]
+ },
+ "Catch_and_Overhead_Throw": {
+  "name": "Réception et lancer au-dessus de la tête",
+  "instructions": [
+   "Tiens-toi debout face à un mur ou à un partenaire.",
+   "À deux mains, place le ballon derrière ta tête en t'étirant au maximum, et lance-le avec force vers l'avant.",
+   "Accompagne bien ton lancer et prépare-toi à recevoir le rebond. Si tu lances contre un mur, tiens-toi assez près pour recevoir le rebond et vise un peu plus haut qu'avec un partenaire."
+  ]
+ },
+ "Chain_Handle_Extension": {
+  "name": "Extension triceps avec chaînes",
+  "instructions": [
+   "Il te faut deux poignées de poulie, un banc plat et des chaînes. Accroche le milieu des chaînes aux poignées et installe-toi sur le banc plat, coudes pointés vers le plafond.",
+   "Tends les coudes en gardant le haut des bras immobile, poignets en pronation.",
+   "Marque une pause bras tendus, puis inverse le mouvement pour revenir à la position de départ."
+  ]
+ },
+ "Chain_Press": {
+  "name": "Développé avec chaînes",
+  "instructions": [
+   "Accroche les chaînes aux poignées de poulie. Installe-toi sur le banc plat comme pour un développé aux haltères, poignets en pronation et bras perpendiculaires au sol. C'est ta position de départ.",
+   "Descends les chaînes en fléchissant les coudes : une partie de la chaîne se pose au sol.",
+   "Continue jusqu'à ce que tes coudes forment un angle de 90 degrés, puis inverse le mouvement en tendant les coudes jusqu'au verrouillage."
+  ]
+ },
+ "Chair_Squat": {
+  "name": "Squat chaise",
+  "instructions": [
+   "Règle d'abord la barre à la hauteur qui te convient. Une fois la barre chargée, passe dessous et place-la en travers du haut du dos.",
+   "Saisis la barre, paumes vers l'avant, décroche-la et soulève-la du support en tendant les jambes.",
+   "Avance les pieds d'environ 45 cm devant la barre. Place-les à largeur d'épaules, pointes légèrement tournées vers l'extérieur. Regarde devant toi en permanence et garde le dos neutre ou légèrement cambré. C'est ta position de départ.",
+   "Descends lentement en fléchissant les genoux, buste droit et tête haute. Continue jusqu'à ce que l'angle entre cuisse et jambe passe sous les 90 degrés.",
+   "Remonte en expirant, en poussant le sol avec les talons et en tendant les genoux jusqu'à la position de départ.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Chest_Push_from_3_point_stance": {
+  "name": "Lancer poitrine depuis une position à 3 appuis",
+  "instructions": [
+   "Mets-toi en position à trois appuis : accroupi, dos plat, une main au sol. Place le médecine-ball juste devant toi.",
+   "Fais ton premier pas en ramenant le ballon contre ta poitrine, les deux mains en place pour le lancer.",
+   "Au deuxième pas, projette le ballon vers l'avant de façon explosive, le plus fort possible."
+  ]
+ },
+ "Chest_Push_multiple_response": {
+  "name": "Lancer poitrine enchaîné",
+  "instructions": [
+   "Mets-toi à genoux face à un mur ou à un partenaire. Tiens le ballon à deux mains, serré contre la poitrine.",
+   "Fais la passe en projetant les hanches vers l'avant et l'extérieur de façon explosive, en poussant le ballon le plus fort possible.",
+   "Accompagne le mouvement en basculant vers l'avant et rattrape-toi avec les mains.",
+   "Reviens immédiatement en position redressée. Répète pour le nombre de répétitions voulu."
+  ]
+ },
+ "Chest_Push_single_response": {
+  "name": "Lancer poitrine",
+  "instructions": [
+   "Mets-toi à genoux en tenant le médecine-ball à deux mains, serré contre la poitrine.",
+   "Fais la passe en projetant les hanches vers l'avant et l'extérieur de façon explosive, en poussant le ballon le plus loin possible.",
+   "Accompagne le mouvement en basculant vers l'avant et rattrape-toi avec les mains."
+  ]
+ },
+ "Chest_Push_with_Run_Release": {
+  "name": "Lancer poitrine suivi d'un sprint",
+  "instructions": [
+   "Mets-toi en position athlétique : genoux fléchis, hanches en arrière, dos plat. Tiens le médecine-ball près des jambes. C'est ta position de départ.",
+   "En faisant ton premier pas, ramène le ballon contre ta poitrine.",
+   "Au deuxième pas, pousse le ballon vers l'avant de façon explosive, puis sprinte immédiatement sur une dizaine de mètres. Si tu es vraiment rapide, tu peux rattraper ta propre passe !"
+  ]
+ },
+ "Chin-Up": {
+  "name": "Traction en supination",
+  "instructions": [
+   "Saisis la barre de traction paumes vers toi, avec une prise plus serrée que la largeur des épaules.",
+   "Bras tendus devant toi tenant la barre, garde le buste le plus droit possible en cambrant le bas du dos et en sortant la poitrine. C'est ta position de départ. Conseil : garder le buste droit sollicite davantage les biceps et moins le dos.",
+   "En expirant, monte le buste jusqu'à ce que ta tête soit environ au niveau de la barre. Concentre-toi sur les biceps pour faire le mouvement et garde les coudes près du corps. Conseil : le haut du corps ne fait que se déplacer, seuls les bras travaillent. Les avant-bras ne font que tenir la barre.",
+   "Après une seconde en serrant les biceps en position haute, redescends lentement jusqu'à la position de départ, bras complètement tendus. Inspire pendant cette phase.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Circus_Bell": {
+  "name": "Circus bell",
+  "instructions": [
+   "Le circus bell est un haltère surdimensionné à poignée épaisse. Commence avec l'haltère entre tes pieds et saisis la poignée à deux mains.",
+   "Épaule l'haltère en tendant les hanches et les genoux pour l'amener sur l'épaule voulue, puis lâche la main qui ne sert plus.",
+   "Place une des têtes de l'haltère derrière l'épaule pour ne pas être déséquilibré. Pour le monter au-dessus de la tête, fléchis légèrement les genoux puis pousse vers le haut en tendant l'haltère, en te penchant un peu du côté opposé.",
+   "Redescends l'haltère au sol avec précaution, en le contrôlant le plus possible. Fais cet exercice sur un tapis en caoutchouc épais pour ne pas abîmer le sol."
+  ]
+ },
+ "Clean": {
+  "name": "Épaulé",
+  "instructions": [
+   "La barre au sol près des tibias, saisis-la en pronation (ou prise crochet) juste à l'extérieur des jambes. Baisse les hanches avec le poids sur les talons, dos droit, regard devant, poitrine haute, épaules juste devant la barre. C'est ta position de départ.",
+   "",
+   "Lance le premier tirage en poussant dans les talons et en tendant les genoux. L'angle du dos ne change pas et les bras restent tendus. Monte la charge en contrôlant jusqu'au-dessus des genoux.",
+   "Vient ensuite le deuxième tirage, principale source d'accélération de l'épaulé. Quand la barre arrive à mi-cuisse, commence à tendre les hanches. Comme pour un saut, accélère en tendant hanches, genoux et chevilles, en utilisant la vitesse pour monter la barre. Inutile de tirer activement avec les bras : en fin de deuxième tirage, le corps est complètement tendu, légèrement penché en arrière, bras toujours tendus.",
+   "À l'extension complète, enchaîne sur le troisième tirage en haussant franchement les épaules et en pliant les bras, coudes hauts et écartés. Au sommet de l'extension, tire-toi vigoureusement sous la barre en faisant passer les coudes dessous. Réceptionne la barre en position de squat avant, plus ou moins profond selon la hauteur atteinte par la barre. La barre repose sur les épaules avancées, effleurant la gorge, mains relâchées. Descends jusqu'en bas du squat, ce qui aide à la remontée.",
+   "Remonte immédiatement en poussant dans les talons, buste droit et coudes hauts, jusqu'à être debout."
+  ]
+ },
+ "Clean_Deadlift": {
+  "name": "Soulevé de terre d'épaulé",
+  "instructions": [
+   "Tiens-toi debout, la barre près des tibias, pieds sous les hanches et légèrement tournés vers l'extérieur. Saisis la barre en double pronation ou en prise crochet, à environ la largeur des épaules. Descends jusqu'à la barre. Ta colonne est en extension complète, les épaules devant la barre et le dos le plus vertical possible.",
+   "Pousse le sol avec l'avant des talons. Pendant la montée de la barre, garde l'angle du dos constant. Écarte les genoux pour les sortir de la trajectoire de la barre.",
+   "Une fois la barre au-dessus des genoux, termine en poussant les hanches vers la barre jusqu'à avoir hanches et genoux tendus."
+  ]
+ },
+ "Clean_Pull": {
+  "name": "Tirage d'épaulé",
+  "instructions": [
+   "La barre au sol près des tibias, saisis-la en pronation ou en prise crochet juste à l'extérieur des jambes. Baisse les hanches avec le poids sur les talons, dos droit, regard devant, poitrine haute, épaules juste devant la barre. C'est ta position de départ.",
+   "Lance le premier tirage en poussant dans les talons et en tendant les genoux. L'angle du dos ne change pas, les bras restent tendus et les coudes tournés vers l'extérieur. Monte la charge en contrôlant jusqu'au-dessus des genoux.",
+   "Vient ensuite le deuxième tirage, principale source d'accélération de l'épaulé. Quand la barre arrive à mi-cuisse, commence à tendre les hanches. Comme pour un saut, accélère en tendant hanches, genoux et chevilles, en utilisant la vitesse pour monter la barre. Inutile de tirer activement avec les bras : en fin de tirage, le corps est complètement tendu, légèrement penché en arrière, bras toujours tendus. L'extension doit être violente et brève, sans la prolonger plus que nécessaire."
+  ]
+ },
+ "Clean_Shrug": {
+  "name": "Shrug d'épaulé",
+  "instructions": [
+   "Commence avec une prise à largeur d'épaules, en double pronation ou en prise crochet, la barre à mi-cuisse. Ton dos est droit et légèrement penché en avant.",
+   "Hausse les épaules vers les oreilles. Cet exercice se fait généralement plus lourd qu'un épaulé, mais évite de charger au point de ralentir l'exécution."
+  ]
+ },
+ "Clean_and_Jerk": {
+  "name": "Épaulé-jeté",
+  "instructions": [
+   "La barre au sol près des tibias, saisis-la en pronation ou en prise crochet juste à l'extérieur des jambes. Baisse les hanches avec le poids sur les talons, dos droit, regard devant, poitrine haute, épaules juste devant la barre. C'est ta position de départ.",
+   "Lance le premier tirage en poussant dans les talons et en tendant les genoux. L'angle du dos ne change pas et les bras restent tendus. Monte la charge en contrôlant jusqu'au-dessus des genoux.",
+   "Vient ensuite le deuxième tirage, principale source d'accélération de l'épaulé. Quand la barre arrive à mi-cuisse, commence à tendre les hanches. Comme pour un saut, accélère en tendant hanches, genoux et chevilles, en utilisant la vitesse pour monter la barre. Inutile de tirer activement avec les bras : en fin de deuxième tirage, le corps est complètement tendu, légèrement penché en arrière, bras toujours tendus.",
+   "À l'extension complète, enchaîne sur le troisième tirage en haussant franchement les épaules et en pliant les bras, coudes hauts et écartés. Au sommet de l'extension, tire-toi vigoureusement sous la barre en faisant passer les coudes dessous. Réceptionne la barre en position de squat avant, plus ou moins profond selon la hauteur atteinte par la barre. La barre repose sur les épaules avancées, effleurant la gorge, mains relâchées. Descends jusqu'en bas du squat, ce qui aide à la remontée.",
+   "Remonte immédiatement en poussant dans les talons, buste droit et coudes hauts, jusqu'à être debout.",
+   "La deuxième phase est le jeté, qui monte la charge au-dessus de la tête. Debout, la barre posée sur l'avant des épaules, commence par la flexion : pieds sous les hanches, fléchis les genoux sans reculer les hanches. Descends seulement un peu, puis inverse le mouvement le plus puissamment possible.",
+   "Pousse dans les talons pour créer le plus de vitesse et de force possible, et écarte la tête de la trajectoire quand la barre quitte les épaules.",
+   "Au moment où les pieds quittent le sol, place-les le plus vite possible en position de réception : pendant ce bref instant, ta poussée sur la barre te fait descendre sous elle. Les pieds sont en fente, un devant, un derrière. Réceptionne la barre bras verrouillés au-dessus de la tête, puis reviens en position debout."
+  ]
+ },
+ "Clean_and_Press": {
+  "name": "Épaulé-développé",
+  "instructions": [
+   "Pieds écartés à largeur d'épaules, genoux à l'intérieur des bras. Dos plat, fléchis les genoux et les hanches pour saisir la barre bras tendus, en pronation, un peu plus large que les épaules. Coudes tournés vers l'extérieur, barre près des tibias, épaules au-dessus ou légèrement devant la barre, dos plat. C'est ta position de départ.",
+   "Commence à tirer la barre en tendant les genoux. Avance les hanches et monte les épaules au même rythme en gardant l'angle du dos constant ; continue à monter la barre droit, près du corps.",
+   "Quand la barre passe les genoux, tends chevilles, genoux et hanches avec force, comme pour un saut. Continue à guider la barre avec les mains en haussant les épaules et en profitant de l'élan pour la tirer le plus haut possible. La barre reste près du corps et les coudes écartés.",
+   "Au point le plus haut, tes pieds quittent le sol et tu commences à te tirer sous la barre. La technique peut varier un peu selon la charge. Descends en position de squat en passant sous la barre.",
+   "Quand la barre atteint sa hauteur maximale, fais tourner les coudes autour et sous la barre. Pose la barre sur l'avant des épaules en gardant le buste droit et en fléchissant hanches et genoux pour amortir.",
+   "Relève-toi complètement, la barre en position d'épaulé.",
+   "Sans bouger les pieds, pousse la barre au-dessus de ta tête en expirant. Redescends la barre en contrôlant."
+  ]
+ },
+ "Clean_from_Blocks": {
+  "name": "Épaulé depuis les blocs",
+  "instructions": [
+   "La barre posée sur des blocs à la hauteur voulue, saisis-la en pronation ou en prise crochet juste à l'extérieur des jambes. Baisse les hanches avec le poids sur les talons, dos droit, regard devant, poitrine haute, épaules juste devant la barre. C'est ta position de départ.",
+   "Lance le premier tirage en poussant dans les talons et en tendant les genoux. L'angle du dos ne change pas et les bras restent tendus, coudes tournés vers l'extérieur.",
+   "À l'extension complète, enchaîne sur la réception en haussant franchement les épaules et en pliant les bras, coudes hauts et écartés. Tire-toi vigoureusement sous la barre en faisant passer les coudes dessous. Réceptionne la barre en position de squat avant, plus ou moins profond selon la hauteur atteinte par la barre. La barre repose sur les épaules avancées, effleurant la gorge, mains relâchées. Descends jusqu'en bas du squat, ce qui aide à la remontée.",
+   "Remonte immédiatement en poussant dans les talons, buste droit et coudes hauts, jusqu'à être debout. Repose la barre sur les blocs pour la répétition suivante."
+  ]
+ },
+ "Clock_Push-Up": {
+  "name": "Pompes horloge",
+  "instructions": [
+   "Allonge-toi face au sol, en appui sur les mains et la pointe des pieds.",
+   "Tes bras sont tendus, mains écartées à environ la largeur des épaules. Garde le corps droit pendant tout le mouvement. C'est ta position de départ.",
+   "Descends en fléchissant les coudes pour approcher la poitrine du sol.",
+   "En bas, inverse le mouvement en tendant les coudes le plus vite possible jusqu'à décoller du sol. Essaie de « sauter » de 30 à 45 cm sur le côté.",
+   "Pendant la poussée, écarte le pied extérieur dans le sens opposé au déplacement. En décollant, fais pivoter ton corps d'environ 30 degrés pour la répétition suivante.",
+   "Reviens en position de départ et répète l'exercice, en faisant le tour complet jusqu'à revenir à ton point de départ."
+  ]
+ },
+ "Close-Grip_Barbell_Bench_Press": {
+  "name": "Développé couché prise serrée",
+  "instructions": [
+   "Allonge-toi sur un banc plat. Avec une prise serrée (environ la largeur des épaules), sors la barre du support et tiens-la au-dessus de toi, bras tendus. C'est ta position de départ.",
+   "En inspirant, descends lentement jusqu'à sentir la barre au milieu de ta poitrine. Conseil : contrairement au développé couché classique, garde les coudes près du buste en permanence pour solliciter au maximum les triceps.",
+   "Après une pause d'une seconde, remonte la barre à la position de départ en expirant, en poussant avec les triceps. Tends les bras, tiens une seconde, puis redescends lentement. Conseil : la descente doit durer au moins deux fois plus longtemps que la montée.",
+   "Répète le mouvement pour le nombre de répétitions prévu.",
+   "Quand tu as terminé, repose la barre sur le support."
+  ]
+ },
+ "Close-Grip_Dumbbell_Press": {
+  "name": "Développé haltère prise serrée",
+  "instructions": [
+   "Pose un haltère debout sur un banc plat.",
+   "En veillant à ce que l'haltère reste bien en place en haut du banc, allonge-toi perpendiculairement au banc, seules les épaules reposant dessus. Les hanches sont plus basses que le banc, les jambes fléchies et les pieds bien à plat au sol.",
+   "Saisis l'haltère à deux mains et tiens-le au-dessus de ta poitrine, bras tendus. Tes deux paumes appuient sous les disques de l'haltère. C'est ta position de départ.",
+   "Descends l'haltère jusqu'à ta poitrine.",
+   "Reviens à la position de départ en tendant les coudes."
+  ]
+ }
+}

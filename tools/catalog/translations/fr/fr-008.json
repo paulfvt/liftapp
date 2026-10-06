@@ -1,0 +1,272 @@
+{
+ "Dumbbell_Lying_Supination": {
+  "name": "Rotation externe couché sur le côté à l'haltère",
+  "instructions": [
+   "Allonge-toi sur le côté sur un banc plat, un haltère dans une main et l'autre bras replié sur le banc pour y poser la tête.",
+   "Plie le coude du bras qui tient l'haltère pour former un angle de 90 degrés entre bras et avant-bras.",
+   "Place l'avant-bras parallèle au sol et perpendiculaire au buste (conseil : l'avant-bras est juste devant toi). Le haut du bras reste immobile contre ton buste, parallèle au sol et aligné avec lui en permanence. C'est ta position de départ.",
+   "En expirant, fais une rotation externe de l'avant-bras pour monter l'haltère en demi-cercle, en gardant l'angle de 90 degrés au coude. Continue jusqu'à ce que l'avant-bras soit perpendiculaire au sol, pointé vers le plafond, puis tiens la contraction une seconde.",
+   "En inspirant, reviens lentement à la position de départ.",
+   "Répète pour le nombre de répétitions prévu, puis change de bras."
+  ]
+ },
+ "Dumbbell_One-Arm_Shoulder_Press": {
+  "name": "Développé épaules unilatéral à l'haltère",
+  "instructions": [
+   "Prends un haltère et assieds-toi sur un banc de développé militaire ou un banc avec dossier, l'haltère posé debout sur la cuisse, ou tiens-toi debout.",
+   "Monte l'haltère à hauteur d'épaule. L'autre bras peut rester tendu sur le côté, à la taille ou tenir un support fixe.",
+   "Tourne le poignet pour que la paume regarde vers l'avant. C'est ta position de départ.",
+   "En expirant, pousse l'haltère vers le haut jusqu'à avoir le bras tendu.",
+   "Après une pause d'une seconde, redescends lentement à la position de départ en inspirant.",
+   "Répète pour le nombre de répétitions prévu, puis change de bras."
+  ]
+ },
+ "Dumbbell_One-Arm_Triceps_Extension": {
+  "name": "Extension triceps unilatérale à l'haltère",
+  "instructions": [
+   "Prends un haltère et assieds-toi sur un banc de développé militaire ou un banc avec dossier, l'haltère posé debout sur la cuisse, ou tiens-toi debout.",
+   "Monte l'haltère à hauteur d'épaule, puis tends le bras au-dessus de ta tête pour qu'il soit perpendiculaire au sol, contre ta tête. L'haltère est au-dessus de toi. L'autre main peut rester tendue sur le côté, à la taille, soutenir le bras qui travaille ou tenir un support fixe.",
+   "Tourne le poignet pour que la paume regarde vers l'avant et le petit doigt vers le plafond. C'est ta position de départ.",
+   "Descends lentement l'haltère derrière ta tête en gardant le haut du bras immobile. Inspire pendant ce mouvement et marque une pause quand le triceps est complètement étiré.",
+   "Reviens à la position de départ en contractant le triceps et en expirant. Conseil : seul l'avant-bras bouge. Le haut du bras reste immobile contre ta tête en permanence.",
+   "Répète pour le nombre de répétitions prévu, puis change de bras."
+  ]
+ },
+ "Dumbbell_One-Arm_Upright_Row": {
+  "name": "Rowing menton unilatéral à l'haltère",
+  "instructions": [
+   "Prends un haltère et tiens-toi droit, le bras tendu devant toi avec une légère flexion du coude, dos droit. Conseil : l'haltère repose contre ta cuisse, paume vers la cuisse.",
+   "L'autre bras peut rester tendu sur le côté, à la taille ou tenir un support fixe. C'est ta position de départ.",
+   "Monte l'haltère avec le deltoïde latéral en expirant, près du corps, jusqu'à ce qu'il arrive presque au niveau du menton. Conseil : c'est le coude qui mène le mouvement et il reste toujours plus haut que l'avant-bras. Garde le buste immobile et marque une pause d'une seconde en haut.",
+   "Redescends lentement l'haltère à la position de départ en inspirant.",
+   "Répète pour le nombre de répétitions prévu, puis change de bras."
+  ]
+ },
+ "Dumbbell_Prone_Incline_Curl": {
+  "name": "Curl à plat ventre sur banc incliné",
+  "instructions": [
+   "Prends un haltère dans chaque main et allonge-toi à plat ventre sur un banc incliné, les épaules près du haut du banc. Tes genoux peuvent reposer sur le siège ou tes jambes être écartées de chaque côté.",
+   "Laisse les bras pendre naturellement devant toi, perpendiculaires au sol.",
+   "Garde les coudes près du corps et tourne les paumes vers l'avant. C'est ta position de départ.",
+   "Monte les haltères en contractant les biceps jusqu'à flexion complète des bras. Expire pendant cette phase : seuls les avant-bras bougent, le haut des bras reste immobile en permanence.",
+   "Redescends les haltères jusqu'à avoir les bras complètement tendus.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Dumbbell_Raise": {
+  "name": "Rowing menton aux haltères",
+  "instructions": [
+   "Prends un haltère dans chaque main et tiens-toi droit, bras tendus le long du corps avec une légère flexion des coudes, dos droit. C'est ta position de départ. Conseil : les haltères sont contre tes cuisses, paumes vers l'arrière.",
+   "Monte les haltères avec les deltoïdes latéraux en expirant, sur les côtés du corps, jusqu'à ce qu'ils arrivent presque au niveau du menton. Conseil : ce sont les coudes qui mènent le mouvement et ils restent toujours plus hauts que les avant-bras. Garde le buste immobile et marque une pause d'une seconde en haut.",
+   "Redescends lentement les haltères à la position de départ en inspirant.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Dumbbell_Rear_Lunge": {
+  "name": "Fente arrière aux haltères",
+  "instructions": [
+   "Tiens-toi debout, buste droit, un haltère dans chaque main le long du corps. C'est ta position de départ.",
+   "Fais un grand pas en arrière avec la jambe droite (environ 60 cm) et descends en gardant le buste droit et l'équilibre. Inspire en descendant. Conseil : ne laisse pas ton genou avant dépasser tes orteils, cela charge trop l'articulation, et garde le tibia avant perpendiculaire au sol. Garde le buste droit pendant la fente : des fléchisseurs de hanche souples sont importants. Une fente longue cible davantage le grand fessier, une fente courte les quadriceps.",
+   "Remonte à la position de départ en expirant. Conseil : pousse avec l'avant du pied pour cibler les quadriceps, ou avec le talon pour cibler les fessiers.",
+   "Répète avec l'autre jambe."
+  ]
+ },
+ "Dumbbell_Scaption": {
+  "name": "Élévation dans le plan de l'omoplate",
+  "instructions": [
+   "Cet exercice correctif renforce les muscles qui stabilisent l'omoplate. Tiens une charge légère dans chaque main, bras le long du corps, pouces vers le haut.",
+   "Monte les bras devant toi, écartés d'environ 30 degrés de l'axe du corps, bras complètement tendus pendant tout le mouvement.",
+   "Continue jusqu'à ce que les bras soient parallèles au sol, puis reviens à la position de départ."
+  ]
+ },
+ "Dumbbell_Seated_Box_Jump": {
+  "name": "Box jump depuis la position assise avec haltère",
+  "instructions": [
+   "Place une box à environ 60 cm d'un banc. Tiens un haltère contre ta poitrine à deux mains et assieds-toi sur le banc face à la box. C'est ta position de départ.",
+   "Pose les pieds bien à plat, penche-toi en avant et tends hanches et genoux pour sauter vers le haut et l'avant.",
+   "Atterris des deux pieds sur la box en amortissant avec les hanches et les genoux.",
+   "Redescends et reviens à la position de départ."
+  ]
+ },
+ "Dumbbell_Seated_One-Leg_Calf_Raise": {
+  "name": "Mollet assis unilatéral à l'haltère",
+  "instructions": [
+   "Place une cale au sol à environ 30 cm d'un banc plat.",
+   "Assieds-toi sur le banc et pose un haltère sur le haut de ta cuisse gauche, environ 8 cm au-dessus du genou.",
+   "Pose l'avant du pied gauche sur la cale. C'est ta position de départ.",
+   "Monte sur la pointe le plus haut possible en expirant et en contractant le mollet. Tiens la contraction une seconde.",
+   "Reviens lentement à la position de départ en étirant au maximum.",
+   "Répète pour le nombre de répétitions prévu, puis fais de même avec la jambe droite."
+  ]
+ },
+ "Dumbbell_Shoulder_Press": {
+  "name": "Développé épaules aux haltères",
+  "instructions": [
+   "Un haltère dans chaque main, assieds-toi sur un banc de développé militaire ou un banc avec dossier. Pose les haltères debout sur tes cuisses.",
+   "Monte les haltères à hauteur d'épaules un par un, en t'aidant des cuisses pour les lancer.",
+   "Tourne les poignets pour que tes paumes regardent vers l'avant. C'est ta position de départ.",
+   "Expire et pousse les haltères vers le haut jusqu'à ce qu'ils se touchent.",
+   "Après une courte pause en haut, redescends lentement les haltères à la position de départ en inspirant.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Dumbbell_Shrug": {
+  "name": "Shrug aux haltères",
+  "instructions": [
+   "Tiens-toi droit, un haltère dans chaque main (paumes vers ton buste), bras tendus le long du corps.",
+   "Monte les haltères en haussant les épaules le plus haut possible en expirant. Tiens la contraction une seconde en haut. Conseil : les bras restent tendus en permanence. N'utilise pas les biceps, seules les épaules montent et descendent.",
+   "Redescends les haltères à la position de départ.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Dumbbell_Side_Bend": {
+  "name": "Flexion latérale à l'haltère",
+  "instructions": [
+   "Tiens-toi droit, un haltère dans la main gauche (paume vers le buste), la main droite sur la taille, pieds à largeur d'épaules. C'est ta position de départ.",
+   "Dos droit et tête haute, penche-toi vers la droite uniquement depuis la taille, aussi loin que possible. Inspire en te penchant. Tiens une seconde puis remonte à la position de départ en expirant. Conseil : le reste du corps reste immobile.",
+   "Répète le mouvement en te penchant vers la gauche. Tiens une seconde et reviens à la position de départ.",
+   "Répète pour le nombre de répétitions prévu, puis change de main."
+  ]
+ },
+ "Dumbbell_Squat": {
+  "name": "Squat aux haltères",
+  "instructions": [
+   "Tiens-toi droit, un haltère dans chaque main (paumes vers l'extérieur des jambes).",
+   "Place tes pieds à largeur d'épaules, pointes légèrement tournées vers l'extérieur. Garde la tête haute en permanence (regarder en bas te déséquilibre) et le dos droit. C'est ta position de départ. (Cet écartement moyen travaille l'ensemble des jambes ; tu peux aussi choisir un écartement plus serré ou plus large.)",
+   "Descends lentement en fléchissant les genoux, buste droit et tête haute, jusqu'à ce que tes cuisses soient parallèles au sol. Conseil : bien exécuté, l'avant de tes genoux forme une ligne verticale imaginaire avec tes orteils. Si tes genoux dépassent nettement cette ligne, tu charges trop le genou.",
+   "Remonte en expirant, en poussant le sol surtout avec les talons et en tendant les jambes jusqu'à la position de départ.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Dumbbell_Squat_To_A_Bench": {
+  "name": "Squat aux haltères jusqu'au banc",
+  "instructions": [
+   "Tiens-toi droit, un banc plat derrière toi, un haltère dans chaque main (paumes vers l'extérieur des jambes).",
+   "Place tes pieds à largeur d'épaules, pointes légèrement tournées vers l'extérieur. Garde la tête haute en permanence (regarder en bas te déséquilibre) et le dos droit. C'est ta position de départ. (Cet écartement moyen travaille l'ensemble des jambes ; tu peux aussi choisir un écartement plus serré ou plus large.)",
+   "Descends lentement en fléchissant les genoux, buste droit et tête haute, jusqu'à effleurer le banc derrière toi. Inspire pendant cette phase. Conseil : bien exécuté, l'avant de tes genoux forme une ligne verticale imaginaire avec tes orteils. Si tes genoux dépassent nettement cette ligne, tu charges trop le genou.",
+   "Remonte en expirant, en poussant le sol surtout avec les talons et en tendant les jambes jusqu'à la position de départ.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Dumbbell_Step_Ups": {
+  "name": "Step-up aux haltères",
+  "instructions": [
+   "Tiens-toi droit, un haltère dans chaque main (paumes vers l'extérieur des jambes).",
+   "Pose le pied droit sur la plateforme. Monte dessus en tendant la hanche et le genou droits, en poussant surtout avec le talon, puis pose aussi le pied gauche sur la plateforme. Expire pendant l'effort de montée.",
+   "Redescends la jambe gauche en fléchissant la hanche et le genou droits, en inspirant. Reviens à la position debout initiale en reposant le pied droit à côté du pied gauche.",
+   "Répète avec la jambe droite pour le nombre de répétitions prévu, puis fais-le avec la jambe gauche."
+  ]
+ },
+ "Dumbbell_Tricep_Extension_-Pronated_Grip": {
+  "name": "Extension triceps couché aux haltères en pronation",
+  "instructions": [
+   "Allonge-toi sur un banc plat en tenant deux haltères juste au-dessus de tes épaules, bras complètement tendus et perpendiculaires à ton buste et au sol.",
+   "Tes paumes regardent vers l'avant et tes coudes sont serrés. C'est ta position de départ.",
+   "Inspire et descends lentement les haltères jusqu'à ce qu'ils arrivent près de tes oreilles, en gardant le haut des bras immobile et les coudes serrés.",
+   "Expire et remonte la charge à la position de départ avec les triceps."
+  ]
+ },
+ "EZ-Bar_Curl": {
+  "name": "Curl à la barre EZ",
+  "instructions": [
+   "Tiens-toi droit, une barre EZ tenue aux poignées extérieures, larges. Tes paumes regardent vers l'avant, légèrement tournées vers l'intérieur à cause de la forme de la barre. Garde les coudes près du buste. C'est ta position de départ.",
+   "Le haut des bras immobile, expire et monte la barre en contractant les biceps. Seuls les avant-bras bougent.",
+   "Continue jusqu'à ce que les biceps soient complètement contractés et la barre à hauteur d'épaules. Tiens un instant en haut en serrant les biceps.",
+   "Inspire et redescends lentement la barre à la position de départ.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "EZ-Bar_Skullcrusher": {
+  "name": "Barre au front à la barre EZ",
+  "instructions": [
+   "Avec une prise serrée, soulève la barre EZ et tiens-la coudes serrés en t'allongeant sur le banc. Tes bras sont perpendiculaires au sol. C'est ta position de départ.",
+   "Le haut des bras immobile, descends la barre en laissant les coudes se fléchir. Inspire pendant cette phase. Marque une pause quand la barre est juste au-dessus de ton front.",
+   "Remonte la barre à la position de départ en tendant les coudes et en expirant.",
+   "Répète."
+  ]
+ },
+ "Elbow_to_Knee": {
+  "name": "Crunch coude-genou",
+  "instructions": [
+   "Allonge-toi au sol et croise la jambe droite sur le genou gauche fléchi. Mets les mains derrière la tête, omoplates au sol. C'est ta position de départ.",
+   "Enroule la colonne et fais pivoter le buste pour amener le coude gauche vers le genou droit.",
+   "Reviens à la position de départ et répète pour le nombre de répétitions voulu avant de changer de côté."
+  ]
+ },
+ "Elevated_Back_Lunge": {
+  "name": "Fente arrière surélevée à la barre",
+  "instructions": [
+   "Place une barre chargée sur un rack à hauteur d'épaules. Installe une petite plateforme surélevée derrière toi.",
+   "Pose la barre sur le haut de ton dos, dos cambré et gainé. Monte des deux pieds sur la plateforme. C'est ta position de départ.",
+   "Fais un pas en arrière avec une jambe. Descends en fléchissant hanches et genoux jusqu'à ce que ton genou touche le sol.",
+   "Marque une pause, puis tends hanches et genoux pour remonter jusqu'à la position de départ avant de changer de jambe."
+  ]
+ },
+ "Elevated_Cable_Rows": {
+  "name": "Rowing assis à la poulie surélevé",
+  "instructions": [
+   "Prends une plateforme de 10 à 15 cm de haut (step ou cale à mollets, par exemple).",
+   "Pose-la sur le siège de la machine de rowing à la poulie.",
+   "Assieds-toi sur la machine et place les pieds sur les appuis avant, genoux légèrement fléchis et non verrouillés.",
+   "Penche-toi en gardant l'alignement naturel du dos et saisis la poignée triangle.",
+   "Bras tendus, recule jusqu'à ce que ton buste forme un angle de 90 degrés avec tes jambes, dos légèrement cambré et poitrine sortie. Tu sens un bon étirement dans les grands dorsaux en tenant la poignée devant toi. C'est ta position de départ.",
+   "Buste immobile, tire la poignée vers ton buste, bras près du corps, jusqu'à toucher tes abdos. Expire pendant ce mouvement et serre fort les muscles du dos. Tiens la contraction une seconde, puis reviens lentement à la position de départ en inspirant.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Elliptical_Trainer": {
+  "name": "Vélo elliptique",
+  "instructions": [
+   "Monte sur l'elliptique et choisis l'option voulue dans le menu. La plupart des elliptiques ont un mode manuel, ou tu peux choisir un programme. En général, tu peux saisir ton âge et ton poids pour estimer les calories dépensées. L'inclinaison peut être réglée pour modifier l'intensité.",
+   "Les poignées permettent de suivre ta fréquence cardiaque pour rester à la bonne intensité."
+  ]
+ },
+ "Exercise_Ball_Crunch": {
+  "name": "Crunch sur swiss ball",
+  "instructions": [
+   "Allonge-toi sur un swiss ball, le creux du bas du dos contre le ballon. Genoux fléchis, pieds bien à plat au sol. Le haut du buste dépasse du ballon. Garde les bras le long du corps ou croisés sur la poitrine, pour éviter de tirer sur la nuque (plutôt que les mains derrière la tête).",
+   "Laisse descendre le buste en position d'étirement, nuque immobile en permanence. C'est ta position de départ.",
+   "Hanches immobiles, enroule le buste en contractant les abdos et monte les épaules et le tronc jusqu'à sentir une bonne contraction. Tes bras glissent le long de tes jambes ou restent croisés sur ta poitrine. Le bas du dos reste toujours en contact avec le ballon. Expire pendant ce mouvement et tiens la contraction une seconde.",
+   "En inspirant, reviens à la position de départ.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Exercise_Ball_Pull-In": {
+  "name": "Ramené de genoux sur swiss ball",
+  "instructions": [
+   "Place un swiss ball près de toi et mets-toi en position de pompe devant lui, mains au sol à largeur d'épaules.",
+   "Pose le bas de tes tibias sur le ballon. Conseil : tes jambes sont tendues, les tibias sur le ballon, et le haut du corps est en position de pompe, soutenu par tes bras tendus. C'est ta position de départ.",
+   "Dos bien droit et haut du corps immobile, ramène les genoux vers ta poitrine en expirant, en laissant le ballon rouler sous tes chevilles. Serre les abdos et tiens une seconde.",
+   "Tends lentement les jambes pour ramener le ballon à la position de départ en inspirant.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Extended_Range_One-Arm_Kettlebell_Floor_Press": {
+  "name": "Développé au sol unilatéral au kettlebell en amplitude",
+  "instructions": [
+   "Allonge-toi au sol avec un kettlebell tenu par la poignée d'une main. La jambe du côté qui pousse est fléchie, le genou croisé au-delà de l'axe du corps.",
+   "Pousse le kettlebell en tendant le coude et en ramenant le bras vers l'axe du corps, au-dessus de toi. Reviens à la position de départ."
+  ]
+ },
+ "External_Rotation": {
+  "name": "Rotation externe d'épaule à l'haltère",
+  "instructions": [
+   "Allonge-toi sur le côté sur un banc plat, un haltère dans une main et l'autre bras replié sur le banc pour y poser la tête.",
+   "Plie le coude du bras qui tient l'haltère pour former un angle de 90 degrés entre bras et avant-bras. Conseil : garde le haut du bras parallèle à ton buste.",
+   "Le haut du bras immobile, place l'avant-bras parallèle au sol et perpendiculaire au buste (conseil : l'avant-bras est juste devant toi). Le haut du bras reste contre ton buste, parallèle au sol et aligné avec lui en permanence. C'est ta position de départ.",
+   "En expirant, fais une rotation externe de l'avant-bras pour monter l'haltère en demi-cercle, en gardant l'angle de 90 degrés au coude. Continue jusqu'à ce que l'avant-bras soit perpendiculaire au sol, pointé vers le plafond, puis tiens la contraction une seconde.",
+   "En inspirant, reviens lentement à la position de départ.",
+   "Répète pour le nombre de répétitions prévu, puis change de bras."
+  ]
+ },
+ "External_Rotation_with_Band": {
+  "name": "Rotation externe d'épaule à l'élastique",
+  "instructions": [
+   "Fixe l'élastique en nœud coulant autour d'un poteau, à hauteur de ton coude. Tiens-toi le côté gauche vers l'élastique, à environ 60 cm.",
+   "Saisis l'extrémité de l'élastique de la main droite et garde le coude bien collé à ton flanc. Tu peux coincer une serviette roulée ou un bloc de mousse sous le coude pour le maintenir en place.",
+   "Le haut du bras en place, ton coude est plié à 90 degrés, la main devant ton buste. C'est ta position de départ.",
+   "Fais pivoter le bras vers l'extérieur, comme un revers de tennis, en gardant le coude en place.",
+   "Va aussi loin que possible, marque une pause, puis reviens à la position de départ."
+  ]
+ }
+}

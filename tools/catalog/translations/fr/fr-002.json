@@ -1,0 +1,269 @@
+{
+ "Barbell_Deadlift": {
+  "name": "Soulevé de terre à la barre",
+  "instructions": [
+   "Tiens-toi debout devant une barre chargée.",
+   "En gardant le dos le plus droit possible, fléchis les genoux, penche-toi en avant et saisis la barre en pronation avec une prise moyenne (largeur d'épaules). C'est ta position de départ. Conseil : si la barre est difficile à tenir avec cette prise, utilise une prise mixte ou des sangles.",
+   "En tenant la barre, lance le mouvement en poussant sur les jambes tout en redressant le buste, en expirant. En position debout, sors la poitrine et contracte le dos en ramenant les omoplates en arrière, comme un soldat au garde-à-vous.",
+   "Reviens à la position de départ en fléchissant les genoux et en penchant le buste vers l'avant depuis la taille, dos droit. Quand les disques touchent le sol, tu es revenu en position de départ, prêt pour la répétition suivante.",
+   "Fais le nombre de répétitions prévu dans ton programme."
+  ]
+ },
+ "Barbell_Full_Squat": {
+  "name": "Squat complet à la barre",
+  "instructions": [
+   "Pour ta sécurité, fais cet exercice dans une cage à squat. Règle d'abord la barre sur le support, juste au-dessus de la hauteur des épaules. Une fois la hauteur choisie et la barre chargée, passe sous la barre et place-la en travers du haut du dos (juste sous la nuque).",
+   "Tiens la barre à deux mains de chaque côté et décroche-la du support en poussant sur les jambes tout en redressant le buste.",
+   "Recule hors du support et place tes pieds à largeur d'épaules, pointes légèrement tournées vers l'extérieur. Garde la tête haute et le dos droit en permanence. C'est ta position de départ.",
+   "Descends lentement en fléchissant les genoux et en reculant les hanches, en gardant le buste droit et la tête haute. Continue jusqu'à ce que l'arrière des cuisses touche les mollets. Inspire pendant cette phase.",
+   "Remonte en expirant, en poussant le sol avec les talons ou le milieu du pied, en tendant les jambes et les hanches pour revenir à la position de départ.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Barbell_Glute_Bridge": {
+  "name": "Pont fessier à la barre",
+  "instructions": [
+   "Assieds-toi au sol avec une barre chargée au-dessus des jambes. Une barre épaisse ou une protection en mousse sur la barre réduit beaucoup l'inconfort de cet exercice. Fais rouler la barre jusqu'au-dessus des hanches et allonge-toi à plat au sol.",
+   "Pousse dans les talons pour monter les hanches à la verticale contre la barre. Ton poids repose sur le haut du dos et les talons.",
+   "Monte le plus haut possible, puis fais le mouvement inverse pour revenir à la position de départ."
+  ]
+ },
+ "Barbell_Guillotine_Bench_Press": {
+  "name": "Développé guillotine à la barre",
+  "instructions": [
+   "Avec une prise moyenne (avant-bras et bras formant un angle de 90 degrés au milieu du mouvement), sors la barre du support et tiens-la au-dessus de ton cou, bras tendus. C'est ta position de départ.",
+   "En inspirant, descends lentement la barre jusqu'à environ 2 cm de ton cou.",
+   "Après une pause d'une seconde, remonte la barre à la position de départ en expirant, en poussant avec les pectoraux. Tends les bras et serre les pectoraux en haut, tiens une seconde, puis redescends lentement. La descente doit durer au moins deux fois plus longtemps que la montée.",
+   "Répète le mouvement pour le nombre de répétitions prévu.",
+   "Quand tu as terminé, repose la barre sur le support."
+  ]
+ },
+ "Barbell_Hack_Squat": {
+  "name": "Hack squat à la barre",
+  "instructions": [
+   "Tiens-toi debout, une barre tenue derrière toi bras tendus, pieds à largeur d'épaules. Conseil : une prise à largeur d'épaules, paumes vers l'arrière, est idéale. Tu peux utiliser des sangles pour mieux tenir la barre. C'est ta position de départ.",
+   "En gardant la tête et le regard hauts et le dos droit, descends en squat jusqu'à ce que tes cuisses soient parallèles au sol. Inspire en descendant lentement.",
+   "En poussant surtout avec les talons et en serrant les cuisses, remonte en expirant.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Barbell_Hip_Thrust": {
+  "name": "Hip thrust à la barre",
+  "instructions": [
+   "Assieds-toi au sol, un banc juste derrière toi, une barre chargée au-dessus des jambes. Une barre épaisse ou une protection en mousse sur la barre réduit beaucoup l'inconfort de cet exercice.",
+   "Fais rouler la barre jusqu'au-dessus des hanches et appuie-toi contre le banc, les omoplates près de son bord.",
+   "Pousse dans tes pieds pour monter les hanches à la verticale contre la barre. Ton poids repose sur les omoplates et les pieds. Monte le plus haut possible, puis fais le mouvement inverse pour revenir à la position de départ."
+  ]
+ },
+ "Barbell_Incline_Bench_Press_-_Medium_Grip": {
+  "name": "Développé incliné à la barre",
+  "instructions": [
+   "Allonge-toi sur un banc incliné. Avec une prise moyenne (avant-bras et bras formant un angle de 90 degrés au milieu du mouvement), sors la barre du support et tiens-la au-dessus de toi, bras tendus. C'est ta position de départ.",
+   "En inspirant, descends lentement jusqu'à sentir la barre sur le haut de ta poitrine.",
+   "Après une pause d'une seconde, remonte la barre à la position de départ en expirant, en poussant avec les pectoraux. Tends les bras, serre les pectoraux, tiens une seconde, puis redescends lentement. Conseil : la descente doit durer au moins deux fois plus longtemps que la montée.",
+   "Répète le mouvement pour le nombre de répétitions prévu.",
+   "Quand tu as terminé, repose la barre sur le support."
+  ]
+ },
+ "Barbell_Incline_Shoulder_Raise": {
+  "name": "Protraction d'épaules à la barre sur banc incliné",
+  "instructions": [
+   "Allonge-toi sur un banc incliné. Avec une prise moyenne (un peu plus large que les épaules), sors la barre du support et tiens-la au-dessus de toi, bras tendus. C'est ta position de départ.",
+   "Bras tendus, monte la barre en écartant les omoplates, ce qui décolle les épaules du banc, en expirant.",
+   "Ramène la barre à la position de départ en inspirant.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Barbell_Lunge": {
+  "name": "Fente à la barre",
+  "instructions": [
+   "Pour ta sécurité, fais cet exercice dans une cage à squat. Règle d'abord la barre sur le support, juste sous la hauteur des épaules. Une fois la hauteur choisie et la barre chargée, passe sous la barre et place-la en travers du haut du dos (juste sous la nuque).",
+   "Tiens la barre à deux mains de chaque côté et décroche-la du support en poussant sur les jambes tout en redressant le buste.",
+   "Recule hors du support, fais un pas en avant avec la jambe droite et descends en fléchissant les hanches, buste droit et en gardant l'équilibre. Inspire en descendant. Remarque : ne laisse pas ton genou dépasser tes orteils en descendant, cela charge trop l'articulation du genou.",
+   "En poussant surtout avec le talon, remonte et reviens à la position de départ en expirant.",
+   "Répète le mouvement pour le nombre de répétitions prévu, puis fais-le avec la jambe gauche."
+  ]
+ },
+ "Barbell_Rear_Delt_Row": {
+  "name": "Rowing deltoïdes postérieurs à la barre",
+  "instructions": [
+   "Tiens-toi debout, une barre en main avec une prise large (plus large que les épaules) en pronation (paumes vers ton corps).",
+   "Fléchis légèrement les genoux et penche-toi en gardant la cambrure naturelle du dos. Laisse les bras pendre devant toi avec la barre. Une fois le buste parallèle au sol, écarte les coudes loin du corps. Conseil : ton buste et tes bras forment la lettre « T ». Tu es prêt à commencer.",
+   "En gardant le haut des bras perpendiculaire au buste, tire la barre vers le haut de ta poitrine en serrant les deltoïdes postérieurs et en expirant. Conseil : bien exécuté, l'exercice ressemble à un développé couché inversé. N'utilise pas les biceps : concentre-toi sur les deltoïdes postérieurs, les bras ne servent que de crochets.",
+   "Reviens lentement à la position initiale en inspirant.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Barbell_Rollout_from_Bench": {
+  "name": "Rollout à la barre depuis un banc",
+  "instructions": [
+   "Pose une barre chargée au sol, près du bout d'un banc. Mets-toi à genoux sur le banc et saisis la barre avec une prise moyenne à serrée. C'est ta position de départ.",
+   "Tends les hanches pour faire rouler lentement la barre vers l'avant. En avançant, lève les bras pour faire passer la barre au-dessus de ta tête. Garde les bras tendus pendant tout le mouvement.",
+   "Quand la barre est aussi loin que possible, reviens à la position de départ."
+  ]
+ },
+ "Barbell_Seated_Calf_Raise": {
+  "name": "Mollets assis à la barre",
+  "instructions": [
+   "Place une cale à environ 30 cm devant un banc plat.",
+   "Assieds-toi sur le banc et pose l'avant de tes pieds sur la cale.",
+   "Demande à quelqu'un de poser une barre sur le haut de tes cuisses, environ 8 cm au-dessus des genoux, et tiens-la. C'est ta position de départ.",
+   "Monte sur la pointe des pieds le plus haut possible en serrant les mollets et en expirant.",
+   "Après une seconde de contraction, reviens lentement à la position de départ. Conseil : pour un effet maximal, étire les mollets au maximum.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Barbell_Shoulder_Press": {
+  "name": "Développé épaules à la barre",
+  "instructions": [
+   "Assieds-toi sur un banc avec dossier dans une cage à squat. Place la barre juste au-dessus de ta tête. Saisis-la en pronation (paumes vers l'avant).",
+   "Avec la bonne largeur de prise, monte la barre au-dessus de ta tête en tendant les bras. Tiens-la à hauteur d'épaules, légèrement devant ta tête. C'est ta position de départ.",
+   "Descends lentement la barre jusqu'aux épaules en inspirant.",
+   "Remonte la barre à la position de départ en expirant.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Barbell_Shrug": {
+  "name": "Shrug à la barre",
+  "instructions": [
+   "Tiens-toi debout, pieds à largeur d'épaules, une barre tenue à deux mains devant toi en pronation (paumes vers les cuisses). Conseil : tes mains sont un peu plus écartées que les épaules. Tu peux utiliser des sangles pour mieux tenir la barre. C'est ta position de départ.",
+   "Monte les épaules le plus haut possible en expirant et tiens la contraction une seconde. Conseil : ne tire pas la barre avec les biceps.",
+   "Reviens lentement à la position de départ en inspirant.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Barbell_Shrug_Behind_The_Back": {
+  "name": "Shrug à la barre derrière le dos",
+  "instructions": [
+   "Tiens-toi debout, pieds à largeur d'épaules, une barre tenue à deux mains derrière le dos en pronation (paumes vers l'arrière). Conseil : tes mains sont un peu plus écartées que les épaules. Tu peux utiliser des sangles pour mieux tenir la barre. C'est ta position de départ.",
+   "Monte les épaules le plus haut possible en expirant et tiens la contraction une seconde. Conseil : ne tire pas la barre avec les biceps. Les bras restent tendus en permanence.",
+   "Reviens lentement à la position de départ en inspirant.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Barbell_Side_Bend": {
+  "name": "Flexion latérale à la barre",
+  "instructions": [
+   "Tiens-toi debout, une barre posée sur le haut du dos (juste sous la nuque), pieds à largeur d'épaules. C'est ta position de départ.",
+   "Dos droit et tête haute, penche-toi vers la droite uniquement depuis la taille, aussi loin que possible. Inspire en te penchant. Tiens une seconde puis remonte à la position de départ en expirant. Conseil : le reste du corps reste immobile.",
+   "Répète le mouvement en te penchant vers la gauche. Tiens une seconde et reviens à la position de départ.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Barbell_Side_Split_Squat": {
+  "name": "Fente latérale à la barre",
+  "instructions": [
+   "Tiens-toi debout, une barre posée sur le haut du dos (juste sous la nuque), pieds largement écartés, le pied de la jambe qui travaille tourné vers l'extérieur. C'est ta position de départ.",
+   "Descends du côté du pied tourné en fléchissant le genou et la hanche de cette jambe, l'autre jambe restant à peine fléchie. Inspire en descendant.",
+   "Reviens à la position de départ en tendant la hanche et le genou de la jambe qui travaille. Expire pendant ce mouvement.",
+   "Après le nombre de répétitions prévu, répète avec l'autre jambe."
+  ]
+ },
+ "Barbell_Squat": {
+  "name": "Squat à la barre",
+  "instructions": [
+   "Pour ta sécurité, fais cet exercice dans une cage à squat. Règle d'abord la barre sur le support, juste sous la hauteur des épaules. Une fois la hauteur choisie et la barre chargée, passe sous la barre et place-la en travers du haut du dos (juste sous la nuque).",
+   "Tiens la barre à deux mains de chaque côté et décroche-la du support en poussant sur les jambes tout en redressant le buste.",
+   "Recule hors du support et place tes pieds à largeur d'épaules, pointes légèrement tournées vers l'extérieur. Garde la tête haute et le dos droit en permanence. C'est ta position de départ. (Cet écartement moyen travaille l'ensemble des jambes ; tu peux aussi choisir un écartement plus serré ou plus large.)",
+   "Descends lentement en fléchissant les genoux et les hanches, buste droit et tête haute. Continue jusqu'à ce que l'angle entre la cuisse et le mollet soit un peu inférieur à 90 degrés. Inspire pendant cette phase. Conseil : bien exécuté, l'avant de tes genoux forme une ligne verticale imaginaire avec tes orteils. Si tes genoux dépassent nettement cette ligne, tu charges trop le genou.",
+   "Remonte en expirant, en poussant le sol avec les talons et en tendant les jambes jusqu'à la position de départ.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Barbell_Squat_To_A_Bench": {
+  "name": "Squat à la barre jusqu'au banc",
+  "instructions": [
+   "Pour ta sécurité, fais cet exercice dans une cage à squat. Place d'abord un banc plat ou une box derrière toi : il t'apprend à reculer les hanches et à atteindre la bonne profondeur.",
+   "",
+   "Règle ensuite la barre sur le support à la hauteur qui te convient. Une fois la hauteur choisie et la barre chargée, passe sous la barre et place-la en travers du haut du dos (juste sous la nuque).",
+   "Tiens la barre à deux mains de chaque côté et décroche-la du support en poussant sur les jambes tout en redressant le buste.",
+   "Recule hors du support et place tes pieds à largeur d'épaules, pointes légèrement tournées vers l'extérieur. Garde la tête haute (regarder en bas te déséquilibre) et le dos droit. C'est ta position de départ. (Cet écartement moyen travaille l'ensemble des jambes ; tu peux aussi choisir un écartement plus serré ou plus large.)",
+   "Descends lentement en fléchissant les genoux et en reculant les hanches, buste droit et tête haute. Continue jusqu'à effleurer le banc derrière toi. Inspire pendant cette phase. Conseil : bien exécuté, l'avant de tes genoux forme une ligne verticale imaginaire avec tes orteils. Si tes genoux dépassent nettement cette ligne, tu charges trop le genou.",
+   "Remonte en expirant, en poussant le sol avec les talons, en tendant les jambes et les hanches jusqu'à la position de départ.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Barbell_Step_Ups": {
+  "name": "Step-up à la barre",
+  "instructions": [
+   "Tiens-toi debout, une barre posée sur le haut du dos (juste sous la nuque), derrière une plateforme surélevée (comme la marche d'un banc de développé couché). C'est ta position de départ.",
+   "Pose le pied droit sur la plateforme. Monte dessus en tendant la hanche et le genou droits, en poussant surtout avec le talon, puis pose aussi le pied gauche sur la plateforme. Expire pendant l'effort de montée.",
+   "Redescends la jambe gauche en fléchissant la hanche et le genou droits, en inspirant. Reviens à la position debout initiale en reposant le pied droit à côté du pied gauche.",
+   "Répète avec la jambe droite pour le nombre de répétitions prévu, puis fais-le avec la jambe gauche."
+  ]
+ },
+ "Barbell_Walking_Lunge": {
+  "name": "Fentes marchées à la barre",
+  "instructions": [
+   "Tiens-toi debout, pieds à largeur d'épaules, une barre posée en travers du haut du dos.",
+   "Fais un pas en avant et fléchis les genoux pour descendre les hanches, jusqu'à ce que le genou arrière touche presque le sol. Garde le buste droit et le genou avant au-dessus du pied avant.",
+   "Pousse dans le talon du pied avant et tends les deux genoux pour remonter.",
+   "Avance le pied arrière et répète la fente sur l'autre jambe."
+  ]
+ },
+ "Battling_Ropes": {
+  "name": "Cordes ondulatoires",
+  "instructions": [
+   "Il te faut une corde lourde fixée en son milieu, à 5 ou 6 mètres de toi. Debout face à la corde, prends une extrémité dans chaque main, bras tendus le long du corps. C'est ta position de départ.",
+   "Lance le mouvement en montant un bras à hauteur d'épaule aussi vite que possible.",
+   "En laissant redescendre ce bras, monte l'autre.",
+   "Continue en alternant les bras gauche et droit, en fouettant les cordes de haut en bas aussi vite que possible."
+  ]
+ },
+ "Bear_Crawl_Sled_Drags": {
+  "name": "Traîneau tiré en marche de l'ours",
+  "instructions": [
+   "Avec un harnais ou une ceinture de lest lâche, attache la chaîne dans ton dos, de façon à tourner le dos au traîneau. Penche-toi pour poser les mains au sol, dos plat et genoux fléchis. C'est ta position de départ.",
+   "Avance en poussant avec les jambes, en alternant gauche et droite. Sers-toi des mains pour garder l'équilibre et aider à tirer. Garde le dos plat sur toute la distance prévue."
+  ]
+ },
+ "Bench_Dips": {
+  "name": "Dips sur banc",
+  "instructions": [
+   "Place un banc derrière toi, perpendiculaire à ton corps. Dos au banc, tiens-toi à son bord, bras tendus, mains écartées à largeur d'épaules. Les jambes sont tendues devant toi, pliées à la taille et perpendiculaires au buste. C'est ta position de départ.",
+   "En inspirant, descends lentement en pliant les coudes jusqu'à ce que l'angle entre bras et avant-bras soit un peu inférieur à 90 degrés. Conseil : garde les coudes aussi serrés que possible pendant tout le mouvement. Les avant-bras pointent toujours vers le bas.",
+   "Remonte à la position de départ en poussant avec les triceps.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Bench_Jump": {
+  "name": "Saut par-dessus un banc",
+  "instructions": [
+   "Place une box ou un banc à 30 à 60 cm devant toi. Tiens-toi debout, pieds à largeur d'épaules. C'est ta position de départ.",
+   "Fais une petite flexion pour préparer le saut, en lançant les bras derrière toi.",
+   "Rebondis depuis cette position en tendant hanches, genoux et chevilles pour sauter le plus haut possible, en lançant les bras vers l'avant et le haut.",
+   "Saute par-dessus le banc et réceptionne-toi genoux fléchis, en amortissant avec les jambes.",
+   "Retourne-toi et saute à nouveau par-dessus le banc."
+  ]
+ },
+ "Bench_Press_-_Powerlifting": {
+  "name": "Développé couché powerlifting",
+  "instructions": [
+   "Allonge-toi sur le banc, la tête au-delà de la barre si possible. Ramène les pieds sous toi et cambre le dos. En t'aidant de la barre pour soutenir ton poids, décolle les épaules du banc et serre les omoplates. Pousse avec les pieds pour enfoncer les trapèzes dans le banc. Garde ce gainage pendant tout le mouvement.",
+   "Quelle que soit la largeur de ta prise, tes mains couvrent les repères de la barre. Sors la barre du support sans avancer les épaules. Serre fort la barre comme si tu voulais l'écarter.",
+   "Descends la barre sur le bas de la poitrine ou le haut du ventre. Barre, poignets et coudes restent alignés en permanence.",
+   "Marque une pause quand la barre touche ton buste, puis pousse-la le plus fort possible. Garde les coudes rentrés jusqu'au verrouillage."
+  ]
+ },
+ "Bench_Press_-_With_Bands": {
+  "name": "Développé couché à l'élastique",
+  "instructions": [
+   "Sur un banc plat, fixe un élastique sous le pied du banc côté tête.",
+   "Une fois l'élastique bien fixé, saisis-le par les deux poignées et allonge-toi sur le banc.",
+   "Tends les bras pour tenir les poignées devant toi, à largeur d'épaules.",
+   "Tourne ensuite les poignets vers l'avant pour que tes paumes regardent loin de toi. C'est ta position de départ.",
+   "Descends lentement les poignées jusqu'à ce que tes coudes forment un angle de 90 degrés, en gardant le contrôle en permanence.",
+   "En expirant, remonte les poignées avec les pectoraux. Tends les bras, serre les pectoraux, tiens une seconde, puis redescends lentement. Conseil : la descente doit durer au moins deux fois plus longtemps que la montée.",
+   "Répète le mouvement pour le nombre de répétitions prévu dans ton programme."
+  ]
+ },
+ "Bench_Press_with_Chains": {
+  "name": "Développé couché avec chaînes",
+  "instructions": [
+   "Règle la chaîne d'attache à la longueur voulue. Accroche les chaînes aux manchons de la barre.",
+   "Allongé sur le banc, la tête au-delà de la barre si possible, ramène les pieds sous toi et cambre le dos. En t'aidant de la barre, décolle les épaules du banc et serre les omoplates. Pousse avec les pieds pour enfoncer les trapèzes dans le banc. Garde ce gainage pendant tout le mouvement. Quelle que soit ta prise, tes mains couvrent les repères de la barre.",
+   "Sors la barre du support sans avancer les épaules. Serre fort la barre comme si tu voulais l'écarter. Descends la barre sur le bas de la poitrine ou le haut du ventre. Barre, poignets et coudes restent alignés en permanence.",
+   "Marque une pause quand la barre touche ton buste, puis pousse-la le plus fort possible. Garde les coudes rentrés jusqu'au verrouillage."
+  ]
+ }
+}

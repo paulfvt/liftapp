@@ -1,23 +1,22 @@
 # Avancement
 
-## Phase en cours : 1 — Mise en place
+## Phase en cours : 2 — Modèle de données et catalogue
 
 ### Fait
-- Projet Android : AGP 9.4.1, Gradle 9.8.0, Kotlin 2.4.20, compileSdk 37, targetSdk 36, minSdk 26.
-- Hilt (application et activité), Navigation Compose avec routes typées, barre du bas à 5 onglets
-  (Accueil, Séances, Historique, Progression, Profil), écrans temporaires.
-- Thème Material 3 clair et sombre (palette orange provisoire, sans couleurs dynamiques).
-- Room configuré (plugin, KSP, dossier `app/schemas/`). La base elle-même arrive en phase 2 avec les entités.
-- ktlint, Android Lint, CI GitHub Actions.
-- Règles de sauvegarde Android : dossier `photos/` exclu de la sauvegarde cloud.
-- `CLAUDE.md`, copie du cahier des charges dans `docs/`.
+- Base Room v1 avec toutes les tables du modèle (schéma exporté dans `app/schemas/`).
+- Catalogue : 753 exercices de free-exercise-db, traduits en français, 1 500 images WebP (~17 Mo).
+  Import au premier lancement, réimport sans perte de note ni de masquage quand `CATALOG_VERSION` augmente.
+- Écrans : liste avec recherche sans accents et filtres (muscle ou groupe, matériel), fiche avec images animées,
+  note permanente et masquage, création et modification d'exercices personnalisés.
+- Accès au catalogue depuis l'onglet Séances.
+- Tests JVM (domaine, conversions) et tests instrumentés (base, import complet).
 
-### Reste à faire pour clore la phase 1
-- [x] Terminer l'assistant d'Android Studio (installation du SDK) et ouvrir le projet.
-- [x] Générer le wrapper Gradle (`gradlew`, `gradlew.bat`, `gradle-wrapper.jar`).
-- [x] Premier build local : `ktlintCheck lintDebug testDebugUnitTest assembleDebug` passe.
-- [ ] Créer le dépôt GitHub privé, pousser et vérifier que la CI est verte.
-- [x] Lancer l'app sur le S25+ (testé le 6 octobre 2026).
+### Reste à faire pour clore la phase 2
+- [ ] Lancer les tests instrumentés sur le téléphone (`./gradlew connectedDebugAndroidTest`).
+- [ ] Relire les noms traduits : `tools/catalog/noms-a-relire.csv`.
+- [ ] Test sur le téléphone : chercher « squat », filtrer « Jambes », ajouter une note et la retrouver.
+
+## Phase 1 — Mise en place : terminée le 6 octobre 2026
 
 ## Décisions techniques
 - **Dossier hors OneDrive** (`C:\Users\paulf\dev\liftapp`) : la synchronisation verrouille les fichiers de build Gradle.
@@ -33,11 +32,17 @@
 - **Packages `home`, `template` et `navigation`** ajoutés à la liste du cahier des charges (accueil, templates et
   squelette de navigation n'avaient pas de package dédié).
 
-## Questions ouvertes (à trancher avant la phase 2)
-- Types de série : échauffement + travail seulement, ou aussi dégressive (réponses 9 et 10 contradictoires) ?
-  Le type « échec » est-il conservé ? Proposition : échauffement + travail, et une case « à l'échec ».
-- Performance précédente quand l'exercice n'a jamais été fait dans ce template : ne rien pré-remplir, ou reprendre
-  la dernière fois tous templates confondus avec la mention « autre séance » ?
+- **Catégorie déduite du matériel**, avec une catégorie « Autre » en plus des quatre du cahier des charges
+  (élastiques, swiss ball, traîneau…).
+- **Type de suivi** : répétitions seules pour le poids du corps, l'élastique et le swiss ball ; distance ou durée
+  choisies à la main pour une trentaine d'exercices (cardio, gainage, strongman).
+- **Recherche faite en mémoire** (753 exercices) plutôt qu'en SQL : plus simple, et la normalisation des accents
+  est testée en Kotlin.
+- **Note éditée dans une boîte de dialogue** avec Enregistrer/Annuler, plutôt qu'en enregistrement automatique.
+
+## Questions ouvertes
+- Les séries dégressives comptent-elles pour les records et les statistiques ? À trancher avant la phase 4.
+- Exercices au poids du corps (tractions, dips) : faut-il un champ « lest » optionnel en séance ? Phase 4.
 
 ## Problèmes connus
 - Avertissement lint `OldTargetApi` (targetSdk 36 alors que l'API 37 existe) : volontaire, c'est le niveau exigé

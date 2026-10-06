@@ -1,0 +1,309 @@
+{
+ "Bradford_Rocky_Presses": {
+  "name": "Développé Bradford",
+  "instructions": [
+   "Assieds-toi sur un banc de développé militaire, la barre à hauteur d'épaules, en pronation (paumes vers l'avant). Conseil : ta prise est plus large que les épaules et forme un angle de 90 degrés entre bras et avant-bras quand la barre descend. C'est ta position de départ.",
+   "Une fois la barre en main avec la bonne prise, monte-la au-dessus de ta tête en tendant les bras.",
+   "Descends lentement la barre derrière ta tête en inspirant.",
+   "Remonte la barre à la position de départ en expirant.",
+   "Descends lentement la barre devant toi jusqu'à la position de départ en inspirant. Cela fait une répétition.",
+   "Alterne ainsi jusqu'à avoir fait le nombre de répétitions prévu."
+  ]
+ },
+ "Butt-Ups": {
+  "name": "Butt-ups",
+  "instructions": [
+   "Mets-toi en position de pompe, mais en appui sur les avant-bras, coudes au sol. Tes bras sont pliés à 90 degrés.",
+   "Arrondis légèrement le dos au lieu de le garder complètement droit.",
+   "Monte les fessiers vers le plafond en serrant fort les abdos pour rapprocher la cage thoracique des hanches. Tu finis en position de pont haut. Expire pendant cette phase.",
+   "Redescends lentement à la position de départ en inspirant. Conseil : ne laisse pas ton dos s'affaisser.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Butt_Lift_Bridge": {
+  "name": "Pont fessier",
+  "instructions": [
+   "Allonge-toi à plat sur le dos, mains le long du corps et genoux fléchis. Tes pieds sont écartés d'environ la largeur des épaules. C'est ta position de départ.",
+   "En poussant surtout avec les talons, décolle les hanches du sol en gardant le dos droit. Expire pendant ce mouvement et tiens une seconde en haut.",
+   "Redescends lentement à la position de départ en inspirant."
+  ]
+ },
+ "Butterfly": {
+  "name": "Butterfly (pec deck)",
+  "instructions": [
+   "Assieds-toi sur la machine, le dos bien à plat contre le dossier.",
+   "Saisis les poignées. Conseil : le haut de tes bras est parallèle au sol ; règle la machine en conséquence. C'est ta position de départ.",
+   "Rapproche lentement les poignées en serrant les pectoraux au centre. Expire pendant cette phase et tiens la contraction une seconde.",
+   "Reviens lentement à la position de départ en inspirant, jusqu'à ce que les pectoraux soient complètement étirés.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Cable_Chest_Press": {
+  "name": "Développé pectoraux à la poulie",
+  "instructions": [
+   "Règle une charge adaptée et assieds-toi en tenant les poignées. Le haut de tes bras forme un angle d'environ 45 degrés avec ton corps, tête et poitrine hautes, coudes pliés à environ 90 degrés. C'est ta position de départ.",
+   "Tends les coudes pour pousser les poignées l'une vers l'autre, droit devant toi. Garde les omoplates serrées pendant le mouvement.",
+   "Après une pause bras tendus, reviens à la position de départ en gardant les câbles en tension.",
+   "Tu peux aussi faire ce mouvement le dos décollé du dossier, en incliné ou en décliné, ou en alternant les mains."
+  ]
+ },
+ "Cable_Crossover": {
+  "name": "Écarté à la poulie vis-à-vis",
+  "instructions": [
+   "Pour te mettre en position, règle les poulies en position haute (au-dessus de ta tête), choisis la charge et prends une poignée dans chaque main.",
+   "Avance devant la ligne imaginaire qui relie les deux poulies en ramenant les bras devant toi. Ton buste est légèrement penché en avant depuis la taille. C'est ta position de départ.",
+   "Coudes légèrement fléchis pour protéger le tendon du biceps, ouvre les bras sur les côtés en un large arc de cercle jusqu'à sentir un étirement dans la poitrine. Inspire pendant cette phase. Conseil : pendant tout le mouvement, les bras et le buste restent fixes ; seule l'articulation de l'épaule bouge.",
+   "Ramène les bras à la position de départ en expirant, par le même arc de cercle.",
+   "Tiens une seconde en position de départ et répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Cable_Crunch": {
+  "name": "Crunch à la poulie haute",
+  "instructions": [
+   "Mets-toi à genoux sous une poulie haute équipée d'une corde.",
+   "Saisis la corde et descends-la jusqu'à ce que tes mains soient de chaque côté de ton visage.",
+   "Fléchis légèrement les hanches et laisse la charge étirer le bas du dos. C'est ta position de départ.",
+   "Hanches immobiles, enroule le buste en contractant les abdos pour amener les coudes vers le milieu des cuisses. Expire pendant cette phase et tiens la contraction une seconde.",
+   "Reviens lentement à la position de départ en inspirant. Conseil : garde une tension constante dans les abdos pendant tout le mouvement. Ne prends pas une charge si lourde que le bas du dos fait l'essentiel du travail.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Cable_Deadlifts": {
+  "name": "Soulevé de terre à la poulie",
+  "instructions": [
+   "Place les poulies en bas des colonnes et choisis une charge adaptée. Tiens-toi au milieu, entre les deux montants.",
+   "Descends en fléchissant les hanches et les genoux jusqu'à atteindre les poignées.",
+   "Une fois les poignées en main, remonte : pousse dans les talons et tends les hanches et les genoux, mains pendantes le long du corps. Garde la tête et la poitrine hautes pendant tout le mouvement.",
+   "Une fois complètement debout, reviens à la position de départ et répète."
+  ]
+ },
+ "Cable_Hammer_Curls_-_Rope_Attachment": {
+  "name": "Curl marteau à la corde",
+  "instructions": [
+   "Accroche une corde à une poulie basse et tiens-toi face à la machine, à environ 30 cm.",
+   "Saisis la corde en prise neutre (paumes face à face) et tiens-toi droit, en gardant la cambrure naturelle du dos et le buste immobile.",
+   "Garde les coudes collés au corps et immobiles pendant tout le mouvement. Conseil : seuls les avant-bras bougent, pas le haut des bras. C'est ta position de départ.",
+   "Avec les biceps, monte les mains en expirant jusqu'à ce que les biceps touchent les avant-bras. Conseil : garde les coudes serrés et le haut des bras immobile.",
+   "Après une seconde de contraction en serrant les biceps, redescends lentement la charge à la position de départ.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Cable_Hip_Adduction": {
+  "name": "Adduction de hanche à la poulie",
+  "instructions": [
+   "Tiens-toi devant une poulie basse, regard vers l'avant, une jambe du côté de la poulie et l'autre plus loin.",
+   "Accroche la sangle de cheville au câble et à la cheville de la jambe la plus proche de la poulie.",
+   "Écarte-toi de la colonne, pieds largement écartés, et tiens-toi à la barre de la machine.",
+   "Mets-toi en appui sur le pied sans sangle (le plus éloigné) et laisse la jambe attachée être tirée vers la poulie. C'est ta position de départ.",
+   "Ramène la jambe attachée devant la jambe d'appui en contractant l'intérieur des cuisses. Expire pendant cette phase.",
+   "Reviens lentement à la position de départ en inspirant.",
+   "Répète pour le nombre de répétitions prévu, puis fais de même avec l'autre jambe."
+  ]
+ },
+ "Cable_Incline_Pushdown": {
+  "name": "Pull-over à la poulie sur banc incliné",
+  "instructions": [
+   "Allonge-toi sur un banc incliné, dos à une poulie haute équipée d'une barre droite.",
+   "Saisis la barre au-dessus de ta tête en pronation (paumes vers le bas), prise à largeur d'épaules, et tends les bras devant toi. La barre est à environ 5 cm du haut de tes cuisses. C'est ta position de départ.",
+   "Bras tendus, ramène-les en arrière en demi-cercle jusqu'à ce que la barre soit au-dessus de ta tête. Inspire pendant cette phase.",
+   "Reviens lentement à la position de départ en tirant avec les grands dorsaux et tiens la contraction. Expire pendant ce mouvement.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Cable_Incline_Triceps_Extension": {
+  "name": "Extension triceps à la poulie sur banc incliné",
+  "instructions": [
+   "Allonge-toi sur un banc incliné, dos à une poulie haute équipée d'une barre droite.",
+   "Saisis la barre au-dessus de ta tête en pronation (paumes vers le bas), prise serrée (moins que la largeur des épaules), coudes près du corps. Le haut de tes bras forme un angle d'environ 25 degrés avec le sol.",
+   "Le haut des bras immobile, tends les bras en contractant les triceps. Expire pendant cette phase et tiens la contraction une seconde.",
+   "Reviens lentement à la position de départ.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Cable_Internal_Rotation": {
+  "name": "Rotation interne d'épaule à la poulie",
+  "instructions": [
+   "Assieds-toi de côté à côté d'une poulie basse (jambes tendues devant toi ou croisées) et saisis la poignée avec le bras le plus proche de la poulie. Conseil : si la hauteur de la poulie est réglable, tu peux t'asseoir sur un banc plat.",
+   "Colle le coude contre ton flanc, plié à 90°, l'avant-bras pointé vers la poulie. C'est ta position de départ.",
+   "Tire la poignée vers ton corps en tournant l'épaule vers l'intérieur jusqu'à ce que l'avant-bras passe devant tes abdos, en décrivant un demi-cercle. Conseil : l'avant-bras reste perpendiculaire au buste en permanence.",
+   "Reviens lentement à la position initiale.",
+   "Répète pour le nombre de répétitions prévu, puis fais de même avec l'autre bras."
+  ]
+ },
+ "Cable_Iron_Cross": {
+  "name": "Croix de fer à la poulie",
+  "instructions": [
+   "Règle les poulies en position haute, choisis la charge et prends une poignée dans chaque main.",
+   "Tiens-toi au milieu, entre les deux poulies, bras tendus sur les côtés. Tête et poitrine hautes, tes bras forment un « T ». C'est ta position de départ.",
+   "Coudes tendus, tire les bras droit vers le bas, le long de tes flancs.",
+   "Après une pause en contraction maximale, ramène les bras à la position de départ.",
+   "Continue pour le nombre de répétitions prévu."
+  ]
+ },
+ "Cable_Judo_Flip": {
+  "name": "Projection de judo à la poulie",
+  "instructions": [
+   "Accroche une corde à une colonne et place le câble sur la poulie la plus basse. Tiens-toi de côté par rapport au câble, pieds largement écartés, et saisis la corde à deux mains.",
+   "Pivote le corps en t'éloignant de la poulie en faisant passer la corde par-dessus ton épaule, comme pour une projection de judo.",
+   "Transfère ton poids d'un pied à l'autre en pivotant et en enroulant le buste vers l'avant, en tirant le câble vers le bas.",
+   "Reviens à la position de départ et répète jusqu'à l'échec.",
+   "Change ensuite de côté et répète la même série de mouvements."
+  ]
+ },
+ "Cable_Lying_Triceps_Extension": {
+  "name": "Barre au front à la poulie",
+  "instructions": [
+   "Allonge-toi sur un banc plat et saisis la barre droite d'une poulie basse en pronation, prise serrée. Conseil : le plus simple est de te faire passer la barre une fois allongé.",
+   "Bras tendus, place la barre au-dessus de ton buste. Tes bras forment un angle de 90 degrés avec ton buste. C'est ta position de départ.",
+   "Descends la barre en pliant les coudes, haut des bras immobile et coudes serrés, jusqu'à effleurer ton front. Inspire pendant cette phase.",
+   "Contracte les triceps pour remonter la barre à la position de départ. Expire pendant cette phase.",
+   "Tiens une seconde en contraction et répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Cable_One_Arm_Tricep_Extension": {
+  "name": "Extension triceps unilatérale à la poulie prise inversée",
+  "instructions": [
+   "De la main droite, saisis une poignée simple accrochée à la poulie haute en supination (paume vers le haut). Tiens-toi juste devant la colonne de charges.",
+   "Tire la poignée vers le bas pour bloquer le haut du bras et le coude contre ton flanc. Bras et avant-bras forment un angle aigu (moins de 90 degrés). Tu peux garder l'autre main à la taille et placer une jambe devant l'autre pour l'équilibre. C'est ta position de départ.",
+   "En contractant le triceps, descends la poignée le long de ton corps jusqu'à avoir le bras tendu. Expire pendant ce mouvement. Conseil : seul l'avant-bras bouge, le haut du bras reste immobile en permanence.",
+   "Serre le triceps et tiens une seconde en contraction.",
+   "Ramène lentement la poignée à la position de départ.",
+   "Répète pour le nombre de répétitions prévu, puis fais de même avec l'autre bras."
+  ]
+ },
+ "Cable_Preacher_Curl": {
+  "name": "Curl pupitre à la poulie",
+  "instructions": [
+   "Place un pupitre à curl à environ 60 cm devant une machine à poulie.",
+   "Accroche une barre droite à la poulie basse.",
+   "Assieds-toi au pupitre, coudes et haut des bras bien posés sur l'appui, et fais-toi passer la barre de la poulie basse.",
+   "Saisis la barre et tends complètement les bras sur l'appui. C'est ta position de départ.",
+   "Monte la charge vers tes épaules et serre fort les biceps en haut du mouvement. Expire pendant ce mouvement et tiens une seconde en haut.",
+   "Redescends lentement la charge à la position de départ.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Cable_Rear_Delt_Fly": {
+  "name": "Oiseau à la poulie vis-à-vis",
+  "instructions": [
+   "Règle les poulies à la bonne hauteur, au-dessus de ta tête, et choisis la charge.",
+   "Saisis la poulie gauche de la main droite et la poulie droite de la main gauche, en croisant les câbles devant toi. C'est ta position de départ.",
+   "Écarte les bras vers l'arrière et l'extérieur en les gardant tendus pendant tout le mouvement.",
+   "Marque une pause en fin de mouvement avant de ramener les poignées à la position de départ."
+  ]
+ },
+ "Cable_Reverse_Crunch": {
+  "name": "Crunch inversé à la poulie",
+  "instructions": [
+   "Accroche des sangles de cheville à une poulie basse et pose un tapis au sol devant.",
+   "Assieds-toi, pieds vers la poulie, et attache le câble à tes chevilles.",
+   "Allonge-toi, lève les jambes et fléchis les genoux à 90 degrés. Tes jambes sont alignées avec le câble ; sinon, monte ou descends la poulie jusqu'à ce qu'elles le soient.",
+   "Mains derrière la tête, ramène les genoux vers ton buste et décolle les hanches du sol.",
+   "Marque une courte pause, puis redescends les hanches lentement et en contrôlant, jusqu'à revenir à l'angle de 90 degrés du départ. Les abdos restent sous tension même en position de repos.",
+   "Répète le même mouvement jusqu'à l'échec."
+  ]
+ },
+ "Cable_Rope_Overhead_Triceps_Extension": {
+  "name": "Extension triceps à la corde au-dessus de la tête",
+  "instructions": [
+   "Accroche une corde à la poulie basse de la machine.",
+   "En tenant la corde à deux mains, tends les bras pour avoir les mains au-dessus de la tête, en prise neutre (paumes face à face). Les coudes sont près de la tête, les bras perpendiculaires au sol, les poings vers le plafond. C'est ta position de départ.",
+   "Descends lentement la corde derrière ta tête en gardant le haut des bras immobile. Inspire pendant ce mouvement et marque une pause quand les triceps sont complètement étirés.",
+   "Reviens à la position de départ en contractant les triceps et en expirant.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Cable_Rope_Rear-Delt_Rows": {
+  "name": "Rowing deltoïdes postérieurs à la corde",
+  "instructions": [
+   "Installe-toi au poste de tirage horizontal à la poulie basse comme pour un rowing assis classique.",
+   "Accroche une corde à la poulie et saisis-la en pronation. Tes bras sont tendus, parallèles au sol, coudes écartés.",
+   "Garde le bas du dos droit et recule les hanches pour avoir les genoux légèrement fléchis. C'est ta position de départ.",
+   "Tire la corde vers le haut de ta poitrine, juste sous le cou, en gardant les coudes hauts et écartés. Continue en expirant jusqu'à ce que les coudes passent légèrement derrière le dos. Conseil : le haut des bras reste horizontal, perpendiculaire au buste et parallèle au sol pendant tout le mouvement.",
+   "Reviens à la position initiale, bras tendus et épaules étirées vers l'avant. Inspire pendant cette phase.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Cable_Russian_Twists": {
+  "name": "Russian twist à la poulie",
+  "instructions": [
+   "Accroche une poignée simple et place le câble à mi-hauteur.",
+   "Allonge-toi sur un swiss ball, perpendiculaire au câble, et saisis la poignée d'une main. Tu es à environ une longueur de bras de la poulie, le câble en tension.",
+   "Saisis la poignée à deux mains et tends complètement les bras au-dessus de ta poitrine. Tes mains sont alignées avec la poulie ; sinon, monte ou descends la poulie jusqu'à ce qu'elles le soient.",
+   "Garde les hanches hautes et les abdos engagés. Fais pivoter le buste d'un quart de tour en t'éloignant de la poulie. Ton corps reste à plat de la tête aux genoux.",
+   "Marque une courte pause, puis reviens lentement et en contrôlant à la position de départ. Le câble reste en tension latérale même en position de repos.",
+   "Répète le même mouvement jusqu'à l'échec.",
+   "Change ensuite de côté et répète la même série de mouvements."
+  ]
+ },
+ "Cable_Seated_Crunch": {
+  "name": "Crunch assis à la poulie",
+  "instructions": [
+   "Assieds-toi sur un banc plat, dos à une poulie haute.",
+   "Saisis la corde à deux mains (paumes face à face) et place tes mains fermement sur tes épaules. Conseil : laisse la charge étirer légèrement le bas du dos. C'est ta position de départ.",
+   "Hanches immobiles, enroule le buste pour amener les coudes vers les hanches. Expire pendant cette étape.",
+   "En inspirant, reviens lentement à la position initiale.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Cable_Seated_Lateral_Raise": {
+  "name": "Oiseau assis à la poulie",
+  "instructions": [
+   "Tiens-toi au milieu de deux poulies basses face à face et place un banc plat juste derrière toi (perpendiculaire, le petit côté derrière toi). Choisis la charge sur chaque poulie.",
+   "Assieds-toi au bord du banc, les pieds devant les genoux.",
+   "Penche-toi en avant, dos plat, et pose ton buste sur tes cuisses.",
+   "Fais-toi passer les poignées des poulies : saisis la poulie gauche de la main droite et la poulie droite de la main gauche. Les câbles passent sous tes genoux, tes bras sont tendus, paumes face à face, coudes légèrement fléchis. C'est ta position de départ.",
+   "Sans changer l'angle des coudes, monte les bras sur les côtés jusqu'à ce qu'ils soient parallèles au sol, à hauteur d'épaules. Expire pendant ce mouvement et tiens la contraction une seconde.",
+   "Redescends lentement les bras à la position de départ en inspirant.",
+   "Répète pour le nombre de répétitions prévu. Conseil : garde le haut des bras perpendiculaire au buste et l'angle des coudes fixe (entre 10 et 30 degrés) pendant tout l'exercice."
+  ]
+ },
+ "Cable_Shoulder_Press": {
+  "name": "Développé épaules à la poulie",
+  "instructions": [
+   "Place les poulies en bas des colonnes et choisis une charge adaptée.",
+   "Tiens-toi au milieu, entre les deux montants. Saisis les poignées et tiens-les à hauteur d'épaules, paumes vers l'avant. C'est ta position de départ.",
+   "Tête et poitrine hautes, tends les coudes pour pousser les poignées droit au-dessus de ta tête.",
+   "Après une pause en haut, reviens à la position de départ et répète."
+  ]
+ },
+ "Cable_Shrugs": {
+  "name": "Shrug à la poulie",
+  "instructions": [
+   "Saisis une barre accrochée à une poulie basse en pronation (paumes vers le bas), prise à largeur d'épaules ou un peu plus large.",
+   "Tiens-toi droit près de la poulie, bras tendus devant toi avec la barre. C'est ta position de départ.",
+   "Monte la barre en haussant les épaules le plus haut possible en expirant. Tiens la contraction une seconde en haut. Conseil : les bras restent tendus en permanence. N'utilise pas les biceps, seules les épaules montent et descendent.",
+   "Redescends la barre à la position de départ.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Cable_Wrist_Curl": {
+  "name": "Curl poignets à la poulie",
+  "instructions": [
+   "Place un banc plat devant une poulie basse équipée d'une barre droite.",
+   "Saisis la barre en supination (paumes vers le haut), prise serrée à largeur d'épaules, et pose les avant-bras sur le haut de tes cuisses. Tes poignets dépassent juste devant les genoux.",
+   "Enroule les poignets vers le haut en expirant. Tiens la contraction une seconde.",
+   "Redescends lentement les poignets à la position de départ en inspirant.",
+   "Les avant-bras restent immobiles : seuls les poignets bougent pendant cet exercice.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Calf-Machine_Shoulder_Shrug": {
+  "name": "Shrug à la machine à mollets",
+  "instructions": [
+   "Installe-toi dans la machine à mollets, les appuis au-dessus des épaules. Ton buste est droit et tes bras tendus le long du corps. C'est ta position de départ.",
+   "Monte les épaules vers les oreilles en expirant et tiens la contraction une bonne seconde.",
+   "Reviens lentement à la position de départ en inspirant.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Calf_Press": {
+  "name": "Mollets à la machine",
+  "instructions": [
+   "Règle le siège pour que tes jambes soient à peine fléchies en position de départ. L'avant de tes pieds est bien posé sur la plateforme.",
+   "Choisis une charge adaptée et saisis les poignées. C'est ta position de départ.",
+   "Tends les jambes en tendant les genoux, juste assez pour décoller la charge. Ta cheville est complètement fléchie, orteils vers le haut. Pousse ensuite avec l'avant des pieds aussi loin que possible.",
+   "Après une courte pause, inverse le mouvement et répète."
+  ]
+ }
+}

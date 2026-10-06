@@ -1,0 +1,271 @@
+{
+ "Bench_Sprint": {
+  "name": "Sprint sur banc",
+  "instructions": [
+   "Tiens-toi debout au sol, un pied posé sur un banc ou une box, le talon près du bord.",
+   "Pousse sur le pied posé sur le banc en tendant la hanche et le genou.",
+   "Réceptionne-toi avec l'autre pied sur la box, en ramenant le premier pied à la position de départ.",
+   "Continue en alternant les pieds pour terminer la série."
+  ]
+ },
+ "Bent-Arm_Barbell_Pullover": {
+  "name": "Pull-over à la barre bras fléchis",
+  "instructions": [
+   "Allonge-toi sur un banc plat avec une barre, prise à largeur d'épaules.",
+   "Tiens la barre au-dessus de ta poitrine, bras légèrement fléchis. C'est ta position de départ.",
+   "En gardant les bras fléchis, descends lentement la charge en arc de cercle derrière ta tête en inspirant, jusqu'à sentir un étirement dans la poitrine.",
+   "Ramène alors la barre à la position de départ par le même arc de cercle, en expirant.",
+   "Tiens la charge une seconde en position initiale et répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Bent-Arm_Dumbbell_Pullover": {
+  "name": "Pull-over à l'haltère bras fléchis",
+  "instructions": [
+   "Pose un haltère debout sur un banc plat.",
+   "En veillant à ce que l'haltère reste bien en place en haut du banc, allonge-toi perpendiculairement au banc (en croix), seules les épaules reposant dessus. Les hanches sont plus basses que le banc, les jambes fléchies et les pieds bien à plat au sol. La tête dépasse aussi du banc.",
+   "Saisis l'haltère à deux mains et tiens-le au-dessus de ta poitrine, bras légèrement fléchis. Tes deux paumes appuient sous l'un des disques de l'haltère. C'est ta position de départ. Attention : vérifie toujours que l'haltère est bien serré. Des disques mal fixés peuvent se détacher et te tomber sur le visage.",
+   "En gardant les bras fléchis, descends lentement la charge en arc de cercle derrière ta tête en inspirant, jusqu'à sentir un étirement dans la poitrine.",
+   "Ramène alors l'haltère à la position de départ par le même arc de cercle, en expirant.",
+   "Tiens la charge une seconde en position initiale et répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Bent-Knee_Hip_Raise": {
+  "name": "Relevé de bassin genoux fléchis",
+  "instructions": [
+   "Allonge-toi à plat au sol, les bras le long du corps.",
+   "Fléchis les genoux à environ 75 degrés et décolle les pieds du sol d'environ 5 cm.",
+   "Avec le bas des abdos, ramène les genoux vers toi en gardant cet angle de 75 degrés. Continue jusqu'à décoller les hanches du sol en enroulant le bassin vers l'arrière. Expire pendant cette phase. Conseil : en fin de mouvement, tes genoux sont au-dessus de ta poitrine.",
+   "Serre les abdos une seconde en haut, puis reviens lentement à la position de départ en inspirant. Conseil : garde un mouvement contrôlé en permanence.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Bent_Over_Barbell_Row": {
+  "name": "Rowing barre buste penché",
+  "instructions": [
+   "En tenant une barre en pronation (paumes vers le bas), fléchis légèrement les genoux et penche le buste en avant depuis la taille, dos droit, jusqu'à ce qu'il soit presque parallèle au sol. Conseil : garde la tête haute. La barre pend devant toi, bras perpendiculaires au sol et au buste. C'est ta position de départ.",
+   "En gardant le buste immobile, expire et tire la barre vers toi. Garde les coudes près du corps et n'utilise les avant-bras que pour tenir la charge. En haut du mouvement, serre les muscles du dos et marque une courte pause.",
+   "Inspire et redescends lentement la barre à la position de départ.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench": {
+  "name": "Oiseau aux haltères front sur banc",
+  "instructions": [
+   "Tiens-toi debout, un haltère dans chaque main, devant un banc incliné.",
+   "Dos droit en gardant sa cambrure naturelle, penche-toi en avant jusqu'à poser le front sur le banc. Laisse les bras pendre devant toi, perpendiculaires au sol, paumes face à face, buste parallèle au sol. C'est ta position de départ.",
+   "Buste penché et immobile, bras tendus avec une légère flexion des coudes, monte les haltères sur les côtés jusqu'à ce que les bras soient parallèles au sol. Expire en montant. Attention : ne balance pas le buste et ne ramène pas les bras vers l'arrière au lieu des côtés.",
+   "Après une seconde de contraction en haut, redescends lentement les haltères à la position de départ.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Bent_Over_Low-Pulley_Side_Lateral": {
+  "name": "Oiseau unilatéral à la poulie basse",
+  "instructions": [
+   "Choisis une charge et tiens la poignée de la poulie basse dans la main droite.",
+   "Penche-toi depuis la taille jusqu'à ce que ton buste soit presque parallèle au sol. Jambes légèrement fléchies, pose la main gauche sur le bas de ta cuisse gauche. Le bras droit pend de l'épaule devant toi, coude légèrement fléchi. C'est ta position de départ.",
+   "Monte le bras droit sur le côté, coude légèrement fléchi, jusqu'à ce qu'il soit parallèle au sol et aligné avec ton oreille droite. Expire pendant ce mouvement.",
+   "Redescends lentement la charge à la position de départ en inspirant.",
+   "Répète pour le nombre de répétitions prévu, puis change de bras."
+  ]
+ },
+ "Bent_Over_One-Arm_Long_Bar_Row": {
+  "name": "Rowing T-bar unilatéral",
+  "instructions": [
+   "Charge une seule extrémité d'une barre olympique. Bloque l'autre extrémité dans un coin entre deux murs, ou pose un objet lourd au sol pour qu'elle ne glisse pas en arrière.",
+   "Penche-toi en avant pour amener ton buste le plus près possible de l'horizontale, genoux légèrement fléchis.",
+   "Saisis la barre d'une main juste derrière les disques et pose l'autre main sur ton genou. C'est ta position de départ.",
+   "Tire la barre droit vers le haut, coude près du corps (pour mieux solliciter le dos), jusqu'à ce que les disques touchent le bas de ta poitrine. Serre le dos en montant et tiens une seconde en haut. Expire en tirant. Conseil : ne balance pas le buste, seul le bras bouge.",
+   "Redescends lentement la barre à la position de départ en étirant bien les grands dorsaux. Conseil : ne laisse pas les disques toucher le sol. Pour une meilleure amplitude, utilise de petits disques (10 kg) plutôt que des grands (15 à 20 kg).",
+   "Répète pour le nombre de répétitions prévu, puis change de bras."
+  ]
+ },
+ "Bent_Over_Two-Arm_Long_Bar_Row": {
+  "name": "Rowing T-bar",
+  "instructions": [
+   "Charge une seule extrémité d'une barre olympique. Bloque l'autre extrémité dans un coin entre deux murs, ou pose un objet lourd au sol pour qu'elle ne glisse pas en arrière.",
+   "Penche-toi en avant pour amener ton buste le plus près possible de l'horizontale, genoux légèrement fléchis.",
+   "Saisis la barre à deux mains juste derrière les disques. C'est ta position de départ.",
+   "Tire la barre droit vers le haut, coudes près du corps (pour mieux solliciter le dos), jusqu'à ce que les disques touchent le bas de ta poitrine. Serre le dos en montant et tiens une seconde en haut. Expire en tirant. Conseil : tu peux accrocher une poignée double de poulie sous le bout de la barre.",
+   "Redescends lentement la barre à la position de départ en étirant bien les grands dorsaux. Conseil : ne laisse pas les disques toucher le sol. Pour une meilleure amplitude, utilise de petits disques (10 kg) plutôt que des grands (15 à 20 kg).",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Bent_Over_Two-Dumbbell_Row": {
+  "name": "Rowing haltères buste penché",
+  "instructions": [
+   "Un haltère dans chaque main (paumes vers ton buste), fléchis légèrement les genoux et penche le buste en avant depuis la taille, dos droit, jusqu'à ce qu'il soit presque parallèle au sol. Conseil : garde la tête haute. Les haltères pendent devant toi, bras perpendiculaires au sol et au buste. C'est ta position de départ.",
+   "En gardant le buste immobile, tire les haltères le long de ton corps en expirant, coudes près du corps (les avant-bras ne font que tenir les haltères). En haut du mouvement, serre les muscles du dos et tiens une seconde.",
+   "Redescends lentement les haltères à la position de départ en inspirant.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Bent_Over_Two-Dumbbell_Row_With_Palms_In": {
+  "name": "Rowing haltères buste penché prise neutre",
+  "instructions": [
+   "Un haltère dans chaque main (paumes face à face), fléchis légèrement les genoux et penche le buste en avant depuis la taille, dos droit, jusqu'à ce qu'il soit presque parallèle au sol. Conseil : garde la tête haute. Les haltères pendent devant toi, bras perpendiculaires au sol et au buste. C'est ta position de départ.",
+   "En gardant le buste immobile, tire les haltères le long de ton corps en expirant, en serrant les omoplates. En haut du mouvement, serre les muscles du dos et tiens une seconde.",
+   "Redescends lentement les haltères à la position de départ en inspirant.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Bent_Press": {
+  "name": "Bent press au kettlebell",
+  "instructions": [
+   "Épaule un kettlebell : tends les jambes et les hanches en montant le kettlebell vers l'épaule, en tournant le poignet pendant le mouvement. C'est ta position de départ.",
+   "Penche-toi du côté opposé au kettlebell jusqu'à pouvoir toucher le sol avec la main libre, en gardant les yeux sur le kettlebell. Pendant ce temps, pousse la charge à la verticale en tendant le coude, bras perpendiculaire au sol.",
+   "Redresse-toi avec le kettlebell au-dessus de la tête. Ramène-le à l'épaule et répète pour le nombre de répétitions voulu."
+  ]
+ },
+ "Bicycling": {
+  "name": "Vélo",
+  "instructions": [
+   "Installe-toi sur le vélo et règle la selle à ta hauteur."
+  ]
+ },
+ "Bicycling_Stationary": {
+  "name": "Vélo d'appartement",
+  "instructions": [
+   "Installe-toi sur le vélo et règle la selle à ta hauteur.",
+   "Choisis l'option voulue dans le menu. Il faut parfois pédaler pour allumer l'appareil. Tu peux utiliser le mode manuel ou choisir un programme. En général, tu peux saisir ton âge et ton poids pour estimer les calories dépensées. La résistance peut être modifiée pendant la séance. Les poignées permettent de suivre ta fréquence cardiaque pour rester à la bonne intensité."
+  ]
+ },
+ "Board_Press": {
+  "name": "Board press",
+  "instructions": [
+   "Allonge-toi sur le banc, la tête au-delà de la barre si possible. Une à cinq planches (de 5 × 15 cm environ) vissées ensemble sont tenues en place par un partenaire, des élastiques, ou simplement glissées sous ton t-shirt.",
+   "Ramène les pieds sous toi et cambre le dos. En t'aidant de la barre, décolle les épaules du banc et serre les omoplates. Pousse avec les pieds pour enfoncer les trapèzes dans le banc. Garde ce gainage pendant tout le mouvement.",
+   "Prends ta prise habituelle de développé couché, ou une prise à largeur d'épaules pour cibler les triceps. Sors la barre du support sans avancer les épaules. Barre, poignets et coudes restent alignés en permanence. Serre fort la barre comme si tu voulais l'écarter.",
+   "Descends la barre jusqu'aux planches, puis pousse-la le plus fort possible. Garde les coudes rentrés jusqu'au verrouillage."
+  ]
+ },
+ "Body-Up": {
+  "name": "Planche vers bras tendus",
+  "instructions": [
+   "Mets-toi en gainage au sol, en appui sur la pointe des pieds et les avant-bras, buste droit. Les avant-bras sont écartés à largeur d'épaules. C'est ta position de départ.",
+   "En appuyant fermement les paumes au sol, tends les coudes pour décoller le corps. Garde le buste gainé pendant le mouvement.",
+   "Redescends lentement les avant-bras au sol en fléchissant les coudes.",
+   "Répète."
+  ]
+ },
+ "Body_Tricep_Press": {
+  "name": "Extension triceps au poids du corps",
+  "instructions": [
+   "Place une barre dans un rack à hauteur de poitrine.",
+   "Debout, saisis la barre à largeur d'épaules et recule d'un ou deux mètres, pieds joints, bras tendus, en appui penché sur la barre. C'est ta position de départ.",
+   "Fléchis les coudes pour descendre vers la barre.",
+   "Marque une pause, puis inverse le mouvement en tendant les coudes.",
+   "Pour progresser au-delà du poids du corps, ajoute des chaînes sur tes épaules."
+  ]
+ },
+ "Bodyweight_Flyes": {
+  "name": "Écarté au poids du corps",
+  "instructions": [
+   "Pose deux barres EZ chargées de la même façon au sol, côte à côte. Vérifie qu'elles peuvent rouler.",
+   "Mets-toi en position de pompe au-dessus des barres, en appui sur la pointe des pieds et les mains, bras tendus et corps droit.",
+   "Place tes mains sur les barres. C'est ta position de départ.",
+   "Lentement et en contrôlant, écarte les mains de l'axe de ton corps en faisant rouler les barres. Inspire pendant cette phase.",
+   "Après avoir écarté les barres autant que possible, reviens à la position de départ en les rapprochant. Expire pendant ce mouvement."
+  ]
+ },
+ "Bodyweight_Mid_Row": {
+  "name": "Rowing au poids du corps à la barre de traction",
+  "instructions": [
+   "Saisis une barre de traction avec une prise moyenne à large, paumes vers l'avant. Depuis la suspension, ramène les genoux vers la poitrine, penche-toi en arrière et passe les jambes par-dessus la barre, de ton côté. C'est ta position de départ.",
+   "Bras tendus au départ, plie les coudes et serre les omoplates pour monter le corps jusqu'à ce que tes jambes touchent la barre.",
+   "Après une courte pause, reviens à la position de départ."
+  ]
+ },
+ "Bodyweight_Squat": {
+  "name": "Squat au poids du corps",
+  "instructions": [
+   "Tiens-toi debout, pieds à largeur d'épaules. Tu peux placer les mains derrière la tête. C'est ta position de départ.",
+   "Fléchis les genoux et les hanches en reculant les hanches comme pour t'asseoir.",
+   "Descends aussi bas que possible, puis remonte rapidement jusqu'à la position de départ. Pendant le squat, garde la tête et la poitrine hautes et pousse les genoux vers l'extérieur."
+  ]
+ },
+ "Bodyweight_Walking_Lunge": {
+  "name": "Fentes marchées au poids du corps",
+  "instructions": [
+   "Tiens-toi debout, pieds à largeur d'épaules, mains sur les hanches.",
+   "Fais un pas en avant et fléchis les genoux pour descendre les hanches, jusqu'à ce que le genou arrière touche presque le sol. Garde le buste droit et le genou avant au-dessus du pied avant.",
+   "Pousse dans le talon du pied avant et tends les deux genoux pour remonter.",
+   "Avance le pied arrière et répète la fente sur l'autre jambe."
+  ]
+ },
+ "Bosu_Ball_Cable_Crunch_With_Side_Bends": {
+  "name": "Crunch à la poulie sur Bosu avec flexions latérales",
+  "instructions": [
+   "Accroche une poignée simple à chaque bras d'une machine à poulies, réglés tout en bas.",
+   "Prends un Bosu et place-le devant la machine, au centre.",
+   "Allonge-toi sur le Bosu, le creux du dos épousant le ballon. Tes fesses sont proches du sol sans le toucher.",
+   "À deux mains, attrape derrière toi la poignée de chaque câble.",
+   "Pieds largement écartés, tends les bras droit devant toi, entre tes genoux. Tes mains sont à hauteur des genoux.",
+   "Garde les bras tendus dans l'axe des câbles. Monte le buste en enroulant comme pour un crunch, sans baisser ni plier les bras.",
+   "Garde les bras fixes. Redescends lentement à la position de départ, le dos épousant le Bosu et les abdos étirés.",
+   "Répète la même série de mouvements jusqu'à l'échec.",
+   "Une fois à l'échec, garde les abdos contractés et monte le buste en position de gainage pour décoller le dos du Bosu.",
+   "Descends les bras le long du corps, tendus. Enchaîne des flexions latérales alternées en allant chercher tes talons. Ce mouvement de finition cible les obliques."
+  ]
+ },
+ "Bottoms-Up_Clean_From_The_Hang_Position": {
+  "name": "Épaulé bottoms-up au kettlebell depuis la suspension",
+  "instructions": [
+   "Tiens-toi debout, un kettlebell dans une main.",
+   "Balance le kettlebell vers l'arrière avec force, puis inverse le mouvement avec force. Serre la poignée le plus fort possible et monte le kettlebell à l'épaule, base vers le haut."
+  ]
+ },
+ "Bottoms_Up": {
+  "name": "Bottoms up",
+  "instructions": [
+   "Allonge-toi sur le dos au sol, jambes tendues et bras le long du corps. C'est ta position de départ.",
+   "Ramène les genoux vers la poitrine en fléchissant les hanches et les genoux. Tends ensuite les jambes au-dessus de toi, perpendiculaires au sol. Enroule et monte le bassin pour décoller les fessiers du sol.",
+   "Après une courte pause, reviens à la position de départ."
+  ]
+ },
+ "Box_Jump_Multiple_Response": {
+  "name": "Box jumps enchaînés",
+  "instructions": [
+   "Tiens-toi détendu face à la box ou à la plateforme, à environ une longueur de bras. Les bras sont le long du corps et les jambes légèrement fléchies.",
+   "En t'aidant des bras pour l'impulsion, saute vers le haut et l'avant et atterris les deux pieds en même temps sur la box.",
+   "Redescends ou saute immédiatement à ta position de départ, puis enchaîne."
+  ]
+ },
+ "Box_Skip": {
+  "name": "Foulées bondissantes sur box",
+  "instructions": [
+   "Il te faut plusieurs box alignées à environ 2,5 m les unes des autres.",
+   "Place-toi face à la première box, une jambe légèrement en arrière.",
+   "Pousse sur la jambe arrière en cherchant à monter les hanches le plus haut possible.",
+   "Dès que tu touches la box, projette l'autre jambe vers l'avant et le haut pour gagner hauteur et distance, et saute depuis la box. Atterris entre les deux premières box sur la même jambe que celle qui a touché la première box.",
+   "Avance ensuite jusqu'à la box suivante et recommence."
+  ]
+ },
+ "Box_Squat": {
+  "name": "Box squat",
+  "instructions": [
+   "Le box squat te permet de descendre à la profondeur voulue et de développer l'explosivité au squat. Place-toi dans une cage avec une box à la bonne hauteur derrière toi. En général, la box t'amène à un squat parallèle, mais tu peux t'entraîner plus haut ou plus bas.",
+   "Passe sous la barre et place-la en travers du haut du dos. Serre les omoplates et tourne les coudes vers l'avant, comme pour plier la barre sur tes épaules. Décroche la barre en cambrant fermement le bas du dos, puis recule en position. Écarte davantage les pieds pour cibler le dos, les fessiers, les adducteurs et les ischio-jambiers, ou rapproche-les pour développer les quadriceps. Garde la tête tournée vers l'avant.",
+   "Dos, épaules et tronc gainés, pousse les genoux et les fesses vers l'extérieur pour commencer la descente. Recule les hanches jusqu'à être assis sur la box. Idéalement, tes tibias sont perpendiculaires au sol. Marque une pause sur la box et relâche les fléchisseurs de hanche. Ne rebondis jamais sur la box.",
+   "Poids sur les talons, pieds et genoux poussés vers l'extérieur, remonte depuis la box en menant le mouvement avec la tête. Continue jusqu'en haut en restant gainé de la tête aux pieds."
+  ]
+ },
+ "Box_Squat_with_Bands": {
+  "name": "Box squat avec élastiques",
+  "instructions": [
+   "Place-toi dans une cage avec une box à la bonne hauteur derrière toi. Accroche les élastiques aux manchons de la barre et fixe-les aux crochets prévus, au rack ou à des haltères, avec la tension voulue. Si tu utilises des haltères, cale-les pour qu'ils ne bougent pas et vérifie qu'ils sont assez lourds pour les élastiques ; tu peux ajouter des disques pour les lester. Pour plus de tension, élargis la base au sol ou raccourcis les élastiques. En général, la box t'amène à un squat parallèle, mais tu peux t'entraîner plus haut ou plus bas.",
+   "Passe sous la barre et place-la en travers du haut du dos. Serre les omoplates et tourne les coudes vers l'avant, comme pour plier la barre sur tes épaules. Décroche la barre en cambrant fermement le bas du dos, puis recule en position. Écarte davantage les pieds pour cibler le dos, les fessiers, les adducteurs et les ischio-jambiers, ou rapproche-les pour développer les quadriceps. Garde la tête tournée vers l'avant.",
+   "Dos, épaules et tronc gainés, pousse les genoux et les fesses vers l'extérieur pour commencer la descente. Recule les hanches jusqu'à être assis sur la box. Idéalement, tes tibias sont perpendiculaires au sol. Marque une pause sur la box et relâche les fléchisseurs de hanche. Ne rebondis jamais sur la box.",
+   "Poids sur les talons, pieds et genoux poussés vers l'extérieur, remonte depuis la box en menant le mouvement avec la tête. Continue jusqu'en haut en restant gainé de la tête aux pieds. Repose la barre sur le rack avec précaution."
+  ]
+ },
+ "Box_Squat_with_Chains": {
+  "name": "Box squat avec chaînes",
+  "instructions": [
+   "Place-toi dans une cage avec une box à la bonne hauteur derrière toi. En général, la box t'amène à un squat parallèle, mais tu peux t'entraîner plus haut ou plus bas.",
+   "Pour installer les chaînes, passe la chaîne d'attache sur les manchons de la barre et accroche la chaîne lourde avec un mousqueton. Règle la longueur de la chaîne d'attache pour que quelques maillons touchent encore le sol en haut du mouvement.",
+   "Passe sous la barre et place-la en travers du haut du dos. Serre les omoplates et tourne les coudes vers l'avant, comme pour plier la barre sur tes épaules. Décroche la barre en cambrant fermement le bas du dos, puis recule en position. Écarte davantage les pieds pour cibler le dos, les fessiers, les adducteurs et les ischio-jambiers, ou rapproche-les pour développer les quadriceps. Garde la tête tournée vers l'avant.",
+   "Dos, épaules et tronc gainés, pousse les genoux et les fesses vers l'extérieur pour commencer la descente. Recule les hanches jusqu'à être assis sur la box. Idéalement, tes tibias sont perpendiculaires au sol. Marque une pause sur la box et relâche les fléchisseurs de hanche. Ne rebondis jamais sur la box.",
+   "Poids sur les talons, pieds et genoux poussés vers l'extérieur, remonte depuis la box en menant le mouvement avec la tête. Continue jusqu'en haut en restant gainé de la tête aux pieds."
+  ]
+ }
+}

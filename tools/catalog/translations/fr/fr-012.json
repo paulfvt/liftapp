@@ -1,0 +1,337 @@
+{
+ "Kettlebell_Dead_Clean": {
+  "name": "Épaulé au kettlebell depuis le sol",
+  "instructions": [
+   "Place le kettlebell entre tes pieds. Pour te mettre en position de départ, pousse les fesses en arrière et regarde droit devant.",
+   "Épaule le kettlebell : tends les jambes et les hanches en le montant vers l'épaule, en tournant le poignet pendant le mouvement.",
+   "Redescends le kettlebell en gardant les ischio-jambiers sous tension : dos droit et fesses en arrière."
+  ]
+ },
+ "Kettlebell_Figure_8": {
+  "name": "Huit au kettlebell",
+  "instructions": [
+   "Place un kettlebell entre tes jambes, pieds plus écartés que les épaules. Penche-toi en poussant les fesses en arrière, dos plat.",
+   "Ramasse le kettlebell et passe-le à l'autre main entre tes jambes ; la main qui reçoit vient de derrière la jambe. Fais des allers-retours pour plusieurs répétitions."
+  ]
+ },
+ "Kettlebell_Halo": {
+  "name": "Halo au kettlebell",
+  "instructions": [
+   "Tiens-toi droit, pieds écartés à largeur de hanches. Tiens un kettlebell à l'envers par les cornes, la boule au-dessus des mains et près de ta poitrine. Gaine les abdos et serre les fessiers pour garder les côtes basses. C'est ta position de départ.",
+   "Coudes près de la tête, fais passer le kettlebell à côté d'une oreille puis derrière ta tête.",
+   "Continue le cercle en passant à côté de l'autre oreille et redescends à la position de départ devant ta poitrine, en gardant la boule près du corps tout du long.",
+   "Fais le nombre de tours prévu dans un sens, puis le même nombre dans l'autre sens.",
+   "Bouge lentement en gardant la tête, les hanches et le bas du dos immobiles. Si ton dos se cambre ou si la boule s'éloigne de ta tête, prends un kettlebell plus léger."
+  ]
+ },
+ "Kettlebell_Halo_With_Overhead_Extension": {
+  "name": "Halo au kettlebell avec extension au-dessus de la tête",
+  "instructions": [
+   "Tiens-toi droit, pieds écartés à largeur de hanches. Tiens un kettlebell à l'envers par les cornes, la boule au-dessus des mains et près de ta poitrine. Gaine les abdos et serre les fessiers pour garder les côtes basses. C'est ta position de départ.",
+   "Coudes près de la tête, fais passer le kettlebell à côté d'une oreille jusqu'à ce qu'il soit derrière ta tête. Marque une pause.",
+   "Depuis cette position, tends les coudes pour pousser le kettlebell au-dessus de ta tête jusqu'à avoir les bras tendus, le haut des bras le long de la tête.",
+   "Plie les coudes pour redescendre le kettlebell derrière ta tête en contrôlant.",
+   "Continue le cercle en passant à côté de l'autre oreille et redescends devant ta poitrine : c'est une répétition.",
+   "Change le sens du cercle à chaque répétition. Garde la tête, les hanches et le bas du dos immobiles. Si ton dos se cambre ou si tu dois te pencher en arrière pour atteindre le haut, prends un kettlebell plus léger ou fais le halo et l'extension séparément."
+  ]
+ },
+ "Kettlebell_Hang_Clean": {
+  "name": "Épaulé au kettlebell depuis la suspension",
+  "instructions": [
+   "Place le kettlebell entre tes pieds. Pour te mettre en position de départ, pousse les fesses en arrière et regarde droit devant.",
+   "Épaule le kettlebell : tends les jambes et les hanches en le montant vers l'épaule, en tournant le poignet pendant le mouvement.",
+   "Redescends le kettlebell en suspension entre tes jambes en gardant les ischio-jambiers sous tension. Garde la tête haute en permanence."
+  ]
+ },
+ "Kettlebell_One-Legged_Deadlift": {
+  "name": "Soulevé de terre unilatéral au kettlebell",
+  "instructions": [
+   "Tiens un kettlebell par la poignée d'une main. Tiens-toi sur une jambe, du même côté que le kettlebell.",
+   "Genou légèrement fléchi, fais un soulevé de terre jambes tendues en te penchant depuis la hanche, la jambe libre tendue derrière toi pour l'équilibre.",
+   "Descends le kettlebell jusqu'à ce que ton buste soit parallèle au sol, puis redresse-toi."
+  ]
+ },
+ "Kettlebell_Overhead_Triceps_Extension": {
+  "name": "Extension triceps au kettlebell au-dessus de la tête",
+  "instructions": [
+   "Tiens-toi debout, pieds à largeur de hanches, un kettlebell tenu à deux mains par les cornes. Pousse-le au-dessus de ta tête jusqu'à avoir les bras tendus, la boule pendant derrière tes mains.",
+   "Gaine les abdos et garde le haut des bras vertical et près de la tête. C'est ta position de départ.",
+   "Plie les coudes pour descendre le kettlebell derrière ta tête, aussi loin que la mobilité de tes épaules le permet sans écarter les coudes.",
+   "Tends les coudes pour remonter le kettlebell à la position de départ, le haut des bras immobile.",
+   "Garde les côtes basses et ne cambre pas le bas du dos pendant l'extension."
+  ]
+ },
+ "Kettlebell_Pass_Between_The_Legs": {
+  "name": "Passage du kettlebell entre les jambes",
+  "instructions": [
+   "Place un kettlebell entre tes jambes, pieds écartés confortablement. Penche-toi en poussant les fesses en arrière, dos plat.",
+   "Ramasse le kettlebell et passe-le à l'autre main entre tes jambes, en dessinant un « W ». Fais des allers-retours pour plusieurs répétitions."
+  ]
+ },
+ "Kettlebell_Pirate_Ships": {
+  "name": "Bateau pirate au kettlebell",
+  "instructions": [
+   "Pieds largement écartés, tiens un kettlebell à deux mains, bras tendus, à hauteur de taille. C'est ta position de départ.",
+   "Pivote d'un côté en balançant le kettlebell jusqu'à hauteur de tête. Marque une brève pause en haut.",
+   "Laisse redescendre le kettlebell en pivotant de l'autre côté, en le remontant à nouveau à hauteur de tête.",
+   "Répète pour le nombre de répétitions voulu."
+  ]
+ },
+ "Kettlebell_Pistol_Squat": {
+  "name": "Pistol squat au kettlebell",
+  "instructions": [
+   "Tiens un kettlebell à deux mains par les cornes. Décolle une jambe du sol et descends en squat sur l'autre.",
+   "Descends en fléchissant le genou et en reculant les hanches, le kettlebell tenu devant toi.",
+   "Tiens la position basse une seconde, puis remonte en poussant dans le talon, tête et poitrine hautes.",
+   "Redescends et répète."
+  ]
+ },
+ "Kettlebell_Seated_Press": {
+  "name": "Développé assis au sol au kettlebell",
+  "instructions": [
+   "Assieds-toi au sol, jambes écartées confortablement.",
+   "Épaule un kettlebell.",
+   "Pousse le kettlebell vers le haut jusqu'à le verrouiller bras tendu au-dessus de ta tête. Reviens à la position de départ."
+  ]
+ },
+ "Kettlebell_Seesaw_Press": {
+  "name": "Développé en balançoire aux kettlebells",
+  "instructions": [
+   "Épaule deux kettlebells.",
+   "Pousse un kettlebell au-dessus de ta tête.",
+   "Redescends-le et pousse immédiatement l'autre. Fais le même nombre de répétitions des deux côtés."
+  ]
+ },
+ "Kettlebell_Sumo_High_Pull": {
+  "name": "Tirage haut sumo au kettlebell",
+  "instructions": [
+   "Pose un kettlebell au sol entre tes pieds, pieds largement écartés, et saisis-le à deux mains. Recule les hanches le plus possible, genoux fléchis, poitrine et tête hautes. C'est ta position de départ.",
+   "Tends les hanches et les genoux en tirant en même temps le kettlebell jusqu'aux épaules, coudes hauts. Fais le mouvement inverse pour revenir à la position de départ."
+  ]
+ },
+ "Kettlebell_Thruster": {
+  "name": "Thruster aux kettlebells",
+  "instructions": [
+   "Épaule deux kettlebells : tends les jambes et les hanches en les tirant vers les épaules, en tournant les poignets pendant le mouvement. C'est ta position de départ.",
+   "Descends en squat en fléchissant hanches et genoux, les hanches entre les jambes. Garde le dos droit et descends le plus bas possible.",
+   "En bas, inverse le mouvement en tendant genoux et hanches, en poussant dans les talons. En même temps, pousse les deux kettlebells au-dessus de ta tête, bras tendus, en profitant de l'élan du squat.",
+   "Au début de la répétition suivante, ramène les charges aux épaules."
+  ]
+ },
+ "Kettlebell_Turkish_Get-Up_Lunge_style": {
+  "name": "Turkish get-up au kettlebell (en fente)",
+  "instructions": [
+   "Allonge-toi sur le dos et pousse un kettlebell au-dessus de toi en tendant le coude. Plie le genou du même côté que le kettlebell.",
+   "Kettlebell toujours verrouillé, pivote du côté opposé et aide-toi du bras libre pour te propulser vers la position de fente. Pousse avec la main libre pour t'asseoir, puis monte sur un genou.",
+   "En regardant le kettlebell, relève-toi lentement. Fais le mouvement inverse jusqu'à la position de départ et répète."
+  ]
+ },
+ "Kettlebell_Turkish_Get-Up_Squat_style": {
+  "name": "Turkish get-up au kettlebell (en squat)",
+  "instructions": [
+   "Allonge-toi sur le dos et pousse un kettlebell au-dessus de toi en tendant le coude. Plie le genou du même côté que le kettlebell.",
+   "Kettlebell toujours verrouillé, pivote du côté opposé et aide-toi du bras libre pour te propulser vers l'avant.",
+   "Pousse avec la main libre pour t'asseoir, puis passe sur tes pieds. En regardant le kettlebell, relève-toi lentement. Fais le mouvement inverse jusqu'à la position de départ et répète."
+  ]
+ },
+ "Kettlebell_Windmill": {
+  "name": "Moulin au kettlebell",
+  "instructions": [
+   "Pose un kettlebell devant ton pied avant, puis épaule-le et pousse-le au-dessus de ta tête avec le bras opposé. Pour épauler, tends les jambes et les hanches en le tirant vers l'épaule, en tournant le poignet pour que la paume regarde vers l'avant. Pousse-le ensuite au-dessus de ta tête en tendant le coude.",
+   "En gardant le kettlebell verrouillé en permanence, pousse les fesses du côté du kettlebell levé. Tourne les pieds à 45 degrés par rapport au bras levé. Penche-toi sur le côté depuis la hanche, fesses en arrière, jusqu'à pouvoir toucher le sol avec la main libre. Garde en permanence les yeux sur le kettlebell au-dessus de ta tête.",
+   "Marque une pause d'une seconde au sol, puis remonte jusqu'à la position de départ."
+  ]
+ },
+ "Kipping_Muscle_Up": {
+  "name": "Muscle-up avec élan aux anneaux",
+  "instructions": [
+   "Saisis les anneaux en fausse prise, la base des paumes au-dessus des anneaux.",
+   "Commence en balançant légèrement les jambes vers l'arrière.",
+   "Contre ce mouvement en lançant les jambes vers l'avant et le haut, en rejetant le menton et la poitrine en arrière, tout en tirant des deux bras. En haut de la traction, ramène les anneaux sous tes aisselles en enroulant les épaules vers l'avant, coudes partant droit en arrière. Tu es alors en position pour enchaîner sur la phase de dips.",
+   "En restant stable et contrôlé, tends les coudes pour terminer le mouvement.",
+   "Redescends au sol avec précaution."
+  ]
+ },
+ "Knee_Hip_Raise_On_Parallel_Bars": {
+  "name": "Relevé de jambes à la chaise romaine",
+  "instructions": [
+   "Installe-toi sur la chaise romaine, les avant-bras sur les appuis de chaque côté du buste et les mains sur les poignées. Tes bras sont pliés à 90 degrés.",
+   "Buste droit, bas du dos plaqué contre le dossier, jambes tendues vers le sol. C'est ta position de départ.",
+   "En expirant, monte les jambes tendues jusqu'à ce qu'elles soient à peu près parallèles au sol, puis tiens la contraction une seconde. Conseil : ne prends pas d'élan et ne te balance pas.",
+   "Redescends lentement à la position de départ en inspirant.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Knee_Tuck_Jump": {
+  "name": "Saut genoux à la poitrine",
+  "instructions": [
+   "Tiens-toi debout confortablement, genoux légèrement fléchis. Tes mains sont devant toi à hauteur de poitrine, paumes vers le bas, bouts des doigts joints. C'est ta position de départ.",
+   "Descends rapidement en quart de squat et explose immédiatement vers le haut. Monte les genoux vers la poitrine pour essayer de toucher tes paumes.",
+   "Saute le plus haut possible en montant les genoux, puis réceptionne-toi bien en retendant les jambes et en amortissant avec les genoux."
+  ]
+ },
+ "Kneeling_Arm_Drill": {
+  "name": "Éducatif de bras à genoux",
+  "instructions": [
+   "Cet éducatif améliore l'efficacité des bras en course. Mets-toi à genoux, pied gauche devant, genou droit au sol. Appuie sur le talon avant pour garder les fessiers et les ischio-jambiers actifs.",
+   "Commence par de grands balancements de bras, comme des pendules. Ferme ensuite l'angle des bras comme en jogging, puis passe à un rythme de course et enfin de sprint.",
+   "Dès que tes mains passent la hanche, accélère-les vers l'avant pour les bouger le plus vite possible, comme en sprint.",
+   "Change de genou et recommence."
+  ]
+ },
+ "Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists": {
+  "name": "Crunch à genoux à la poulie avec rotations alternées",
+  "instructions": [
+   "Accroche une corde à une poulie haute et pose un tapis au sol devant.",
+   "Saisis la corde à deux mains et mets-toi à genoux à environ 60 cm de la colonne.",
+   "Place la corde derrière ta tête, mains près des oreilles.",
+   "Mains fixes, contracte les abdos et tire la corde vers le bas en enroulant le buste jusqu'à ce que tes coudes touchent tes genoux.",
+   "Marque une brève pause en bas, puis remonte lentement et en contrôlant jusqu'à la position de départ.",
+   "Refais le même mouvement ; à mi-chemin, commence à faire pivoter un coude vers le genou opposé.",
+   "Marque à nouveau une brève pause en bas, puis remonte lentement et en contrôlant jusqu'à la position de départ.",
+   "Refais le mouvement en amenant cette fois l'autre coude vers le genou opposé.",
+   "Continue cette série de mouvements jusqu'à l'échec."
+  ]
+ },
+ "Kneeling_Cable_Triceps_Extension": {
+  "name": "Extension triceps à genoux à la poulie haute",
+  "instructions": [
+   "Place un banc en travers devant une poulie haute.",
+   "Tiens une barre droite au-dessus de ta tête, mains écartées d'environ 15 cm, paumes vers le bas.",
+   "Dos à la machine, mets-toi à genoux.",
+   "Pose ta tête et l'arrière du haut des bras sur le banc. Coudes pliés, avant-bras pointés vers la poulie. C'est ta position de départ.",
+   "Haut des bras près de la tête et coudes serrés en permanence, pousse la barre en demi-cercle jusqu'à verrouiller les coudes, bras parallèles au sol. Contracte fort les triceps et tiens une seconde. Expire pendant ce mouvement.",
+   "Reviens lentement à la position de départ en inspirant.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Kneeling_High_Pulley_Row": {
+  "name": "Rowing à genoux à la poulie haute",
+  "instructions": [
+   "Choisis la charge sur une poulie située au-dessus de ta tête. Accroche une corde au câble et mets-toi à genoux à environ 60 cm, en tenant la corde devant toi, bras tendus. C'est ta position de départ.",
+   "Plie les coudes et serre complètement les omoplates en tirant la corde vers le haut de ta poitrine, coudes écartés.",
+   "Après une brève pause, reviens lentement à la position de départ."
+  ]
+ },
+ "Kneeling_Jump_Squat": {
+  "name": "Squat sauté depuis les genoux",
+  "instructions": [
+   "Mets-toi à genoux au sol avec une barre sur l'arrière des épaules, ou au poids du corps. Tu peux le faire dans une cage pour décrocher la barre plus facilement.",
+   "Recule les hanches jusqu'à ce que tes fessiers touchent tes pieds, tête et poitrine hautes.",
+   "Explose avec les hanches pour générer assez de puissance et atterrir pieds à plat au sol.",
+   "Enchaîne le squat en poussant dans les talons et en tendant les genoux jusqu'à être debout."
+  ]
+ },
+ "Kneeling_Single-Arm_High_Pulley_Row": {
+  "name": "Tirage unilatéral à genoux à la poulie haute",
+  "instructions": [
+   "Accroche une poignée simple à une poulie haute et choisis ta charge.",
+   "Mets-toi à genoux devant la colonne et saisis la poignée d'une main, bras tendu. C'est ta position de départ.",
+   "Paume vers l'avant au départ, tire la charge vers ton buste en pliant le coude et en serrant l'omoplate. Pendant le mouvement, tourne le poignet pour qu'à la fin ta paume soit tournée vers toi.",
+   "Après une brève pause, reviens à la position de départ."
+  ]
+ },
+ "Kneeling_Squat": {
+  "name": "Squat à genoux",
+  "instructions": [
+   "Règle la barre à la bonne hauteur dans une cage. Mets-toi à genoux derrière la barre ; un tapis peut protéger tes genoux. Glisse-toi sous la barre et pose-la sur l'arrière des épaules, omoplates serrées et barre bien plaquée sur le dos. Décroche la barre.",
+   "En regardant devant toi, recule les fesses jusqu'à toucher tes mollets.",
+   "Inverse le mouvement en redressant le buste."
+  ]
+ },
+ "Landmine_180s": {
+  "name": "Rotations landmine 180°",
+  "instructions": [
+   "Place une barre dans un support landmine ou cale-la solidement dans un coin. Charge-la avec un poids adapté.",
+   "Soulève l'extrémité de la barre à deux mains jusqu'à hauteur d'épaules, bras tendus devant toi. Écarte largement les pieds. C'est ta position de départ.",
+   "Fais pivoter le tronc et les hanches en descendant la charge jusqu'en bas d'un côté. Garde les bras tendus pendant tout l'exercice.",
+   "Inverse le mouvement pour amener la charge jusqu'en bas de l'autre côté.",
+   "Continue en alternant jusqu'à la fin de la série."
+  ]
+ },
+ "Landmine_Linear_Jammer": {
+  "name": "Landmine jammer",
+  "instructions": [
+   "Place une barre dans un support landmine ou, à défaut, cale-la solidement dans un coin. Charge-la avec un poids adapté et fixe la poignée sur la barre.",
+   "Soulève la barre du sol et amène les poignées à tes épaules. C'est ta position de départ.",
+   "En position athlétique, descends en squat en fléchissant et en reculant les hanches, bras pliés.",
+   "Inverse le mouvement en tendant puissamment hanches, genoux et chevilles, tout en tendant les coudes. Le mouvement est explosif : sors du squat jusqu'à l'extension complète le plus puissamment possible.",
+   "Reviens à la position de départ."
+  ]
+ },
+ "Lateral_Bound": {
+  "name": "Bonds latéraux",
+  "instructions": [
+   "Mets-toi en demi-squat, perpendiculaire à ta direction de déplacement. C'est ta position de départ.",
+   "Fais un léger contre-mouvement de la jambe avant vers l'intérieur en transférant ton poids sur la jambe extérieure.",
+   "Pousse immédiatement en te tendant pour bondir sur le côté le plus loin possible.",
+   "Dès la réception, repousse dans la direction opposée pour revenir à ton point de départ.",
+   "Continue les allers-retours pour plusieurs répétitions."
+  ]
+ },
+ "Lateral_Box_Jump": {
+  "name": "Box jump latéral",
+  "instructions": [
+   "Tiens-toi debout confortablement, une box basse à côté de toi. C'est ta position de départ.",
+   "Descends rapidement en quart de squat pour déclencher le réflexe d'étirement, puis inverse immédiatement pour sauter vers le haut et sur le côté.",
+   "Monte les genoux assez haut pour que tes pieds passent largement au-dessus de la box.",
+   "Atterris au centre de la box en amortissant avec les jambes.",
+   "Redescends avec précaution de l'autre côté de la box et continue les allers-retours pour plusieurs répétitions."
+  ]
+ },
+ "Lateral_Cone_Hops": {
+  "name": "Sauts latéraux par-dessus des plots",
+  "instructions": [
+   "Aligne plusieurs plots espacés d'environ un mètre.",
+   "Place-toi au bout de la rangée, perpendiculaire à la direction de déplacement. C'est ta position de départ.",
+   "Fléchis les genoux pour déclencher le réflexe d'étirement, puis inverse immédiatement pour sauter vers le haut et sur le côté, par-dessus le plot.",
+   "Amortis la réception avec les jambes et rebondis dans le saut suivant, tout au long de la rangée de plots."
+  ]
+ },
+ "Lateral_Raise_-_With_Bands": {
+  "name": "Élévations latérales à l'élastique",
+  "instructions": [
+   "Place-toi sur un élastique de façon qu'il soit déjà en tension bras tendus. Saisis les poignées en pronation (paumes vers les cuisses), mains un peu moins écartées que les épaules, poignées contre les côtés des cuisses. Bras tendus avec une légère flexion des coudes, dos droit. C'est ta position de départ.",
+   "Monte les poignées sur les côtés avec les deltoïdes latéraux en expirant, jusqu'à ce qu'elles soient légèrement au-dessus de l'horizontale. Conseil : en montant, incline légèrement les mains comme pour verser de l'eau et garde les bras tendus. Garde le buste immobile et marque une pause d'une seconde en haut.",
+   "Redescends lentement les poignées à la position de départ en inspirant.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Leg-Over_Floor_Press": {
+  "name": "Développé au sol jambe croisée au kettlebell",
+  "instructions": [
+   "Allonge-toi au sol avec un kettlebell posé sur ta poitrine, tenu par la poignée. Croise la jambe du côté qui travaille par-dessus l'autre jambe. Ton bras libre peut être tendu sur le côté pour te stabiliser.",
+   "Pousse le kettlebell jusqu'à verrouiller le bras.",
+   "Redescends la charge jusqu'à ce que le coude touche le sol, le kettlebell restant au-dessus du coude. Répète pour le nombre de répétitions voulu."
+  ]
+ },
+ "Leg_Extensions": {
+  "name": "Leg extension",
+  "instructions": [
+   "Cet exercice se fait sur la machine à leg extension. Choisis la charge et assieds-toi, jambes sous le boudin (pointes de pieds vers l'avant), mains sur les poignées latérales. C'est ta position de départ. Conseil : règle le boudin pour qu'il repose sur le bas de tes jambes, juste au-dessus des pieds. Tes jambes forment un angle de 90 degrés entre cuisse et jambe. Si l'angle est inférieur, ton genou est au-dessus de tes orteils, ce qui charge trop l'articulation : dans ce cas, change de machine ou arrête la descente à 90 degrés.",
+   "Avec les quadriceps, tends les jambes au maximum en expirant. Le reste du corps reste immobile sur le siège. Marque une pause d'une seconde en contraction.",
+   "Redescends lentement la charge à la position de départ en inspirant, sans dépasser l'angle de 90 degrés.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Leg_Lift": {
+  "name": "Flexion de jambe debout",
+  "instructions": [
+   "Tiens-toi droit, pieds côte à côte écartés d'environ la largeur des épaules, et accroche-toi à un support stable (montants d'une cage, dossier de chaise) pour garder l'équilibre.",
+   "Avec ou sans lest de cheville, monte une jambe derrière toi comme un leg curl debout, l'autre jambe restant tendue. Expire pendant ce mouvement.",
+   "Repose lentement la jambe au sol en inspirant.",
+   "Répète pour le nombre de répétitions prévu.",
+   "Fais de même avec l'autre jambe."
+  ]
+ },
+ "Leg_Press": {
+  "name": "Presse à cuisses",
+  "instructions": [
+   "Assieds-toi sur la presse et place les pieds sur la plateforme devant toi, écartés à largeur d'épaules. (Cet écartement moyen travaille l'ensemble des jambes ; tu peux aussi choisir un écartement plus serré ou plus large.)",
+   "Abaisse les sécurités qui retiennent la plateforme et pousse-la jusqu'à avoir les jambes tendues devant toi. Conseil : ne verrouille pas les genoux. Ton buste et tes jambes forment un angle de 90 degrés. C'est ta position de départ.",
+   "En inspirant, descends lentement la plateforme jusqu'à ce que tes cuisses et tes jambes forment un angle de 90 degrés.",
+   "En poussant surtout avec les talons et en utilisant les quadriceps, reviens à la position de départ en expirant.",
+   "Répète pour le nombre de répétitions prévu et remets bien les sécurités à la fin : la plateforme chargée ne doit pas te retomber dessus."
+  ]
+ }
+}

@@ -1,0 +1,330 @@
+{
+ "Side_Lateral_Raise": {
+  "name": "Élévations latérales aux haltères",
+  "instructions": [
+   "Prends deux haltères et tiens-toi debout, buste droit, les haltères le long du corps bras tendus, paumes vers toi. C'est ta position de départ.",
+   "Buste immobile (sans balancer), monte les haltères sur les côtés, coudes légèrement fléchis et mains légèrement inclinées vers l'avant comme pour verser de l'eau dans un verre. Continue jusqu'à ce que les bras soient parallèles au sol. Expire pendant ce mouvement et marque une pause d'une seconde en haut.",
+   "Redescends lentement les haltères à la position de départ en inspirant.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Side_Laterals_to_Front_Raise": {
+  "name": "Élévations latérales et frontales enchaînées",
+  "instructions": [
+   "Debout, tiens une paire d'haltères le long du corps. C'est ta position de départ.",
+   "Coudes légèrement fléchis, monte les haltères droit devant toi jusqu'à hauteur d'épaules, sans balancer ni tricher.",
+   "En haut, ouvre les haltères vers les côtés en gardant les bras tendus.",
+   "Redescends les haltères en contrôlant.",
+   "À la répétition suivante, monte les haltères devant toi jusqu'à hauteur d'épaules, puis ouvre-les sur les côtés.",
+   "Redescends les haltères à la position de départ."
+  ]
+ },
+ "Side_Standing_Long_Jump": {
+  "name": "Saut en longueur latéral sans élan",
+  "instructions": [
+   "Tiens-toi en position athlétique, pieds écartés à largeur de hanches, tête et poitrine hautes, genoux et hanches légèrement fléchis. C'est ta position de départ.",
+   "Penche-toi vers la droite et tends hanches, genoux et chevilles pour sauter. Mène le mouvement avec les bras et saute le plus loin possible vers la droite.",
+   "Atterris face à la même direction, pieds à largeur de hanches, en amortissant avec le bas du corps."
+  ]
+ },
+ "Side_To_Side_Chins": {
+  "name": "Tractions latérales alternées",
+  "instructions": [
+   "Saisis la barre de traction paumes vers l'avant, prise large.",
+   "Bras tendus tenant la barre, penche le buste en arrière d'environ 30 degrés en cambrant le bas du dos et en sortant la poitrine. C'est ta position de départ.",
+   "Monte en te décalant vers la gauche jusqu'à ce que la barre touche presque le haut de ta poitrine, en ramenant les épaules et le haut des bras vers le bas et l'arrière. Expire pendant cette phase. Conseil : serre les muscles du dos en contraction maximale. Le haut du corps ne fait que se déplacer, sans balancer ; seuls les bras travaillent. Les avant-bras ne font que tenir la barre.",
+   "Après une seconde de contraction, redescends à la position de départ en inspirant.",
+   "Monte ensuite en te décalant vers la droite jusqu'à ce que la barre touche presque le haut de ta poitrine, de la même façon. Expire pendant cette phase.",
+   "Après une seconde de contraction, redescends à la position de départ en inspirant.",
+   "Répète les étapes 3 à 6 jusqu'à avoir fait le nombre de répétitions prévu de chaque côté."
+  ]
+ },
+ "Side_to_Side_Box_Shuffle": {
+  "name": "Pas chassés sur box",
+  "instructions": [
+   "Tiens-toi d'un côté de la box, le pied gauche posé au milieu de celle-ci.",
+   "Saute par-dessus la box pour passer de l'autre côté : atterris le pied droit sur la box et le pied gauche au sol. Lance les bras pour t'aider.",
+   "Continue les allers-retours au-dessus de la box."
+  ]
+ },
+ "Single-Arm_Cable_Crossover": {
+  "name": "Écarté unilatéral alterné à la poulie vis-à-vis",
+  "instructions": [
+   "Règle les poulies en position haute, choisis la charge et prends une poignée dans chaque main.",
+   "Avance devant les deux poulies, bras tendus devant toi, mains jointes. Tête et poitrine hautes, penché en avant, pieds décalés. C'est ta position de départ.",
+   "Bras gauche fixe, laisse le bras droit s'ouvrir sur le côté, coude légèrement fléchi, jusqu'à ce qu'il soit perpendiculaire au corps, à peu près à hauteur d'épaule.",
+   "Ramène le bras à la position de départ en ramenant la main vers l'axe du corps.",
+   "Tiens une seconde en position de départ et répète de l'autre côté. Continue en alternant pour le nombre de répétitions prévu."
+  ]
+ },
+ "Single-Arm_Linear_Jammer": {
+  "name": "Landmine jammer unilatéral",
+  "instructions": [
+   "Place une barre dans un support landmine ou cale-la solidement dans un coin. Charge-la avec un poids adapté.",
+   "Soulève l'extrémité de la barre jusqu'à tes épaules, à une ou deux mains, pieds largement écartés. C'est ta position de départ.",
+   "Tends le coude pour pousser la charge vers le haut. Sois explosif : tends complètement hanches et genoux pour produire un maximum de force.",
+   "Reviens à la position de départ."
+  ]
+ },
+ "Single-Arm_Push-Up": {
+  "name": "Pompe à un bras",
+  "instructions": [
+   "Allonge-toi face au sol, puis mets-toi en appui sur la pointe des pieds et un seul bras, placé juste sous l'épaule et complètement tendu. Jambes tendues ; écarte davantage les pieds que pour une pompe classique pour élargir ta base.",
+   "Garde une bonne posture et place la main libre dans ton dos. C'est ta position de départ.",
+   "Descends en laissant le coude se fléchir jusqu'à toucher le sol.",
+   "Descends lentement, puis inverse le mouvement en tendant le bras pour revenir à la position de départ."
+  ]
+ },
+ "Single-Cone_Sprint_Drill": {
+  "name": "Éducatif de sprint autour d'un plot",
+  "instructions": [
+   "Cet éducatif travaille la vitesse d'appuis. Il te faut un seul plot. Tiens-toi à côté du plot, un bras en arrière et un bras en avant.",
+   "Fais des appuis aussi rapides que possible en bloquant avec les bras. Tourne autour du plot, genoux hauts, avec des appuis très dynamiques.",
+   "Récupère après trois tours de plot."
+  ]
+ },
+ "Single-Leg_High_Box_Squat": {
+  "name": "Squat unilatéral sur box haute",
+  "instructions": [
+   "Place une box dans un rack et fixe un élastique ou une corde au-dessus de la box.",
+   "Debout devant, monte sur la box jusqu'à être complètement debout, l'autre jambe dans le vide. Tiens-toi à l'élastique pour l'équilibre.",
+   "Continue à monter et descendre sur la même jambe avant de changer de côté."
+  ]
+ },
+ "Single-Leg_Hop_Progression": {
+  "name": "Sauts unipodaux par-dessus des plots",
+  "instructions": [
+   "Aligne des plots devant toi. Tiens-toi détendu en équilibre sur une jambe, le genou de l'autre jambe levé. C'est ta position de départ.",
+   "Saute vers l'avant par-dessus le plot, en décollant et en atterrissant sur la même jambe.",
+   "Enchaîne de plot en plot avec un contre-mouvement à chaque saut.",
+   "À la fin, fais demi-tour et reviens sur l'autre jambe."
+  ]
+ },
+ "Single-Leg_Lateral_Hop": {
+  "name": "Sauts latéraux unipodaux",
+  "instructions": [
+   "Tiens-toi à côté d'un plot ou d'une haie, sur une jambe, genou légèrement fléchi.",
+   "Fais un contre-mouvement et saute latéralement par-dessus le plot.",
+   "Atterris sur la jambe d'appel et rebondis immédiatement pour revenir à ton point de départ.",
+   "Continue les allers-retours."
+  ]
+ },
+ "Single-Leg_Leg_Extension": {
+  "name": "Leg extension unilatéral",
+  "instructions": [
+   "Assieds-toi dans la machine et règle-la correctement : le boudin contre le bas du tibia, sans toucher la cheville, et l'axe de rotation aligné avec ton genou. Choisis une charge adaptée à ton niveau.",
+   "En gardant une bonne posture, tends complètement une jambe et marque une pause en haut.",
+   "Reviens à la position de départ sans reposer la charge, pour garder le muscle sous tension.",
+   "Répète pour le nombre de répétitions voulu."
+  ]
+ },
+ "Single-Leg_Stride_Jump": {
+  "name": "Saut unipodal depuis une box",
+  "instructions": [
+   "Tiens-toi à côté d'une box, le pied intérieur posé dessus, près du bord.",
+   "Lance les bras vers le haut en poussant sur la jambe posée sur la box, pour sauter le plus haut possible. Essaie de monter le genou opposé.",
+   "Atterris dans la même position qu'au départ, en freinant l'impact avec la jambe intérieure."
+  ]
+ },
+ "Single_Dumbbell_Raise": {
+  "name": "Élévation frontale avec un haltère",
+  "instructions": [
+   "Pieds largement écartés, tiens un haltère à deux mains par une de ses têtes plutôt que par la poignée. Bras tendus, l'haltère pend à hauteur de taille. C'est ta position de départ.",
+   "Monte la charge au-dessus de la hauteur des épaules, bras tendus. Le buste et les hanches restent immobiles pendant tout le mouvement.",
+   "Reviens à la position de départ et répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Single_Leg_Butt_Kick": {
+  "name": "Saut talon-fesse unipodal",
+  "instructions": [
+   "Tiens-toi sur une jambe, le genou de l'autre jambe levé et fléchi. C'est ta position de départ.",
+   "Avec un contre-mouvement, saute en tendant la hanche, le genou et la cheville de la jambe d'appui.",
+   "Fléchis immédiatement le genou pour essayer de toucher tes fesses avec le talon de la jambe d'appel.",
+   "Ramène la jambe sous les hanches, légèrement fléchie, et réceptionne-toi. L'autre jambe garde à peu près la même position pendant tout l'exercice."
+  ]
+ },
+ "Single_Leg_Glute_Bridge": {
+  "name": "Pont fessier unilatéral",
+  "instructions": [
+   "Allonge-toi au sol, pieds à plat et genoux fléchis.",
+   "Décolle une jambe du sol en ramenant le genou vers ta poitrine. C'est ta position de départ.",
+   "Pousse dans le talon au sol pour tendre la hanche et décoller les fessiers.",
+   "Monte le plus haut possible, marque une pause, puis reviens à la position de départ."
+  ]
+ },
+ "Single_Leg_Push-off": {
+  "name": "Impulsion unipodale sur box",
+  "instructions": [
+   "Tiens-toi au sol, un pied posé sur la box, le talon près du bord.",
+   "Pousse sur le pied posé sur la box pour monter le plus haut possible, en tendant la hanche et le genou.",
+   "Atterris avec le même pied sur la box, l'autre pied revenant à sa position de départ."
+  ]
+ },
+ "Sit-Up": {
+  "name": "Relevé de buste",
+  "instructions": [
+   "Allonge-toi au sol, pieds calés sous un support fixe ou tenus par un partenaire, genoux fléchis.",
+   "Place tes mains derrière ta tête, doigts croisés. C'est ta position de départ.",
+   "Monte le buste pour former un V avec tes cuisses. Expire pendant cette partie de l'exercice.",
+   "Après une seconde de contraction, redescends le buste à la position de départ en inspirant.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Skating": {
+  "name": "Roller",
+  "instructions": [
+   "Le roller est une activité ludique qui améliore l'endurance cardiorespiratoire et musculaire. Il demande un assez bon équilibre et une bonne coordination. Apprends les bases, notamment tourner et freiner, et porte des protections pour éviter de te blesser.",
+   "Tu peux patiner à allure confortable pendant 30 minutes d'affilée. Pour un défi cardio, fais du fractionné : deux minutes rapides toutes les cinq minutes, et les trois minutes restantes pour récupérer. Une personne de 70 kg brûle environ 175 calories en 30 minutes de roller à allure confortable, comme pour une marche rapide."
+  ]
+ },
+ "Sled_Drag_-_Harness": {
+  "name": "Traîneau tiré au harnais",
+  "instructions": [
+   "Charge le traîneau avec le poids voulu et attache la sangle de traction. Tu peux tirer avec des poignées, un harnais, ou accrocher la sangle à une ceinture de lest.",
+   "Que tu tires vers l'avant ou vers l'arrière, penche-toi dans le sens du déplacement et avance en poussant avec les hanches et les genoux."
+  ]
+ },
+ "Sled_Overhead_Backward_Walk": {
+  "name": "Marche arrière au traîneau bras levés",
+  "instructions": [
+   "Attache deux poignées à un traîneau avec une corde ou une chaîne. Charge-le légèrement.",
+   "Face au traîneau, recule jusqu'à mettre la corde en tension. Tiens les mains juste au-dessus de ta tête, coudes tendus. C'est ta position de départ.",
+   "Marche en arrière en gardant les bras levés au-dessus de ta tête, sans à-coups."
+  ]
+ },
+ "Sled_Overhead_Triceps_Extension": {
+  "name": "Extension triceps au traîneau au-dessus de la tête",
+  "instructions": [
+   "Attache deux poignées à un traîneau avec une chaîne ou une corde. Charge-le avec un poids adapté.",
+   "Dos au traîneau, avance jusqu'à mettre la corde en tension. Monte les mains au-dessus de ta tête, jointes, paumes face à face, coudes fléchis et pointés vers le haut. C'est ta position de départ.",
+   "Tends les coudes pour allonger les bras, en gardant le haut des bras en place pour isoler les triceps.",
+   "Une fois les bras tendus, avance d'un pas pour retendre la corde. Tu peux décaler les pieds pour plus de stabilité."
+  ]
+ },
+ "Sled_Push": {
+  "name": "Poussée de traîneau",
+  "instructions": [
+   "Charge le traîneau avec le poids voulu.",
+   "Prends une posture athlétique, penché contre le traîneau, bras tendus sur les poignées. Pousse le traîneau le plus vite possible en te concentrant sur l'extension des hanches et des genoux pour renforcer la chaîne postérieure."
+  ]
+ },
+ "Sled_Reverse_Flye": {
+  "name": "Oiseau au traîneau",
+  "instructions": [
+   "Attache deux poignées à un traîneau avec une corde ou une chaîne. Charge-le légèrement.",
+   "Face au traîneau, recule jusqu'à mettre la corde en tension. Prends les deux poignées bras tendus, à hauteur de taille. Fléchis légèrement les genoux, poitrine et tête hautes. C'est ta position de départ.",
+   "Sans plier les coudes, tire les poignées vers le haut et l'extérieur, comme un oiseau avec une rotation externe. Tes paumes regardent vers l'avant pendant le mouvement.",
+   "Reviens à la position de départ et recule d'un ou deux pas pour retendre la corde."
+  ]
+ },
+ "Sled_Row": {
+  "name": "Rowing au traîneau",
+  "instructions": [
+   "Attache deux poignées à un traîneau avec une corde ou une chaîne. Charge-le avec un poids adapté. Face au traîneau, recule jusqu'à mettre la corde en tension.",
+   "Une poignée dans chaque main, fléchis légèrement les genoux, tête et poitrine hautes, bras tendus.",
+   "Plie les coudes en serrant les omoplates pour tirer le traîneau vers toi.",
+   "Recule d'un ou deux pas pour retendre la corde et répète."
+  ]
+ },
+ "Sledgehammer_Swings": {
+  "name": "Frappes de masse sur pneu",
+  "instructions": [
+   "Il te faut un pneu et une masse. Tiens-toi à environ 60 cm du pneu, pieds décalés, et saisis la masse.",
+   "Si tu es droitier, la main gauche est en bas du manche et la main droite plus haut, vers la tête de la masse.",
+   "En montant la masse, ta main droite glisse vers la tête ; en frappant, elle redescend rejoindre la main gauche. Frappe le pneu le plus fort possible et contrôle le rebond de la masse.",
+   "Répète de l'autre côté."
+  ]
+ },
+ "Smith_Incline_Shoulder_Raise": {
+  "name": "Protraction d'épaules à la Smith machine sur banc incliné",
+  "instructions": [
+   "Place un banc incliné sous la Smith machine. Règle la barre à une hauteur que tu atteins allongé, bras presque tendus. Une fois la charge choisie, allonge-toi sur le banc, épaules alignées juste sous la barre.",
+   "Prise en pronation (paumes vers l'avant) à largeur d'épaules, décroche la barre et tiens-la au-dessus de toi, coudes légèrement fléchis. C'est ta position de départ.",
+   "En expirant, monte la barre jusqu'à avoir les bras complètement tendus. Remarque : tu sens la contraction autour des épaules.",
+   "Après une pause d'une seconde, redescends la barre à la position de départ en inspirant.",
+   "Répète le mouvement pour le nombre de répétitions prévu.",
+   "Quand tu as terminé, repose la barre sur le support."
+  ]
+ },
+ "Smith_Machine_Behind_the_Back_Shrug": {
+  "name": "Shrug derrière le dos à la Smith machine",
+  "instructions": [
+   "Règle la barre à hauteur de cuisses et charge un poids adapté.",
+   "Dos à la barre, saisis-la en pronation à largeur d'épaules et décroche-la. Tiens-toi droit, tête et poitrine hautes, bras tendus. C'est ta position de départ.",
+   "Hausse les épaules droit vers le haut, sans plier les bras ni les poignets.",
+   "Après une brève pause, redescends la charge à la position de départ.",
+   "Répète pour le nombre de répétitions voulu, puis raccroche la barre."
+  ]
+ },
+ "Smith_Machine_Bench_Press": {
+  "name": "Développé couché à la Smith machine",
+  "instructions": [
+   "Place un banc plat sous la Smith machine. Règle la barre à une hauteur que tu atteins allongé, bras presque tendus. Une fois la charge choisie, allonge-toi sur le banc. Avec une prise en pronation plus large que les épaules, déverrouille la barre et tiens-la au-dessus de toi, bras tendus. C'est ta position de départ.",
+   "En inspirant, descends lentement jusqu'à sentir la barre au milieu de ta poitrine.",
+   "Après une pause d'une seconde, remonte la barre à la position de départ en expirant, en poussant avec les pectoraux. Tends les bras, tiens une seconde, puis redescends lentement. Conseil : la descente doit durer au moins deux fois plus longtemps que la montée.",
+   "Répète le mouvement pour le nombre de répétitions prévu.",
+   "Quand tu as terminé, reverrouille la barre sur le support."
+  ]
+ },
+ "Smith_Machine_Bent_Over_Row": {
+  "name": "Rowing buste penché à la Smith machine",
+  "instructions": [
+   "Règle la barre de la Smith machine à environ 5 cm sous tes genoux.",
+   "Fléchis légèrement les genoux et penche le buste en avant depuis la taille, dos droit, jusqu'à ce qu'il soit presque parallèle au sol. Conseil : garde la tête haute.",
+   "Saisis la barre en pronation et déverrouille-la. Laisse-la pendre devant toi, bras tendus perpendiculaires au sol et au buste. C'est ta position de départ.",
+   "Buste immobile, monte la barre en expirant, coudes près du corps, les avant-bras ne faisant que tenir la charge. En haut, serre les muscles du dos et tiens une seconde.",
+   "Redescends lentement la charge à la position de départ en inspirant.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Smith_Machine_Calf_Raise": {
+  "name": "Mollets debout à la Smith machine",
+  "instructions": [
+   "Place une cale ou un disque sous la barre de la Smith machine. Règle la barre à la hauteur qui te convient. Une fois la hauteur choisie et la barre chargée, monte sur la cale avec l'avant des pieds et place la barre sur l'arrière de tes épaules.",
+   "Saisis la barre à deux mains, paumes vers l'avant, et fais-la pivoter pour la décrocher. C'est ta position de départ.",
+   "Monte les talons le plus haut possible en poussant sur l'avant des pieds, et contracte les mollets en haut. Tes genoux restent tendus. Tiens la contraction une seconde avant de redescendre.",
+   "Reviens lentement à la position de départ en inspirant, en baissant les talons.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Smith_Machine_Close-Grip_Bench_Press": {
+  "name": "Développé couché prise serrée à la Smith machine",
+  "instructions": [
+   "Place un banc plat sous la Smith machine. Règle la barre à une hauteur que tu atteins allongé, bras presque tendus. Une fois la charge choisie, allonge-toi sur le banc. Avec une prise serrée en pronation (paumes vers l'avant), à environ la largeur des épaules, déverrouille la barre et tiens-la au-dessus de toi, bras tendus. C'est ta position de départ.",
+   "En inspirant, descends lentement jusqu'à sentir la barre au milieu de ta poitrine. Conseil : contrairement au développé couché classique, garde les coudes près du buste en permanence pour solliciter au maximum les triceps.",
+   "Après une pause d'une seconde, remonte la barre à la position de départ en expirant, en poussant avec les triceps. Tends les bras, tiens une seconde, puis redescends lentement. Conseil : la descente doit durer au moins deux fois plus longtemps que la montée.",
+   "Répète le mouvement pour le nombre de répétitions prévu.",
+   "Quand tu as terminé, reverrouille la barre sur le support."
+  ]
+ },
+ "Smith_Machine_Decline_Press": {
+  "name": "Développé décliné à la Smith machine (variante)",
+  "instructions": [
+   "Place un banc décliné dans la machine pour que la barre soit au-dessus de ta poitrine. Charge un poids adapté et installe-toi sur le banc.",
+   "Fais pivoter la barre pour la décrocher et tends complètement les bras. Ton dos est légèrement cambré et tes omoplates serrées. C'est ta position de départ.",
+   "Fléchis les bras pour descendre la barre jusqu'à ta poitrine.",
+   "Marque une brève pause, puis tends les bras pour remonter la charge à la position de départ.",
+   "Après le nombre de répétitions voulu, fais pivoter la barre pour la raccrocher."
+  ]
+ },
+ "Smith_Machine_Hang_Power_Clean": {
+  "name": "Power clean depuis la suspension à la Smith machine",
+  "instructions": [
+   "Règle la barre à hauteur de genoux et charge-la avec un poids adapté.",
+   "Saisis la barre en pronation, plus large que les épaules, et décroche-la. Bras complètement tendus, tête et poitrine hautes, coudes tournés vers l'extérieur, épaules basses et en arrière. Hanches en arrière pour mettre les ischio-jambiers sous tension. C'est ta position de départ.",
+   "Tends avec force les hanches et les genoux pour accélérer la barre, en gardant les bras tendus pendant cette phase.",
+   "À l'extension complète, refléchis hanches et genoux pour descendre en position de réception.",
+   "Laisse alors les bras se plier en faisant tourner les coudes autour de la barre pour la réceptionner sur les épaules.",
+   "Tends hanches et genoux pour te relever, la barre posée sur les épaules, et terminer le mouvement."
+  ]
+ },
+ "Smith_Machine_Hip_Raise": {
+  "name": "Relevé de bassin à la Smith machine",
+  "instructions": [
+   "Place un banc dans la machine et charge la barre avec un poids adapté. Allonge-toi sur le banc, la plante des pieds contre la barre. Déverrouille la barre et tends les jambes, en t'aidant des mains si besoin. Pour plus de stabilité, tiens-toi aux montants de la machine. C'est ta position de départ.",
+   "Enroule le bassin et la colonne pour décoller les hanches du banc, en gardant une légère flexion des genoux pendant tout le mouvement.",
+   "Après une brève pause, repose les hanches sur le banc.",
+   "Répète pour le nombre de répétitions voulu."
+  ]
+ }
+}

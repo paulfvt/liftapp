@@ -1,0 +1,289 @@
+{
+ "Leg_Pull-In": {
+  "name": "Ramené de jambes au sol",
+  "instructions": [
+   "Allonge-toi sur un tapis, jambes tendues, mains à plat au sol à côté de toi ou sous tes fessiers. C'est ta position de départ.",
+   "Fléchis les genoux et ramène les cuisses vers ton ventre en expirant, jusqu'à ce que tes genoux soient à peu près à hauteur de poitrine. Contracte les abdos pendant le mouvement et tiens une seconde en haut. Conseil : pendant le mouvement, tes mollets restent parallèles au sol.",
+   "Reviens à la position de départ en inspirant.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Leverage_Chest_Press": {
+  "name": "Développé couché à la machine convergente",
+  "instructions": [
+   "Charge la machine avec un poids adapté et règle le siège à ta taille. Au début du mouvement, les poignées sont au niveau du bas ou du milieu des pectoraux.",
+   "Poitrine et tête hautes, omoplates serrées. C'est ta position de départ.",
+   "Pousse les poignées vers l'avant en tendant les coudes.",
+   "Après une brève pause en haut, ramène la charge juste au-dessus de la position de départ : ne la repose pas sur les butées avant la fin de la série, pour garder les muscles sous tension."
+  ]
+ },
+ "Leverage_Deadlift": {
+  "name": "Soulevé de terre à la machine",
+  "instructions": [
+   "Charge la machine avec un poids adapté. Place-toi au milieu, entre les poignées. Saisis les poignées basses confortablement, puis baisse les hanches en inspirant. Regarde devant toi et garde la poitrine haute. C'est ta position de départ.",
+   "Redescends la charge à la position de départ."
+  ]
+ },
+ "Leverage_Decline_Chest_Press": {
+  "name": "Développé décliné à la machine convergente",
+  "instructions": [
+   "Charge la machine avec un poids adapté et règle le siège à ta taille. Au début du mouvement, les poignées sont au niveau du bas des pectoraux. Poitrine et tête hautes, omoplates serrées. C'est ta position de départ.",
+   "Pousse les poignées vers l'avant en tendant les coudes.",
+   "Après une brève pause en haut, ramène la charge juste au-dessus de la position de départ : ne la repose pas sur les butées avant la fin de la série, pour garder les muscles sous tension."
+  ]
+ },
+ "Leverage_High_Row": {
+  "name": "Tirage haut à la machine convergente",
+  "instructions": [
+   "Charge la machine avec un poids adapté et règle la hauteur du siège pour atteindre tout juste les poignées au-dessus de toi. Règle le boudin des genoux pour te maintenir assis. Saisis les poignées en pronation. C'est ta position de départ.",
+   "Tire les poignées vers ton buste en serrant les omoplates et en pliant les coudes.",
+   "Marque une pause en bas du mouvement, puis remonte lentement les poignées à la position de départ.",
+   "Entre les répétitions, ne repose pas complètement la charge sur les butées, pour garder les muscles sous tension."
+  ]
+ },
+ "Leverage_Incline_Chest_Press": {
+  "name": "Développé incliné à la machine convergente",
+  "instructions": [
+   "Charge la machine avec un poids adapté et règle le siège à ta taille. Au début du mouvement, les poignées sont au niveau du haut des pectoraux. Poitrine et tête hautes, omoplates serrées. C'est ta position de départ.",
+   "Pousse les poignées vers l'avant en tendant les coudes.",
+   "Après une brève pause en haut, ramène la charge juste au-dessus de la position de départ : ne la repose pas sur les butées avant la fin de la série, pour garder les muscles sous tension."
+  ]
+ },
+ "Leverage_Iso_Row": {
+  "name": "Rowing iso-latéral à la machine",
+  "instructions": [
+   "Charge la machine avec un poids adapté et règle le siège pour que les poignées soient à hauteur de poitrine. Saisis les poignées en prise neutre ou en pronation. C'est ta position de départ.",
+   "Tire les poignées vers ton buste en serrant les omoplates et en pliant les coudes.",
+   "Marque une pause en fin de mouvement, puis ramène lentement les poignées à la position de départ. Entre les répétitions, ne repose pas complètement la charge sur les butées, pour garder les muscles sous tension."
+  ]
+ },
+ "Leverage_Shoulder_Press": {
+  "name": "Développé épaules à la machine convergente",
+  "instructions": [
+   "Charge la machine avec un poids adapté et règle le siège à ta taille. Au début du mouvement, les poignées sont au niveau du haut des épaules. Poitrine et tête hautes, poignées tenues en pronation. C'est ta position de départ.",
+   "Pousse les poignées vers le haut en tendant les coudes.",
+   "Après une brève pause en haut, ramène la charge juste au-dessus de la position de départ : ne la repose pas sur les butées avant la fin de la série, pour garder les muscles sous tension."
+  ]
+ },
+ "Leverage_Shrug": {
+  "name": "Shrug à la machine",
+  "instructions": [
+   "Charge la machine avec un poids adapté. Place-toi au milieu, entre les poignées.",
+   "Saisis les poignées hautes confortablement, puis baisse les hanches en inspirant. Regarde devant toi et garde la poitrine haute.",
+   "Pousse le sol avec les talons en tendant hanches et genoux jusqu'à être debout. Garde les bras tendus pendant tout le mouvement et finis les épaules en arrière. C'est ta position de départ.",
+   "Monte la charge en haussant les épaules vers les oreilles, droit vers le haut puis vers le bas.",
+   "Marque une pause en haut, puis redescends à la position de départ."
+  ]
+ },
+ "Linear_3-Part_Start_Technique": {
+  "name": "Départ de sprint en trois appuis",
+  "instructions": [
+   "Cet éducatif t'aide à accélérer au maximum depuis l'arrêt. Une ligne de départ au sol aide. Commence les deux pieds sur la ligne. Place la pointe du pied gauche à côté de ta cheville droite, puis recule le pied droit de 10 à 15 cm derrière le gauche.",
+   "Pose la main droite sur la ligne et rapproche ton nez de ton genou gauche.",
+   "Fléchis les jambes en te penchant en avant, la tête plus basse que les hanches et le poids sur la jambe gauche. C'est ta position de départ.",
+   "Monte la main gauche parallèle au sol, pointée vers l'arrière, puis explose vers l'avant quand tu es prêt."
+  ]
+ },
+ "Linear_Acceleration_Wall_Drill": {
+  "name": "Éducatif d'accélération contre un mur",
+  "instructions": [
+   "Penche-toi à environ 45 degrés contre un mur, pieds joints et fessiers contractés.",
+   "Monte vite le genou droit, marque une pause, puis frappe le sol droit vers le bas avec le pied.",
+   "Change de jambe : monte l'autre genou, puis attaque le sol droit vers le bas.",
+   "Recommence une fois avec la jambe droite et, dès que le pied droit touche le sol, enchaîne très vite en alternant gauche et droite le plus rapidement possible."
+  ]
+ },
+ "Linear_Depth_Jump": {
+  "name": "Saut en contrebas enchaîné",
+  "instructions": [
+   "Il te faut deux box ou bancs espacés d'environ un mètre. Monte sur une box, face à l'autre.",
+   "Laisse-toi tomber doucement au sol entre les deux, en laissant les genoux et les hanches se fléchir.",
+   "Inverse le mouvement de façon explosive en tendant hanches, genoux et chevilles pour sauter sur l'autre box.",
+   "Réceptionne-toi en douceur en amortissant avec les jambes."
+  ]
+ },
+ "Log_Lift": {
+  "name": "Log lift (tronc de strongman)",
+  "instructions": [
+   "Tiens-toi debout, le tronc devant toi. Saisis les poignées et commence l'épaulé. Penché en avant, essaie de monter le tronc le plus haut possible en le tirant contre ta poitrine, puis tends hanches et genoux pour terminer l'épaulé.",
+   "Rejette la tête en arrière et regarde vers le haut pour former un support sur ta poitrine où poser le tronc. Lance la poussée par une légère flexion des genoux, puis inverse le mouvement : ce push press donne l'élan pour monter le tronc à la verticale. Termine en tendant les coudes pour pousser le tronc au-dessus de ta tête. Il n'y a pas de technique imposée, utilise celle qui te réussit le mieux. Pendant la poussée, passe la tête sous le tronc à chaque répétition en regardant devant toi.",
+   "Répète autant de fois que possible. Essaie de contrôler la descente du tronc jusqu'au sol."
+  ]
+ },
+ "London_Bridges": {
+  "name": "London bridges (descente à la corde)",
+  "instructions": [
+   "Fixe une corde d'escalade à une poutre haute. En dessous, vérifie que la barre de la Smith machine est bloquée par les sécurités et ne peut pas bouger. Tu peux aussi utiliser une box stable.",
+   "Monte sur la barre en te tenant à la corde pour l'équilibre. C'est ta position de départ.",
+   "Corps droit, penche-toi en arrière et descends lentement en faisant glisser tes mains l'une après l'autre le long de la corde, jusqu'à être perpendiculaire au sol.",
+   "Corps toujours droit, inverse le mouvement en remontant une main après l'autre jusqu'à la position de départ."
+  ]
+ },
+ "Low_Cable_Crossover": {
+  "name": "Écarté à la poulie basse vis-à-vis",
+  "instructions": [
+   "Règle les poulies en position basse, choisis la charge et prends une poignée dans chaque main.",
+   "Avance pour mettre les câbles en tension. Paumes vers l'avant, mains sous la taille, bras tendus. C'est ta position de départ.",
+   "Bras légèrement fléchis, monte les mains vers le haut et vers l'axe de ton corps, jusqu'à ce qu'elles se rejoignent devant ta poitrine, paumes vers le haut.",
+   "Après une brève pause, ramène les bras à la position de départ."
+  ]
+ },
+ "Low_Cable_Triceps_Extension": {
+  "name": "Extension triceps allongé à la poulie basse",
+  "instructions": [
+   "Choisis la charge et allonge-toi sur le dos sur le banc d'une machine de rowing assis équipée d'une corde, la tête vers la poulie.",
+   "Saisis la corde par l'extérieur des extrémités, paumes face à face (prise neutre).",
+   "Plie les coudes à 90 degrés, haut des bras perpendiculaire au buste. Conseil : coudes serrés, haut des bras vers le plafond et avant-bras pointés vers la poulie au-dessus de ta tête. C'est ta position de départ.",
+   "En expirant, tends les avant-bras jusqu'à ce qu'ils soient droits et verticaux. Le haut des bras et les coudes restent immobiles, seuls les avant-bras bougent. Contracte fort les triceps une seconde.",
+   "En inspirant, reviens lentement à la position de départ.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Low_Pulley_Row_To_Neck": {
+  "name": "Rowing à la poulie basse vers le cou",
+  "instructions": [
+   "Assieds-toi à la machine de rowing à la poulie basse équipée d'une corde.",
+   "Saisis les extrémités de la corde en pronation, dos droit et genoux légèrement fléchis. Conseil : garde le dos presque vertical et les bras complètement tendus devant toi. C'est ta position de départ.",
+   "Buste immobile, monte les coudes et plie-les pour tirer la corde vers ton cou en expirant. Le haut des bras reste parallèle au sol pendant tout le mouvement. Conseil : continue jusqu'à ce que tes mains soient presque à côté de tes oreilles (les avant-bras finissent légèrement orientés vers le haut), coudes écartés du corps.",
+   "Après environ une seconde en contraction, reviens lentement à la position de départ en inspirant. Conseil : le buste ne bouge à aucun moment.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Lunge_Pass_Through": {
+  "name": "Fente avec passage de kettlebell",
+  "instructions": [
+   "Tiens-toi debout, buste droit, un kettlebell dans la main droite. C'est ta position de départ.",
+   "Fais un pas en avant avec le pied gauche et descends en fléchissant hanche et genou, buste droit, jusqu'à ce que le genou arrière touche presque le sol.",
+   "Pendant la fente, passe le kettlebell sous ta jambe avant pour le donner à l'autre main.",
+   "En poussant dans le talon, reviens à la position de départ.",
+   "Répète pour le nombre de répétitions prévu, en alternant les jambes."
+  ]
+ },
+ "Lunge_Sprint": {
+  "name": "Fentes sautées à la Smith machine",
+  "instructions": [
+   "Règle la barre de la Smith machine à la bonne hauteur. Place-toi dessous et pose-la sur l'arrière des épaules. Déverrouille la barre, puis écarte les pieds en fente, un pied devant et un pied derrière. C'est ta position de départ.",
+   "Descends le genou arrière presque jusqu'au sol en fléchissant les genoux et en baissant les hanches.",
+   "En bas, inverse immédiatement le mouvement : pousse de façon explosive dans le talon du pied avant, avec une légère poussée du pied arrière. Saute et inverse la position des jambes.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Lying_Cable_Curl": {
+  "name": "Curl allongé à la poulie basse",
+  "instructions": [
+   "Saisis à deux mains une barre droite ou EZ accrochée à la poulie basse, en supination (paumes vers le haut), prise à largeur d'épaules.",
+   "Allonge-toi à plat sur le dos sur un tapis devant la colonne de charges, les pieds à plat contre le cadre de la machine et les jambes tendues.",
+   "Bras tendus et coudes près du corps, fléchis légèrement les bras. C'est ta position de départ.",
+   "Le haut des bras immobile et les coudes près du corps, monte lentement la barre vers ta poitrine en expirant et en serrant les biceps.",
+   "Après une seconde de contraction en haut, reviens lentement à la position de départ.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Lying_Cambered_Barbell_Row": {
+  "name": "Rowing allongé à la barre cambrée",
+  "instructions": [
+   "Place une barre cambrée sous un banc.",
+   "Allonge-toi à plat ventre sur le banc et saisis la barre en pronation, prise plus large que les épaules. C'est ta position de départ.",
+   "En expirant, tire la barre vers le haut en gardant les coudes près du corps : vers ta poitrine pour cibler le haut et le milieu du dos, ou vers ton ventre pour cibler les grands dorsaux.",
+   "Après une seconde en haut, redescends lentement à la position de départ en inspirant."
+  ]
+ },
+ "Lying_Close-Grip_Bar_Curl_On_High_Pulley": {
+  "name": "Curl allongé prise serrée à la poulie haute",
+  "instructions": [
+   "Place un banc plat devant une poulie haute ou une machine de tirage vertical.",
+   "Saisis la barre droite en supination (paumes vers le haut), prise à environ la largeur des épaules.",
+   "Allonge-toi sur le dos, la tête au bout du banc.",
+   "Tends les bras au-dessus de tes épaules : ton buste et tes bras forment un angle de 90 degrés, coudes serrés. C'est ta position de départ.",
+   "En expirant, ramène la barre en demi-cercle jusqu'à ce qu'elle touche ton menton. Serre les biceps une seconde en contraction. Conseil : seuls les avant-bras bougent, le haut des bras reste perpendiculaire en permanence.",
+   "Reviens lentement à la position de départ.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Lying_Close-Grip_Barbell_Triceps_Extension_Behind_The_Head": {
+  "name": "Extension triceps couché derrière la tête prise serrée",
+  "instructions": [
+   "En tenant une barre droite ou EZ en pronation (paumes vers l'avant), allonge-toi sur le dos sur un banc plat, la tête près du bout. Conseil : avec une barre droite, prends une prise à largeur d'épaules ; avec une barre EZ, saisis les poignées intérieures.",
+   "Tends les bras devant toi et ramène lentement la barre en demi-cercle (bras tendus) jusqu'au-dessus de ta tête. Tes bras sont alors au-dessus de ta tête, parallèles au sol. C'est ta position de départ. Conseil : garde les coudes serrés en permanence.",
+   "En inspirant, descends la barre en pliant les coudes, haut des bras immobile, jusqu'à ce que tes avant-bras soient perpendiculaires au sol.",
+   "En expirant, remonte la barre en demi-cercle jusqu'à la position de départ, avant-bras de nouveau parallèles au sol. Contracte fort les triceps une seconde en haut. Conseil : seuls les avant-bras bougent, le haut des bras reste immobile.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Lying_Close-Grip_Barbell_Triceps_Press_To_Chin": {
+  "name": "Extension triceps couché jusqu'au menton prise serrée",
+  "instructions": [
+   "En tenant une barre droite ou EZ en pronation (paumes vers l'avant), allonge-toi sur le dos sur un banc plat, la tête dépassant du bout. Conseil : avec une barre droite, prends une prise à largeur d'épaules ; avec une barre EZ, saisis les poignées intérieures.",
+   "Tends les bras en tenant la barre au-dessus de ta poitrine, bras perpendiculaires au buste. C'est ta position de départ.",
+   "En inspirant, descends la barre en demi-cercle en pliant les coudes, haut des bras immobile et coudes serrés, jusqu'à effleurer ton menton.",
+   "En expirant, remonte la barre en demi-cercle jusqu'à la position de départ. Contracte fort les triceps une seconde en haut. Conseil : seuls les avant-bras bougent, le haut des bras reste immobile.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Lying_Dumbbell_Tricep_Extension": {
+  "name": "Extension triceps couché aux haltères",
+  "instructions": [
+   "Allonge-toi sur un banc plat en tenant deux haltères juste devant toi, bras complètement tendus et perpendiculaires à ton buste et au sol, paumes face à face et coudes serrés. C'est ta position de départ.",
+   "En inspirant, haut des bras immobile et coudes serrés, descends lentement la charge jusqu'à ce que les haltères soient près de tes oreilles.",
+   "Coudes toujours serrés et haut des bras immobile, remonte la charge à la position de départ avec les triceps en expirant.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Lying_Face_Down_Plate_Neck_Resistance": {
+  "name": "Extension du cou à plat ventre avec disque",
+  "instructions": [
+   "Allonge-toi à plat ventre sur un banc plat, corps droit, en tenant un disque derrière ta tête. Conseil : place-toi pour que tes épaules dépassent légèrement du bout du banc, le haut de la poitrine, le cou et le visage dans le vide. C'est ta position de départ.",
+   "En maintenant bien le disque derrière ta tête, baisse lentement la tête (comme pour dire « oui ») en inspirant.",
+   "Remonte la tête en demi-cercle jusqu'à la position de départ en expirant. Tiens la contraction une seconde.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Lying_Face_Up_Plate_Neck_Resistance": {
+  "name": "Flexion du cou sur le dos avec disque",
+  "instructions": [
+   "Allonge-toi sur le dos sur un banc plat, corps droit, en tenant un disque sur ton front. Conseil : place-toi pour que tes épaules dépassent légèrement du bout du banc, les trapèzes, le cou et la tête dans le vide. C'est ta position de départ.",
+   "En maintenant bien le disque sur ton front, laisse lentement descendre la tête vers l'arrière en demi-cercle en inspirant.",
+   "Remonte la tête en demi-cercle jusqu'à la position de départ en expirant. Tiens la contraction une seconde.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Lying_High_Bench_Barbell_Curl": {
+  "name": "Curl allongé sur banc haut à la barre",
+  "instructions": [
+   "Allonge-toi à plat ventre sur un banc plat haut en tenant une barre en supination (paumes vers le haut). Conseil : avec une barre droite, prends une prise à largeur d'épaules ; avec une barre EZ, saisis les poignées intérieures. Le haut de ta poitrine dépasse du bout du banc et la barre pend devant toi, bras tendus et perpendiculaires au sol. C'est ta position de départ.",
+   "Coudes serrés et haut des bras immobile, monte la charge en demi-cercle en contractant les biceps et en expirant. Tiens une seconde en haut.",
+   "En inspirant, reviens lentement à la position de départ. Conseil : garde le contrôle de la charge en permanence et évite tout balancement. Seuls les avant-bras bougent.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Lying_Leg_Curls": {
+  "name": "Leg curl allongé",
+  "instructions": [
+   "Règle le levier de la machine à ta taille et allonge-toi à plat ventre, le boudin à l'arrière des jambes, quelques centimètres sous les mollets. Conseil : préfère une machine inclinée à une machine plate, l'angle sollicite mieux les ischio-jambiers.",
+   "Buste à plat sur le banc, jambes complètement tendues, saisis les poignées latérales. Pointes de pieds droites (ou tournées vers l'intérieur ou l'extérieur selon la zone ciblée). C'est ta position de départ.",
+   "En expirant, ramène les jambes le plus haut possible sans décoller les cuisses du banc. En contraction complète, tiens une seconde.",
+   "En inspirant, ramène les jambes à la position initiale. Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Lying_Machine_Squat": {
+  "name": "Squat allongé à la machine",
+  "instructions": [
+   "Règle la machine à une hauteur qui te permet de t'y installer genoux fléchis, cuisses légèrement sous l'horizontale.",
+   "Choisis la charge et installe-toi dans la machine sur le dos, genoux fléchis et cuisses légèrement sous l'horizontale par rapport à la plateforme. Les genoux ne dépassent pas les orteils ; l'angle entre cuisse et mollet est un peu inférieur à 90 degrés. Ton dos et ta tête reposent contre la machine, épaules calées sous les appuis.",
+   "Pose les mains sur les poignées et place les pieds à largeur d'épaules, pointes légèrement tournées vers l'extérieur. C'est ta position de départ.",
+   "En poussant avec l'avant des pieds et en expirant, tends tout le corps en serrant les quadriceps. Tiens la contraction une seconde. Conseil : comme tu pars sous l'horizontale, tu peux t'aider des mains sur les cuisses pour la première répétition seulement.",
+   "Redescends lentement en inspirant, mais arrête-toi quand tes cuisses sont parallèles à la plateforme, sans revenir tout en bas : l'angle entre cuisse et mollet est alors de 90 degrés.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Lying_One-Arm_Lateral_Raise": {
+  "name": "Oiseau unilatéral allongé sur banc plat",
+  "instructions": [
+   "Un haltère dans une main, allonge-toi à plat ventre sur un banc plat. L'autre main peut tenir le pied du banc pour la stabilité.",
+   "Tiens l'haltère en prise neutre (paume vers ton buste), bras tendu et coude légèrement fléchi. C'est ta position de départ.",
+   "Monte le bras sur le côté jusqu'à ce que le coude soit à hauteur d'épaule et le bras à peu près parallèle au sol, en expirant. Conseil : garde le bras perpendiculaire au buste et tendu pendant tout le mouvement, et tiens la contraction une seconde en haut.",
+   "Redescends lentement l'haltère à la position de départ en inspirant.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ }
+}

@@ -30,7 +30,7 @@ SOURCE_SHA = "f00c92c7dcf1216a928a52c3706c7ce8e2f71ed5"
 RAW_URL = f"https://raw.githubusercontent.com/{SOURCE_REPO}/{SOURCE_SHA}"
 
 # À incrémenter à chaque modification du catalogue : l'app réimporte alors les exercices du catalogue.
-CATALOG_VERSION = 1
+CATALOG_VERSION = 2
 
 IMAGE_WIDTH = 480
 IMAGE_QUALITY = 70
@@ -135,6 +135,12 @@ def load_translations() -> dict:
     return translations
 
 
+def clean_steps(steps: list[str]) -> list[str]:
+    # L'app sépare les étapes par des retours à la ligne : on retire ceux de la source et les étapes vides.
+    cleaned = (" ".join(step.split()) for step in steps)
+    return [step for step in cleaned if step]
+
+
 def tracking_type(key: str, equipment: str) -> str:
     if key in DISTANCE_EXERCISES:
         return "DISTANCE"
@@ -180,7 +186,8 @@ def main() -> None:
         key = source_exercise["id"]
         translation = translations.get(key)
         instructions = source_exercise["instructions"]
-        if translation and len(translation["instructions"]) != len(instructions):
+        # Même nombre d'étapes que la source, sauf quand la source n'en a aucune et que la traduction les rédige.
+        if translation and instructions and len(translation["instructions"]) != len(instructions):
             sys.exit(f"{key} : {len(translation['instructions'])} étapes traduites au lieu de {len(instructions)}")
 
         equipment = EQUIPMENT[source_exercise.get("equipment")]
@@ -195,7 +202,7 @@ def main() -> None:
                 "trackingType": tracking_type(key, equipment),
                 "primaryMuscles": [MUSCLES[m] for m in source_exercise["primaryMuscles"]],
                 "secondaryMuscles": [MUSCLES[m] for m in source_exercise["secondaryMuscles"]],
-                "instructions": translation["instructions"] if translation else instructions,
+                "instructions": clean_steps(translation["instructions"] if translation else instructions),
                 "imageCount": convert_images(source_exercise),
             }
         )

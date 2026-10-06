@@ -1,0 +1,273 @@
+{
+ "Lying_Rear_Delt_Raise": {
+  "name": "Oiseau allongé sur banc plat",
+  "instructions": [
+   "Un haltère dans chaque main, allonge-toi à plat ventre sur un banc plat.",
+   "Tiens les haltères en prise neutre (paumes vers ton buste), bras tendus et coudes légèrement fléchis. C'est ta position de départ.",
+   "Monte les bras sur les côtés jusqu'à ce que les coudes soient à hauteur d'épaules et les bras à peu près parallèles au sol, en expirant. Conseil : garde les bras perpendiculaires au buste et tendus pendant tout le mouvement, et tiens la contraction une seconde en haut.",
+   "Redescends lentement les haltères à la position de départ en inspirant.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Lying_Supine_Dumbbell_Curl": {
+  "name": "Curl allongé sur le dos aux haltères",
+  "instructions": [
+   "Allonge-toi sur le dos sur un banc plat, un haltère dans chaque main posé sur les cuisses.",
+   "Amène les haltères sur les côtés, bras tendus, paumes vers les cuisses (prise neutre).",
+   "Bras près du buste et coudes serrés, descends lentement les bras (tendus, coudes légèrement fléchis) aussi bas que possible vers le sol. Quand tu ne peux plus descendre, bloque le haut des bras dans cette position : c'est ta position de départ.",
+   "En expirant, monte lentement les haltères en tournant les poignets pour que les paumes regardent vers le haut. Continue jusqu'à contraction complète des biceps et serre fort une seconde en haut. Conseil : seuls les avant-bras bougent. Le haut des bras reste immobile et les coudes serrés pendant tout le mouvement.",
+   "Reviens très lentement à la position de départ."
+  ]
+ },
+ "Lying_T-Bar_Row": {
+  "name": "Rowing T-bar allongé",
+  "instructions": [
+   "Charge la machine de rowing T-bar avec le poids voulu et règle l'appui des jambes pour que le haut de ta poitrine soit en haut du coussin. Conseil : sur certaines machines, il suffit de monter sur la marche adaptée pour être à la bonne hauteur.",
+   "Allonge-toi face au coussin et saisis les poignées. Selon la partie du dos que tu veux cibler, prends une prise en pronation, en supination ou neutre.",
+   "Décroche la barre et tends les bras devant toi. C'est ta position de départ.",
+   "En expirant, tire lentement la charge vers le haut et serre le dos en haut du mouvement. Conseil : garde le haut des bras le plus près possible du buste pour mieux solliciter le dos. Ne décolle jamais du coussin et n'utilise pas les biceps pour monter la charge.",
+   "Après une seconde de contraction en haut, redescends lentement à la position de départ en inspirant.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Lying_Triceps_Press": {
+  "name": "Barre au front",
+  "instructions": [
+   "Allonge-toi sur un banc plat, pieds au sol, avec une barre EZ (ou droite) posée au sol derrière ta tête.",
+   "Saisis la barre derrière toi en pronation, prise moyenne, et monte-la devant toi bras tendus. Conseil : tes bras sont perpendiculaires au buste et au sol, coudes serrés. C'est ta position de départ.",
+   "En inspirant, descends lentement la barre jusqu'à effleurer ton front, en gardant le haut des bras et les coudes immobiles.",
+   "Remonte la charge à la position de départ avec les triceps en expirant.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Machine_Bench_Press": {
+  "name": "Développé couché à la machine",
+  "instructions": [
+   "Assieds-toi sur la machine de développé pectoraux et choisis la charge.",
+   "Appuie avec le pied sur le levier de la machine : il avance les poignées pour que tu puisses les saisir et tendre complètement les bras.",
+   "Saisis les poignées en pronation et monte les coudes pour que le haut des bras soit parallèle au sol, sur les côtés du buste. Conseil : tes avant-bras pointent vers l'avant. Une fois les poignées avancées et les bras tendus, tu es en position de départ.",
+   "Ramène les poignées vers toi en inspirant.",
+   "Repousse les poignées en contractant les pectoraux et en expirant. Tiens la contraction une seconde avant de revenir.",
+   "Répète pour le nombre de répétitions prévu.",
+   "À la fin, appuie de nouveau sur le levier et ramène doucement les poignées à leur place."
+  ]
+ },
+ "Machine_Bicep_Curl": {
+  "name": "Curl biceps à la machine",
+  "instructions": [
+   "Règle le siège à la bonne hauteur et choisis la charge. Pose le haut des bras contre l'appui et saisis les poignées. C'est ta position de départ.",
+   "Plie les coudes pour ramener les avant-bras vers le haut des bras.",
+   "Marque une pause en haut, puis redescends lentement la charge à la position de départ.",
+   "Ne repose pas la charge sur les butées avant la fin de la série, pour garder les muscles sous tension."
+  ]
+ },
+ "Machine_Preacher_Curls": {
+  "name": "Curl pupitre à la machine",
+  "instructions": [
+   "Assieds-toi sur la machine à curl pupitre et choisis la charge.",
+   "Pose l'arrière du haut des bras (les triceps) sur l'appui et saisis les poignées en supination (paumes vers le haut). Conseil : garde les coudes serrés sur l'appui. C'est ta position de départ.",
+   "Monte les poignées en expirant et en contractant les biceps. Tiens la contraction une seconde en haut. Conseil : seuls les avant-bras bougent, le haut des bras reste immobile sur l'appui.",
+   "Redescends lentement les poignées à la position de départ en inspirant.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Machine_Shoulder_Military_Press": {
+  "name": "Développé épaules à la machine",
+  "instructions": [
+   "Assieds-toi sur la machine de développé épaules et choisis la charge.",
+   "Saisis les poignées sur les côtés, coudes pliés et alignés avec ton buste. C'est ta position de départ.",
+   "Pousse les poignées vers le haut en expirant jusqu'à avoir les bras complètement tendus. Tiens la contraction une seconde en haut.",
+   "Redescends lentement les poignées à la position de départ en inspirant.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Machine_Triceps_Extension": {
+  "name": "Extension triceps à la machine",
+  "instructions": [
+   "Règle le siège à la bonne hauteur et choisis la charge. Pose le haut des bras contre l'appui et saisis les poignées. C'est ta position de départ.",
+   "Tends les coudes pour éloigner les avant-bras du haut des bras.",
+   "Marque une pause en fin de mouvement, puis ramène lentement la charge à la position de départ.",
+   "Ne repose pas la charge sur les butées avant la fin de la série, pour garder les muscles sous tension."
+  ]
+ },
+ "Medicine_Ball_Chest_Pass": {
+  "name": "Passe poitrine au médecine-ball",
+  "instructions": [
+   "Il te faut un partenaire pour cet exercice ; à défaut, lance contre un mur.",
+   "Face à ton partenaire, tiens le médecine-ball à deux mains devant ton buste.",
+   "Ramène le ballon contre ta poitrine, puis inverse le mouvement en tendant les coudes. Pour un usage sportif, tu peux faire un pas en lançant.",
+   "Ton partenaire attrape le ballon et te le renvoie.",
+   "Réceptionne le ballon à deux mains à hauteur de poitrine."
+  ]
+ },
+ "Medicine_Ball_Full_Twist": {
+  "name": "Rotation complète au médecine-ball",
+  "instructions": [
+   "Il te faut un médecine-ball et un partenaire. Tenez-vous dos à dos, à 60 à 90 cm l'un de l'autre. C'est ta position de départ.",
+   "Tiens le ballon devant ton tronc. Ouvre les hanches et tourne les épaules en même temps que ton partenaire.",
+   "Pour une rotation complète, tournez tous les deux dans le même sens, par exemple dans le sens inverse des aiguilles d'une montre.",
+   "Passe le ballon à ton partenaire, puis tournez tous les deux dans l'autre sens pour recommencer."
+  ]
+ },
+ "Medicine_Ball_Scoop_Throw": {
+  "name": "Lancer arrière au médecine-ball",
+  "instructions": [
+   "Mets-toi en demi-squat avec un médecine-ball dans les mains, bras pendants, le ballon près des pieds.",
+   "Projette les hanches vers l'avant en tendant les jambes, et saute.",
+   "En même temps, lance les bras tendus vers le haut et par-dessus ta tête, et lâche le ballon au sommet du mouvement. Le but est de lancer le ballon le plus loin possible derrière toi."
+  ]
+ },
+ "Middle_Back_Shrug": {
+  "name": "Rétraction des omoplates sur banc incliné",
+  "instructions": [
+   "Allonge-toi à plat ventre sur un banc incliné, un haltère dans chaque main. Tes bras pendent complètement tendus vers le sol, paumes face à face. C'est ta position de départ.",
+   "En expirant, serre les omoplates et tiens la contraction une bonne seconde. Conseil : c'est le mouvement inverse d'un câlin, comme un oiseau qu'on ferait sans bras.",
+   "En inspirant, reviens à la position de départ.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Mixed_Grip_Chin": {
+  "name": "Traction en prise mixte",
+  "instructions": [
+   "Avec un écartement d'environ 2 à 3 cm de plus que la largeur des épaules, saisis la barre de traction avec une main en pronation et l'autre en supination. C'est ta position de départ.",
+   "Tire-toi vers le haut en expirant. Conseil : côté supination, concentre-toi sur les muscles du dos, coude près du buste. Côté pronation, le coude est écarté mais aligné avec le buste : concentre-toi sur les grands dorsaux pour monter.",
+   "Après une seconde de contraction en haut, redescends lentement en inspirant.",
+   "Répète pour le nombre de répétitions prévu.",
+   "À la série suivante, inverse les prises : si la main droite était en supination et la gauche en pronation, passe la droite en pronation et la gauche en supination."
+  ]
+ },
+ "Monster_Walk": {
+  "name": "Monster walk",
+  "instructions": [
+   "Place un élastique autour des deux chevilles et un autre autour des deux genoux. Ils doivent être bien tendus quand tes pieds sont écartés à largeur d'épaules.",
+   "Avance à petits pas en alternant pied gauche et pied droit.",
+   "Après plusieurs pas, fais l'inverse et recule jusqu'à ton point de départ."
+  ]
+ },
+ "Mountain_Climbers": {
+  "name": "Mountain climbers",
+  "instructions": [
+   "Mets-toi en position de pompe, en appui sur les mains et la pointe des pieds. Fléchis le genou et la hanche pour ramener une jambe, genou à peu près sous la hanche. C'est ta position de départ.",
+   "Inverse explosivement la position des jambes : tends la jambe fléchie jusqu'à l'appui sur la pointe du pied et ramène l'autre, hanche et genou fléchis. Alterne ainsi pendant 20 à 30 secondes."
+  ]
+ },
+ "Moving_Claw_Series": {
+  "name": "Éducatif de griffé en course",
+  "instructions": [
+   "Cet éducatif améliore ta foulée pour le sprint. En courant, fléchis bien le genou pour ramener le talon vers les fessiers pendant l'extension de la hanche.",
+   "Ramène la jambe vers l'avant en rechargeant le quadriceps, pour attaquer le sol au pas suivant.",
+   "Pendant la course, bloque bien avec les bras, en les lançant dans un rythme rapide « un-deux »."
+  ]
+ },
+ "Muscle_Snatch": {
+  "name": "Arraché en force (muscle snatch)",
+  "instructions": [
+   "Commence avec une barre chargée tenue à mi-cuisse, prise large. Pieds sous les hanches, tournés vers l'extérieur si besoin. Baisse les hanches, poitrine haute et regard devant, épaules juste devant la barre. C'est ta position de départ.",
+   "Lance le tirage en poussant avec l'avant des talons pour monter la barre. Enchaîne sur le deuxième tirage en tendant hanches, genoux et chevilles pour monter la barre le plus vite possible, près du corps.",
+   "Continue à monter la barre jusqu'au-dessus de ta tête, sans refléchir les genoux."
+  ]
+ },
+ "Muscle_Up": {
+  "name": "Muscle-up aux anneaux",
+  "instructions": [
+   "Saisis les anneaux en fausse prise, la base des paumes au-dessus des anneaux. Lance une traction en ramenant les coudes vers le bas le long du corps.",
+   "En haut de la traction, ramène les anneaux sous tes aisselles en enroulant les épaules vers l'avant, coudes partant droit en arrière. Tu es alors en position pour enchaîner sur la phase de dips.",
+   "En restant stable et contrôlé, tends les coudes pour terminer le mouvement.",
+   "Redescends au sol avec précaution."
+  ]
+ },
+ "Narrow_Stance_Hack_Squats": {
+  "name": "Hack squat pieds serrés",
+  "instructions": [
+   "Plaque ton dos contre le dossier de la machine et cale tes épaules sous les appuis.",
+   "Place tes pieds sur la plateforme plus serrés que les épaules, pointes légèrement tournées vers l'extérieur, écartés de 8 cm ou moins. Conseil : garde la tête haute et le dos contre le dossier en permanence.",
+   "Pose tes mains sur les poignées latérales et déverrouille les sécurités (sur la plupart des machines, en faisant pivoter les poignées vers l'extérieur).",
+   "Tends les jambes sans verrouiller les genoux. C'est ta position de départ.",
+   "Descends lentement en fléchissant les genoux, buste droit et tête haute (dos toujours contre le dossier), jusqu'à ce que l'angle entre cuisse et mollet soit un peu inférieur à 90 degrés (cuisses sous l'horizontale). Inspire pendant cette phase.",
+   "Remonte en expirant, en poussant surtout avec les talons et en tendant les jambes jusqu'à la position de départ.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Narrow_Stance_Leg_Press": {
+  "name": "Presse à cuisses pieds serrés",
+  "instructions": [
+   "Assieds-toi sur la presse et place tes pieds sur la plateforme devant toi, plus serrés que les épaules, pointes légèrement tournées vers l'extérieur, écartés de 8 cm ou moins. Conseil : garde la tête haute et le dos contre le dossier en permanence.",
+   "Abaisse les sécurités qui retiennent la plateforme et pousse-la jusqu'à avoir les jambes tendues devant toi. Conseil : ne verrouille pas les genoux. Ton buste et tes jambes forment un angle de 90 degrés. C'est ta position de départ.",
+   "En inspirant, descends lentement la plateforme jusqu'à ce que tes cuisses et tes jambes forment un angle de 90 degrés.",
+   "En poussant surtout avec les talons et en utilisant les quadriceps, reviens à la position de départ en expirant.",
+   "Répète pour le nombre de répétitions prévu et remets bien les sécurités à la fin : la plateforme chargée ne doit pas te retomber dessus."
+  ]
+ },
+ "Narrow_Stance_Squats": {
+  "name": "Squat pieds serrés",
+  "instructions": [
+   "Pour ta sécurité, fais cet exercice dans une cage à squat. Règle la barre à la hauteur qui te convient. Une fois la hauteur choisie et la barre chargée, passe sous la barre et place-la en travers du haut du dos (juste sous la nuque).",
+   "Tiens la barre à deux mains de chaque côté et décroche-la du support en poussant sur les jambes tout en redressant le buste.",
+   "Recule hors du support et place tes pieds plus serrés que les épaules, pointes légèrement tournées vers l'extérieur, écartés de 8 à 15 cm. Garde la tête haute en permanence (regarder en bas te déséquilibre) et le dos droit. C'est ta position de départ.",
+   "Descends lentement en fléchissant les genoux, buste droit et tête haute, jusqu'à ce que l'angle entre cuisse et mollet soit un peu inférieur à 90 degrés (cuisses sous l'horizontale). Inspire pendant cette phase. Conseil : bien exécuté, l'avant de tes genoux forme une ligne verticale imaginaire avec tes orteils. Si tes genoux dépassent nettement cette ligne, tu charges trop le genou.",
+   "Remonte en expirant, en poussant le sol surtout avec les talons et en tendant les jambes jusqu'à la position de départ.",
+   "Répète pour le nombre de répétitions prévu."
+  ]
+ },
+ "Natural_Glute_Ham_Raise": {
+  "name": "Glute ham raise naturel",
+  "instructions": [
+   "Sur le boudin d'une machine de tirage vertical ou un pupitre à curl, place tes chevilles sous les boudins et tes genoux sur le siège, dos à la machine. Tiens-toi droit avec une bonne posture.",
+   "C'est ta position de départ. Descends en contrôlant jusqu'à ce que tes genoux soient presque complètement tendus.",
+   "Toujours en contrôlant, remonte à la position de départ.",
+   "Si tu n'arrives pas à terminer une répétition, aide-toi d'un élastique, d'un partenaire ou en poussant sur une box."
+  ]
+ },
+ "Neck_Press": {
+  "name": "Développé vers le cou",
+  "instructions": [
+   "Allonge-toi sur un banc plat. Avec une prise moyenne (avant-bras et bras formant un angle de 90 degrés au milieu du mouvement), sors la barre du support et tiens-la au-dessus de ton cou, bras tendus. C'est ta position de départ.",
+   "En inspirant, descends lentement jusqu'à sentir la barre au niveau de ton cou.",
+   "Après une pause d'une seconde, remonte la barre à la position de départ en expirant, en poussant avec les pectoraux. Tends les bras et serre les pectoraux, tiens une seconde, puis redescends lentement. Conseil : la descente doit durer au moins deux fois plus longtemps que la montée.",
+   "Répète le mouvement pour le nombre de répétitions prévu.",
+   "Quand tu as terminé, repose la barre sur le support."
+  ]
+ },
+ "Oblique_Crunches": {
+  "name": "Crunch oblique",
+  "instructions": [
+   "Allonge-toi à plat au sol, le bas du dos plaqué. Place une main à côté de ta tête et l'autre au sol sur le côté.",
+   "Tes pieds sont surélevés, posés sur une surface plane.",
+   "Décolle l'épaule du côté de la main placée à côté de ta tête.",
+   "Monte l'épaule et le buste jusqu'à toucher ton genou : par exemple, main droite à côté de la tête, monte jusqu'à ce que ton coude droit touche ton genou gauche. Fais l'inverse avec le coude gauche vers le genou droit.",
+   "Une fois le genou touché, redescends jusqu'à la position de départ.",
+   "Inspire pendant la descente et expire pendant la montée.",
+   "Continue en alternant ainsi jusqu'à avoir fait toutes les répétitions prévues de chaque côté."
+  ]
+ },
+ "Oblique_Crunches_-_On_The_Floor": {
+  "name": "Crunch oblique couché sur le côté",
+  "instructions": [
+   "Allonge-toi sur le côté droit, jambes superposées et genoux légèrement fléchis.",
+   "Place la main gauche derrière ta tête.",
+   "Dans cette position, monte le coude gauche comme pour un crunch classique, mais en ciblant surtout les obliques.",
+   "Monte le plus haut possible, tiens la contraction une seconde, puis redescends lentement à la position de départ.",
+   "Inspire pendant la descente et expire pendant la montée."
+  ]
+ },
+ "Olympic_Squat": {
+  "name": "Squat olympique",
+  "instructions": [
+   "Commence la barre posée sur le haut des trapèzes, poitrine haute et regard devant. Pieds à largeur de hanches, tournés vers l'extérieur si besoin.",
+   "Descends en fléchissant les genoux, en reculant le moins possible les hanches. Les genoux avancent donc : garde-les alignés avec les pieds. Le but est de garder le buste le plus droit possible. Descends jusqu'en bas, poids sur l'avant des talons.",
+   "Dès que l'arrière des cuisses touche les mollets, inverse le mouvement et pousse la charge vers le haut."
+  ]
+ },
+ "One-Arm_Dumbbell_Row": {
+  "name": "Rowing unilatéral à l'haltère",
+  "instructions": [
+   "Choisis un banc plat et pose un haltère de chaque côté.",
+   "Pose le genou droit sur le bout du banc, penche le buste en avant depuis la taille jusqu'à ce qu'il soit parallèle au sol, et pose la main droite à l'autre bout du banc pour te soutenir.",
+   "De la main gauche, ramasse l'haltère au sol et tiens-le, bas du dos droit, paume vers ton buste. C'est ta position de départ.",
+   "Tire la charge droit vers le côté de ta poitrine, le haut du bras près du corps et le buste immobile. Expire pendant cette étape. Conseil : serre les muscles du dos en contraction maximale. C'est le dos qui tire, pas le bras ; le haut du corps reste immobile. L'avant-bras ne fait que tenir l'haltère : ne tire pas avec lui.",
+   "Redescends la charge droit vers le bas jusqu'à la position de départ en inspirant.",
+   "Répète pour le nombre de répétitions prévu.",
+   "Change de côté et recommence avec l'autre bras."
+  ]
+ }
+}
