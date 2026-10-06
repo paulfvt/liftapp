@@ -16,23 +16,20 @@ import com.paulfvt.liftapp.core.designsystem.theme.LiftTheme
 
 // Écran temporaire affiché par chaque onglet tant que sa fonctionnalité n'est pas développée.
 @Composable
-fun ComingSoonScreen(
-    @StringRes titleRes: Int,
-    modifier: Modifier = Modifier,
-) {
+fun ComingSoonScreen(@StringRes titleRes: Int, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
             text = stringResource(titleRes),
-            style = MaterialTheme.typography.headlineMedium,
+            style = MaterialTheme.typography.headlineMedium
         )
         Text(
             text = stringResource(R.string.coming_soon),
             style = MaterialTheme.typography.bodyLarge,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
         )
     }
 }

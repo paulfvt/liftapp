@@ -10,14 +10,11 @@ import com.paulfvt.liftapp.core.ui.ComingSoonScreen
 
 // Graphe de navigation : chaque phase remplacera un ComingSoonScreen par le vrai écran.
 @Composable
-fun LiftNavHost(
-    navController: NavHostController,
-    modifier: Modifier = Modifier,
-) {
+fun LiftNavHost(navController: NavHostController, modifier: Modifier = Modifier) {
     NavHost(
         navController = navController,
         startDestination = HomeRoute,
-        modifier = modifier,
+        modifier = modifier
     ) {
         composable<HomeRoute> { ComingSoonScreen(R.string.nav_home) }
         composable<TemplatesRoute> { ComingSoonScreen(R.string.nav_templates) }

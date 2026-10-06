@@ -7,12 +7,9 @@ import androidx.compose.runtime.Composable
 // Pas de couleurs dynamiques (Material You) : l'app garde une identité visuelle fixe.
 // Le paramètre darkTheme permettra au réglage « thème clair ou sombre » (phase 10) d'ignorer le système.
 @Composable
-fun LiftTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    content: @Composable () -> Unit,
-) {
+fun LiftTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
     MaterialTheme(
         colorScheme = if (darkTheme) DarkColors else LightColors,
-        content = content,
+        content = content
     )
 }

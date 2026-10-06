@@ -26,11 +26,11 @@ data object ProfileRoute
 enum class TopLevelDestination(
     val route: Any,
     @param:DrawableRes val iconRes: Int,
-    @param:StringRes val labelRes: Int,
+    @param:StringRes val labelRes: Int
 ) {
     HOME(HomeRoute, R.drawable.ic_home, R.string.nav_home),
     TEMPLATES(TemplatesRoute, R.drawable.ic_fitness_center, R.string.nav_templates),
     HISTORY(HistoryRoute, R.drawable.ic_history, R.string.nav_history),
     PROGRESS(ProgressRoute, R.drawable.ic_trending_up, R.string.nav_progress),
-    PROFILE(ProfileRoute, R.drawable.ic_person, R.string.nav_profile),
+    PROFILE(ProfileRoute, R.drawable.ic_person, R.string.nav_profile)
 }

@@ -44,7 +44,7 @@ internal val LightColors =
         surfaceContainerLow = Color(0xFFFFF1EC),
         surfaceContainer = Color(0xFFFCEAE4),
         surfaceContainerHigh = Color(0xFFF6E4DE),
-        surfaceContainerHighest = Color(0xFFF1DFD9),
+        surfaceContainerHighest = Color(0xFFF1DFD9)
     )
 
 internal val DarkColors =
@@ -83,5 +83,5 @@ internal val DarkColors =
         surfaceContainerLow = Color(0xFF231914),
         surfaceContainer = Color(0xFF271D19),
         surfaceContainerHigh = Color(0xFF322823),
-        surfaceContainerHighest = Color(0xFF3D322E),
+        surfaceContainerHighest = Color(0xFF3D322E)
     )

@@ -13,10 +13,10 @@
 - `CLAUDE.md`, copie du cahier des charges dans `docs/`.
 
 ### Reste à faire pour clore la phase 1
-- [ ] Terminer l'assistant d'Android Studio (installation du SDK) et ouvrir le projet.
-- [ ] Générer le wrapper Gradle (`gradlew`, `gradlew.bat`, `gradle-wrapper.jar`), absents pour l'instant.
-- [ ] Premier build local et CI verte.
-- [ ] Créer le dépôt GitHub privé et pousser.
+- [x] Terminer l'assistant d'Android Studio (installation du SDK) et ouvrir le projet.
+- [x] Générer le wrapper Gradle (`gradlew`, `gradlew.bat`, `gradle-wrapper.jar`).
+- [x] Premier build local : `ktlintCheck lintDebug testDebugUnitTest assembleDebug` passe.
+- [ ] Créer le dépôt GitHub privé, pousser et vérifier que la CI est verte.
 - [ ] Lancer l'app sur le S25+.
 
 ## Décisions techniques
@@ -26,6 +26,10 @@
 - **Icônes en vecteurs XML** (Material Icons, Apache 2.0) plutôt que la bibliothèque `material-icons-extended`,
   qui n'est plus mise à jour et pèse lourd.
 - **ktlint** (plugin `org.jlleitschuh.gradle.ktlint`) pour le style, en plus d'Android Lint.
+- **Java 25 pour Gradle** : fichier `gradle/gradle-daemon-jvm.properties` créé par Android Studio ; la CI utilise
+  aussi Java 25.
+- **ktlint en style `android_studio`** : pas de virgule finale, signatures sur une ligne si elles tiennent.
+  `./gradlew ktlintFormat` corrige automatiquement.
 - **Packages `home`, `template` et `navigation`** ajoutés à la liste du cahier des charges (accueil, templates et
   squelette de navigation n'avaient pas de package dédié).
 
@@ -36,4 +40,5 @@
   la dernière fois tous templates confondus avec la mention « autre séance » ?
 
 ## Problèmes connus
-- Aucun pour l'instant.
+- Avertissement lint `OldTargetApi` (targetSdk 36 alors que l'API 37 existe) : volontaire, c'est le niveau exigé
+  par Google Play. À revoir avant la publication.

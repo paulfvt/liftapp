@@ -34,16 +34,18 @@ fun LiftApp() {
                         selected = currentDestination.isInHierarchyOf(destination),
                         onClick = { navController.navigateToTopLevel(destination) },
                         // Le libellé est déjà lu par le lecteur d'écran : l'icône n'a pas besoin de description.
-                        icon = { Icon(painterResource(destination.iconRes), contentDescription = null) },
-                        label = { Text(stringResource(destination.labelRes)) },
+                        icon = {
+                            Icon(painterResource(destination.iconRes), contentDescription = null)
+                        },
+                        label = { Text(stringResource(destination.labelRes)) }
                     )
                 }
             }
-        },
+        }
     ) { innerPadding ->
         LiftNavHost(
             navController = navController,
-            modifier = Modifier.padding(innerPadding),
+            modifier = Modifier.padding(innerPadding)
         )
     }
 }
