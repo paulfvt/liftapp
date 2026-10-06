@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Thème de la fenêtre avant l'affichage de Compose. Les couleurs de l'app sont dans LiftTheme. -->
+    <style name="Theme.LiftApp" parent="android:Theme.Material.Light.NoActionBar" />
+</resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LiftApp</string>
+
+    <!-- Barre de navigation du bas -->
+    <string name="nav_home">Accueil</string>
+    <string name="nav_templates">Séances</string>
+    <string name="nav_history">Historique</string>
+    <string name="nav_progress">Progression</string>
+    <string name="nav_profile">Profil</string>
+
+    <string name="coming_soon">Bientôt disponible</string>
+</resources>

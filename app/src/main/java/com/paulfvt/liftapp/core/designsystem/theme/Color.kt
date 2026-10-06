@@ -1,0 +1,87 @@
+package com.paulfvt.liftapp.core.designsystem.theme
+
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
+import androidx.compose.ui.graphics.Color
+
+// Palette provisoire générée selon les règles Material 3 à partir d'un orange (énergie, progression),
+// avec un sarcelle en couleur tertiaire pour les records. Elle sera remplacée après la maquette de design.
+// Tous les rôles sont définis : un rôle oublié retomberait sur le violet par défaut de Material 3.
+
+internal val LightColors =
+    lightColorScheme(
+        primary = Color(0xFFA33D00),
+        onPrimary = Color(0xFFFFFFFF),
+        primaryContainer = Color(0xFFFFDBCD),
+        onPrimaryContainer = Color(0xFF7D2D00),
+        secondary = Color(0xFF77574B),
+        onSecondary = Color(0xFFFFFFFF),
+        secondaryContainer = Color(0xFFFFDBCD),
+        onSecondaryContainer = Color(0xFF5D4035),
+        tertiary = Color(0xFF006A60),
+        onTertiary = Color(0xFFFFFFFF),
+        tertiaryContainer = Color(0xFF9EF2E4),
+        onTertiaryContainer = Color(0xFF005048),
+        error = Color(0xFFBA1A1A),
+        onError = Color(0xFFFFFFFF),
+        errorContainer = Color(0xFFFFDAD6),
+        onErrorContainer = Color(0xFF93000A),
+        background = Color(0xFFFFF8F6),
+        onBackground = Color(0xFF231914),
+        surface = Color(0xFFFFF8F6),
+        onSurface = Color(0xFF231914),
+        surfaceVariant = Color(0xFFF5DED6),
+        onSurfaceVariant = Color(0xFF53433E),
+        outline = Color(0xFF85736D),
+        outlineVariant = Color(0xFFD8C2BA),
+        scrim = Color(0xFF000000),
+        inverseSurface = Color(0xFF392E2A),
+        inverseOnSurface = Color(0xFFFFEDE7),
+        inversePrimary = Color(0xFFFFB596),
+        surfaceDim = Color(0xFFE8D6D0),
+        surfaceBright = Color(0xFFFFF8F6),
+        surfaceContainerLowest = Color(0xFFFFFFFF),
+        surfaceContainerLow = Color(0xFFFFF1EC),
+        surfaceContainer = Color(0xFFFCEAE4),
+        surfaceContainerHigh = Color(0xFFF6E4DE),
+        surfaceContainerHighest = Color(0xFFF1DFD9),
+    )
+
+internal val DarkColors =
+    darkColorScheme(
+        primary = Color(0xFFFFB596),
+        onPrimary = Color(0xFF581D00),
+        primaryContainer = Color(0xFF7D2D00),
+        onPrimaryContainer = Color(0xFFFFDBCD),
+        secondary = Color(0xFFE7BDAE),
+        onSecondary = Color(0xFF442A20),
+        secondaryContainer = Color(0xFF5D4035),
+        onSecondaryContainer = Color(0xFFFFDBCD),
+        tertiary = Color(0xFF82D5C8),
+        onTertiary = Color(0xFF003731),
+        tertiaryContainer = Color(0xFF005048),
+        onTertiaryContainer = Color(0xFF9EF2E4),
+        error = Color(0xFFFFB4AB),
+        onError = Color(0xFF690005),
+        errorContainer = Color(0xFF93000A),
+        onErrorContainer = Color(0xFFFFDAD6),
+        background = Color(0xFF1A110E),
+        onBackground = Color(0xFFF1DFD9),
+        surface = Color(0xFF1A110E),
+        onSurface = Color(0xFFF1DFD9),
+        surfaceVariant = Color(0xFF53433E),
+        onSurfaceVariant = Color(0xFFD8C2BA),
+        outline = Color(0xFFA08D86),
+        outlineVariant = Color(0xFF53433E),
+        scrim = Color(0xFF000000),
+        inverseSurface = Color(0xFFF1DFD9),
+        inverseOnSurface = Color(0xFF392E2A),
+        inversePrimary = Color(0xFFA33D00),
+        surfaceDim = Color(0xFF1A110E),
+        surfaceBright = Color(0xFF423733),
+        surfaceContainerLowest = Color(0xFF140C09),
+        surfaceContainerLow = Color(0xFF231914),
+        surfaceContainer = Color(0xFF271D19),
+        surfaceContainerHigh = Color(0xFF322823),
+        surfaceContainerHighest = Color(0xFF3D322E),
+    )
