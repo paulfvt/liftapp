@@ -1,0 +1,21 @@
+# Gradle
+.gradle/
+.kotlin/
+build/
+
+# Android Studio
+.idea/
+*.iml
+local.properties
+captures/
+.externalNativeBuild/
+.cxx/
+
+# Signature : ne jamais versionner les clés
+*.jks
+*.keystore
+keystore.properties
+
+# Système
+.DS_Store
+Thumbs.db
