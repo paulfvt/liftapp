@@ -9,3 +9,5 @@ insert_final_newline = true
 ktlint_code_style = android_studio
 # Les fonctions @Composable commencent par une majuscule, par convention Compose.
 ktlint_function_naming_ignore_when_annotated_with = Composable
+# 120 plutôt que 100 : les noms de types Compose sont longs, et un retour à la ligne forcé rend le code moins lisible.
+max_line_length = 120

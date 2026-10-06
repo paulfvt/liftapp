@@ -19,3 +19,6 @@ keystore.properties
 # Système
 .DS_Store
 Thumbs.db
+
+# Cache du script de catalogue
+tools/catalog/.cache/
