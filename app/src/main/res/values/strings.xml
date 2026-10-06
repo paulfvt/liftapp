@@ -10,4 +10,109 @@
     <string name="nav_profile">Profil</string>
 
     <string name="coming_soon">Bientôt disponible</string>
+
+    <!-- Actions communes -->
+    <string name="action_back">Retour</string>
+    <string name="action_save">Enregistrer</string>
+    <string name="action_cancel">Annuler</string>
+    <string name="action_edit">Modifier</string>
+    <string name="action_more">Plus d\'options</string>
+    <string name="action_clear">Effacer</string>
+
+    <!-- Onglet Séances (templates en phase 3) -->
+    <string name="templates_coming_soon">La création de templates arrive bientôt.</string>
+    <string name="templates_open_catalog">Catalogue d\'exercices</string>
+
+    <!-- Catalogue d'exercices -->
+    <string name="exercises_title">Exercices</string>
+    <string name="exercises_search">Rechercher un exercice</string>
+    <string name="exercises_filter_muscle">Muscle</string>
+    <string name="exercises_filter_equipment">Matériel</string>
+    <string name="exercises_filter_all">Tous</string>
+    <string name="exercises_show_hidden">Afficher les exercices masqués</string>
+    <string name="exercises_hide_hidden">Cacher les exercices masqués</string>
+    <string name="exercises_empty">Aucun exercice ne correspond.</string>
+    <string name="exercises_loading">Préparation du catalogue…</string>
+    <string name="exercises_create">Créer un exercice</string>
+    <string name="exercise_hidden_label">Masqué</string>
+    <string name="exercise_custom_label">Perso</string>
+
+    <!-- Fiche d'exercice -->
+    <string name="exercise_primary_muscles">Muscles principaux</string>
+    <string name="exercise_secondary_muscles">Muscles secondaires</string>
+    <string name="exercise_equipment">Matériel</string>
+    <string name="exercise_category">Catégorie</string>
+    <string name="exercise_tracking">Suivi</string>
+    <string name="exercise_note">Note</string>
+    <string name="exercise_note_hint">Réglage de la machine, placement, consignes…</string>
+    <string name="exercise_note_add">Ajouter une note</string>
+    <string name="exercise_instructions">Exécution</string>
+    <string name="exercise_images_description">Positions de départ et d\'arrivée de l\'exercice %1$s</string>
+    <string name="exercise_hide">Masquer l\'exercice</string>
+    <string name="exercise_unhide">Afficher l\'exercice</string>
+    <string name="exercise_hidden_banner">Cet exercice est masqué : il n\'apparaît plus dans le catalogue.</string>
+    <string name="exercise_source">Source : free-exercise-db (domaine public)</string>
+    <string name="exercise_not_found">Exercice introuvable.</string>
+
+    <!-- Création et modification d'un exercice -->
+    <string name="exercise_create_title">Nouvel exercice</string>
+    <string name="exercise_edit_title">Modifier l\'exercice</string>
+    <string name="exercise_name">Nom</string>
+    <string name="exercise_error_name_empty">Donne un nom à l\'exercice.</string>
+    <string name="exercise_error_name_too_long">60 caractères maximum.</string>
+    <string name="exercise_error_no_primary">Choisis au moins un muscle principal.</string>
+
+    <!-- Muscles -->
+    <string name="muscle_abdominals">Abdominaux</string>
+    <string name="muscle_abductors">Abducteurs</string>
+    <string name="muscle_adductors">Adducteurs</string>
+    <string name="muscle_biceps">Biceps</string>
+    <string name="muscle_calves">Mollets</string>
+    <string name="muscle_chest">Pectoraux</string>
+    <string name="muscle_forearms">Avant-bras</string>
+    <string name="muscle_glutes">Fessiers</string>
+    <string name="muscle_hamstrings">Ischio-jambiers</string>
+    <string name="muscle_lats">Grands dorsaux</string>
+    <string name="muscle_lower_back">Lombaires</string>
+    <string name="muscle_middle_back">Milieu du dos</string>
+    <string name="muscle_neck">Cou</string>
+    <string name="muscle_quadriceps">Quadriceps</string>
+    <string name="muscle_shoulders">Épaules</string>
+    <string name="muscle_traps">Trapèzes</string>
+    <string name="muscle_triceps">Triceps</string>
+
+    <!-- Groupes musculaires -->
+    <string name="muscle_group_chest">Pectoraux</string>
+    <string name="muscle_group_back">Dos</string>
+    <string name="muscle_group_shoulders">Épaules</string>
+    <string name="muscle_group_arms">Bras</string>
+    <string name="muscle_group_core">Abdos</string>
+    <string name="muscle_group_legs">Jambes</string>
+    <string name="muscle_group_neck">Cou</string>
+
+    <!-- Matériel -->
+    <string name="equipment_barbell">Barre</string>
+    <string name="equipment_dumbbell">Haltères</string>
+    <string name="equipment_ez_bar">Barre EZ</string>
+    <string name="equipment_kettlebell">Kettlebell</string>
+    <string name="equipment_cable">Poulie</string>
+    <string name="equipment_machine">Machine</string>
+    <string name="equipment_band">Élastique</string>
+    <string name="equipment_medicine_ball">Médecine-ball</string>
+    <string name="equipment_exercise_ball">Swiss ball</string>
+    <string name="equipment_bodyweight">Aucun</string>
+    <string name="equipment_other">Autre</string>
+
+    <!-- Catégories -->
+    <string name="category_free_weight">Poids libre</string>
+    <string name="category_machine">Machine</string>
+    <string name="category_bodyweight">Poids du corps</string>
+    <string name="category_cardio">Cardio</string>
+    <string name="category_other">Autre</string>
+
+    <!-- Types de suivi -->
+    <string name="tracking_weight_reps">Poids × répétitions</string>
+    <string name="tracking_reps">Répétitions</string>
+    <string name="tracking_duration">Durée</string>
+    <string name="tracking_distance">Distance et durée</string>
 </resources>

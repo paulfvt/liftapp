@@ -1,5 +1,7 @@
 package com.paulfvt.liftapp.navigation
 
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -26,7 +28,10 @@ fun LiftApp() {
     val currentBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = currentBackStackEntry?.destination
 
+    // Les écrans gèrent eux-mêmes la barre d'état (via leur TopAppBar) : ce Scaffold ne réserve que la place
+    // de la barre du bas, sinon la marge du haut serait appliquée deux fois.
     Scaffold(
+        contentWindowInsets = WindowInsets(0, 0, 0, 0),
         bottomBar = {
             NavigationBar {
                 TopLevelDestination.entries.forEach { destination ->
@@ -45,7 +50,7 @@ fun LiftApp() {
     ) { innerPadding ->
         LiftNavHost(
             navController = navController,
-            modifier = Modifier.padding(innerPadding)
+            modifier = Modifier.padding(innerPadding).consumeWindowInsets(innerPadding)
         )
     }
 }

@@ -10,6 +10,10 @@ import kotlinx.serialization.Serializable
 @Serializable
 data object HomeRoute
 
+// Graphe imbriqué de l'onglet Séances : l'onglet reste sélectionné sur tous ses sous-écrans (catalogue…).
+@Serializable
+data object TemplatesGraph
+
 @Serializable
 data object TemplatesRoute
 
@@ -29,7 +33,7 @@ enum class TopLevelDestination(
     @param:StringRes val labelRes: Int
 ) {
     HOME(HomeRoute, R.drawable.ic_home, R.string.nav_home),
-    TEMPLATES(TemplatesRoute, R.drawable.ic_fitness_center, R.string.nav_templates),
+    TEMPLATES(TemplatesGraph, R.drawable.ic_fitness_center, R.string.nav_templates),
     HISTORY(HistoryRoute, R.drawable.ic_history, R.string.nav_history),
     PROGRESS(ProgressRoute, R.drawable.ic_trending_up, R.string.nav_progress),
     PROFILE(ProfileRoute, R.drawable.ic_person, R.string.nav_profile)
