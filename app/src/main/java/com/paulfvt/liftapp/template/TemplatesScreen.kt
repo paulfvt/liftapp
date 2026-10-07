@@ -19,6 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.paulfvt.liftapp.R
+import com.paulfvt.liftapp.core.designsystem.component.ScreenTitle
 import com.paulfvt.liftapp.core.designsystem.theme.LiftTheme
 
 // Onglet Séances. Les templates arrivent en phase 3 ; pour l'instant il donne accès au catalogue.
@@ -26,7 +27,7 @@ import com.paulfvt.liftapp.core.designsystem.theme.LiftTheme
 @Composable
 fun TemplatesScreen(onOpenExercises: () -> Unit) {
     Scaffold(topBar = {
-        TopAppBar(title = { Text(stringResource(R.string.nav_templates)) })
+        TopAppBar(title = { ScreenTitle(stringResource(R.string.nav_templates)) })
     }) { padding ->
         Column(
             modifier = Modifier.fillMaxSize().padding(padding).padding(24.dp),

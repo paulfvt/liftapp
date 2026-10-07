@@ -1,6 +1,11 @@
 # Avancement
 
-## Phase en cours : 3 — Templates (plan à valider)
+## Phase en cours : 3 — Templates
+
+Plan validé le 7 octobre 2026 : reps cibles en une seule case vide par défaut, réorganisation par glisser-déposer
+(bibliothèque Reorderable), 2 minutes de repos par défaut.
+
+- [x] Design system « ON AIR » validé (`design-system/`) et appliqué au thème Compose.
 
 ## Phase 2 — Modèle de données et catalogue : terminée le 7 octobre 2026
 - Base Room v1 avec toutes les tables du modèle (schéma exporté dans `app/schemas/`).
@@ -34,6 +39,11 @@
 - **Recherche faite en mémoire** (753 exercices) plutôt qu'en SQL : plus simple, et la normalisation des accents
   est testée en Kotlin.
 - **Note éditée dans une boîte de dialogue** avec Enregistrer/Annuler, plutôt qu'en enregistrement automatique.
+- **Design « ON AIR »** : `design-system/styles.css` est la référence, reportée dans `core/designsystem/theme/`.
+  Polices Barlow et Barlow Condensed embarquées dans `res/font` (licence OFL, à citer dans « À propos ») plutôt que
+  téléchargées, pour fonctionner hors connexion.
+- **Capitales uniquement pour les titres d'écran** (`ScreenTitle`) : Compose ne sait pas mettre un style en
+  capitales, donc les boutons restent en minuscules, contrairement au guide de style.
 
 ## Questions ouvertes
 - Les séries dégressives comptent-elles pour les records et les statistiques ? À trancher avant la phase 4.

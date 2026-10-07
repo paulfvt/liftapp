@@ -43,6 +43,7 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.paulfvt.liftapp.R
+import com.paulfvt.liftapp.core.designsystem.component.ScreenTitle
 import com.paulfvt.liftapp.core.model.Equipment
 import com.paulfvt.liftapp.core.model.ExerciseCategory
 import com.paulfvt.liftapp.core.model.Muscle
@@ -61,7 +62,7 @@ fun ExerciseEditScreen(onBack: () -> Unit, onSaved: () -> Unit, viewModel: Exerc
         topBar = {
             TopAppBar(
                 title = {
-                    Text(
+                    ScreenTitle(
                         stringResource(
                             if (viewModel.isNew) R.string.exercise_create_title else R.string.exercise_edit_title
                         )

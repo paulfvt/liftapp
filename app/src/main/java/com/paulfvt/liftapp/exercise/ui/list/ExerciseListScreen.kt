@@ -42,6 +42,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.paulfvt.liftapp.R
+import com.paulfvt.liftapp.core.designsystem.component.ScreenTitle
 import com.paulfvt.liftapp.core.model.Equipment
 import com.paulfvt.liftapp.core.model.Exercise
 import com.paulfvt.liftapp.core.model.Muscle
@@ -88,7 +89,7 @@ private fun ExerciseListContent(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(R.string.exercises_title)) },
+                title = { ScreenTitle(stringResource(R.string.exercises_title)) },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
                         Icon(

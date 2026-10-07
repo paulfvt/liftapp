@@ -71,6 +71,8 @@ En cas d'ambiguïté ou de point non couvert, pose la question au lieu d'invente
 - Clubs 100/140/180 kg : charge réellement soulevée sur au moins une rep. Badges et paliers acquis définitivement.
 - Photos : PIN propre à l'app, avec option visage ou empreinte. Exclues de la sauvegarde cloud Android.
 - Carte du corps : tracés SVG de Jsplice/MuscleMap (licence MIT, à citer dans « À propos »).
+- Design « ON AIR » (7 octobre 2026) : référence dans `design-system/`, rouge signal (`primaryContainer`) pour les
+  actions principales, lueur réservée aux moments forts. Polices Barlow embarquées (OFL, à citer dans « À propos »).
 
 ## Méthode de travail (section 7)
 

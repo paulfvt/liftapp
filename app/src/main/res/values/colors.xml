@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="ic_launcher_background">#FFA33D00</color>
+    <!-- Rouge signal du thème ON AIR (primaryContainer). -->
+    <color name="ic_launcher_background">#FFD9241B</color>
+    <!-- Fond affiché au lancement avant Compose : même couleur que la surface du thème, sans flash. -->
+    <color name="window_background">#FFFFF8F6</color>
 </resources>

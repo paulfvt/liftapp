@@ -4,8 +4,10 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -34,6 +36,12 @@ fun LiftApp() {
         contentWindowInsets = WindowInsets(0, 0, 0, 0),
         bottomBar = {
             NavigationBar {
+                // Onglet actif en pastille rouge signal (primaryContainer) au lieu du secondaryContainer par défaut.
+                val itemColors =
+                    NavigationBarItemDefaults.colors(
+                        selectedIconColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                        indicatorColor = MaterialTheme.colorScheme.primaryContainer
+                    )
                 TopLevelDestination.entries.forEach { destination ->
                     NavigationBarItem(
                         selected = currentDestination.isInHierarchyOf(destination),
@@ -42,7 +50,8 @@ fun LiftApp() {
                         icon = {
                             Icon(painterResource(destination.iconRes), contentDescription = null)
                         },
-                        label = { Text(stringResource(destination.labelRes)) }
+                        label = { Text(stringResource(destination.labelRes)) },
+                        colors = itemColors
                     )
                 }
             }
