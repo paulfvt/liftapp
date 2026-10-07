@@ -1,0 +1,676 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LiftApp · Design System ON AIR</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+/* habillage de la page guide uniquement (les tokens et composants sont dans styles.css) */
+body{font-family:var(--font-body);color:var(--on-surface);background:var(--background);display:flex}
+nav.side{position:sticky;top:0;align-self:flex-start;height:100vh;width:220px;flex:0 0 220px;background:var(--surface-container-lowest);border-right:1px solid var(--outline-variant);padding:22px 14px;overflow:auto}
+nav.side .brand{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+nav.side .brand b{font:700 22px var(--font-display);text-transform:uppercase;letter-spacing:.04em}
+nav.side a{display:block;padding:6px 10px;border-radius:8px;font-size:13px;color:var(--on-surface-variant);text-decoration:none}
+nav.side a:hover{background:var(--surface-container-high);color:var(--on-surface)}
+nav.side a.concept-link{margin:0 0 6px;padding:10px;font-weight:700;color:var(--on-primary-container);background:var(--primary-container);border-radius:var(--r-sm);text-transform:uppercase;letter-spacing:.06em;box-shadow:var(--glow-signal)}
+nav.side .grp{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--outline);margin:16px 0 6px 10px;font-weight:700}
+main{flex:1;padding:36px 44px 120px;max-width:1080px;background-image:var(--wash);background-repeat:no-repeat}
+section{margin-bottom:56px;scroll-margin-top:20px}
+h2.sec{font:700 30px var(--font-display);text-transform:uppercase;letter-spacing:.03em;margin-bottom:6px}
+h3.cat{font:700 13px var(--font-body);letter-spacing:.16em;text-transform:uppercase;color:var(--primary);margin:72px 0 22px;padding-bottom:8px;border-bottom:1px solid var(--outline-variant)}
+.sec-desc{color:var(--on-surface-variant);font-size:14px;margin-bottom:20px;max-width:700px;line-height:1.6}
+.stage{background:var(--surface-container-lowest);border:1px solid var(--outline-variant);border-radius:var(--r-lg);padding:26px;display:flex;flex-wrap:wrap;gap:24px;align-items:center}
+.stage.col{flex-direction:column;align-items:stretch}
+.cell{display:flex;flex-direction:column;align-items:center;gap:8px}
+.spec{font:11px var(--font-mono);color:var(--outline)}
+.colors{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+.sw{border:1px solid var(--outline-variant);border-radius:var(--r-sm);overflow:hidden;background:var(--surface-container-lowest)}
+.sw .c{height:56px;display:flex;align-items:flex-end;padding:6px 8px;font:700 13px var(--font-body)}
+.sw .m{padding:7px 9px}.sw .n{font-size:12px;font-weight:600}.sw .v{font:11px var(--font-mono);color:var(--outline)}
+.typerow{display:flex;align-items:baseline;gap:18px;padding:10px 0;border-bottom:1px solid var(--outline-variant)}
+.typerow .tk{width:150px;flex:0 0 150px;font:11px var(--font-mono);color:var(--outline)}
+.sprow{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.sprow .bar{background:var(--primary-container);height:12px;border-radius:2px}.sprow .lbl{width:150px;font:12px var(--font-mono);color:var(--on-surface-variant)}
+.shapes,.elevs{display:flex;flex-wrap:wrap;gap:18px}
+.shapes .s{width:88px;height:88px;background:var(--secondary-container);color:var(--on-secondary-container);display:flex;align-items:flex-end;padding:8px;font:11px var(--font-mono)}
+.elevs .e{width:120px;height:84px;border-radius:var(--r-md);background:var(--surface-container-low);display:flex;align-items:flex-end;padding:8px;font:11px var(--font-mono);color:var(--on-surface-variant)}
+.layers{display:flex;gap:14px;flex-wrap:wrap}
+.layers .l{width:130px;height:56px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;font:600 12px var(--font-body);color:var(--primary);position:relative;overflow:hidden;border:1px solid var(--outline-variant)}
+.layers .l i{position:absolute;inset:0;background:var(--primary)}
+.motion{display:flex;gap:14px;flex-wrap:wrap}
+.motion .m{width:170px;padding:12px;border-radius:var(--r-sm);background:var(--surface-container);font:12px var(--font-mono);color:var(--on-surface-variant);cursor:pointer}
+.motion .m .dot{width:14px;height:14px;border-radius:50%;background:var(--primary-container);margin-top:10px;transition-property:transform}
+.motion .m:hover .dot{transform:translateX(130px)}
+.iconGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px}
+.iconGrid .it{background:var(--surface-container-low);border:1px solid var(--outline-variant);border-radius:var(--r-sm);padding:14px 6px 8px;display:flex;flex-direction:column;align-items:center;gap:7px}
+.iconGrid .it .nm{font:11px var(--font-mono);color:var(--outline)}
+.phone{width:340px;border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--outline-variant);background:var(--surface)}
+
+#topctl{position:fixed;top:16px;right:20px;z-index:50;display:flex;gap:8px;align-items:center}
+#topctl select,#topctl button{font:600 12px var(--font-body);border:1px solid var(--outline-variant);border-radius:8px;padding:8px 10px;background:var(--surface-container);color:var(--on-surface);cursor:pointer}
+#topctl .ds-btn{border-color:var(--primary);color:var(--primary)}
+#devToggle.on{background:var(--primary-container);border-color:var(--primary-container);color:var(--on-primary-container)}
+.sec-prompt{font:600 11px var(--font-body);border:1px solid var(--primary);background:transparent;color:var(--primary);border-radius:8px;padding:3px 9px;margin-left:12px;cursor:pointer;vertical-align:middle;text-transform:none;letter-spacing:0}
+body.dev [data-insp]:hover{outline:2px dashed var(--tertiary);outline-offset:3px;cursor:pointer}
+.insp-sel{outline:2px solid var(--primary)!important;outline-offset:3px}
+#inspector{position:fixed;top:0;right:0;width:350px;height:100vh;background:var(--surface-container-low);border-left:1px solid var(--outline-variant);box-shadow:var(--elev-3);transform:translateX(100%);transition:transform .28s var(--ease);z-index:49;overflow:auto;padding:62px 20px 40px}
+body.inspecting #inspector{transform:translateX(0)}
+body.inspecting main{margin-right:350px}
+#inspector .iclose{position:absolute;top:14px;right:14px;border:none;background:none;color:var(--on-surface-variant);cursor:pointer}
+#inspector .nm{font:700 26px var(--font-display);text-transform:uppercase}
+#inspector .file{font:12px var(--font-mono);color:var(--outline);margin-top:2px}
+#inspector .desc{font-size:13px;color:var(--on-surface-variant);line-height:1.6;margin-top:10px}
+#inspector h4{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--outline);margin:20px 0 8px}
+.prop{padding:8px 0;border-bottom:1px solid var(--outline-variant)}.prop .pn{font:600 13px var(--font-mono)}.prop .pt{font:11px var(--font-mono);color:var(--tertiary)}.prop .pdef{font:11px var(--font-mono);color:var(--outline)}
+.tok{display:flex;align-items:center;gap:10px;padding:7px 8px;border-radius:8px;cursor:pointer}.tok:hover{background:var(--surface-container-high)}
+.tok .tsw{width:22px;height:22px;border-radius:6px;border:1px solid var(--outline-variant);flex:0 0 22px}.tok .tn{font:600 12px var(--font-mono)}.tok .tr{font-size:11px;color:var(--on-surface-variant)}.tok .tv{margin-left:auto;font:11px var(--font-mono);color:var(--outline);max-width:110px;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.metric{display:flex;justify-content:space-between;gap:12px;font:12px var(--font-mono);padding:5px 0;border-bottom:1px dashed var(--outline-variant)}.metric .mk{color:var(--on-surface-variant)}
+.copyprompt{width:100%;margin-top:16px;font:700 13px var(--font-body);letter-spacing:.06em;text-transform:uppercase;background:var(--primary-container);color:var(--on-primary-container);border:none;border-radius:var(--r-sm);padding:12px;cursor:pointer}
+.copied{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--inverse-surface);color:var(--inverse-on-surface);font-size:12px;padding:8px 16px;border-radius:8px;opacity:0;transition:.2s;z-index:60;pointer-events:none}.copied.show{opacity:.96}
+</style>
+</head>
+<body>
+<!-- sprite copié depuis icons.html -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10l9-7 9 7v10a2 2 0 0 1-2 2h-4v-7H9v7H5a2 2 0 0 1-2-2z"/></symbol>
+  <symbol id="i-dumbbell" viewBox="0 0 24 24"><path d="M14.4 14.4 9.6 9.6"/><path d="M18.66 21.49a2 2 0 1 1-2.83-2.83l-1.77 1.77a2 2 0 1 1-2.83-2.83l6.36-6.36a2 2 0 1 1 2.83 2.83l-1.77 1.77a2 2 0 1 1 2.83 2.83z"/><path d="m21.5 21.5-1.4-1.4"/><path d="M3.9 3.9 2.5 2.5"/><path d="M6.4 12.77a2 2 0 1 1-2.83-2.83l1.77-1.77a2 2 0 1 1-2.83-2.83l2.83-2.83a2 2 0 1 1 2.83 2.83l1.77-1.77a2 2 0 1 1 2.83 2.83z"/></symbol>
+  <symbol id="i-history" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></symbol>
+  <symbol id="i-trending-up" viewBox="0 0 24 24"><path d="M22 7l-8.5 8.5-5-5L2 17"/><path d="M16 7h6v6"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></symbol>
+  <symbol id="i-filter" viewBox="0 0 24 24"><path d="M3 6h18M7 12h10M10 18h4"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></symbol>
+  <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></symbol>
+  <symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+  <symbol id="i-more-v" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.6" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none"/><circle cx="12" cy="19" r="1.6" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-grip" viewBox="0 0 24 24"><circle cx="9" cy="6" r="1.4" fill="currentColor" stroke="none"/><circle cx="15" cy="6" r="1.4" fill="currentColor" stroke="none"/><circle cx="9" cy="12" r="1.4" fill="currentColor" stroke="none"/><circle cx="15" cy="12" r="1.4" fill="currentColor" stroke="none"/><circle cx="9" cy="18" r="1.4" fill="currentColor" stroke="none"/><circle cx="15" cy="18" r="1.4" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M10 11v6M14 11v6"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="14" height="14" rx="2"/><path d="M4 16a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2"/></symbol>
+  <symbol id="i-swap" viewBox="0 0 24 24"><path d="M16 3l4 4-4 4"/><path d="M20 7H4"/><path d="M8 21l-4-4 4-4"/><path d="M4 17h16"/></symbol>
+  <symbol id="i-folder" viewBox="0 0 24 24"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2z"/></symbol>
+  <symbol id="i-note" viewBox="0 0 24 24"><path d="M16 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8z"/><path d="M15 3v4a2 2 0 0 0 2 2h4"/><path d="M7 13h8M7 17h5"/></symbol>
+  <symbol id="i-timer" viewBox="0 0 24 24"><path d="M10 2h4"/><path d="M12 14l3-3"/><circle cx="12" cy="14" r="8"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M6 3l14 9-14 9z"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></symbol>
+  <symbol id="i-skip" viewBox="0 0 24 24"><path d="M5 4l10 8-10 8z"/><path d="M19 5v14"/></symbol>
+  <symbol id="i-flame" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></symbol>
+  <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0z"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M18 17V9M13 17V5M8 17v-3"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+  <symbol id="i-radio" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9"/><path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5"/><path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5"/><path d="M19.1 4.9C23 8.8 23 15.1 19.1 19"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></symbol>
+  <symbol id="i-settings" viewBox="0 0 24 24"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/></symbol>
+  <symbol id="i-camera" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.9L12 17.8 5.8 21l1.2-6.9-5-4.9 6.9-1z"/></symbol>
+</svg>
+
+<div id="topctl">
+  <select id="themeSel" title="Thème"><option value="dark">Thème sombre</option><option value="light">Thème clair</option></select>
+  <button class="ds-btn" onclick="copyFullSystem()" title="Copier un prompt pour installer ou mettre à jour tout le design system">⤓ Installer le design system</button>
+  <select id="langSel" title="Langage cible du prompt"></select>
+  <button id="devToggle" onclick="toggleDev()">◧ Dev Mode</button>
+</div>
+<aside id="inspector"><button class="iclose" onclick="closeInspector()"><svg class="ico"><use href="#i-close"/></svg></button><div id="inspectorBody"></div></aside>
+<div class="copied" id="copied">Copié</div>
+
+<nav class="side">
+  <div class="brand"><span class="onair"><span class="dot"></span>On air</span></div>
+  <a class="concept-link" href="concept.html">◳ Aperçu concept →</a>
+  <div class="grp">Fondations</div>
+  <a href="#colors">Couleurs</a><a href="#type">Typographie</a><a href="#shape">Formes</a><a href="#elevation">Élévation</a><a href="#states">State layers</a><a href="#spacing">Espacement</a><a href="#motion">Mouvement</a><a href="#icons">Icônes</a>
+  <div class="grp">Actions</div>
+  <a href="#button">Boutons</a><a href="#iconbutton">Boutons icône</a><a href="#fab">FAB</a><a href="#segmented">Boutons segmentés</a>
+  <div class="grp">Communication</div>
+  <a href="#badge">Badge</a><a href="#progress">Progression</a><a href="#snackbar">Snackbar</a><a href="#tooltip">Info-bulle</a>
+  <div class="grp">Contenants</div>
+  <a href="#card">Carte</a><a href="#carousel">Carrousel</a><a href="#divider">Séparateur</a><a href="#list">Listes</a><a href="#bottomsheet">Feuille du bas</a><a href="#dialog">Dialogue</a>
+  <div class="grp">Navigation</div>
+  <a href="#topappbar">Barre d'app</a><a href="#navbar">Barre de navigation</a><a href="#navrail">Rail</a><a href="#navdrawer">Tiroir</a><a href="#tabs">Onglets</a><a href="#search">Recherche</a><a href="#menu">Menu</a>
+  <div class="grp">Sélection</div>
+  <a href="#checkbox">Case à cocher</a><a href="#chips">Chips</a><a href="#radio">Bouton radio</a><a href="#switch">Interrupteur</a><a href="#slider">Curseur</a><a href="#datepicker">Sélecteur de date</a><a href="#timepicker">Sélecteur d'heure</a>
+  <div class="grp">Saisie</div>
+  <a href="#textfield">Champ de texte</a>
+  <div class="grp">Extensions muscu</div>
+  <a href="#onair">Badge EN DIRECT</a><a href="#setrow">Ligne de série</a><a href="#timer">Minuteur de repos</a><a href="#ring">Anneau hebdo</a><a href="#stat">Tuile de stat</a>
+</nav>
+
+<main>
+  <header style="margin-bottom:40px">
+    <div class="t-label-m" style="color:var(--primary)">LiftApp · Design system</div>
+    <div class="t-display-l" style="margin-top:6px;text-transform:uppercase">On air</div>
+    <p class="sec-desc" style="margin-top:10px">Ambiance enseigne de studio : noir profond, <b>rouge signal</b> lumineux, typo condensée. Structure Material 3, thème sombre par défaut et thème clair. Le néon (rouge et ambre) est réservé aux moments forts : séance en direct, minuteur, record battu. Source de vérité : <code>styles.css</code>. Active le <b>Dev Mode</b> pour inspecter un composant ; <b>Copier en prompt</b> génère sa spec pour Jetpack Compose.</p>
+  </header>
+
+  <!-- ======================= FONDATIONS ======================= -->
+  <section id="colors"><h2 class="sec">Couleurs</h2><p class="sec-desc">Rôles Material 3 lus en direct depuis <code>styles.css</code> (change de thème en haut à droite). Chaque fond a son <code>on-*</code>, contraste vérifié par calcul : texte ≥ 4.5:1. Neutres teintés vers le rouge.</p><div class="colors" id="colorGrid"></div></section>
+  <section id="type"><h2 class="sec">Typographie</h2><p class="sec-desc">Barlow Condensed (affichage, titres, chiffres) + Barlow (texte), deux familles libres (OFL). Échelle M3 en 15 styles ; les gros chiffres sont tabulaires pour que les poids et les chronos ne « dansent » pas.</p><div id="typeList"></div></section>
+  <section id="shape"><h2 class="sec">Formes</h2><p class="sec-desc">Échelle M3. Angles plutôt nets, comme un panneau lumineux ; le « full » est réservé aux pastilles et interrupteurs.</p><div class="shapes" id="shapeList"></div></section>
+  <section id="elevation"><h2 class="sec">Élévation</h2><p class="sec-desc">Niveaux 0 à 5 : surface tonale + ombre teintée (contact + ambiante). En sombre, c'est surtout la teinte de surface qui crée la profondeur.</p><div class="elevs" id="elevList"></div></section>
+  <section id="states"><h2 class="sec">State layers</h2><p class="sec-desc">Couche de la couleur du contenu superposée au composant : survol 8 %, focus 10 %, appui 10 %, glisser 16 %. Désactivé : contenu à 38 %.</p><div class="layers" id="stateList"></div></section>
+  <section id="spacing"><h2 class="sec">Espacement</h2><p class="sec-desc">Grille de 4 dp. Deux pas optiques (1 et 3 px) pour aligner icônes et lignes de base à l'œil.</p><div id="spacingList"></div></section>
+  <section id="motion"><h2 class="sec">Mouvement</h2><p class="sec-desc">Courbes M3 standard et emphasized ; un « spring » avec léger dépassement pour les célébrations de record. Survole une carte.</p><div class="motion" id="motionList"></div></section>
+  <section id="icons"><h2 class="sec">Icônes</h2><p class="sec-desc">Sprite SVG inline piloté par les tokens (<code>stroke:currentColor</code>, trait 2 px). Voir aussi <a href="icons.html" style="color:var(--primary)">icons.html</a>.</p><div class="iconGrid" id="iconGrid"></div></section>
+
+  <!-- ======================= ACTIONS ======================= -->
+  <h3 class="cat">Actions</h3>
+  <section id="button"><h2 class="sec">Boutons</h2><p class="sec-desc">Elevated, filled, filled tonal, outlined, text. Le bouton plein utilise le <b>rouge signal</b> (primary-container) avec texte blanc. Labels en capitales espacées.</p>
+    <div class="stage col">
+      <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:center">
+        <div class="cell"><button class="btn btn-filled sl" data-insp="button"><svg class="ico"><use href="#i-play"/></svg>Démarrer</button><div class="spec">filled</div></div>
+        <div class="cell"><button class="btn btn-tonal sl" data-insp="button">Dupliquer</button><div class="spec">filled-tonal</div></div>
+        <div class="cell"><button class="btn btn-elevated sl" data-insp="button">Ajouter une série</button><div class="spec">elevated</div></div>
+        <div class="cell"><button class="btn btn-outlined sl" data-insp="button">Remplacer</button><div class="spec">outlined</div></div>
+        <div class="cell"><button class="btn btn-text sl" data-insp="button">Annuler</button><div class="spec">text</div></div>
+      </div>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:center">
+        <div class="cell"><button class="btn btn-filled sl is-hover" data-insp="button">Démarrer</button><div class="spec">hover</div></div>
+        <div class="cell"><button class="btn btn-filled sl is-focus" data-insp="button">Démarrer</button><div class="spec">focus</div></div>
+        <div class="cell"><button class="btn btn-filled sl is-pressed" data-insp="button">Démarrer</button><div class="spec">pressed</div></div>
+        <div class="cell"><button class="btn btn-filled is-disabled" data-insp="button">Démarrer</button><div class="spec">disabled</div></div>
+        <div class="cell"><button class="btn btn-outlined is-disabled" data-insp="button">Remplacer</button><div class="spec">outlined disabled</div></div>
+        <div class="cell"><button class="btn btn-filled btn-lg sl" data-insp="button">Terminer la séance</button><div class="spec">filled · large (mode salle)</div></div>
+      </div>
+    </div></section>
+
+  <section id="iconbutton"><h2 class="sec">Boutons icône</h2><p class="sec-desc">Standard, filled, tonal, outlined, et bascule sélectionné / non sélectionné. Bouton de 40 dp dans une zone tactile de 48 dp.</p>
+    <div class="stage">
+      <div class="cell"><button class="icbtn sl" data-insp="iconbutton" aria-label="Plus d'options"><svg class="ico"><use href="#i-more-v"/></svg></button><div class="spec">standard</div></div>
+      <div class="cell"><button class="icbtn icbtn-filled sl" data-insp="iconbutton" aria-label="Ajouter"><svg class="ico"><use href="#i-plus"/></svg></button><div class="spec">filled</div></div>
+      <div class="cell"><button class="icbtn icbtn-tonal sl" data-insp="iconbutton" aria-label="Note"><svg class="ico"><use href="#i-note"/></svg></button><div class="spec">tonal</div></div>
+      <div class="cell"><button class="icbtn icbtn-outlined sl" data-insp="iconbutton" aria-label="Remplacer"><svg class="ico"><use href="#i-swap"/></svg></button><div class="spec">outlined</div></div>
+      <div class="cell"><button class="icbtn is-selected sl" data-insp="iconbutton" aria-label="Favori"><svg class="ico ico--filled"><use href="#i-star"/></svg></button><div class="spec">toggle · on</div></div>
+      <div class="cell"><button class="icbtn sl" data-insp="iconbutton" aria-label="Favori"><svg class="ico"><use href="#i-star"/></svg></button><div class="spec">toggle · off</div></div>
+      <div class="cell"><button class="icbtn icbtn-filled is-off sl" data-insp="iconbutton" aria-label="Minuteur"><svg class="ico"><use href="#i-timer"/></svg></button><div class="spec">filled · off</div></div>
+      <div class="cell"><button class="icbtn icbtn-outlined is-selected sl" data-insp="iconbutton" aria-label="Verrou"><svg class="ico"><use href="#i-lock"/></svg></button><div class="spec">outlined · on</div></div>
+      <div class="cell"><button class="icbtn is-disabled" data-insp="iconbutton" aria-label="Supprimer"><svg class="ico"><use href="#i-trash"/></svg></button><div class="spec">disabled</div></div>
+    </div></section>
+
+  <section id="fab"><h2 class="sec">FAB</h2><p class="sec-desc">Regular, small, large, extended. Rouge signal par défaut ; variante ambre pour le chrono.</p>
+    <div class="stage">
+      <div class="cell"><button class="fab sl" data-insp="fab" aria-label="Nouveau template"><svg class="ico"><use href="#i-plus"/></svg></button><div class="spec">regular</div></div>
+      <div class="cell"><button class="fab fab-small sl" data-insp="fab" aria-label="Ajouter"><svg class="ico"><use href="#i-plus"/></svg></button><div class="spec">small</div></div>
+      <div class="cell"><button class="fab fab-large sl" data-insp="fab" aria-label="Démarrer"><svg class="ico"><use href="#i-play"/></svg></button><div class="spec">large</div></div>
+      <div class="cell"><button class="fab fab-extended sl" data-insp="fab"><svg class="ico"><use href="#i-play"/></svg>Séance vide</button><div class="spec">extended</div></div>
+      <div class="cell"><button class="fab fab-tertiary sl" data-insp="fab" aria-label="Minuteur"><svg class="ico"><use href="#i-timer"/></svg></button><div class="spec">tertiary</div></div>
+    </div></section>
+
+  <section id="segmented"><h2 class="sec">Boutons segmentés</h2><p class="sec-desc">Choix simple (période d'une courbe) ou multiple (jours d'entraînement).</p>
+    <div class="stage col">
+      <div class="cell" style="align-items:flex-start"><div class="seg" data-insp="segmented"><div class="s on"><svg class="ico"><use href="#i-check"/></svg>1 mois</div><div class="s">3 mois</div><div class="s">1 an</div><div class="s">Tout</div></div><div class="spec">single-select</div></div>
+      <div class="cell" style="align-items:flex-start"><div class="seg" data-insp="segmented"><div class="s on"><svg class="ico"><use href="#i-check"/></svg>Lun</div><div class="s">Mar</div><div class="s on"><svg class="ico"><use href="#i-check"/></svg>Mer</div><div class="s">Jeu</div><div class="s on"><svg class="ico"><use href="#i-check"/></svg>Ven</div></div><div class="spec">multi-select</div></div>
+    </div></section>
+
+  <!-- ======================= COMMUNICATION ======================= -->
+  <h3 class="cat">Communication</h3>
+  <section id="badge"><h2 class="sec">Badge</h2><p class="sec-desc">Petit (point) et grand (nombre), ancré sur une icône.</p>
+    <div class="stage">
+      <div class="cell"><span class="badge-anchor" data-insp="badge"><svg class="ico"><use href="#i-bell"/></svg><span class="badge-dot"></span></span><div class="spec">small · dot</div></div>
+      <div class="cell"><span class="badge-anchor" data-insp="badge"><svg class="ico"><use href="#i-trophy"/></svg><span class="badge">3</span></span><div class="spec">large · 3</div></div>
+      <div class="cell"><span class="badge-anchor" data-insp="badge"><svg class="ico"><use href="#i-history"/></svg><span class="badge">99+</span></span><div class="spec">large · 99+</div></div>
+    </div></section>
+
+  <section id="progress"><h2 class="sec">Indicateurs de progression</h2><p class="sec-desc">Linéaire et circulaire, déterminé et indéterminé.</p>
+    <div class="stage">
+      <div class="cell" style="width:240px;align-items:stretch"><div class="lin" data-insp="progress"><i style="width:62%"></i></div><div class="spec">linear · 62 % du programme</div></div>
+      <div class="cell" style="width:240px;align-items:stretch"><div class="lin ind" data-insp="progress"><i></i></div><div class="spec">linear · indéterminé (import)</div></div>
+      <div class="cell"><svg class="circ" viewBox="0 0 48 48" data-insp="progress"><circle class="trk" cx="24" cy="24" r="20"/><circle class="bar" cx="24" cy="24" r="20" stroke-dasharray="125.6" stroke-dashoffset="44"/></svg><div class="spec">circular · 65 %</div></div>
+      <div class="cell"><svg class="circ ind" viewBox="0 0 48 48" data-insp="progress"><circle class="trk" cx="24" cy="24" r="20"/><circle class="bar" cx="24" cy="24" r="20" stroke-dasharray="125.6" stroke-dashoffset="90"/></svg><div class="spec">circular · indéterminé</div></div>
+    </div></section>
+
+  <section id="snackbar"><h2 class="sec">Snackbar</h2><p class="sec-desc">Message court, avec ou sans action.</p>
+    <div class="stage col">
+      <div class="snackbar" data-insp="snackbar"><span class="msg">Exercice masqué</span><span class="act">Annuler</span></div>
+      <div class="snackbar" data-insp="snackbar"><span class="msg">Template « Push A » enregistré</span></div>
+    </div></section>
+
+  <section id="tooltip"><h2 class="sec">Info-bulle</h2><p class="sec-desc">Simple (libellé d'une icône) ou riche (explication d'une notion).</p>
+    <div class="stage">
+      <div class="cell"><span class="tip" data-insp="tooltip">Remplacer l'exercice</span><div class="spec">plain</div></div>
+      <div class="cell"><div class="tip-rich" data-insp="tooltip"><div class="h">1RM estimé</div>Charge maximale théorique sur une répétition, calculée par la formule d'Epley à partir de tes séries de 12 reps ou moins.<br><span class="act">En savoir plus</span></div><div class="spec">rich</div></div>
+    </div></section>
+
+  <!-- ======================= CONTENANTS ======================= -->
+  <h3 class="cat">Contenants</h3>
+  <section id="card"><h2 class="sec">Carte</h2><p class="sec-desc">Elevated, filled, outlined. La variante « signal » s'allume en ambre quand un record tombe.</p>
+    <div class="stage">
+      <div class="card card-elevated" data-insp="card" style="width:220px"><div class="t-label-m muted">Template</div><div class="t-headline-s" style="margin-top:4px">Push A</div><div class="t-body-m muted" style="margin-top:4px">Développé couché, Développé militaire, Dips +3</div></div>
+      <div class="card card-filled" data-insp="card" style="width:220px"><div class="t-label-m muted">Dernière séance</div><div class="t-headline-s" style="margin-top:4px">Pull B</div><div class="t-body-m muted" style="margin-top:4px">Hier · 58 min · 9 840 kg</div></div>
+      <div class="card card-outlined" data-insp="card" style="width:220px"><div class="t-label-m muted">Note</div><div class="t-body-m" style="margin-top:6px">Siège cran 4, prise largeur d'épaules.</div></div>
+      <div class="card card-elevated is-signal" data-insp="card" style="width:220px"><div class="t-label-m" style="color:var(--tertiary)">Nouveau record</div><div class="t-display-s" style="margin-top:2px">102,5 <span class="t-title-m muted">kg</span></div><div class="t-body-m muted">Squat barre · 1RM estimé</div></div>
+    </div></section>
+
+  <section id="carousel"><h2 class="sec">Carrousel</h2><p class="sec-desc">Multi-browse : grand, moyen, petit. Idéal pour les programmes prêts à l'emploi (V1.x).</p>
+    <div class="stage col"><div class="carousel" data-insp="carousel">
+      <div class="it l"><div class="ph"></div><div class="cap">Push Pull Legs</div></div>
+      <div class="it m"><div class="ph b"></div><div class="cap">5/3/1</div></div>
+      <div class="it s"><div class="ph c"></div></div>
+    </div></div></section>
+
+  <section id="divider"><h2 class="sec">Séparateur</h2><p class="sec-desc">Pleine largeur, inset ou centré.</p>
+    <div class="stage col" style="gap:18px">
+      <div><div class="spec">full</div><hr class="divider" data-insp="divider"></div>
+      <div><div class="spec">inset</div><hr class="divider inset" data-insp="divider"></div>
+      <div><div class="spec">middle</div><hr class="divider middle" data-insp="divider"></div>
+    </div></section>
+
+  <section id="list"><h2 class="sec">Listes</h2><p class="sec-desc">Éléments d'une, deux ou trois lignes, avec élément de tête (icône, vignette, avatar) et de fin.</p>
+    <div class="stage col" style="padding:8px 0;gap:0">
+      <div class="li" data-insp="list"><div class="lead"><svg class="ico"><use href="#i-folder"/></svg></div><div class="txt"><div class="h">Programme hiver</div></div><div class="trail">4 templates</div></div>
+      <hr class="divider inset">
+      <div class="li two" data-insp="list"><div class="lead thumb"><svg class="ico"><use href="#i-dumbbell"/></svg></div><div class="txt"><div class="h">Développé couché à la barre</div><div class="s">Pectoraux · Barre</div></div><div class="trail"><svg class="ico"><use href="#i-chevron-right"/></svg></div></div>
+      <hr class="divider inset">
+      <div class="li three" data-insp="list"><div class="lead avatar">PB</div><div class="txt"><div class="over">Mardi 6 oct.</div><div class="h">Pull B</div><div class="s">Traction, Rowing barre, Curl marteau, Face pull · 1 h 02</div></div><div class="trail num">8 720 kg</div></div>
+    </div></section>
+
+  <section id="bottomsheet"><h2 class="sec">Feuille du bas</h2><p class="sec-desc">Standard (persistante) ou modale (avec voile). Utilisée pour les actions d'un exercice en séance.</p>
+    <div class="stage">
+      <div class="sheet-host" style="width:300px" data-insp="bottomsheet"><div class="scrim"></div><div class="sheet"><div class="handle"></div>
+        <div class="t-title-m">Squat barre</div>
+        <div class="menu" style="box-shadow:none;background:transparent;padding:8px 0 0">
+          <div class="mi"><svg class="ico"><use href="#i-note"/></svg>Note de l'exercice</div>
+          <div class="mi"><svg class="ico"><use href="#i-swap"/></svg>Remplacer l'exercice</div>
+          <div class="mi danger"><svg class="ico"><use href="#i-trash"/></svg>Retirer de la séance</div>
+        </div></div></div>
+      <div class="cell"><div class="sheet" style="width:300px" data-insp="bottomsheet"><div class="handle"></div><div class="t-title-m">Repos en cours</div><div class="t-body-m muted" style="margin-top:4px">Série 3 sur 4 · prochain : 80 kg × 8</div></div><div class="spec">standard</div></div>
+    </div></section>
+
+  <section id="dialog"><h2 class="sec">Dialogue</h2><p class="sec-desc">Basique (confirmation) ou plein écran (édition longue).</p>
+    <div class="stage" style="align-items:flex-start">
+      <div class="dialog" data-insp="dialog"><div class="ic"><svg class="ico"><use href="#i-trash"/></svg></div><div class="h" style="text-align:center">Abandonner la séance ?</div><div class="b">Les 12 séries déjà validées ne seront pas enregistrées dans l'historique.</div><div class="acts"><button class="btn btn-text">Continuer</button><button class="btn btn-text" style="color:var(--error)">Abandonner</button></div></div>
+      <div class="dialog-full" data-insp="dialog"><div class="bar"><button class="icbtn" aria-label="Fermer"><svg class="ico"><use href="#i-close"/></svg></button><div class="ttl">Nouvel exercice</div><button class="btn btn-text">Enregistrer</button></div>
+        <div style="padding:8px 16px 20px;display:flex;flex-direction:column;gap:14px"><div class="field outlined"><span class="lab">Nom</span><span class="v">Hip thrust machine</span></div><div style="display:flex;gap:8px;flex-wrap:wrap"><span class="chip chip-filter on"><svg class="ico"><use href="#i-check"/></svg>Fessiers</span><span class="chip chip-filter">Ischio-jambiers</span></div></div></div>
+    </div></section>
+
+  <!-- ======================= NAVIGATION ======================= -->
+  <h3 class="cat">Navigation</h3>
+  <section id="topappbar"><h2 class="sec">Barre d'app supérieure</h2><p class="sec-desc">Center-aligned, small, medium, large. Titres en capitales condensées.</p>
+    <div class="stage col" style="gap:14px">
+      <div class="phone" data-insp="topappbar"><div class="appbar center"><button class="icbtn"><svg class="ico"><use href="#i-back"/></svg></button><div class="ttl">Push A</div><button class="icbtn"><svg class="ico"><use href="#i-more-v"/></svg></button></div></div>
+      <div class="phone" data-insp="topappbar"><div class="appbar scrolled"><button class="icbtn"><svg class="ico"><use href="#i-back"/></svg></button><div class="ttl">Exercices</div><button class="icbtn"><svg class="ico"><use href="#i-search"/></svg></button></div></div>
+      <div class="phone" data-insp="topappbar"><div class="appbar-tall"><div class="row"><button class="icbtn"><svg class="ico"><use href="#i-back"/></svg></button><button class="icbtn"><svg class="ico"><use href="#i-edit"/></svg></button></div><div class="big">Squat barre</div></div></div>
+      <div class="phone" data-insp="topappbar"><div class="appbar-tall large"><div class="row"><span></span><button class="icbtn"><svg class="ico"><use href="#i-settings"/></svg></button></div><div class="big">Séances</div></div></div>
+    </div></section>
+
+  <section id="navbar"><h2 class="sec">Barre de navigation</h2><p class="sec-desc">Cinq destinations, indicateur en pastille rouge signal.</p>
+    <div class="stage"><div class="phone" data-insp="navbar"><div class="navbar">
+      <div class="ni on"><div class="pill"><svg class="ico"><use href="#i-home"/></svg></div>Accueil</div>
+      <div class="ni"><div class="pill"><svg class="ico"><use href="#i-dumbbell"/></svg></div>Séances</div>
+      <div class="ni"><div class="pill"><svg class="ico"><use href="#i-history"/></svg></div>Historique</div>
+      <div class="ni"><div class="pill"><svg class="ico"><use href="#i-trending-up"/></svg></div>Progrès</div>
+      <div class="ni"><div class="pill"><svg class="ico"><use href="#i-user"/></svg></div>Profil</div>
+    </div></div></div></section>
+
+  <section id="navrail"><h2 class="sec">Rail de navigation</h2><p class="sec-desc">Pour tablette ou téléphone en paysage (pas encore utilisé en V1).</p>
+    <div class="stage"><div class="rail" data-insp="navrail" style="height:330px">
+      <button class="fab fab-small" aria-label="Démarrer"><svg class="ico"><use href="#i-play"/></svg></button>
+      <div class="ni"><div class="pill"><svg class="ico"><use href="#i-home"/></svg></div>Accueil</div>
+      <div class="ni on"><div class="pill"><svg class="ico"><use href="#i-dumbbell"/></svg></div>Séances</div>
+      <div class="ni"><div class="pill"><svg class="ico"><use href="#i-history"/></svg></div>Historique</div>
+      <div class="ni"><div class="pill"><svg class="ico"><use href="#i-trending-up"/></svg></div>Progrès</div>
+    </div></div></section>
+
+  <section id="navdrawer"><h2 class="sec">Tiroir de navigation</h2><p class="sec-desc">Standard ou modal. Pas encore utilisé en V1 (barre du bas), prêt pour une version tablette.</p>
+    <div class="stage"><div class="drawer modal" data-insp="navdrawer">
+      <div class="hd">Dossiers</div>
+      <div class="di on"><svg class="ico"><use href="#i-folder"/></svg>Programme hiver<span class="ct">4</span></div>
+      <div class="di"><svg class="ico"><use href="#i-folder"/></svg>Full body<span class="ct">2</span></div>
+      <div class="di"><svg class="ico"><use href="#i-dumbbell"/></svg>Sans dossier<span class="ct">1</span></div>
+      <hr class="divider" style="margin:8px 16px">
+      <div class="di"><svg class="ico"><use href="#i-settings"/></svg>Réglages</div>
+    </div></div></section>
+
+  <section id="tabs"><h2 class="sec">Onglets</h2><p class="sec-desc">Primaires (fiche d'exercice) et secondaires (dans une section), fixes ou défilants.</p>
+    <div class="stage col" style="gap:16px">
+      <div class="phone" data-insp="tabs"><div class="tabs primary"><div class="tb on"><svg class="ico ico--sm"><use href="#i-info"/></svg>Fiche</div><div class="tb"><svg class="ico ico--sm"><use href="#i-history"/></svg>Historique</div><div class="tb"><svg class="ico ico--sm"><use href="#i-chart"/></svg>Courbes</div></div></div>
+      <div class="phone" data-insp="tabs"><div class="tabs secondary scroll"><div class="tb on">1RM estimé</div><div class="tb">Charge max</div><div class="tb">Volume</div><div class="tb">Reps max</div></div></div>
+    </div></section>
+
+  <section id="search"><h2 class="sec">Recherche</h2><p class="sec-desc">Barre de recherche, puis vue de résultats quand on tape (recherche sans accents).</p>
+    <div class="stage" style="align-items:flex-start">
+      <div class="cell" style="align-items:stretch;width:320px"><div class="searchbar" data-insp="search"><svg class="ico"><use href="#i-search"/></svg><span class="q">Rechercher un exercice</span><svg class="ico"><use href="#i-filter"/></svg></div><div class="spec">bar</div></div>
+      <div class="cell"><div class="searchview" data-insp="search"><div class="searchbar"><svg class="ico"><use href="#i-back"/></svg><span class="q typed">squat</span><svg class="ico"><use href="#i-close"/></svg></div><hr class="divider">
+        <div class="li"><div class="lead"><svg class="ico"><use href="#i-history"/></svg></div><div class="txt"><div class="h">Squat barre</div></div></div>
+        <div class="li"><div class="lead"><svg class="ico"><use href="#i-search"/></svg></div><div class="txt"><div class="h">Squat avant à la barre</div></div></div>
+        <div class="li"><div class="lead"><svg class="ico"><use href="#i-search"/></svg></div><div class="txt"><div class="h">Goblet squat</div></div></div></div><div class="spec">view</div></div>
+    </div></section>
+
+  <section id="menu"><h2 class="sec">Menu</h2><p class="sec-desc">Menu déroulant avec icônes, élément sélectionné, séparateur, action destructive et élément désactivé.</p>
+    <div class="stage"><div class="menu" data-insp="menu">
+      <div class="mi"><svg class="ico"><use href="#i-edit"/></svg>Renommer</div>
+      <div class="mi"><svg class="ico"><use href="#i-copy"/></svg>Dupliquer</div>
+      <div class="mi on"><svg class="ico"><use href="#i-folder"/></svg>Déplacer dans un dossier</div>
+      <div class="mi is-disabled"><svg class="ico"><use href="#i-share"/></svg>Partager (bientôt)</div>
+      <div class="sep"></div>
+      <div class="mi danger"><svg class="ico"><use href="#i-trash"/></svg>Supprimer</div>
+    </div></div></section>
+
+  <!-- ======================= SÉLECTION ======================= -->
+  <h3 class="cat">Sélection</h3>
+  <section id="checkbox"><h2 class="sec">Case à cocher</h2><p class="sec-desc">Cochée, non cochée, indéterminée, erreur, désactivée. Cible tactile de 40 dp.</p>
+    <div class="stage">
+      <div class="cell"><span class="target"><span class="cb on" data-insp="checkbox"><svg class="ico"><use href="#i-check"/></svg></span></span><div class="spec">checked</div></div>
+      <div class="cell"><span class="target"><span class="cb" data-insp="checkbox"></span></span><div class="spec">unchecked</div></div>
+      <div class="cell"><span class="target"><span class="cb mixed" data-insp="checkbox"><svg class="ico"><use href="#i-minus"/></svg></span></span><div class="spec">indeterminate</div></div>
+      <div class="cell"><span class="target"><span class="cb err" data-insp="checkbox"></span></span><div class="spec">error</div></div>
+      <div class="cell"><span class="target"><span class="cb is-disabled" data-insp="checkbox"></span></span><div class="spec">disabled</div></div>
+    </div></section>
+
+  <section id="chips"><h2 class="sec">Chips</h2><p class="sec-desc">Assist, filter, input, suggestion. Les filtres du catalogue (muscle, matériel) sont des filter chips.</p>
+    <div class="stage col">
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+        <span class="chip chip-assist" data-insp="chips"><svg class="ico"><use href="#i-timer"/></svg>Repos 2 min</span>
+        <span class="chip chip-assist chip-elevated" data-insp="chips"><svg class="ico"><use href="#i-note"/></svg>Ajouter une note</span>
+        <span class="spec">assist · elevated</span></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+        <span class="chip chip-filter on" data-insp="chips"><svg class="ico"><use href="#i-check"/></svg>Jambes</span>
+        <span class="chip chip-filter" data-insp="chips">Barre<svg class="ico"><use href="#i-chevron-down"/></svg></span>
+        <span class="chip chip-filter is-disabled" data-insp="chips">Machine</span><span class="spec">filter · on / off / disabled</span></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+        <span class="chip chip-input on" data-insp="chips">Quadriceps<svg class="ico"><use href="#i-close"/></svg></span>
+        <span class="chip chip-input" data-insp="chips">Fessiers<svg class="ico"><use href="#i-close"/></svg></span><span class="spec">input</span></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+        <span class="chip chip-suggest" data-insp="chips">80 kg × 8</span><span class="chip chip-suggest" data-insp="chips">82,5 kg × 6</span><span class="spec">suggestion (performance précédente)</span></div>
+    </div></section>
+
+  <section id="radio"><h2 class="sec">Bouton radio</h2><p class="sec-desc">Choix exclusif (unité de poids).</p>
+    <div class="stage">
+      <div class="cell"><span class="target"><span class="radio on" data-insp="radio"></span></span><div class="spec">kg · selected</div></div>
+      <div class="cell"><span class="target"><span class="radio" data-insp="radio"></span></span><div class="spec">lb · unselected</div></div>
+      <div class="cell"><span class="target"><span class="radio is-disabled" data-insp="radio"></span></span><div class="spec">disabled</div></div>
+    </div></section>
+
+  <section id="switch"><h2 class="sec">Interrupteur</h2><p class="sec-desc">Réglages : vibration, son, masquer le poids.</p>
+    <div class="stage">
+      <div class="cell"><span class="switch on" data-insp="switch"></span><div class="spec">on</div></div>
+      <div class="cell"><span class="switch" data-insp="switch"></span><div class="spec">off</div></div>
+      <div class="cell"><span class="switch on is-disabled" data-insp="switch"></span><div class="spec">disabled</div></div>
+    </div></section>
+
+  <section id="slider"><h2 class="sec">Curseur</h2><p class="sec-desc">Continu, discret (RPE de 6 à 10 par demi-points) et intervalle.</p>
+    <div class="stage" style="gap:40px;padding-top:44px">
+      <div class="cell"><div class="slider" data-insp="slider"><div class="trk"></div><div class="act" style="left:0;width:55%"></div><div class="thumb" style="left:55%"></div></div><div class="spec">continuous</div></div>
+      <div class="cell"><div class="slider" data-insp="slider"><div class="trk"></div><div class="act" style="left:0;width:62.5%"></div><script>for(let i=0;i<=8;i++)document.write(`<div class="tick" style="left:calc(${i*12.5}% - 2px)"></div>`)</script><div class="thumb" style="left:62.5%"></div><div class="val" style="left:62.5%">RPE 8,5</div></div><div class="spec">discrete · RPE</div></div>
+      <div class="cell"><div class="slider" data-insp="slider"><div class="trk"></div><div class="act" style="left:30%;width:40%"></div><div class="thumb" style="left:30%"></div><div class="thumb" style="left:70%"></div></div><div class="spec">range · 8–12 reps</div></div>
+    </div></section>
+
+  <section id="datepicker"><h2 class="sec">Sélecteur de date</h2><p class="sec-desc">Date d'une mesure ou d'une séance passée. Les jours d'entraînement sont marqués d'un point ambre.</p>
+    <div class="stage"><div class="picker" data-insp="datepicker">
+      <div class="ph">Date de la séance</div><div class="pv">Mar. 6 oct.</div>
+      <div class="grid" id="calGrid"></div>
+      <div class="acts"><button class="btn btn-text">Annuler</button><button class="btn btn-text">OK</button></div>
+    </div></div></section>
+
+  <section id="timepicker"><h2 class="sec">Sélecteur d'heure</h2><p class="sec-desc">Saisie d'une durée de repos (minutes : secondes) en gros chiffres.</p>
+    <div class="stage"><div class="picker" data-insp="timepicker">
+      <div class="ph">Temps de repos</div>
+      <div class="timefields"><div class="tf on">02</div><div class="colon">:</div><div class="tf">30</div></div>
+      <div style="display:flex;gap:8px;justify-content:center"><span class="chip chip-suggest">1:30</span><span class="chip chip-filter on">2:00</span><span class="chip chip-suggest">3:00</span></div>
+      <div class="acts"><button class="btn btn-text">Annuler</button><button class="btn btn-text">OK</button></div>
+    </div></div></section>
+
+  <!-- ======================= SAISIE ======================= -->
+  <h3 class="cat">Saisie de texte</h3>
+  <section id="textfield"><h2 class="sec">Champ de texte</h2><p class="sec-desc">Filled et outlined ; états vide, focus, rempli, erreur, désactivé ; avec label, aide, erreur, icône de tête et de fin.</p>
+    <div class="stage" style="align-items:flex-start;gap:28px">
+      <div class="tf-wrap"><div class="field empty" data-insp="textfield"><span class="lab">Nom du template</span></div><div class="helper"><span>Ex. : Push A</span></div><div class="spec">filled · empty</div></div>
+      <div class="tf-wrap"><div class="field focus" data-insp="textfield"><span class="lab">Nom du template</span><span class="v">Push A</span></div><div class="helper"><span></span><span>6 / 60</span></div><div class="spec">filled · focused</div></div>
+      <div class="tf-wrap"><div class="field lead" data-insp="textfield"><svg class="ico"><use href="#i-dumbbell"/></svg><span class="lab">Charge</span><span class="v">82,5</span><span class="unit">kg</span></div><div class="spec">filled · leading + suffixe</div></div>
+      <div class="tf-wrap"><div class="field error" data-insp="textfield"><span class="lab">Nom</span><span class="v"></span><svg class="ico tr"><use href="#i-info"/></svg></div><div class="helper error"><span>Donne un nom à l'exercice.</span></div><div class="spec">filled · error</div></div>
+      <div class="tf-wrap"><div class="field outlined empty" data-insp="textfield"><span class="lab">Reps cibles</span></div><div class="helper"><span>Laisse vide si libre</span></div><div class="spec">outlined · empty</div></div>
+      <div class="tf-wrap"><div class="field outlined focus" data-insp="textfield"><span class="lab">Reps cibles</span><span class="v">10</span></div><div class="spec">outlined · focused</div></div>
+      <div class="tf-wrap"><div class="field outlined error" data-insp="textfield"><span class="lab">Poids</span><span class="v">-</span></div><div class="helper error"><span>Nombre invalide</span></div><div class="spec">outlined · error</div></div>
+      <div class="tf-wrap"><div class="field outlined is-disabled" data-insp="textfield"><span class="lab">Exercice</span><span class="v">Squat barre</span></div><div class="spec">outlined · disabled</div></div>
+    </div></section>
+
+  <!-- ======================= EXTENSIONS ======================= -->
+  <h3 class="cat">Extensions muscu</h3>
+  <section id="onair"><h2 class="sec">Badge EN DIRECT</h2><p class="sec-desc">La signature de l'app : l'enseigne s'allume quand une séance est en cours (bandeau permanent, notification, widget). Éteinte sinon.</p>
+    <div class="stage">
+      <div class="cell"><span class="onair" data-insp="onair"><span class="dot"></span>En direct</span><div class="spec">live</div></div>
+      <div class="cell"><span class="onair" data-insp="onair"><span class="dot"></span>Push A · 32:14</span><div class="spec">live · durée</div></div>
+      <div class="cell"><span class="onair is-off" data-insp="onair"><span class="dot"></span>Hors antenne</span><div class="spec">off</div></div>
+    </div></section>
+
+  <section id="setrow"><h2 class="sec">Ligne de série</h2><p class="sec-desc">Cœur de la séance : n° (ou É = échauffement, D = dégressive), performance précédente, poids, reps, validation. Champs en gros chiffres, cibles de 40 dp+.</p>
+    <div class="stage col" style="max-width:420px;gap:4px">
+      <div class="setrow head"><span>Série</span><span>Précédent</span><span>kg</span><span>Reps</span><span>✓</span></div>
+      <div class="setrow done" data-insp="setrow"><span class="n w">É</span><span class="prev">40 × 10</span><span class="in">40</span><span class="in">10</span><span class="ok"><svg class="ico"><use href="#i-check"/></svg></span></div>
+      <div class="setrow done" data-insp="setrow"><span class="n">1</span><span class="prev">80 × 8</span><span class="in">82,5</span><span class="in">8</span><span class="ok"><svg class="ico"><use href="#i-check"/></svg></span></div>
+      <div class="setrow" data-insp="setrow"><span class="n">2</span><span class="prev">80 × 8</span><span class="in">82,5</span><span class="in">8</span><span class="ok"><svg class="ico"><use href="#i-check"/></svg></span></div>
+      <div class="setrow" data-insp="setrow"><span class="n d">D</span><span class="prev">60 × 12</span><span class="in">60</span><span class="in">12</span><span class="ok"><svg class="ico"><use href="#i-check"/></svg></span></div>
+    </div></section>
+
+  <section id="timer"><h2 class="sec">Minuteur de repos</h2><p class="sec-desc">Chiffres géants ambre avec lueur néon ; boutons −15 s, +30 s, Passer.</p>
+    <div class="stage"><div class="timer" data-insp="timer"><div class="lbl">Repos</div><div class="t">01:47</div>
+      <div class="row"><button class="btn btn-tonal">−15 s</button><button class="btn btn-tonal">+30 s</button><button class="btn btn-text" style="color:var(--tertiary)"><svg class="ico"><use href="#i-skip"/></svg>Passer</button></div></div></div></section>
+
+  <section id="ring"><h2 class="sec">Anneau hebdomadaire</h2><p class="sec-desc">Objectif de la semaine, rempli à chaque séance. Le trait rouge porte une légère lueur.</p>
+    <div class="stage">
+      <div class="ring" data-insp="ring"><svg viewBox="0 0 128 128"><circle class="trk" cx="64" cy="64" r="54"/><circle class="bar" cx="64" cy="64" r="54" stroke-dasharray="339.3" stroke-dashoffset="113.1"/></svg><div class="c"><span class="big">2/3</span><span class="sm">séances</span></div></div>
+      <div class="ring" data-insp="ring"><svg viewBox="0 0 128 128"><circle class="trk" cx="64" cy="64" r="54"/><circle class="bar" cx="64" cy="64" r="54" stroke-dasharray="339.3" stroke-dashoffset="0"/></svg><div class="c"><span class="big">3/3</span><span class="sm">objectif atteint</span></div></div>
+    </div></section>
+
+  <section id="stat"><h2 class="sec">Tuile de statistique</h2><p class="sec-desc">Valeur en gros chiffres condensés, unité discrète, évolution en couleur succès.</p>
+    <div class="stage">
+      <div class="stat" data-insp="stat" style="width:160px"><span class="k">Streak</span><span class="v">7<small>semaines</small></span><span class="d">record perso</span></div>
+      <div class="stat" data-insp="stat" style="width:160px"><span class="k">Tonnage</span><span class="v">9 840<small>kg</small></span><span class="d">+6 % vs dernière</span></div>
+      <div class="stat" data-insp="stat" style="width:160px"><span class="k">Durée</span><span class="v">58<small>min</small></span></div>
+    </div></section>
+</main>
+
+<script>
+/* ===== Thème (sombre / clair) — mémorisé dans le navigateur ===== */
+function applyTheme(t){if(t==='light')document.documentElement.dataset.theme='light';else delete document.documentElement.dataset.theme;themeSel.value=t;try{localStorage.setItem('liftds-theme',t)}catch(e){}renderColors();}
+themeSel.onchange=()=>applyTheme(themeSel.value);
+
+/* ===== Fondations ===== */
+const css=n=>getComputedStyle(document.documentElement).getPropertyValue('--'+n).trim();
+const COLOR_PAIRS=[['primary','on-primary'],['primary-container','on-primary-container'],['secondary','on-secondary'],['secondary-container','on-secondary-container'],['tertiary','on-tertiary'],['tertiary-container','on-tertiary-container'],['error','on-error'],['error-container','on-error-container'],['success','on-success'],['background','on-background'],['surface','on-surface'],['surface-variant','on-surface-variant'],['surface-container-lowest','on-surface'],['surface-container-low','on-surface'],['surface-container','on-surface'],['surface-container-high','on-surface'],['surface-container-highest','on-surface'],['inverse-surface','inverse-on-surface'],['outline','surface'],['outline-variant','on-surface']];
+function lum(h){h=h.replace('#','');const c=[0,2,4].map(i=>parseInt(h.substr(i,2),16)/255).map(x=>x<=.03928?x/12.92:Math.pow((x+.055)/1.055,2.4));return .2126*c[0]+.7152*c[1]+.0722*c[2];}
+function ratio(a,b){const[x,y]=[lum(a),lum(b)].sort((p,q)=>q-p);return((x+.05)/(y+.05)).toFixed(1);}
+function renderColors(){colorGrid.innerHTML=COLOR_PAIRS.map(([b,f])=>{const bv=css(b),fv=css(f);return `<div class="sw"><div class="c" style="background:var(--${b});color:var(--${f})">Aa ${ratio(bv,fv)}</div><div class="m"><div class="n">${b}</div><div class="v">${bv} · ${f}</div></div></div>`}).join('');}
+const TYPE=[['t-display-l','Barlow Condensed 700 / 57','102,5 kg'],['t-display-m','Barlow Condensed 700 / 45','01:47'],['t-display-s','Barlow Condensed 700 / 36','9 840 kg'],['t-headline-l','Barlow Condensed 700 / 32 · caps','Séance en cours'],['t-headline-m','Barlow Condensed 700 / 28 · caps','Push A'],['t-headline-s','Barlow Condensed 700 / 24 · caps','Squat barre'],['t-title-l','Barlow 600 / 22','Développé couché à la barre'],['t-title-m','Barlow 600 / 16','Série 3 sur 4'],['t-title-s','Barlow 600 / 14','Pectoraux · Barre'],['t-body-l','Barlow 400 / 16','Siège cran 4, prise largeur d\'épaules, descendre lentement.'],['t-body-m','Barlow 400 / 14','Dernière fois : 80 kg × 8 · il y a 3 jours'],['t-body-s','Barlow 400 / 12','Source : free-exercise-db (domaine public)'],['t-label-l','Barlow 600 / 14','Ajouter une série'],['t-label-m','Barlow 600 / 12 · caps','Nouveau record'],['t-label-s','Barlow 600 / 11 · caps','Repos']];
+typeList.innerHTML=TYPE.map(([n,m,s])=>`<div class="typerow"><div class="tk">${n}<br>${m}</div><div class="${n}">${s}</div></div>`).join('');
+shapeList.innerHTML=['none','xs','sm','md','lg','xl','full'].map(n=>`<div class="s" style="border-radius:var(--r-${n})">r-${n}</div>`).join('');
+elevList.innerHTML=[0,1,2,3,4,5].map(n=>`<div class="e" style="box-shadow:var(--elev-${n})">elev-${n}</div>`).join('');
+stateList.innerHTML=[['enabled',0],['hover',.08],['focus',.10],['pressed',.10],['dragged',.16]].map(([n,o])=>`<div class="l"><i style="opacity:${o}"></i>${n} ${Math.round(o*100)} %</div>`).join('');
+const SPACING=[['sp-2',2],['sp-4',4],['sp-8',8],['sp-12',12],['sp-16',16],['sp-20',20],['sp-24',24],['sp-32',32],['sp-48',48],['sp-64',64]];
+spacingList.innerHTML=SPACING.map(([n,v])=>`<div class="sprow"><div class="lbl">${n} · ${v}dp</div><div class="bar" style="width:${v*4}px"></div></div>`).join('');
+motionList.innerHTML=[['standard','--ease','--dur-medium'],['emphasized','--ease-emphasized','--dur-slow'],['spring (record)','--ease-spring','--dur-medium']].map(([n,e,d])=>`<div class="m">${n}<br>${e} · ${d}<div class="dot" style="transition-timing-function:var(${e});transition-duration:var(${d})"></div></div>`).join('');
+iconGrid.innerHTML=[...document.querySelectorAll('symbol')].map(s=>s.id.slice(2)).map(n=>`<div class="it"><svg class="ico ico--lg"><use href="#i-${n}"/></svg><div class="nm">i-${n}</div></div>`).join('');
+/* calendrier d'octobre 2026 (commence un jeudi) */
+(()=>{const w=['L','M','M','J','V','S','D'].map(d=>`<div class="d w">${d}</div>`);const cells=[];for(let i=0;i<3;i++)cells.push('<div class="d"></div>');const trained=[1,3,5,6];for(let d=1;d<=31;d++){const cls=d===6?'sel':d===7?'today':trained.includes(d)?'mark':'';cells.push(`<div class="d ${cls}">${d}</div>`);}calGrid.innerHTML=w.join('')+cells.join('');})();
+
+/* ===== SPECS : une entrée par composant (inspecteur + copie en prompt).
+   tokens : [rôle, nom du token] — la valeur est lue en direct dans styles.css. ===== */
+const SPECS={
+ button:{name:'Bouton',file:'core/designsystem/component/LiftButton.kt',desc:'Boutons communs M3 : elevated, filled, filled-tonal, outlined, text, + taille large pour le mode salle. Le filled utilise primary-container (rouge signal) et on-primary-container (blanc). Labels en capitales espacées. États : enabled, hover, focus, pressed, disabled (fond on-surface 12 %, contenu 38 %).',
+  props:[{n:'text',t:'String'},{n:'onClick',t:'() -> Unit'},{n:'variant',t:'Filled|Tonal|Elevated|Outlined|Text',def:'Filled'},{n:'size',t:'Default|Large',def:'Default'},{n:'leadingIcon',t:'Painter?',def:'null'},{n:'enabled',t:'Boolean',def:'true'}],
+  tokens:[['fond filled','primary-container'],['texte filled','on-primary-container'],['fond tonal','secondary-container'],['texte tonal','on-secondary-container'],['texte outlined/text/elevated','primary'],['contour outlined','outline'],['fond elevated','surface-container-low']],
+  metrics:[['hauteur','40 dp (large : 56 dp)'],['rayon','r-sm 8 dp (large : r-md 12)'],['padding','h 24 dp (text : 12)'],['label','Barlow 600 14 sp, caps, +0.06em'],['icône','18 dp, gap 8']]},
+ iconbutton:{name:'Bouton icône',file:'core/designsystem/component/LiftIconButton.kt',desc:'Standard, filled, tonal, outlined, avec bascule sélectionné/non sélectionné. 40 dp dans une zone tactile de 48 dp. contentDescription obligatoire.',
+  props:[{n:'icon',t:'Painter'},{n:'contentDescription',t:'String'},{n:'onClick',t:'() -> Unit'},{n:'variant',t:'Standard|Filled|Tonal|Outlined',def:'Standard'},{n:'checked',t:'Boolean?',def:'null'},{n:'enabled',t:'Boolean',def:'true'}],
+  tokens:[['icône standard','on-surface-variant'],['icône sélectionnée','primary'],['fond filled','primary-container'],['fond tonal','secondary-container'],['contour','outline'],['outlined sélectionné','inverse-surface']],
+  metrics:[['taille','40 dp'],['cible tactile','48 dp'],['rayon','r-full'],['icône','24 dp']]},
+ fab:{name:'FAB',file:'core/designsystem/component/LiftFab.kt',desc:'Regular, small, large, extended. Fond rouge signal, élévation 3. Variante tertiary (ambre) pour le chrono.',
+  props:[{n:'icon',t:'Painter'},{n:'text',t:'String?',def:'null (extended si non nul)'},{n:'size',t:'Small|Regular|Large',def:'Regular'},{n:'color',t:'Primary|Tertiary',def:'Primary'},{n:'onClick',t:'() -> Unit'}],
+  tokens:[['fond','primary-container'],['contenu','on-primary-container'],['fond tertiary','tertiary-container'],['ombre','elev-3']],
+  metrics:[['regular','56 dp · r-lg'],['small','40 dp · r-md'],['large','96 dp · r-xl'],['extended','h 56, padding 16/20, label caps 15 sp']]},
+ segmented:{name:'Boutons segmentés',file:'core/designsystem/component/LiftSegmentedButtons.kt',desc:'Choix simple ou multiple, segment actif en secondary-container avec coche. Contour outline.',
+  props:[{n:'options',t:'List<String>'},{n:'selected',t:'Set<Int>'},{n:'multiSelect',t:'Boolean',def:'false'},{n:'onSelectionChange',t:'(Set<Int>) -> Unit'}],
+  tokens:[['contour + séparateurs','outline'],['fond actif','secondary-container'],['texte actif','on-secondary-container'],['texte','on-surface']],
+  metrics:[['hauteur','40 dp'],['rayon','r-full'],['padding segment','h 16 dp'],['coche','18 dp']]},
+ badge:{name:'Badge',file:'core/designsystem/component/LiftBadge.kt',desc:'Petit (point 6 dp) ou grand (nombre, 16 dp de haut), ancré en haut à droite d\'une icône.',
+  props:[{n:'count',t:'Int?',def:'null (point)'},{n:'max',t:'Int',def:'99'}],
+  tokens:[['fond','error'],['texte','on-error']],
+  metrics:[['point','6 dp'],['grand','16 dp de haut, padding h 4'],['texte','Barlow 700 11 sp'],['rayon','r-full']]},
+ progress:{name:'Indicateurs de progression',file:'core/designsystem/component/LiftProgress.kt',desc:'Linéaire (4 dp) et circulaire (48 dp, trait 4), déterminé ou indéterminé. Piste secondary-container, barre primary.',
+  props:[{n:'progress',t:'Float?',def:'null (indéterminé)'},{n:'type',t:'Linear|Circular',def:'Linear'}],
+  tokens:[['piste','secondary-container'],['barre','primary']],
+  metrics:[['linéaire','4 dp, r-full'],['circulaire','48 dp, trait 4 dp, bout arrondi']]},
+ snackbar:{name:'Snackbar',file:'core/designsystem/component/LiftSnackbar.kt',desc:'Message court sur inverse-surface, action optionnelle en inverse-primary (capitales). Annuler un masquage, confirmer une sauvegarde.',
+  props:[{n:'message',t:'String'},{n:'actionLabel',t:'String?',def:'null'},{n:'onAction',t:'() -> Unit'}],
+  tokens:[['fond','inverse-surface'],['texte','inverse-on-surface'],['action','inverse-primary'],['ombre','elev-3']],
+  metrics:[['hauteur min','48 dp'],['rayon','r-xs 4 dp'],['largeur max','344 dp']]},
+ tooltip:{name:'Info-bulle',file:'core/designsystem/component/LiftTooltip.kt',desc:'Plain (libellé court sur inverse-surface) ou rich (titre, texte, action, sur surface-container).',
+  props:[{n:'text',t:'String'},{n:'title',t:'String?',def:'null (plain)'},{n:'actionLabel',t:'String?',def:'null'}],
+  tokens:[['plain fond','inverse-surface'],['plain texte','inverse-on-surface'],['rich fond','surface-container'],['rich texte','on-surface-variant'],['rich titre','on-surface'],['rich action','primary']],
+  metrics:[['plain','padding 4/8, r-xs, 12 sp'],['rich','padding 12/16, r-md, max 300 dp, elev-2']]},
+ card:{name:'Carte',file:'core/designsystem/component/LiftCard.kt',desc:'Elevated, filled, outlined. Variante signal : contour tertiary + lueur ambre pour un record battu (moment fort uniquement).',
+  props:[{n:'variant',t:'Elevated|Filled|Outlined',def:'Elevated'},{n:'highlighted',t:'Boolean',def:'false'},{n:'onClick',t:'(() -> Unit)?',def:'null'},{n:'content',t:'@Composable ColumnScope.() -> Unit'}],
+  tokens:[['fond elevated','surface-container-low'],['fond filled','surface-container-highest'],['fond outlined','surface'],['contour','outline-variant'],['signal','tertiary'],['lueur','glow-amber'],['ombre','elev-1']],
+  metrics:[['rayon','r-md 12 dp'],['padding','16 dp']]},
+ carousel:{name:'Carrousel',file:'core/designsystem/component/LiftCarousel.kt',desc:'Multi-browse (grand, moyen, petit), éléments de 180 dp de haut, rayon xl, légende en capitales condensées sur dégradé.',
+  props:[{n:'items',t:'List<CarouselItem>'},{n:'onItemClick',t:'(Int) -> Unit'}],
+  tokens:[['dégradé','primary-container'],['fond','surface-container-high'],['fin du dégradé','surface-container-lowest']],
+  metrics:[['hauteur','180 dp'],['tailles','200 / 110 / 48 dp'],['rayon','r-xl 24 dp'],['gap','8 dp']]},
+ divider:{name:'Séparateur',file:'core/designsystem/component/LiftDivider.kt',desc:'1 dp outline-variant : pleine largeur, inset (16 dp à gauche) ou centré.',
+  props:[{n:'inset',t:'None|Start|Middle',def:'None'}],
+  tokens:[['couleur','outline-variant']],metrics:[['épaisseur','1 dp'],['inset','16 dp']]},
+ list:{name:'Élément de liste',file:'core/designsystem/component/LiftListItem.kt',desc:'Une, deux ou trois lignes. Tête : icône, vignette 56 dp (image d\'exercice) ou avatar. Fin : texte, chevron ou chiffre condensé.',
+  props:[{n:'headline',t:'String'},{n:'supporting',t:'String?',def:'null'},{n:'overline',t:'String?',def:'null'},{n:'leading',t:'@Composable?',def:'null'},{n:'trailing',t:'@Composable?',def:'null'},{n:'onClick',t:'(() -> Unit)?',def:'null'}],
+  tokens:[['titre','on-surface'],['texte secondaire','on-surface-variant'],['fond','surface'],['avatar','primary-container'],['vignette','surface-container-highest']],
+  metrics:[['hauteur','56 / 72 / 88 dp'],['padding','16 gauche, 24 droite'],['vignette','56 dp · r-sm'],['avatar','40 dp']]},
+ bottomsheet:{name:'Feuille du bas',file:'core/designsystem/component/LiftBottomSheet.kt',desc:'Standard ou modale (voile scrim). Poignée en haut, coins xl.',
+  props:[{n:'modal',t:'Boolean',def:'true'},{n:'onDismiss',t:'() -> Unit'},{n:'content',t:'@Composable ColumnScope.() -> Unit'}],
+  tokens:[['fond','surface-container-low'],['poignée','on-surface-variant (40 %)'],['voile','scrim']],
+  metrics:[['rayon haut','r-xl 24 dp'],['poignée','32 × 4 dp'],['padding','16 dp']]},
+ dialog:{name:'Dialogue',file:'core/designsystem/component/LiftDialog.kt',desc:'Basique (icône, titre en capitales condensées, texte, actions texte) ou plein écran (barre avec fermer + enregistrer).',
+  props:[{n:'title',t:'String'},{n:'text',t:'String'},{n:'icon',t:'Painter?',def:'null'},{n:'confirm',t:'Action'},{n:'dismiss',t:'Action?',def:'null'},{n:'fullScreen',t:'Boolean',def:'false'}],
+  tokens:[['fond','surface-container-high'],['titre','on-surface'],['texte','on-surface-variant'],['icône','secondary'],['action destructive','error']],
+  metrics:[['rayon','r-xl 24 dp'],['padding','24 dp'],['largeur max','312 dp'],['titre','Barlow Condensed 700 24 sp caps']]},
+ topappbar:{name:'Barre d\'app supérieure',file:'core/designsystem/component/LiftTopAppBar.kt',desc:'Center-aligned, small, medium, large. Titre en capitales condensées. Teinte surface-container quand on fait défiler.',
+  props:[{n:'title',t:'String'},{n:'variant',t:'Center|Small|Medium|Large',def:'Small'},{n:'navigationIcon',t:'@Composable?',def:'null'},{n:'actions',t:'@Composable RowScope.() -> Unit'},{n:'scrollBehavior',t:'TopAppBarScrollBehavior?',def:'null'}],
+  tokens:[['fond','surface'],['fond défilé','surface-container'],['titre','on-surface'],['icônes','on-surface-variant']],
+  metrics:[['hauteur','64 dp (medium 112, large 152)'],['titre','Barlow Condensed 700 22 sp caps (medium 28, large 40)']]},
+ navbar:{name:'Barre de navigation',file:'navigation/LiftApp.kt',desc:'5 destinations avec libellé. Indicateur en pastille primary-container (rouge signal) avec icône blanche.',
+  props:[{n:'destinations',t:'List<TopLevelDestination>'},{n:'selected',t:'TopLevelDestination'},{n:'onSelect',t:'(TopLevelDestination) -> Unit'}],
+  tokens:[['fond','surface-container'],['inactif','on-surface-variant'],['libellé actif','on-surface'],['pastille','primary-container'],['icône active','on-primary-container']],
+  metrics:[['hauteur','80 dp'],['pastille','64 × 32 dp, r-full'],['libellé','Barlow 600 12 sp']]},
+ navrail:{name:'Rail de navigation',file:'navigation/LiftNavigationRail.kt',desc:'Pour grands écrans (non utilisé en V1). FAB en tête, pastille active rouge signal.',
+  props:[{n:'destinations',t:'List<TopLevelDestination>'},{n:'selected',t:'TopLevelDestination'},{n:'header',t:'@Composable?',def:'null'}],
+  tokens:[['fond','surface'],['pastille','primary-container'],['inactif','on-surface-variant']],
+  metrics:[['largeur','80 dp'],['pastille','56 × 32 dp']]},
+ navdrawer:{name:'Tiroir de navigation',file:'navigation/LiftNavigationDrawer.kt',desc:'Standard ou modal (non utilisé en V1) : en-têtes de section, éléments en pastille secondary-container, compteurs.',
+  props:[{n:'sections',t:'List<DrawerSection>'},{n:'selected',t:'Any'},{n:'modal',t:'Boolean',def:'true'}],
+  tokens:[['fond','surface-container-low'],['élément actif','secondary-container'],['texte actif','on-secondary-container'],['texte','on-surface-variant']],
+  metrics:[['largeur','280 dp'],['élément','56 dp, r-full'],['rayon tiroir','r-lg à droite']]},
+ tabs:{name:'Onglets',file:'core/designsystem/component/LiftTabs.kt',desc:'Primaires (indicateur court arrondi, texte primary) ou secondaires (indicateur pleine largeur), fixes ou défilants.',
+  props:[{n:'tabs',t:'List<String>'},{n:'selectedIndex',t:'Int'},{n:'type',t:'Primary|Secondary',def:'Primary'},{n:'scrollable',t:'Boolean',def:'false'}],
+  tokens:[['actif primaire','primary'],['actif secondaire','on-surface'],['inactif','on-surface-variant'],['indicateur','primary'],['séparateur','outline-variant']],
+  metrics:[['hauteur','48 dp'],['indicateur','3 dp (primaire), 2 dp (secondaire)'],['label','Barlow 600 14 sp']]},
+ search:{name:'Recherche',file:'exercise/ui/list/ExerciseSearchBar.kt',desc:'Barre (pastille 56 dp) et vue de résultats (récents, suggestions). Recherche insensible aux accents.',
+  props:[{n:'query',t:'String'},{n:'onQueryChange',t:'(String) -> Unit'},{n:'placeholder',t:'String'},{n:'active',t:'Boolean',def:'false'},{n:'trailing',t:'@Composable?',def:'null'}],
+  tokens:[['fond','surface-container-high'],['placeholder','on-surface-variant'],['texte saisi','on-surface']],
+  metrics:[['hauteur','56 dp'],['rayon barre','r-full'],['rayon vue','r-xl'],['gap','16 dp']]},
+ menu:{name:'Menu',file:'core/designsystem/component/LiftMenu.kt',desc:'Menu déroulant : icône de tête, élément sélectionné, séparateur, action destructive en error, élément désactivé.',
+  props:[{n:'items',t:'List<MenuItem>'},{n:'expanded',t:'Boolean'},{n:'onDismiss',t:'() -> Unit'}],
+  tokens:[['fond','surface-container'],['texte','on-surface'],['icône','on-surface-variant'],['sélectionné','secondary-container'],['destructif','error'],['ombre','elev-2']],
+  metrics:[['élément','48 dp'],['largeur min','200 dp'],['rayon','r-xs']]},
+ checkbox:{name:'Case à cocher',file:'core/designsystem/component/LiftCheckbox.kt',desc:'Cochée (rouge signal), non cochée, indéterminée, erreur, désactivée. Cible 40 dp.',
+  props:[{n:'state',t:'On|Off|Indeterminate',def:'Off'},{n:'onClick',t:'(() -> Unit)?'},{n:'isError',t:'Boolean',def:'false'},{n:'enabled',t:'Boolean',def:'true'}],
+  tokens:[['fond coché','primary-container'],['coche','on-primary-container'],['contour','on-surface-variant'],['erreur','error']],
+  metrics:[['boîte','18 dp, contour 2'],['cible','40 dp'],['rayon','2 dp']]},
+ chips:{name:'Chips',file:'core/designsystem/component/LiftChip.kt',desc:'Assist (icône primary), filter (sélectionné en secondary-container avec coche), input (avec croix), suggestion (performance précédente). Variante elevated.',
+  props:[{n:'label',t:'String'},{n:'type',t:'Assist|Filter|Input|Suggestion',def:'Filter'},{n:'selected',t:'Boolean',def:'false'},{n:'leadingIcon',t:'Painter?',def:'null'},{n:'onClick',t:'() -> Unit'},{n:'elevated',t:'Boolean',def:'false'},{n:'enabled',t:'Boolean',def:'true'}],
+  tokens:[['contour','outline-variant'],['texte','on-surface-variant'],['fond sélectionné','secondary-container'],['texte sélectionné','on-secondary-container'],['icône assist','primary']],
+  metrics:[['hauteur','32 dp'],['rayon','r-sm 8 dp'],['padding','h 16 (8 avec icône)'],['icône','18 dp']]},
+ radio:{name:'Bouton radio',file:'core/designsystem/component/LiftRadio.kt',desc:'Sélectionné, non sélectionné, désactivé. Cible 40 dp.',
+  props:[{n:'selected',t:'Boolean'},{n:'onClick',t:'(() -> Unit)?'},{n:'enabled',t:'Boolean',def:'true'}],
+  tokens:[['sélectionné','primary'],['contour','on-surface-variant']],
+  metrics:[['cercle','20 dp, contour 2'],['point','10 dp'],['cible','40 dp']]},
+ switch:{name:'Interrupteur',file:'core/designsystem/component/LiftSwitch.kt',desc:'On (piste rouge signal, curseur blanc 24 dp), off (piste surface-container-highest, curseur outline 16 dp), désactivé. Transition spring.',
+  props:[{n:'checked',t:'Boolean'},{n:'onCheckedChange',t:'(Boolean) -> Unit'},{n:'enabled',t:'Boolean',def:'true'}],
+  tokens:[['piste on','primary-container'],['curseur on','on-primary-container'],['piste off','surface-container-highest'],['contour off','outline']],
+  metrics:[['piste','52 × 32 dp'],['curseur','16 dp off / 24 dp on'],['mouvement','ease-spring 250 ms']]},
+ slider:{name:'Curseur',file:'core/designsystem/component/LiftSlider.kt',desc:'Continu, discret (RPE 6 à 10 par 0,5, avec bulle de valeur) et intervalle (fourchette de reps).',
+  props:[{n:'value',t:'Float | ClosedFloatingPointRange'},{n:'valueRange',t:'ClosedFloatingPointRange'},{n:'steps',t:'Int',def:'0'},{n:'onValueChange',t:'(…) -> Unit'}],
+  tokens:[['actif','primary'],['inactif','secondary-container'],['bulle','inverse-surface'],['texte bulle','inverse-on-surface']],
+  metrics:[['piste active','8 dp'],['piste','4 dp'],['poignée','4 × 20 dp'],['bulle','Barlow Condensed 700 14 sp']]},
+ datepicker:{name:'Sélecteur de date',file:'core/designsystem/component/LiftDatePicker.kt',desc:'Modal ancré : titre en capitales condensées, grille du mois, jour sélectionné rouge signal, aujourd\'hui cerclé, jours entraînés marqués d\'un point ambre.',
+  props:[{n:'selectedDate',t:'LocalDate?'},{n:'trainedDays',t:'Set<LocalDate>',def:'empty'},{n:'onConfirm',t:'(LocalDate) -> Unit'},{n:'onDismiss',t:'() -> Unit'}],
+  tokens:[['fond','surface-container-high'],['sélection','primary-container'],['aujourd\'hui','primary'],['point entraîné','tertiary'],['libellés','on-surface-variant']],
+  metrics:[['rayon','r-xl'],['cellule','36 dp'],['titre','Barlow Condensed 700 32 sp']]},
+ timepicker:{name:'Sélecteur de durée',file:'core/designsystem/component/LiftTimePicker.kt',desc:'Saisie minutes:secondes en chiffres géants (52 sp), champ actif rouge signal, raccourcis en chips.',
+  props:[{n:'seconds',t:'Int'},{n:'presets',t:'List<Int>',def:'[90,120,180]'},{n:'onConfirm',t:'(Int) -> Unit'}],
+  tokens:[['fond','surface-container-high'],['champ','surface-container-highest'],['champ actif','primary-container'],['texte actif','on-primary-container']],
+  metrics:[['champ','96 × 80 dp, r-sm'],['chiffres','Barlow Condensed 700 52 sp, tabulaires']]},
+ textfield:{name:'Champ de texte',file:'core/designsystem/component/LiftTextField.kt',desc:'Filled et outlined ; états vide, focus, rempli, erreur, désactivé ; label flottant, texte d\'aide ou d\'erreur, compteur, icônes de tête et de fin, suffixe d\'unité (kg, lb).',
+  props:[{n:'value',t:'String'},{n:'onValueChange',t:'(String) -> Unit'},{n:'label',t:'String'},{n:'variant',t:'Filled|Outlined',def:'Filled'},{n:'supportingText',t:'String?',def:'null'},{n:'isError',t:'Boolean',def:'false'},{n:'suffix',t:'String?',def:'null'},{n:'leadingIcon',t:'Painter?',def:'null'},{n:'enabled',t:'Boolean',def:'true'}],
+  tokens:[['fond filled','surface-container-highest'],['ligne / contour','on-surface-variant / outline'],['focus','primary'],['erreur','error'],['label','on-surface-variant']],
+  metrics:[['hauteur','56 dp'],['rayon','r-xs (haut seulement en filled)'],['focus','2 dp'],['padding','h 16 dp']]},
+ onair:{name:'Badge EN DIRECT',file:'core/designsystem/component/OnAirBadge.kt',desc:'Signature de l\'app : enseigne allumée (rouge signal + lueur néon + point qui pulse) quand une séance est en cours ; éteinte (contour) sinon. Bandeau permanent, notification, widget.',
+  props:[{n:'live',t:'Boolean',def:'true'},{n:'text',t:'String',def:'"En direct"'}],
+  tokens:[['fond','primary-container'],['texte','on-primary-container'],['lueur','glow-signal'],['éteint','outline-variant']],
+  metrics:[['hauteur','28 dp'],['rayon','r-xs 4 dp'],['texte','Barlow Condensed 700 14 sp, caps, +0.14em'],['point','8 dp, pulsation 1,6 s']]},
+ setrow:{name:'Ligne de série',file:'workout/ui/SetRow.kt',desc:'N° de série (É échauffement en tertiary, D dégressive en secondary), performance précédente, poids et reps en gros chiffres, case de validation 40 dp. Validée : fond success 14 %, case success.',
+  props:[{n:'index',t:'Int'},{n:'type',t:'Warmup|Work|Drop',def:'Work'},{n:'previous',t:'String?',def:'null'},{n:'weight',t:'String'},{n:'reps',t:'String'},{n:'completed',t:'Boolean',def:'false'},{n:'onToggleComplete',t:'() -> Unit'}],
+  tokens:[['champ','surface-container-highest'],['validée (fond)','success (14 %)'],['case validée','success'],['coche','on-success'],['échauffement','tertiary'],['dégressive','secondary']],
+  metrics:[['hauteur','52 dp'],['colonnes','32 / 1fr / 76 / 64 / 48'],['chiffres','Barlow Condensed 700 22 sp'],['case','40 dp, r-sm']]},
+ timer:{name:'Minuteur de repos',file:'workout/ui/RestTimer.kt',desc:'Chiffres géants ambre (64 sp) avec lueur néon ambre ; boutons −15 s, +30 s, Passer.',
+  props:[{n:'remainingSeconds',t:'Int'},{n:'onMinus15',t:'() -> Unit'},{n:'onPlus30',t:'() -> Unit'},{n:'onSkip',t:'() -> Unit'}],
+  tokens:[['chiffres','tertiary'],['contour','tertiary'],['lueur','glow-amber'],['fond','surface-container-lowest']],
+  metrics:[['chiffres','Barlow Condensed 700 64 sp, tabulaires'],['rayon','r-lg'],['padding','16 / 24 dp']]},
+ ring:{name:'Anneau hebdomadaire',file:'home/ui/WeeklyRing.kt',desc:'Objectif de séances de la semaine. Trait 12 dp rouge signal avec légère lueur, compteur condensé au centre.',
+  props:[{n:'done',t:'Int'},{n:'goal',t:'Int'},{n:'size',t:'Dp',def:'128.dp'}],
+  tokens:[['progression','primary-container'],['piste','surface-container-highest'],['chiffre','on-surface'],['libellé','on-surface-variant']],
+  metrics:[['taille','128 dp'],['trait','12 dp, bout arrondi'],['chiffre','Barlow Condensed 700 36 sp']]},
+ stat:{name:'Tuile de statistique',file:'core/designsystem/component/StatTile.kt',desc:'Libellé en capitales, valeur en gros chiffres condensés avec unité discrète, évolution en couleur success.',
+  props:[{n:'label',t:'String'},{n:'value',t:'String'},{n:'unit',t:'String?',def:'null'},{n:'delta',t:'String?',def:'null'}],
+  tokens:[['fond','surface-container'],['libellé','on-surface-variant'],['valeur','on-surface'],['évolution','success']],
+  metrics:[['rayon','r-md'],['padding','12 / 16 dp'],['valeur','Barlow Condensed 700 30 sp']]},
+};
+
+/* ===== Copier en prompt : par composant + installation complète ===== */
+const LANGS=['Jetpack Compose (Kotlin)','Flutter (Dart)','SwiftUI','React (TypeScript + CSS)','React Native','HTML + CSS'];
+let promptLang=LANGS[0];
+langSel.innerHTML=LANGS.map(l=>`<option${l===promptLang?' selected':''}>${l}</option>`).join('');
+langSel.onchange=()=>promptLang=langSel.value;
+const TOKEN_GROUPS={
+ 'Rôles de couleur (chaque fond garde son on-*)':['--primary','--on-primary','--primary-container','--on-primary-container','--secondary','--on-secondary','--secondary-container','--on-secondary-container','--tertiary','--on-tertiary','--tertiary-container','--on-tertiary-container','--error','--on-error','--error-container','--on-error-container','--success','--on-success','--background','--on-background','--surface','--on-surface','--surface-variant','--on-surface-variant','--surface-container-lowest','--surface-container-low','--surface-container','--surface-container-high','--surface-container-highest','--outline','--outline-variant','--inverse-surface','--inverse-on-surface','--inverse-primary','--scrim'],
+ 'Signature néon':['--glow-signal','--glow-amber','--wash'],
+ 'Formes':['--r-none','--r-xs','--r-sm','--r-md','--r-lg','--r-xl','--r-full'],
+ 'Élévation':['--elev-0','--elev-1','--elev-2','--elev-3','--elev-4','--elev-5'],
+ 'State layers':['--state-hover','--state-focus','--state-pressed','--state-dragged','--state-disabled'],
+ 'Espacement':['--sp-2','--sp-4','--sp-8','--sp-12','--sp-16','--sp-20','--sp-24','--sp-32','--sp-48','--sp-64','--opt-1','--opt-3'],
+ 'Typographie (familles)':['--font-display','--font-body','--font-mono'],
+ 'Mouvement':['--dur-short','--dur-fast','--dur-base','--dur-medium','--dur-slow','--ease','--ease-emphasized','--ease-spring'],
+ 'Icônes':['--icon-size','--icon-stroke']};
+function tokenLines(){const cs=getComputedStyle(document.documentElement);const out=[];for(const[g,names]of Object.entries(TOKEN_GROUPS)){const rows=names.map(n=>{const v=cs.getPropertyValue(n).trim();return v?`- ${n} = ${v}`:null}).filter(Boolean);if(rows.length)out.push(`### ${g}`,...rows,'');}return out;}
+function foundationsBody(){const theme=document.documentElement.dataset.theme==='light'?'clair':'sombre';const L=[`## Fondations — tokens (source de vérité unique, thème ${theme})`,`Définis chaque token comme constante nommée dans UN fichier de thème idiomatique pour ${promptLang} (pour Compose : ColorScheme sombre ET clair, Typography, Shapes, + un objet LiftTokens pour la lueur, les state layers et l'espacement). Les composants référencent les tokens par leur nom, jamais de valeur brute. Génère aussi l'autre thème (bascule le sélecteur de la page et copie à nouveau pour ses valeurs).`,'',...tokenLines(),`### Échelle typographique`];TYPE.forEach(([n,m])=>L.push(`- ${n} : ${m}`));L.push('',`### Règles`,`- Chaque fond reste associé à son on-* ; les paires sont vérifiées WCAG (texte ≥ 4.5:1). Ne casse pas une paire.`,`- Le rouge signal (primary-container) sert aux fonds pleins avec texte blanc ; primary (rouge clair en sombre) sert au texte, aux icônes et aux contours.`,`- La lueur néon (glow-signal, glow-amber) est réservée aux moments forts : séance en direct, minuteur, record. Jamais sur un composant ordinaire.`,`- Neutres teintés vers le rouge ; chiffres tabulaires pour poids et chronos.`);return L.join('\n');}
+function buildPrompt(key){const s=SPECS[key];const cs=getComputedStyle(document.documentElement);const L=[`# Ajouter ou mettre à jour le composant \`${s.name}\` — ${promptLang}`,'',`Composant du design system LiftApp « ON AIR ». Si un composant de ce rôle EXISTE DÉJÀ, modifie-le EN PLACE pour suivre cette spec (source de vérité), sans dupliquer, et signale tout changement cassant. Sinon, crée-le en réutilisant les tokens et composants existants.`,'',`## Ce que c'est`,s.desc,'',`## Propriétés`];s.props.forEach(p=>L.push(`- \`${p.n}\` : ${p.t}${p.def?` (défaut ${p.def})`:''}`));L.push('',`## Tokens (dans la couche de fondation, jamais en dur)`);s.tokens.forEach(([r,n])=>{const v=cs.getPropertyValue('--'+n.split(' ')[0]).trim();L.push(`- ${n}${v?` = ${v}`:''}   // ${r}`)});L.push('',`## Mesures`);s.metrics.forEach(([k,v])=>L.push(`- ${k} : ${v}`));L.push('',`## Exigences`,`- Implémente chaque variante et chaque état listés, en thème sombre et clair.`,`- Accessibilité : cible tactile ≥ 48 dp, contentDescription sur les icônes seules, textes dans strings.xml.`,`- Fichier cible : \`${s.file}\`. Code complet et compilable ${promptLang} + un exemple d'usage (@Preview).`);return L.join('\n');}
+function copyPrompt(key){copyText(buildPrompt(key));toast(`Copié : ${SPECS[key].name} → ${promptLang}`);}
+function fullSystemPrompt(){const keys=Object.keys(SPECS);const L=[`# Installer ou mettre à jour TOUT le design system LiftApp « ON AIR » — ${promptLang}`,'',`Mets en place ce design system. S'il n'existe pas, crée-le ; sinon, mets-le à jour EN PLACE pour suivre cette spec (source de vérité), sans dupliquer, en listant les changements cassants.`,'',`## Ordre`,`1. Couche de tokens (ci-dessous) : source de vérité unique.`,`2. Composants : indépendants, mais chacun importe la couche de tokens partagée ; aucune valeur redéfinie localement.`,`3. Vérification finale : chaque composant ne référence que des tokens nommés.`,'','---','',foundationsBody(),'','---','',`## Composants (${keys.length})`];keys.forEach(k=>{const s=SPECS[k];L.push('',`### ${s.name} — \`${s.file}\``,s.desc,`- props : ${s.props.map(p=>p.n+': '+p.t).join(', ')}`,`- tokens : ${s.tokens.map(t=>t[1]).join(', ')}`,`- mesures : ${s.metrics.map(m=>m[0]+' '+m[1]).join(', ')}`)});return L.join('\n');}
+function copyFullSystem(){copyText(fullSystemPrompt());toast(`Copié : design system complet (${Object.keys(SPECS).length} composants) → ${promptLang}`);}
+function copyText(t){navigator.clipboard&&navigator.clipboard.writeText(t);}
+document.querySelectorAll('main section[id]').forEach(sec=>{const key=sec.id;if(!SPECS[key])return;const h=sec.querySelector('h2.sec');if(!h||h.querySelector('.sec-prompt'))return;const b=document.createElement('button');b.className='sec-prompt';b.type='button';b.textContent='Copier en prompt';b.addEventListener('click',()=>copyPrompt(key));h.appendChild(b);});
+
+/* ===== Dev Mode + inspecteur ===== */
+function toggleDev(){const on=document.body.classList.toggle('dev');devToggle.classList.toggle('on',on);devToggle.textContent=on?'◧ Dev Mode · ON':'◧ Dev Mode';if(!on)closeInspector();}
+function closeInspector(){document.body.classList.remove('inspecting');document.querySelectorAll('.insp-sel').forEach(e=>e.classList.remove('insp-sel'));}
+document.addEventListener('click',e=>{if(e.target.closest('#inspector')||e.target.closest('#topctl'))return;if(!document.body.classList.contains('dev'))return;const el=e.target.closest('[data-insp]');if(el&&SPECS[el.dataset.insp]){e.preventDefault();selectComp(el,el.dataset.insp);}});
+function selectComp(el,key){document.querySelectorAll('.insp-sel').forEach(x=>x.classList.remove('insp-sel'));el.classList.add('insp-sel');document.body.classList.add('inspecting');const s=SPECS[key];
+ const props=s.props.map(p=>`<div class="prop"><span class="pn">${p.n}</span> <span class="pt">${p.t}</span>${p.def?` <span class="pdef">= ${p.def}</span>`:''}</div>`).join('');
+ const toks=s.tokens.map(([r,n])=>{const base=n.split(' ')[0];const v=css(base);const isColor=/^#|^rgb/.test(v);return `<div class="tok" onclick="copyVal('${(v||n).replace(/'/g,'')}')"><div class="tsw" style="background:${isColor?v:'var(--surface-container)'}"></div><div><div class="tn">${n}</div><div class="tr">${r}</div></div><div class="tv">${v||''}</div></div>`}).join('');
+ const mets=s.metrics.map(([k,v])=>`<div class="metric"><span class="mk">${k}</span><span>${v}</span></div>`).join('');
+ inspectorBody.innerHTML=`<div class="nm">${s.name}</div><div class="file">${s.file}</div><div class="desc">${s.desc}</div><h4>Propriétés</h4>${props}<h4>Tokens · clic pour copier</h4>${toks}<h4>Mesures</h4>${mets}<button class="copyprompt" onclick="copyPrompt('${key}')">Copier en prompt</button>`;}
+function copyVal(v){copyText(v);toast('Copié '+v);}
+function toast(msg){const c=document.getElementById('copied');c.textContent=msg;c.classList.add('show');setTimeout(()=>c.classList.remove('show'),1400);}
+
+let saved='dark';try{saved=localStorage.getItem('liftds-theme')||'dark'}catch(e){}
+applyTheme(saved);
+</script>
+</body>
+</html>
