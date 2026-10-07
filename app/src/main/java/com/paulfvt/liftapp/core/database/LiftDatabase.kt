@@ -4,6 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.paulfvt.liftapp.core.database.dao.ExerciseDao
+import com.paulfvt.liftapp.core.database.dao.TemplateDao
 import com.paulfvt.liftapp.core.database.entity.BadgeEntity
 import com.paulfvt.liftapp.core.database.entity.BodyMeasurementEntity
 import com.paulfvt.liftapp.core.database.entity.ExerciseEntity
@@ -43,6 +44,8 @@ import com.paulfvt.liftapp.core.database.entity.WorkoutTemplateEntity
 @TypeConverters(Converters::class)
 abstract class LiftDatabase : RoomDatabase() {
     abstract fun exerciseDao(): ExerciseDao
+
+    abstract fun templateDao(): TemplateDao
 
     companion object {
         const val NAME = "lift.db"

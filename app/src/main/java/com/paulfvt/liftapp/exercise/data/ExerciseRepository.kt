@@ -24,6 +24,12 @@ class ExerciseRepository @Inject constructor(private val database: LiftDatabase)
 
     fun observeExercise(id: Long): Flow<Exercise?> = dao.observeById(id).map { it?.toDomain() }
 
+    // Exercices dans l'ordre des identifiants demandés (SQLite ne garantit pas l'ordre d'un « IN »).
+    suspend fun getExercises(ids: List<Long>): List<Exercise> {
+        val byId = dao.getWithMusclesByIds(ids).associate { it.exercise.id to it.toDomain() }
+        return ids.mapNotNull { byId[it] }
+    }
+
     suspend fun createCustom(draft: ExerciseDraft): Long = database.withTransaction {
         val id = dao.insert(draft.toEntity(existing = null))
         dao.insertMuscles(draft.toMuscleEntities(id))
