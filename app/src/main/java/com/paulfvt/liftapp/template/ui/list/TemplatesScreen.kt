@@ -214,19 +214,7 @@ private fun TemplateList(
                     modifier = Modifier.animateItem()
                 )
             }
-            if (expanded) {
-                if (section.templates.isEmpty()) {
-                    item(key = "folder-empty-${folder.id}") {
-                        Text(
-                            stringResource(R.string.folder_empty),
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            modifier = Modifier.animateItem().padding(start = 52.dp, bottom = 8.dp)
-                        )
-                    }
-                }
-                templateItems(section.templates)
-            }
+            if (expanded) templateItems(section.templates)
         }
     }
 }

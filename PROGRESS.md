@@ -10,7 +10,8 @@ Plan validé le 7 octobre 2026 : reps cibles en une seule case vide par défaut,
 - [x] Onglet Séances : templates hors dossier puis dossiers repliables ; créer, renommer, dupliquer, déplacer,
   supprimer ; glisser-déposer dans une même section.
 - [x] Éditeur de template et catalogue en mode sélection multiple.
-- [ ] Tests instrumentés (`TemplateDataTest`) lancés sur un appareil.
+- [x] Tests instrumentés : 11/11 sur l'émulateur API 37 (dont 5 nouveaux pour les templates). Parcours complet
+  vérifié à la main sur l'émulateur, thèmes clair et sombre.
 - [ ] Test sur le S25+ par le développeur.
 
 ## Phase 2 — Modèle de données et catalogue : terminée le 7 octobre 2026
@@ -56,8 +57,9 @@ Plan validé le 7 octobre 2026 : reps cibles en une seule case vide par défaut,
 - **Glisser-déposer limité à une section** : un template change de dossier par le menu « Déplacer vers un dossier ».
   Les dossiers se réordonnent par « Monter » / « Descendre » dans leur menu, pas par glisser-déposer.
 - **Accessibilité du glisser-déposer** : chaque carte propose « Monter » et « Descendre » au lecteur d'écran.
-- **Retour du catalogue en mode sélection** par le `SavedStateHandle` de l'écran précédent (clé
-  `PICKED_EXERCISE_IDS_KEY`), mécanisme standard de Navigation pour renvoyer un résultat.
+- **Retour du catalogue en mode sélection** par le `SavedStateHandle` de l'entrée de navigation précédente (clé
+  `PICKED_EXERCISE_IDS_KEY`), mécanisme standard de Navigation pour renvoyer un résultat. Attention : ce n'est pas
+  le `SavedStateHandle` reçu par le ViewModel ; le résultat est lu dans `templateScreens` puis transmis au ViewModel.
 - **Suppression d'un dossier** : ses templates rejoignent la fin des templates hors dossier.
 
 ## Questions ouvertes

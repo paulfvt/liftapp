@@ -40,6 +40,7 @@ fun LiftApp() {
                 val itemColors =
                     NavigationBarItemDefaults.colors(
                         selectedIconColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                        selectedTextColor = MaterialTheme.colorScheme.onSurface,
                         indicatorColor = MaterialTheme.colorScheme.primaryContainer
                     )
                 TopLevelDestination.entries.forEach { destination ->

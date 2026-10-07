@@ -51,7 +51,6 @@
     <string name="folder_rename_title">Renommer le dossier</string>
     <string name="folder_delete_title">Supprimer le dossier « %1$s » ?</string>
     <string name="folder_delete_text">Ses templates ne sont pas supprimés : ils sont rangés hors dossier.</string>
-    <string name="folder_empty">Dossier vide</string>
     <string name="folder_expanded">Déplié</string>
     <string name="folder_collapsed">Replié</string>
     <plurals name="folder_template_count">

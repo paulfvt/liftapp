@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import com.paulfvt.liftapp.exercise.data.ExerciseRepository
-import com.paulfvt.liftapp.exercise.navigation.PICKED_EXERCISE_IDS_KEY
 import com.paulfvt.liftapp.template.data.TemplateRepository
 import com.paulfvt.liftapp.template.domain.NameError
 import com.paulfvt.liftapp.template.domain.TemplateDraft
@@ -22,14 +21,13 @@ import com.paulfvt.liftapp.template.domain.withSetCount
 import com.paulfvt.liftapp.template.navigation.TemplateEditRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 
 // Création (pas de templateId dans la route) ou modification d'un template. Les changements restent
 // en mémoire jusqu'à « Enregistrer », comme pour les exercices personnalisés.
 @HiltViewModel
 class TemplateEditViewModel @Inject constructor(
-    private val savedStateHandle: SavedStateHandle,
+    savedStateHandle: SavedStateHandle,
     private val templates: TemplateRepository,
     private val exercises: ExerciseRepository
 ) : ViewModel() {
@@ -66,17 +64,17 @@ class TemplateEditViewModel @Inject constructor(
                 isLoaded = true
             }
         }
-        // L'écran de sélection du catalogue dépose ici les exercices cochés (voir ExercisePickerRoute) :
-        // ce SavedStateHandle est celui de l'écran d'édition dans la pile de navigation.
+    }
+
+    // Exercices cochés dans le catalogue en mode sélection (transmis par templateScreens).
+    fun onExercisesPicked(ids: List<Long>) {
         viewModelScope.launch {
-            savedStateHandle.getStateFlow<LongArray?>(PICKED_EXERCISE_IDS_KEY, null).filterNotNull().collect { ids ->
-                savedStateHandle[PICKED_EXERCISE_IDS_KEY] = null
-                updateDraft { it.addExercises(exercises.getExercises(ids.toList())) }
-            }
+            val picked = exercises.getExercises(ids)
+            updateDraft { it.addExercises(picked) }
         }
     }
 
-    private inline fun updateDraft(transform: (TemplateDraft) -> TemplateDraft) {
+    private fun updateDraft(transform: (TemplateDraft) -> TemplateDraft) {
         draft = transform(draft)
         if (hasTriedToSave) nameError = draft.nameError()
     }

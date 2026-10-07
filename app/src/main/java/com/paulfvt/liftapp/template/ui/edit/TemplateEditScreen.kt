@@ -47,6 +47,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.CustomAccessibilityAction
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.customActions
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.ImeAction
@@ -290,11 +291,13 @@ private fun TemplateExerciseCard(
             dragHandle()
         }
         // FlowRow passe les réglages à la ligne si l'écran est trop étroit (grande taille de police).
+        val rest = durationLabel(item.restSeconds)
+        val restDescription = stringResource(R.string.template_rest, rest)
         FlowRow(
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
             itemVerticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(start = 12.dp, end = 12.dp, top = 8.dp, bottom = 12.dp)
+            modifier = Modifier.padding(start = 4.dp, end = 12.dp, top = 4.dp, bottom = 12.dp)
         ) {
             SetCountStepper(count = item.setCount, onChange = onSetCountChange)
             OutlinedTextField(
@@ -303,11 +306,13 @@ private fun TemplateExerciseCard(
                 label = { Text(stringResource(R.string.template_target_reps)) },
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
-                modifier = Modifier.width(88.dp)
+                modifier = Modifier.width(76.dp)
             )
+            // L'icône minuteur suffit à l'écran ; le lecteur d'écran entend « Repos 2 min ».
             AssistChip(
                 onClick = onRestClick,
-                label = { Text(stringResource(R.string.template_rest, durationLabel(item.restSeconds))) },
+                label = { Text(rest) },
+                modifier = Modifier.semantics { contentDescription = restDescription },
                 leadingIcon = {
                     Icon(
                         painterResource(R.drawable.ic_timer),
