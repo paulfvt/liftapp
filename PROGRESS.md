@@ -6,6 +6,12 @@ Plan validé le 7 octobre 2026 : reps cibles en une seule case vide par défaut,
 (bibliothèque Reorderable), 2 minutes de repos par défaut.
 
 - [x] Design system « ON AIR » validé (`design-system/`) et appliqué au thème Compose.
+- [x] Couche données (`TemplateDao`, `TemplateRepository`) et logique pure testée (brouillon, dossiers, ordre).
+- [x] Onglet Séances : templates hors dossier puis dossiers repliables ; créer, renommer, dupliquer, déplacer,
+  supprimer ; glisser-déposer dans une même section.
+- [x] Éditeur de template et catalogue en mode sélection multiple.
+- [ ] Tests instrumentés (`TemplateDataTest`) lancés sur un appareil.
+- [ ] Test sur le S25+ par le développeur.
 
 ## Phase 2 — Modèle de données et catalogue : terminée le 7 octobre 2026
 - Base Room v1 avec toutes les tables du modèle (schéma exporté dans `app/schemas/`).
@@ -44,6 +50,15 @@ Plan validé le 7 octobre 2026 : reps cibles en une seule case vide par défaut,
   téléchargées, pour fonctionner hors connexion.
 - **Capitales uniquement pour les titres d'écran** (`ScreenTitle`) : Compose ne sait pas mettre un style en
   capitales, donc les boutons restent en minuscules, contrairement au guide de style.
+- **Éditeur de template avec « Enregistrer »** : les changements restent en mémoire jusqu'à l'enregistrement, et
+  quitter avec des changements demande confirmation. Les exercices du template sont réécrits en entier à chaque
+  enregistrement.
+- **Glisser-déposer limité à une section** : un template change de dossier par le menu « Déplacer vers un dossier ».
+  Les dossiers se réordonnent par « Monter » / « Descendre » dans leur menu, pas par glisser-déposer.
+- **Accessibilité du glisser-déposer** : chaque carte propose « Monter » et « Descendre » au lecteur d'écran.
+- **Retour du catalogue en mode sélection** par le `SavedStateHandle` de l'écran précédent (clé
+  `PICKED_EXERCISE_IDS_KEY`), mécanisme standard de Navigation pour renvoyer un résultat.
+- **Suppression d'un dossier** : ses templates rejoignent la fin des templates hors dossier.
 
 ## Questions ouvertes
 - Les séries dégressives comptent-elles pour les records et les statistiques ? À trancher avant la phase 4.
