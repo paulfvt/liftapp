@@ -18,10 +18,78 @@
     <string name="action_edit">Modifier</string>
     <string name="action_more">Plus d\'options</string>
     <string name="action_clear">Effacer</string>
+    <string name="action_create">Créer</string>
+    <string name="action_delete">Supprimer</string>
+    <string name="action_rename">Renommer</string>
+    <string name="action_move_up">Monter</string>
+    <string name="action_move_down">Descendre</string>
+    <string name="name_label">Nom</string>
+    <string name="name_error_empty">Donne un nom.</string>
+    <string name="name_error_too_long">60 caractères maximum.</string>
 
-    <!-- Onglet Séances (templates en phase 3) -->
-    <string name="templates_coming_soon">La création de templates arrive bientôt.</string>
+    <!-- Durées de repos -->
+    <string name="duration_seconds">%1$d s</string>
+    <string name="duration_minutes">%1$d min</string>
+    <string name="duration_minutes_seconds">%1$d min %2$02d</string>
+
+    <!-- Onglet Séances : templates et dossiers -->
     <string name="templates_open_catalog">Catalogue d\'exercices</string>
+    <string name="templates_new_template">Nouveau template</string>
+    <string name="templates_new_folder">Nouveau dossier</string>
+    <string name="templates_empty_title">Aucun template</string>
+    <string name="templates_empty_text">Un template, c\'est la liste d\'exercices d\'une séance que tu refais régulièrement. Crée le premier avec le bouton ci-dessous.</string>
+    <string name="template_no_exercise">Aucun exercice</string>
+    <string name="template_duplicate">Dupliquer</string>
+    <string name="template_move">Déplacer vers un dossier</string>
+    <string name="template_copy_name">Copie de %1$s</string>
+    <string name="template_rename_title">Renommer le template</string>
+    <string name="template_delete_title">Supprimer « %1$s » ?</string>
+    <string name="template_delete_text">Les séances déjà faites avec ce template restent dans ton historique.</string>
+    <string name="template_move_title">Déplacer vers</string>
+    <string name="template_move_no_folder">Sans dossier</string>
+    <string name="folder_new_template">Nouveau template ici</string>
+    <string name="folder_rename_title">Renommer le dossier</string>
+    <string name="folder_delete_title">Supprimer le dossier « %1$s » ?</string>
+    <string name="folder_delete_text">Ses templates ne sont pas supprimés : ils sont rangés hors dossier.</string>
+    <string name="folder_empty">Dossier vide</string>
+    <string name="folder_expanded">Déplié</string>
+    <string name="folder_collapsed">Replié</string>
+    <plurals name="folder_template_count">
+        <item quantity="one">%d template</item>
+        <item quantity="many">%d templates</item>
+        <item quantity="other">%d templates</item>
+    </plurals>
+
+    <!-- Éditeur de template -->
+    <string name="template_create_title">Nouveau template</string>
+    <string name="template_edit_title">Modifier le template</string>
+    <string name="template_name">Nom du template</string>
+    <string name="template_add_exercises">Ajouter des exercices</string>
+    <string name="template_no_exercises_hint">Ajoute les exercices de ta séance, dans l\'ordre où tu les fais.</string>
+    <string name="template_remove_exercise">Retirer %1$s</string>
+    <string name="template_set_remove">Retirer une série</string>
+    <string name="template_set_add">Ajouter une série</string>
+    <string name="template_target_reps">Reps</string>
+    <string name="template_rest">Repos %1$s</string>
+    <string name="template_rest_title">Temps de repos</string>
+    <string name="template_discard_title">Abandonner les modifications ?</string>
+    <string name="template_discard_text">Tes changements sur ce template ne seront pas enregistrés.</string>
+    <string name="template_discard_confirm">Abandonner</string>
+    <string name="template_discard_keep">Continuer</string>
+    <plurals name="template_set_count">
+        <item quantity="one">%d série</item>
+        <item quantity="many">%d séries</item>
+        <item quantity="other">%d séries</item>
+    </plurals>
+
+    <!-- Catalogue en mode sélection -->
+    <string name="picker_title">Ajouter des exercices</string>
+    <string name="picker_already_added">Déjà ajouté</string>
+    <plurals name="picker_confirm">
+        <item quantity="one">Ajouter %d exercice</item>
+        <item quantity="many">Ajouter %d exercices</item>
+        <item quantity="other">Ajouter %d exercices</item>
+    </plurals>
 
     <!-- Catalogue d'exercices -->
     <string name="exercises_title">Exercices</string>

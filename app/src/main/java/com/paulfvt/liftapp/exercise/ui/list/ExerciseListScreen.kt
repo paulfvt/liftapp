@@ -114,34 +114,61 @@ private fun ExerciseListContent(
             )
         }
     ) { padding ->
-        Column(modifier = Modifier.fillMaxSize().padding(padding)) {
-            SearchField(text = searchText, onTextChange = onSearchTextChange)
-            Row(
-                modifier = Modifier.padding(horizontal = 16.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ExerciseCatalog(
+            uiState = uiState,
+            searchText = searchText,
+            onSearchTextChange = onSearchTextChange,
+            onMuscleFilterChange = onMuscleFilterChange,
+            onEquipmentFilterChange = onEquipmentFilterChange,
+            modifier = Modifier.padding(padding)
+        ) { exercise ->
+            ExerciseRow(
+                exercise = exercise,
+                trailing = { ExerciseTag(exercise) },
+                modifier = Modifier.clickable { onExerciseClick(exercise.id) }
+            )
+        }
+    }
+}
+
+// Recherche, filtres et liste des exercices, partagés par le catalogue et le mode sélection.
+@Composable
+internal fun ExerciseCatalog(
+    uiState: ExerciseListUiState,
+    searchText: String,
+    onSearchTextChange: (String) -> Unit,
+    onMuscleFilterChange: (MuscleFilter?) -> Unit,
+    onEquipmentFilterChange: (Equipment?) -> Unit,
+    modifier: Modifier = Modifier,
+    row: @Composable (Exercise) -> Unit
+) {
+    Column(modifier = modifier.fillMaxSize()) {
+        SearchField(text = searchText, onTextChange = onSearchTextChange)
+        Row(
+            modifier = Modifier.padding(horizontal = 16.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            MuscleFilterChip(selected = uiState.filters.muscle, onSelect = onMuscleFilterChange)
+            EquipmentFilterChip(
+                selected = uiState.filters.equipment,
+                onSelect = onEquipmentFilterChange
+            )
+        }
+        when {
+            uiState.isLoading -> CenteredMessage(
+                stringResource(R.string.exercises_loading),
+                showProgress = true
+            )
+            uiState.exercises.isEmpty() -> CenteredMessage(
+                stringResource(R.string.exercises_empty)
+            )
+            else -> LazyColumn(
+                // Marge basse pour que le dernier exercice ne soit pas caché sous le bouton flottant.
+                contentPadding = PaddingValues(bottom = 88.dp)
             ) {
-                MuscleFilterChip(selected = uiState.filters.muscle, onSelect = onMuscleFilterChange)
-                EquipmentFilterChip(
-                    selected = uiState.filters.equipment,
-                    onSelect = onEquipmentFilterChange
-                )
-            }
-            when {
-                uiState.isLoading -> CenteredMessage(
-                    stringResource(R.string.exercises_loading),
-                    showProgress = true
-                )
-                uiState.exercises.isEmpty() -> CenteredMessage(
-                    stringResource(R.string.exercises_empty)
-                )
-                else -> LazyColumn(
-                    // Marge basse pour que le dernier exercice ne soit pas caché sous le bouton flottant.
-                    contentPadding = PaddingValues(bottom = 88.dp)
-                ) {
-                    items(uiState.exercises, key = { it.id }) { exercise ->
-                        ExerciseRow(exercise = exercise, onClick = { onExerciseClick(exercise.id) })
-                        HorizontalDivider()
-                    }
+                items(uiState.exercises, key = { it.id }) { exercise ->
+                    row(exercise)
+                    HorizontalDivider()
                 }
             }
         }
@@ -282,29 +309,33 @@ private fun EquipmentFilterChip(selected: Equipment?, onSelect: (Equipment?) -> 
 }
 
 @Composable
-private fun ExerciseRow(exercise: Exercise, onClick: () -> Unit) {
+internal fun ExerciseRow(exercise: Exercise, trailing: @Composable () -> Unit, modifier: Modifier = Modifier) {
     val muscles = exercise.primaryMuscles.map { stringResource(it.labelRes) }
     val subtitle = (muscles + stringResource(exercise.equipment.labelRes)).joinToString(" · ")
     ListItem(
         headlineContent = { Text(exercise.name) },
         supportingContent = { Text(subtitle, maxLines = 1) },
         leadingContent = { ExerciseThumbnail(exercise) },
-        trailingContent = {
-            val tag = when {
-                exercise.isHidden -> R.string.exercise_hidden_label
-                exercise.isCustom -> R.string.exercise_custom_label
-                else -> null
-            }
-            if (tag != null) {
-                Text(
-                    text = stringResource(tag),
-                    style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.tertiary
-                )
-            }
-        },
-        modifier = Modifier.clickable(onClick = onClick)
+        trailingContent = trailing,
+        modifier = modifier
     )
+}
+
+// Étiquette « Masqué » ou « Perso » à droite d'un exercice.
+@Composable
+private fun ExerciseTag(exercise: Exercise) {
+    val tag = when {
+        exercise.isHidden -> R.string.exercise_hidden_label
+        exercise.isCustom -> R.string.exercise_custom_label
+        else -> null
+    }
+    if (tag != null) {
+        Text(
+            text = stringResource(tag),
+            style = MaterialTheme.typography.labelMedium,
+            color = MaterialTheme.colorScheme.tertiary
+        )
+    }
 }
 
 @Composable

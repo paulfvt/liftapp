@@ -1,5 +1,7 @@
 package com.paulfvt.liftapp.template.domain
 
+import com.paulfvt.liftapp.core.domain.moved
+
 const val TEMPLATE_NAME_MAX_LENGTH = 60
 
 data class TemplateFolder(val id: Long, val name: String)
@@ -21,6 +23,27 @@ fun buildLibrary(folders: List<TemplateFolder>, templates: List<TemplateSummary>
     return TemplateLibrary(
         unfiled = unfiled,
         folders = folders.map { FolderSection(it, byFolder[it.id].orEmpty()) }
+    )
+}
+
+// Templates de la même section (hors dossier ou un dossier donné) que templateId, dans l'ordre.
+fun TemplateLibrary.sectionContaining(templateId: Long): List<TemplateSummary>? =
+    (listOf(unfiled) + folders.map { it.templates }).firstOrNull { section -> section.any { it.id == templateId } }
+
+// Glisser-déposer : place fromId à la position de toId. Rien ne change si les deux templates ne sont pas
+// dans la même section (un template change de dossier par le menu « Déplacer », pas en le faisant glisser).
+fun TemplateLibrary.moveTemplate(fromId: Long, toId: Long): TemplateLibrary {
+    fun List<TemplateSummary>.reordered(): List<TemplateSummary>? {
+        val from = indexOfFirst { it.id == fromId }
+        val to = indexOfFirst { it.id == toId }
+        return if (from == -1 || to == -1) null else moved(from, to)
+    }
+    unfiled.reordered()?.let { return copy(unfiled = it) }
+    return copy(
+        folders = folders.map { section ->
+            section.templates.reordered()?.let { section.copy(templates = it) }
+                ?: section
+        }
     )
 }
 

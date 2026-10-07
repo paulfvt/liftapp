@@ -75,6 +75,8 @@ dependencies {
     implementation(libs.androidx.datastore.preferences)
 
     implementation(libs.coil.compose)
+    // Glisser-déposer dans les listes Compose (Apache 2.0) : Compose ne le propose pas en natif.
+    implementation(libs.reorderable)
 
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)

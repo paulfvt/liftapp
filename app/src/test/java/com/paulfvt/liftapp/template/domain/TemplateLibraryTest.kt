@@ -33,6 +33,35 @@ class TemplateLibraryTest {
         assertEquals(listOf(10L), library.unfiled.map { it.id })
     }
 
+    private val library = buildLibrary(
+        folders = listOf(TemplateFolder(1, "PPL")),
+        templates = listOf(template(10, null), template(11, null), template(20, 1), template(21, 1), template(22, 1))
+    )
+
+    @Test
+    fun `a template is moved inside its folder`() {
+        val moved = library.moveTemplate(fromId = 22, toId = 20)
+        assertEquals(listOf(22L, 20L, 21L), moved.folders.single().templates.map { it.id })
+        assertEquals(library.unfiled, moved.unfiled)
+    }
+
+    @Test
+    fun `a template is moved among unfiled templates`() {
+        assertEquals(listOf(11L, 10L), library.moveTemplate(fromId = 10, toId = 11).unfiled.map { it.id })
+    }
+
+    @Test
+    fun `a template cannot be dragged into another section`() {
+        assertEquals(library, library.moveTemplate(fromId = 10, toId = 21))
+    }
+
+    @Test
+    fun `the section of a template is found`() {
+        assertEquals(listOf(20L, 21L, 22L), library.sectionContaining(21)?.map { it.id })
+        assertEquals(listOf(10L, 11L), library.sectionContaining(10)?.map { it.id })
+        assertNull(library.sectionContaining(99))
+    }
+
     @Test
     fun `names are validated without surrounding spaces`() {
         assertNull(validateName("  Push A  "))
