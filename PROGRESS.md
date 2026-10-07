@@ -1,20 +1,15 @@
 # Avancement
 
-## Phase en cours : 2 — Modèle de données et catalogue
+## Phase en cours : 3 — Templates (plan à valider)
 
-### Fait
+## Phase 2 — Modèle de données et catalogue : terminée le 7 octobre 2026
 - Base Room v1 avec toutes les tables du modèle (schéma exporté dans `app/schemas/`).
 - Catalogue : 753 exercices de free-exercise-db, traduits en français, 1 500 images WebP (~17 Mo).
   Import au premier lancement, réimport sans perte de note ni de masquage quand `CATALOG_VERSION` augmente.
-- Écrans : liste avec recherche sans accents et filtres (muscle ou groupe, matériel), fiche avec images animées,
-  note permanente et masquage, création et modification d'exercices personnalisés.
-- Accès au catalogue depuis l'onglet Séances.
-- Tests JVM (domaine, conversions) et tests instrumentés (base, import complet).
-
-### Reste à faire pour clore la phase 2
-- [ ] Lancer les tests instrumentés sur le téléphone (`./gradlew connectedDebugAndroidTest`).
-- [ ] Relire les noms traduits : `tools/catalog/noms-a-relire.csv`.
-- [ ] Test sur le téléphone : chercher « squat », filtrer « Jambes », ajouter une note et la retrouver.
+- Écrans : liste avec recherche sans accents et filtres, fiche avec images animées, note permanente et masquage,
+  exercices personnalisés.
+- Tests JVM et instrumentés verts, testé sur le S25+.
+- Reste ouvert, non bloquant : relecture des noms traduits (`tools/catalog/noms-a-relire.csv`).
 
 ## Phase 1 — Mise en place : terminée le 6 octobre 2026
 
@@ -45,5 +40,7 @@
 - Exercices au poids du corps (tractions, dips) : faut-il un champ « lest » optionnel en séance ? Phase 4.
 
 ## Problèmes connus
+- `kotlinx-coroutines-test` doit rester à la même version que `kotlinx-coroutines-core` utilisé par l'app
+  (1.10.2, imposé par AndroidX), sinon les tests instrumentés échouent avec un `NoSuchMethodError`.
 - Avertissement lint `OldTargetApi` (targetSdk 36 alors que l'API 37 existe) : volontaire, c'est le niveau exigé
   par Google Play. À revoir avant la publication.

@@ -16,7 +16,9 @@ coil = "3.6.3"
 room = "2.8.5"
 kotlinxSerialization = "1.11.0"
 junit = "4.13.2"
-kotlinxCoroutines = "1.11.0"
+# Aligné sur la version de kotlinx-coroutines-core imposée à l'app par AndroidX : les tests instrumentés
+# tournent avec les classes de l'app, une version plus récente provoque un NoSuchMethodError.
+kotlinxCoroutines = "1.10.2"
 androidxTestExtJunit = "1.3.0"
 androidxTestRunner = "1.7.0"
 ktlintGradle = "14.2.0"
