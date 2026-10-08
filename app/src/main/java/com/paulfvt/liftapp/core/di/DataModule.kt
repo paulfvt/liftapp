@@ -8,6 +8,7 @@ import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.room.Room
 import com.paulfvt.liftapp.core.database.LiftDatabase
 import com.paulfvt.liftapp.core.database.dao.ExerciseDao
+import com.paulfvt.liftapp.core.database.migration.MIGRATION_1_2
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,7 +24,9 @@ object DataModule {
     @Provides
     @Singleton
     fun provideDatabase(@ApplicationContext context: Context): LiftDatabase =
-        Room.databaseBuilder(context, LiftDatabase::class.java, LiftDatabase.NAME).build()
+        Room.databaseBuilder(context, LiftDatabase::class.java, LiftDatabase.NAME)
+            .addMigrations(MIGRATION_1_2)
+            .build()
 
     @Provides
     fun provideExerciseDao(database: LiftDatabase): ExerciseDao = database.exerciseDao()

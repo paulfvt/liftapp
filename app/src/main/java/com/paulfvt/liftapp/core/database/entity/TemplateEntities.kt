@@ -4,6 +4,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import com.paulfvt.liftapp.core.model.SetType
 
 @Entity(tableName = "template_folder")
 data class TemplateFolderEntity(@PrimaryKey(autoGenerate = true) val id: Long = 0, val name: String, val sortOrder: Int)
@@ -50,7 +51,26 @@ data class TemplateExerciseEntity(
     val templateId: Long,
     val exerciseId: Long,
     val sortOrder: Int,
-    val setCount: Int,
-    val targetReps: Int?,
     val restSeconds: Int?
+)
+
+// Série prévue d'un exercice de template (depuis la version 2 du schéma). targetReps null = pas de cible.
+@Entity(
+    tableName = "template_set",
+    foreignKeys = [
+        ForeignKey(
+            entity = TemplateExerciseEntity::class,
+            parentColumns = ["id"],
+            childColumns = ["templateExerciseId"],
+            onDelete = ForeignKey.CASCADE
+        )
+    ],
+    indices = [Index("templateExerciseId")]
+)
+data class TemplateSetEntity(
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    val templateExerciseId: Long,
+    val sortOrder: Int,
+    val type: SetType,
+    val targetReps: Int?
 )

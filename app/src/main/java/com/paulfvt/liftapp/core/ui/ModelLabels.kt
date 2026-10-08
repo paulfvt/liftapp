@@ -6,6 +6,7 @@ import com.paulfvt.liftapp.core.model.Equipment
 import com.paulfvt.liftapp.core.model.ExerciseCategory
 import com.paulfvt.liftapp.core.model.Muscle
 import com.paulfvt.liftapp.core.model.MuscleGroup
+import com.paulfvt.liftapp.core.model.SetType
 import com.paulfvt.liftapp.core.model.TrackingType
 
 // Libellés affichés pour les énumérations du modèle. Les textes restent dans strings.xml pour la traduction.
@@ -77,4 +78,12 @@ val TrackingType.labelRes: Int
         TrackingType.REPS -> R.string.tracking_reps
         TrackingType.DURATION -> R.string.tracking_duration
         TrackingType.DISTANCE -> R.string.tracking_distance
+    }
+
+@get:StringRes
+val SetType.labelRes: Int
+    get() = when (this) {
+        SetType.WARMUP -> R.string.set_type_warmup
+        SetType.WORK -> R.string.set_type_work
+        SetType.DROP -> R.string.set_type_drop
     }

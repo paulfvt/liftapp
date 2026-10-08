@@ -4,6 +4,7 @@ import androidx.room.withTransaction
 import com.paulfvt.liftapp.core.database.LiftDatabase
 import com.paulfvt.liftapp.core.database.entity.TemplateExerciseEntity
 import com.paulfvt.liftapp.core.database.entity.TemplateFolderEntity
+import com.paulfvt.liftapp.core.database.entity.TemplateSetEntity
 import com.paulfvt.liftapp.core.database.entity.WorkoutTemplateEntity
 import com.paulfvt.liftapp.core.domain.insertedAfter
 import com.paulfvt.liftapp.exercise.data.toDomain
@@ -12,6 +13,7 @@ import com.paulfvt.liftapp.template.domain.TemplateDraft
 import com.paulfvt.liftapp.template.domain.TemplateExerciseDraft
 import com.paulfvt.liftapp.template.domain.TemplateFolder
 import com.paulfvt.liftapp.template.domain.TemplateLibrary
+import com.paulfvt.liftapp.template.domain.TemplateSetDraft
 import com.paulfvt.liftapp.template.domain.TemplateSummary
 import com.paulfvt.liftapp.template.domain.buildLibrary
 import javax.inject.Inject
@@ -41,14 +43,16 @@ class TemplateRepository @Inject constructor(private val database: LiftDatabase)
         val rows = dao.getTemplateExercises(templateId)
         val exercises = exerciseDao.getWithMusclesByIds(rows.map { it.exerciseId })
             .associate { it.exercise.id to it.toDomain() }
+        val setsByExercise = dao.getTemplateSets(templateId).groupBy { it.templateExerciseId }
         TemplateDraft(
             name = template.name,
             exercises = rows.mapNotNull { row ->
                 exercises[row.exerciseId]?.let {
                     TemplateExerciseDraft(
                         exercise = it,
-                        setCount = row.setCount,
-                        targetReps = row.targetReps,
+                        sets = setsByExercise[row.id].orEmpty().map { set ->
+                            TemplateSetDraft(set.type, set.targetReps)
+                        },
                         restSeconds = row.restSeconds ?: DEFAULT_REST_SECONDS
                     )
                 }
@@ -65,7 +69,7 @@ class TemplateRepository @Inject constructor(private val database: LiftDatabase)
                 sortOrder = dao.nextTemplateSortOrder(folderId)
             )
         )
-        dao.insertTemplateExercises(draft.toExerciseEntities(id))
+        writeExercises(id, draft)
         id
     }
 
@@ -73,18 +77,16 @@ class TemplateRepository @Inject constructor(private val database: LiftDatabase)
     suspend fun updateTemplate(templateId: Long, draft: TemplateDraft) = database.withTransaction {
         dao.renameTemplate(templateId, draft.name.trim())
         dao.deleteTemplateExercises(templateId)
-        dao.insertTemplateExercises(draft.toExerciseEntities(templateId))
+        writeExercises(templateId, draft)
     }
 
     suspend fun renameTemplate(templateId: Long, name: String) = dao.renameTemplate(templateId, name.trim())
 
-    // La copie se place juste après l'original, dans le même dossier.
+    // La copie se place juste après l'original, dans le même dossier, avec les mêmes exercices et séries.
     suspend fun duplicateTemplate(templateId: Long, copyName: String): Long = database.withTransaction {
         val original = requireNotNull(dao.getTemplate(templateId)) { "Template $templateId introuvable" }
         val copyId = dao.insertTemplate(original.copy(id = 0, name = copyName))
-        dao.insertTemplateExercises(
-            dao.getTemplateExercises(templateId).map { it.copy(id = 0, templateId = copyId) }
-        )
+        getDraft(templateId)?.let { writeExercises(copyId, it) }
         val order = dao.getTemplatesIn(original.folderId).map { it.id }.filter { it != copyId }
         writeTemplateOrder(order.insertedAfter(templateId, copyId))
         copyId
@@ -118,18 +120,33 @@ class TemplateRepository @Inject constructor(private val database: LiftDatabase)
         dao.deleteFolder(folderId)
     }
 
+    // Exercices puis séries : les identifiants des exercices créés servent à rattacher leurs séries.
+    private suspend fun writeExercises(templateId: Long, draft: TemplateDraft) {
+        val exerciseIds = dao.insertTemplateExercises(
+            draft.exercises.mapIndexed { index, item ->
+                TemplateExerciseEntity(
+                    templateId = templateId,
+                    exerciseId = item.exercise.id,
+                    sortOrder = index,
+                    restSeconds = item.restSeconds
+                )
+            }
+        )
+        dao.insertTemplateSets(
+            draft.exercises.zip(exerciseIds).flatMap { (item, templateExerciseId) ->
+                item.sets.mapIndexed { index, set ->
+                    TemplateSetEntity(
+                        templateExerciseId = templateExerciseId,
+                        sortOrder = index,
+                        type = set.type,
+                        targetReps = set.targetReps
+                    )
+                }
+            }
+        )
+    }
+
     private suspend fun writeTemplateOrder(orderedIds: List<Long>) {
         orderedIds.forEachIndexed { index, id -> dao.updateTemplateSortOrder(id, index) }
     }
-}
-
-private fun TemplateDraft.toExerciseEntities(templateId: Long) = exercises.mapIndexed { index, item ->
-    TemplateExerciseEntity(
-        templateId = templateId,
-        exerciseId = item.exercise.id,
-        sortOrder = index,
-        setCount = item.setCount,
-        targetReps = item.targetReps,
-        restSeconds = item.restSeconds
-    )
 }

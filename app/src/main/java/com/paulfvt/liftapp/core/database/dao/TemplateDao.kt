@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import com.paulfvt.liftapp.core.database.entity.TemplateExerciseEntity
 import com.paulfvt.liftapp.core.database.entity.TemplateFolderEntity
+import com.paulfvt.liftapp.core.database.entity.TemplateSetEntity
 import com.paulfvt.liftapp.core.database.entity.WorkoutTemplateEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -60,9 +61,22 @@ interface TemplateDao {
     @Query("DELETE FROM workout_template WHERE id = :id")
     suspend fun deleteTemplate(id: Long)
 
-    @Insert
-    suspend fun insertTemplateExercises(exercises: List<TemplateExerciseEntity>)
+    @Query(
+        """
+        SELECT ts.* FROM template_set ts INNER JOIN template_exercise te ON te.id = ts.templateExerciseId
+        WHERE te.templateId = :templateId ORDER BY ts.templateExerciseId, ts.sortOrder
+        """
+    )
+    suspend fun getTemplateSets(templateId: Long): List<TemplateSetEntity>
 
+    // Renvoie les identifiants créés, dans l'ordre de la liste : ils servent à rattacher les séries.
+    @Insert
+    suspend fun insertTemplateExercises(exercises: List<TemplateExerciseEntity>): List<Long>
+
+    @Insert
+    suspend fun insertTemplateSets(sets: List<TemplateSetEntity>)
+
+    // Les séries partent avec leurs exercices (CASCADE).
     @Query("DELETE FROM template_exercise WHERE templateId = :templateId")
     suspend fun deleteTemplateExercises(templateId: Long)
 

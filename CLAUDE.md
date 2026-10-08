@@ -73,6 +73,8 @@ En cas d'ambiguïté ou de point non couvert, pose la question au lieu d'invente
 - Carte du corps : tracés SVG de Jsplice/MuscleMap (licence MIT, à citer dans « À propos »).
 - Templates (7 octobre 2026) : 3 séries par défaut, reps cibles facultatives (case vide), 2 min de repos par défaut,
   un exercice au plus une fois par template.
+- Séries détaillées dans les templates (8 octobre 2026, écart avec le cahier § 4.3 et § 5) : chaque série prévue a
+  son type et ses reps cibles (table `template_set`, schéma v2). Une série ajoutée est une série de travail sans cible.
 - Design « ON AIR » (7 octobre 2026) : référence dans `design-system/`, rouge signal (`primaryContainer`) pour les
   actions principales, lueur réservée aux moments forts. Polices Barlow embarquées (OFL, à citer dans « À propos »).
 

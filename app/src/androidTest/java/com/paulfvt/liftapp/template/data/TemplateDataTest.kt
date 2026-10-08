@@ -6,11 +6,14 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.paulfvt.liftapp.core.database.LiftDatabase
 import com.paulfvt.liftapp.core.model.Muscle
+import com.paulfvt.liftapp.core.model.SetType
 import com.paulfvt.liftapp.exercise.data.ExerciseRepository
 import com.paulfvt.liftapp.exercise.domain.ExerciseDraft
 import com.paulfvt.liftapp.template.domain.TemplateDraft
 import com.paulfvt.liftapp.template.domain.addExercises
+import com.paulfvt.liftapp.template.domain.addSet
 import com.paulfvt.liftapp.template.domain.updateExercise
+import com.paulfvt.liftapp.template.domain.updateSet
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.After
@@ -49,15 +52,28 @@ class TemplateDataTest {
     }
 
     @Test
-    fun savedTemplateIsReadBackWithItsSettingsAndOrder() = runTest {
+    fun savedTemplateIsReadBackWithItsSetsAndOrder() = runTest {
+        // Dips : échauffement de 12, puis 10 et 8 reps, plus une série ajoutée sans cible.
         val saved = draft("Push A", "Développé couché", "Dips").let { draft ->
-            draft.updateExercise(draft.exercises[1].exercise.id) { it.copy(setCount = 4, targetReps = 10) }
+            draft.updateExercise(draft.exercises[1].exercise.id) {
+                it.updateSet(0) { set -> set.copy(type = SetType.WARMUP, targetReps = 12) }
+                    .updateSet(1) { set -> set.copy(targetReps = 10) }
+                    .updateSet(2) { set -> set.copy(targetReps = 8) }
+                    .addSet()
+                    .copy(restSeconds = 90)
+            }
         }
         val id = templates.createTemplate(folderId = null, draft = saved)
 
         val loaded = templates.getDraft(id)
 
         assertEquals(saved, loaded)
+        assertEquals(
+            listOf(SetType.WARMUP, SetType.WORK, SetType.WORK, SetType.WORK),
+            loaded?.exercises?.get(1)?.sets?.map {
+                it.type
+            }
+        )
         assertEquals(
             listOf("Développé couché", "Dips"),
             templates.observeLibrary().first().unfiled.single().exerciseNames

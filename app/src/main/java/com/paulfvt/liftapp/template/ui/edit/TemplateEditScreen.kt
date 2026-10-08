@@ -3,16 +3,16 @@ package com.paulfvt.liftapp.template.ui.edit
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -22,10 +22,13 @@ import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
@@ -37,6 +40,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -44,7 +48,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.CustomAccessibilityAction
 import androidx.compose.ui.semantics.contentDescription
@@ -60,12 +63,16 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.paulfvt.liftapp.R
 import com.paulfvt.liftapp.core.designsystem.component.DragHandle
 import com.paulfvt.liftapp.core.designsystem.component.ScreenTitle
+import com.paulfvt.liftapp.core.domain.workSetNumbers
+import com.paulfvt.liftapp.core.model.SetType
 import com.paulfvt.liftapp.core.ui.durationLabel
+import com.paulfvt.liftapp.core.ui.labelRes
 import com.paulfvt.liftapp.exercise.ui.ExerciseThumbnail
 import com.paulfvt.liftapp.template.domain.MAX_SET_COUNT
 import com.paulfvt.liftapp.template.domain.MIN_SET_COUNT
 import com.paulfvt.liftapp.template.domain.REST_CHOICES_SECONDS
 import com.paulfvt.liftapp.template.domain.TemplateExerciseDraft
+import com.paulfvt.liftapp.template.domain.TemplateSetDraft
 import com.paulfvt.liftapp.template.ui.ChoiceDialog
 import com.paulfvt.liftapp.template.ui.messageRes
 import sh.calvin.reorderable.ReorderableItem
@@ -175,8 +182,12 @@ fun TemplateEditScreen(
                         },
                         onRemove = { viewModel.onRemoveExercise(exerciseId) },
                         onMoveBy = { offset -> viewModel.onMoveExerciseBy(exerciseId, offset) },
-                        onSetCountChange = { viewModel.onSetCountChange(exerciseId, it) },
-                        onTargetRepsChange = { viewModel.onTargetRepsChange(exerciseId, it) },
+                        onAddSet = { viewModel.onAddSet(exerciseId) },
+                        onRemoveSet = { setIndex -> viewModel.onRemoveSet(exerciseId, setIndex) },
+                        onSetTypeChange = { setIndex, type -> viewModel.onSetTypeChange(exerciseId, setIndex, type) },
+                        onTargetRepsChange = { setIndex, input ->
+                            viewModel.onTargetRepsChange(exerciseId, setIndex, input)
+                        },
                         onRestClick = { restDialogFor = exerciseId }
                     )
                 }
@@ -247,8 +258,10 @@ private fun TemplateExerciseCard(
     dragHandle: @Composable () -> Unit,
     onRemove: () -> Unit,
     onMoveBy: (offset: Int) -> Unit,
-    onSetCountChange: (Int) -> Unit,
-    onTargetRepsChange: (String) -> Unit,
+    onAddSet: () -> Unit,
+    onRemoveSet: (setIndex: Int) -> Unit,
+    onSetTypeChange: (setIndex: Int, SetType) -> Unit,
+    onTargetRepsChange: (setIndex: Int, input: String) -> Unit,
     onRestClick: () -> Unit
 ) {
     val elevation by animateDpAsState(if (isDragging) 8.dp else 1.dp, label = "elevation")
@@ -290,24 +303,39 @@ private fun TemplateExerciseCard(
             }
             dragHandle()
         }
-        // FlowRow passe les réglages à la ligne si l'écran est trop étroit (grande taille de police).
+        Row(modifier = Modifier.padding(start = 12.dp, top = 8.dp)) {
+            ColumnTitle(stringResource(R.string.template_set_header), Modifier.width(48.dp))
+            ColumnTitle(stringResource(R.string.template_target_reps), Modifier.padding(start = 8.dp))
+        }
+        val workNumbers = workSetNumbers(item.sets.map { it.type })
+        item.sets.forEachIndexed { index, set ->
+            TemplateSetRow(
+                set = set,
+                workNumber = workNumbers[index],
+                canRemove = item.sets.size > MIN_SET_COUNT,
+                onTypeChange = { onSetTypeChange(index, it) },
+                onTargetRepsChange = { onTargetRepsChange(index, it) },
+                onRemove = { onRemoveSet(index) }
+            )
+        }
         val rest = durationLabel(item.restSeconds)
         val restDescription = stringResource(R.string.template_rest, rest)
-        FlowRow(
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-            itemVerticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(start = 4.dp, end = 12.dp, top = 4.dp, bottom = 12.dp)
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.fillMaxWidth().padding(start = 4.dp, end = 12.dp, bottom = 8.dp)
         ) {
-            SetCountStepper(count = item.setCount, onChange = onSetCountChange)
-            OutlinedTextField(
-                value = item.targetReps?.toString().orEmpty(),
-                onValueChange = onTargetRepsChange,
-                label = { Text(stringResource(R.string.template_target_reps)) },
-                singleLine = true,
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
-                modifier = Modifier.width(76.dp)
-            )
+            TextButton(onClick = onAddSet, enabled = item.sets.size < MAX_SET_COUNT) {
+                Icon(
+                    painterResource(R.drawable.ic_add),
+                    contentDescription = null,
+                    modifier = Modifier.size(ButtonDefaults.IconSize)
+                )
+                Text(
+                    stringResource(R.string.template_set_add),
+                    modifier = Modifier.padding(start = ButtonDefaults.IconSpacing)
+                )
+            }
+            Spacer(Modifier.weight(1f))
             // L'icône minuteur suffit à l'écran ; le lecteur d'écran entend « Repos 2 min ».
             AssistChip(
                 onClick = onRestClick,
@@ -326,19 +354,89 @@ private fun TemplateExerciseCard(
 }
 
 @Composable
-private fun SetCountStepper(count: Int, onChange: (Int) -> Unit) {
-    Row(verticalAlignment = Alignment.CenterVertically) {
-        IconButton(onClick = { onChange(count - 1) }, enabled = count > MIN_SET_COUNT) {
-            Icon(painterResource(R.drawable.ic_remove), stringResource(R.string.template_set_remove))
-        }
-        Text(
-            pluralStringResource(R.plurals.template_set_count, count, count),
-            style = MaterialTheme.typography.titleSmall,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.widthIn(min = 64.dp)
+private fun ColumnTitle(text: String, modifier: Modifier = Modifier) {
+    Text(
+        text,
+        style = MaterialTheme.typography.labelMedium,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        textAlign = TextAlign.Center,
+        modifier = modifier
+    )
+}
+
+// Une série prévue : pastille de type (numéro, « É » ou « D »), reps cibles, bouton pour la retirer.
+@Composable
+private fun TemplateSetRow(
+    set: TemplateSetDraft,
+    workNumber: Int?,
+    canRemove: Boolean,
+    onTypeChange: (SetType) -> Unit,
+    onTargetRepsChange: (String) -> Unit,
+    onRemove: () -> Unit
+) {
+    // Nom de la série pour le lecteur d'écran : « Série 2 », « Échauffement », « Dégressive ».
+    val name = if (workNumber != null) {
+        stringResource(R.string.set_label_work, workNumber)
+    } else {
+        stringResource(set.type.labelRes)
+    }
+    val repsDescription = stringResource(R.string.template_set_target_reps, name)
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.fillMaxWidth().padding(start = 12.dp, end = 4.dp, bottom = 4.dp)
+    ) {
+        SetTypeButton(type = set.type, workNumber = workNumber, name = name, onTypeChange = onTypeChange)
+        OutlinedTextField(
+            value = set.targetReps?.toString().orEmpty(),
+            onValueChange = onTargetRepsChange,
+            singleLine = true,
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
+            modifier = Modifier.padding(start = 8.dp).width(96.dp).semantics { contentDescription = repsDescription }
         )
-        IconButton(onClick = { onChange(count + 1) }, enabled = count < MAX_SET_COUNT) {
-            Icon(painterResource(R.drawable.ic_add), stringResource(R.string.template_set_add))
+        Spacer(Modifier.weight(1f))
+        IconButton(
+            onClick = onRemove,
+            enabled = canRemove,
+            colors = IconButtonDefaults.iconButtonColors(contentColor = MaterialTheme.colorScheme.onSurfaceVariant)
+        ) {
+            Icon(painterResource(R.drawable.ic_remove), stringResource(R.string.template_set_remove, name))
+        }
+    }
+}
+
+// Pastille du type de série : un appui ouvre le choix échauffement, travail ou dégressive.
+@Composable
+private fun SetTypeButton(type: SetType, workNumber: Int?, name: String, onTypeChange: (SetType) -> Unit) {
+    var expanded by remember { mutableStateOf(false) }
+    val description = stringResource(R.string.template_set_change_type, name)
+    val (text, color) = when (type) {
+        SetType.WARMUP -> stringResource(R.string.set_short_warmup) to MaterialTheme.colorScheme.tertiary
+        SetType.DROP -> stringResource(R.string.set_short_drop) to MaterialTheme.colorScheme.secondary
+        SetType.WORK -> workNumber.toString() to MaterialTheme.colorScheme.onSurface
+    }
+    Box {
+        TextButton(
+            onClick = { expanded = true },
+            contentPadding = PaddingValues(0.dp),
+            modifier = Modifier.size(48.dp).semantics { contentDescription = description }
+        ) {
+            Text(text, style = MaterialTheme.typography.headlineSmall, color = color)
+        }
+        DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
+            SetType.entries.forEach { option ->
+                DropdownMenuItem(
+                    text = { Text(stringResource(option.labelRes)) },
+                    trailingIcon = if (option == type) {
+                        { Icon(painterResource(R.drawable.ic_check), contentDescription = null) }
+                    } else {
+                        null
+                    },
+                    onClick = {
+                        expanded = false
+                        onTypeChange(option)
+                    }
+                )
+            }
         }
     }
 }

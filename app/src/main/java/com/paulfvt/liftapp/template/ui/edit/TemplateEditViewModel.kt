@@ -7,17 +7,20 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
+import com.paulfvt.liftapp.core.model.SetType
 import com.paulfvt.liftapp.exercise.data.ExerciseRepository
 import com.paulfvt.liftapp.template.data.TemplateRepository
 import com.paulfvt.liftapp.template.domain.NameError
 import com.paulfvt.liftapp.template.domain.TemplateDraft
 import com.paulfvt.liftapp.template.domain.addExercises
+import com.paulfvt.liftapp.template.domain.addSet
 import com.paulfvt.liftapp.template.domain.moveExercise
 import com.paulfvt.liftapp.template.domain.nameError
 import com.paulfvt.liftapp.template.domain.parseTargetReps
 import com.paulfvt.liftapp.template.domain.removeExercise
+import com.paulfvt.liftapp.template.domain.removeSet
 import com.paulfvt.liftapp.template.domain.updateExercise
-import com.paulfvt.liftapp.template.domain.withSetCount
+import com.paulfvt.liftapp.template.domain.updateSet
 import com.paulfvt.liftapp.template.navigation.TemplateEditRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -92,12 +95,20 @@ class TemplateEditViewModel @Inject constructor(
         onMoveExercise(exerciseId, target)
     }
 
-    fun onSetCountChange(exerciseId: Long, count: Int) = updateDraft {
-        it.updateExercise(exerciseId) { item -> item.withSetCount(count) }
+    fun onAddSet(exerciseId: Long) = updateDraft { it.updateExercise(exerciseId) { item -> item.addSet() } }
+
+    fun onRemoveSet(exerciseId: Long, setIndex: Int) = updateDraft {
+        it.updateExercise(exerciseId) { item -> item.removeSet(setIndex) }
     }
 
-    fun onTargetRepsChange(exerciseId: Long, input: String) = updateDraft {
-        it.updateExercise(exerciseId) { item -> item.copy(targetReps = parseTargetReps(input)) }
+    fun onSetTypeChange(exerciseId: Long, setIndex: Int, type: SetType) = updateDraft {
+        it.updateExercise(exerciseId) { item -> item.updateSet(setIndex) { set -> set.copy(type = type) } }
+    }
+
+    fun onTargetRepsChange(exerciseId: Long, setIndex: Int, input: String) = updateDraft {
+        it.updateExercise(exerciseId) { item ->
+            item.updateSet(setIndex) { set -> set.copy(targetReps = parseTargetReps(input)) }
+        }
     }
 
     fun onRestChange(exerciseId: Long, seconds: Int) = updateDraft {

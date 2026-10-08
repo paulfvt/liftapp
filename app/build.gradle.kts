@@ -83,4 +83,6 @@ dependencies {
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.runner)
     androidTestImplementation(libs.kotlinx.coroutines.test)
+    // MigrationTestHelper : ouvre une base dans un ancien schéma pour tester chaque migration.
+    androidTestImplementation(libs.androidx.room.testing)
 }

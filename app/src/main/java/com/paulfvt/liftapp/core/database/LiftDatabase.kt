@@ -14,6 +14,7 @@ import com.paulfvt.liftapp.core.database.entity.PersonalRecordEntity
 import com.paulfvt.liftapp.core.database.entity.ProgressPhotoEntity
 import com.paulfvt.liftapp.core.database.entity.TemplateExerciseEntity
 import com.paulfvt.liftapp.core.database.entity.TemplateFolderEntity
+import com.paulfvt.liftapp.core.database.entity.TemplateSetEntity
 import com.paulfvt.liftapp.core.database.entity.WeeklyGoalEntity
 import com.paulfvt.liftapp.core.database.entity.WorkoutEntity
 import com.paulfvt.liftapp.core.database.entity.WorkoutExerciseEntity
@@ -23,13 +24,14 @@ import com.paulfvt.liftapp.core.database.entity.WorkoutTemplateEntity
 // Toute modification d'une entité impose d'augmenter version et d'écrire une migration testée.
 // Le schéma de chaque version est exporté dans app/schemas/ (exportSchema = true par défaut).
 @Database(
-    version = 1,
+    version = 2,
     entities = [
         ExerciseEntity::class,
         ExerciseMuscleEntity::class,
         TemplateFolderEntity::class,
         WorkoutTemplateEntity::class,
         TemplateExerciseEntity::class,
+        TemplateSetEntity::class,
         WorkoutEntity::class,
         WorkoutExerciseEntity::class,
         WorkoutSetEntity::class,

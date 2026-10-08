@@ -66,20 +66,26 @@
     <string name="template_add_exercises">Ajouter des exercices</string>
     <string name="template_no_exercises_hint">Ajoute les exercices de ta séance, dans l\'ordre où tu les fais.</string>
     <string name="template_remove_exercise">Retirer %1$s</string>
-    <string name="template_set_remove">Retirer une série</string>
+    <string name="template_set_header">Série</string>
+    <string name="template_target_reps">Reps cibles</string>
+    <string name="template_set_target_reps">Reps cibles, %1$s</string>
+    <string name="template_set_change_type">%1$s, changer le type</string>
+    <string name="template_set_remove">Retirer : %1$s</string>
     <string name="template_set_add">Ajouter une série</string>
-    <string name="template_target_reps">Reps</string>
     <string name="template_rest">Repos %1$s</string>
     <string name="template_rest_title">Temps de repos</string>
     <string name="template_discard_title">Abandonner les modifications ?</string>
     <string name="template_discard_text">Tes changements sur ce template ne seront pas enregistrés.</string>
     <string name="template_discard_confirm">Abandonner</string>
     <string name="template_discard_keep">Continuer</string>
-    <plurals name="template_set_count">
-        <item quantity="one">%d série</item>
-        <item quantity="many">%d séries</item>
-        <item quantity="other">%d séries</item>
-    </plurals>
+
+    <!-- Types de série : É et D sont les pastilles affichées à la place du numéro -->
+    <string name="set_type_warmup">Échauffement</string>
+    <string name="set_type_work">Travail</string>
+    <string name="set_type_drop">Dégressive</string>
+    <string name="set_short_warmup">É</string>
+    <string name="set_short_drop">D</string>
+    <string name="set_label_work">Série %1$d</string>
 
     <!-- Catalogue en mode sélection -->
     <string name="picker_title">Ajouter des exercices</string>
