@@ -95,6 +95,89 @@
         <item quantity="many">Ajouter %d exercices</item>
         <item quantity="other">Ajouter %d exercices</item>
     </plurals>
+    <string name="picker_replace_title">Remplacer l\'exercice</string>
+
+    <!-- Démarrage d'une séance -->
+    <string name="template_preview_start">Démarrer</string>
+    <string name="template_preview_edit">Modifier</string>
+    <plurals name="template_preview_sets">
+        <item quantity="one">%d série</item>
+        <item quantity="many">%d séries</item>
+        <item quantity="other">%d séries</item>
+    </plurals>
+    <string name="template_preview_targets">%1$s reps</string>
+    <string name="workout_start_empty">Séance vide</string>
+    <string name="workout_empty_name">Séance libre</string>
+    <string name="workout_already_running_title">Une séance est déjà en cours</string>
+    <string name="workout_already_running_text">Termine-la ou abandonne-la avant d\'en démarrer une autre.</string>
+    <string name="workout_resume">Reprendre</string>
+
+    <!-- Séance en cours -->
+    <string name="workout_live">En direct</string>
+    <string name="workout_live_with_time">En direct · %1$s</string>
+    <string name="workout_live_bar">Séance en cours : %1$s, %2$s. Revenir à la séance</string>
+    <string name="workout_minimize">Réduire la séance</string>
+    <string name="workout_rename">Renommer la séance</string>
+    <string name="workout_note">Note de séance</string>
+    <string name="workout_note_hint">Sensations, douleurs, conditions…</string>
+    <string name="workout_add_exercises">Ajouter des exercices</string>
+    <string name="workout_no_exercise">Ajoute ton premier exercice.</string>
+    <string name="workout_replace_exercise">Remplacer l\'exercice</string>
+    <string name="workout_remove_exercise">Retirer de la séance</string>
+    <string name="workout_exercise_note">Note de l\'exercice</string>
+    <string name="workout_col_previous">Précédent</string>
+    <string name="workout_col_kg">kg</string>
+    <string name="workout_col_added_kg">+kg</string>
+    <string name="workout_col_reps">Reps</string>
+    <string name="workout_col_time">Durée</string>
+    <string name="workout_col_km">km</string>
+    <string name="workout_col_m">m</string>
+    <string name="workout_previous_none">—</string>
+    <string name="workout_previous_weight_reps">%1$s × %2$d</string>
+    <plurals name="workout_previous_reps">
+        <item quantity="one">%d rep</item>
+        <item quantity="many">%d reps</item>
+        <item quantity="other">%d reps</item>
+    </plurals>
+    <string name="workout_target">obj. %1$d</string>
+    <string name="workout_rpe">RPE %1$s</string>
+    <string name="workout_rpe_title">Effort perçu (RPE)</string>
+    <string name="workout_rpe_none">Aucun</string>
+    <string name="workout_rpe_menu">Noter l\'effort (RPE)</string>
+    <string name="workout_field">%1$s, %2$s</string>
+    <string name="workout_complete_set">Valider : %1$s</string>
+    <string name="workout_uncomplete_set">Annuler la validation : %1$s</string>
+    <string name="workout_cannot_complete">Saisis d\'abord les valeurs de la série.</string>
+    <string name="workout_finish">Terminer la séance</string>
+    <string name="workout_finish_confirm">Terminer</string>
+    <string name="workout_finish_title">Terminer la séance ?</string>
+    <plurals name="workout_finish_incomplete">
+        <item quantity="one">%d série non validée sera retirée.</item>
+        <item quantity="many">%d séries non validées seront retirées.</item>
+        <item quantity="other">%d séries non validées seront retirées.</item>
+    </plurals>
+    <string name="workout_finish_empty_title">Aucune série validée</string>
+    <string name="workout_finish_empty_text">Valide au moins une série pour enregistrer la séance, ou abandonne-la.</string>
+    <string name="workout_discard">Abandonner la séance</string>
+    <string name="workout_discard_title">Abandonner la séance ?</string>
+    <string name="workout_discard_text">Rien de cette séance ne sera enregistré dans ton historique.</string>
+    <string name="workout_discard_confirm">Abandonner</string>
+    <string name="workout_keep">Continuer</string>
+
+    <!-- Fin de séance -->
+    <string name="workout_summary_title">Séance terminée</string>
+    <string name="workout_summary_duration">Durée</string>
+    <string name="workout_summary_tonnage">Tonnage</string>
+    <string name="workout_summary_sets">Séries</string>
+    <string name="workout_summary_exercises">Exercices</string>
+    <string name="workout_summary_close">Fermer</string>
+    <string name="workout_update_template_title">Mettre à jour « %1$s » ?</string>
+    <string name="workout_update_template_text">Tu as changé les exercices ou les séries par rapport au template.</string>
+    <string name="workout_update_template_confirm">Mettre à jour</string>
+    <string name="workout_update_template_dismiss">Garder tel quel</string>
+    <string name="workout_template_updated">Template mis à jour.</string>
+    <string name="duration_hours_minutes">%1$d h %2$02d</string>
+    <string name="weight_kg">%1$s kg</string>
 
     <!-- Catalogue d'exercices -->
     <string name="exercises_title">Exercices</string>

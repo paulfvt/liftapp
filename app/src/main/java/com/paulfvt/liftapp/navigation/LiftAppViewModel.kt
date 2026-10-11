@@ -1,0 +1,32 @@
+package com.paulfvt.liftapp.navigation
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.paulfvt.liftapp.workout.data.WorkoutRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import java.time.Instant
+import javax.inject.Inject
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
+
+// Ce qu'affiche le bandeau EN DIRECT : le nom de la séance en cours et son heure de début.
+data class LiveWorkout(val name: String, val startedAt: Instant)
+
+// État partagé par tous les onglets : y a-t-il une séance en cours ?
+@HiltViewModel
+class LiftAppViewModel @Inject constructor(private val workouts: WorkoutRepository) : ViewModel() {
+    val liveWorkout: StateFlow<LiveWorkout?> = workouts.observeInProgress()
+        .map { workout -> workout?.let { LiveWorkout(it.name, it.startedAt) } }
+        .distinctUntilChanged()
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(STOP_TIMEOUT_MS), null)
+
+    // Au lancement, une séance encore en cours (app tuée, téléphone redémarré) est rouverte directement.
+    suspend fun hasWorkoutInProgress(): Boolean = workouts.inProgressId() != null
+
+    private companion object {
+        const val STOP_TIMEOUT_MS = 5_000L
+    }
+}

@@ -9,6 +9,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MenuDefaults
+import androidx.compose.material3.MenuItemColors
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -23,10 +24,11 @@ data class MenuEntry(
     @param:StringRes val textRes: Int,
     @param:DrawableRes val iconRes: Int? = null,
     val isDestructive: Boolean = false,
+    val isEnabled: Boolean = true,
     val onClick: () -> Unit
 )
 
-// Bouton « ⋮ » et son menu. Une action destructive (supprimer) est affichée en rouge erreur.
+// Bouton « ⋮ » et son menu.
 @Composable
 fun OverflowMenu(entries: List<MenuEntry>) {
     var expanded by remember { mutableStateOf(false) }
@@ -36,20 +38,13 @@ fun OverflowMenu(entries: List<MenuEntry>) {
         }
         DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
             entries.forEach { entry ->
-                val colors = if (entry.isDestructive) {
-                    MenuDefaults.itemColors(
-                        textColor = MaterialTheme.colorScheme.error,
-                        leadingIconColor = MaterialTheme.colorScheme.error
-                    )
-                } else {
-                    MenuDefaults.itemColors()
-                }
                 DropdownMenuItem(
                     text = { Text(stringResource(entry.textRes)) },
                     leadingIcon = entry.iconRes?.let { icon ->
                         { Icon(painterResource(icon), contentDescription = null) }
                     },
-                    colors = colors,
+                    colors = menuEntryColors(entry),
+                    enabled = entry.isEnabled,
                     onClick = {
                         expanded = false
                         entry.onClick()
@@ -58,4 +53,15 @@ fun OverflowMenu(entries: List<MenuEntry>) {
             }
         }
     }
+}
+
+// Une action destructive (supprimer, retirer) est affichée en rouge erreur.
+@Composable
+fun menuEntryColors(entry: MenuEntry): MenuItemColors = if (entry.isDestructive) {
+    MenuDefaults.itemColors(
+        textColor = MaterialTheme.colorScheme.error,
+        leadingIconColor = MaterialTheme.colorScheme.error
+    )
+} else {
+    MenuDefaults.itemColors()
 }

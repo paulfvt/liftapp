@@ -1,0 +1,490 @@
+package com.paulfvt.liftapp.workout.ui
+
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.TopAppBar
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.pluralStringResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.CustomAccessibilityAction
+import androidx.compose.ui.semantics.customActions
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.paulfvt.liftapp.R
+import com.paulfvt.liftapp.core.designsystem.component.DragHandle
+import com.paulfvt.liftapp.core.designsystem.component.MenuEntry
+import com.paulfvt.liftapp.core.designsystem.component.NoteDialog
+import com.paulfvt.liftapp.core.designsystem.component.OnAirBadge
+import com.paulfvt.liftapp.core.designsystem.component.OverflowMenu
+import com.paulfvt.liftapp.core.domain.moved
+import com.paulfvt.liftapp.core.domain.workSetNumbers
+import com.paulfvt.liftapp.core.ui.rememberElapsedSeconds
+import com.paulfvt.liftapp.exercise.ui.ExerciseThumbnail
+import com.paulfvt.liftapp.template.ui.ChoiceDialog
+import com.paulfvt.liftapp.template.ui.NameDialog
+import com.paulfvt.liftapp.workout.domain.PreviousSet
+import com.paulfvt.liftapp.workout.domain.RPE_CHOICES
+import com.paulfvt.liftapp.workout.domain.Workout
+import com.paulfvt.liftapp.workout.domain.WorkoutExercise
+import com.paulfvt.liftapp.workout.domain.formatDecimal
+import com.paulfvt.liftapp.workout.domain.formatDuration
+import com.paulfvt.liftapp.workout.domain.matchPrevious
+import sh.calvin.reorderable.ReorderableItem
+import sh.calvin.reorderable.rememberReorderableLazyListState
+
+@Composable
+fun WorkoutScreen(
+    onClose: () -> Unit,
+    onPickExercises: (excludedIds: List<Long>, replace: Boolean) -> Unit,
+    viewModel: WorkoutViewModel
+) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    LaunchedEffect(viewModel.isClosed) {
+        if (viewModel.isClosed) onClose()
+    }
+    val finished = viewModel.finished
+    val workout = uiState.workout
+    when {
+        finished != null -> WorkoutSummaryContent(
+            finished = finished,
+            isTemplateUpdated = viewModel.isTemplateUpdated,
+            onUpdateTemplate = viewModel::onUpdateTemplate,
+            onKeepTemplate = viewModel::onKeepTemplate,
+            onClose = viewModel::onCloseSummary
+        )
+        uiState.isLoading || viewModel.isFinishing -> Unit
+        // Plus de séance en cours (terminée ou abandonnée ailleurs) : rien à afficher.
+        workout == null -> LaunchedEffect(Unit) { onClose() }
+        else -> ActiveWorkout(workout, uiState.previous, viewModel, onClose, onPickExercises)
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun ActiveWorkout(
+    workout: Workout,
+    previous: Map<Long, List<PreviousSet>>,
+    viewModel: WorkoutViewModel,
+    onMinimize: () -> Unit,
+    onPickExercises: (excludedIds: List<Long>, replace: Boolean) -> Unit
+) {
+    val snackbarHostState = remember { SnackbarHostState() }
+    val messageRes = viewModel.message
+    val messageText = messageRes?.let { stringResource(it) }
+    LaunchedEffect(messageText) {
+        if (messageText != null) {
+            snackbarHostState.showSnackbar(messageText)
+            viewModel.messageShown()
+        }
+    }
+    val elapsed = formatDuration(rememberElapsedSeconds(workout.startedAt))
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                navigationIcon = {
+                    IconButton(onClick = onMinimize) {
+                        Icon(painterResource(R.drawable.ic_expand_more), stringResource(R.string.workout_minimize))
+                    }
+                },
+                title = { OnAirBadge(stringResource(R.string.workout_live_with_time, elapsed)) },
+                actions = {
+                    OverflowMenu(
+                        listOf(
+                            MenuEntry(R.string.action_rename, R.drawable.ic_edit) {
+                                viewModel.openDialog(WorkoutDialog.Rename)
+                            },
+                            MenuEntry(R.string.workout_note) { viewModel.openDialog(WorkoutDialog.Note) },
+                            MenuEntry(R.string.workout_discard, R.drawable.ic_delete, isDestructive = true) {
+                                viewModel.openDialog(WorkoutDialog.Discard)
+                            }
+                        )
+                    )
+                }
+            )
+        },
+        bottomBar = {
+            Surface(tonalElevation = 3.dp) {
+                Button(
+                    onClick = viewModel::onFinishClick,
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.primaryContainer,
+                        contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                    ),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .navigationBarsPadding()
+                        .padding(horizontal = 16.dp, vertical = 12.dp)
+                        .heightIn(min = 56.dp)
+                ) {
+                    Text(stringResource(R.string.workout_finish), style = MaterialTheme.typography.titleMedium)
+                }
+            }
+        },
+        snackbarHost = { SnackbarHost(snackbarHostState) }
+    ) { padding ->
+        WorkoutContent(workout, previous, viewModel, onPickExercises, Modifier.padding(padding))
+    }
+    WorkoutDialogs(workout, viewModel)
+}
+
+@Composable
+private fun WorkoutContent(
+    workout: Workout,
+    previous: Map<Long, List<PreviousSet>>,
+    viewModel: WorkoutViewModel,
+    onPickExercises: (excludedIds: List<Long>, replace: Boolean) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val haptics = LocalHapticFeedback.current
+    // Copie locale de l'ordre des exercices pendant un glisser-déposer ; la base est écrite au lâcher.
+    var order by remember(workout.exercises.map { it.id }) { mutableStateOf(workout.exercises.map { it.id }) }
+    val byId = workout.exercises.associateBy { it.id }
+    val listState = rememberLazyListState()
+    val reorderState = rememberReorderableLazyListState(listState) { from, to ->
+        val fromIndex = order.indexOf(from.key as Long)
+        val toIndex = order.indexOf(to.key as Long)
+        if (fromIndex != -1 && toIndex != -1) order = order.moved(fromIndex, toIndex)
+        haptics.performHapticFeedback(HapticFeedbackType.SegmentFrequentTick)
+    }
+    val setActions = remember(viewModel) {
+        SetActions(
+            onTypeChange = viewModel::onSetTypeChange,
+            onWeightChange = viewModel::onWeightChange,
+            onRepsChange = viewModel::onRepsChange,
+            onDurationChange = viewModel::onDurationChange,
+            onDistanceChange = viewModel::onDistanceChange,
+            onToggleCompleted = viewModel::onToggleCompleted,
+            onRpeClick = { set -> viewModel.openDialog(WorkoutDialog.Rpe(set.id, set.rpe)) },
+            onRemove = viewModel::onRemoveSet
+        )
+    }
+    LazyColumn(
+        state = listState,
+        // imePadding : le clavier ne cache pas la série en cours de saisie.
+        modifier = modifier.fillMaxSize().imePadding(),
+        contentPadding = PaddingValues(16.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        item(key = "header") {
+            Column {
+                Text(workout.name.uppercase(), style = MaterialTheme.typography.headlineLarge)
+                workout.note?.let {
+                    Text(
+                        it,
+                        style = MaterialTheme.typography.bodyMedium,
+                        fontStyle = FontStyle.Italic,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.clickable { viewModel.openDialog(WorkoutDialog.Note) }
+                    )
+                }
+                if (workout.exercises.isEmpty()) {
+                    Text(
+                        stringResource(R.string.workout_no_exercise),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.padding(top = 8.dp)
+                    )
+                }
+            }
+        }
+        itemsIndexed(order.mapNotNull { byId[it] }, key = { _, item -> item.id }) { index, item ->
+            ReorderableItem(reorderState, key = item.id) { isDragging ->
+                WorkoutExerciseCard(
+                    item = item,
+                    previous = previous[item.exercise.id].orEmpty(),
+                    isDragging = isDragging,
+                    canMoveUp = index > 0,
+                    canMoveDown = index < order.lastIndex,
+                    dragHandle = {
+                        DragHandle(
+                            Modifier.draggableHandle(
+                                onDragStarted = {
+                                    haptics.performHapticFeedback(HapticFeedbackType.GestureThresholdActivate)
+                                },
+                                onDragStopped = {
+                                    viewModel.onReorderExercises(order)
+                                    haptics.performHapticFeedback(HapticFeedbackType.GestureEnd)
+                                }
+                            )
+                        )
+                    },
+                    onMoveBy = { offset ->
+                        val from = order.indexOf(item.id)
+                        if (from + offset in
+                            order.indices
+                        ) {
+                            viewModel.onReorderExercises(order.moved(from, from + offset))
+                        }
+                    },
+                    onReplace = {
+                        viewModel.onReplaceExercise(item.id)
+                        onPickExercises(order.mapNotNull { byId[it]?.exercise?.id }, true)
+                    },
+                    onRemove = { viewModel.onRemoveExercise(item.id) },
+                    onEditNote = { viewModel.openDialog(WorkoutDialog.ExerciseNote(item.exercise)) },
+                    onAddSet = { viewModel.onAddSet(item.id) },
+                    setActions = setActions
+                )
+            }
+        }
+        item(key = "add") {
+            OutlinedButton(
+                onClick = { onPickExercises(workout.exercises.map { it.exercise.id }, false) },
+                contentPadding = ButtonDefaults.ButtonWithIconContentPadding,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Icon(
+                    painterResource(R.drawable.ic_add),
+                    contentDescription = null,
+                    modifier = Modifier.size(ButtonDefaults.IconSize)
+                )
+                Text(
+                    stringResource(R.string.workout_add_exercises),
+                    modifier = Modifier.padding(start = ButtonDefaults.IconSpacing)
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun WorkoutExerciseCard(
+    item: WorkoutExercise,
+    previous: List<PreviousSet>,
+    isDragging: Boolean,
+    canMoveUp: Boolean,
+    canMoveDown: Boolean,
+    dragHandle: @Composable () -> Unit,
+    onMoveBy: (offset: Int) -> Unit,
+    onReplace: () -> Unit,
+    onRemove: () -> Unit,
+    onEditNote: () -> Unit,
+    onAddSet: () -> Unit,
+    setActions: SetActions
+) {
+    val elevation by animateDpAsState(if (isDragging) 8.dp else 1.dp, label = "elevation")
+    val moveUpLabel = stringResource(R.string.action_move_up)
+    val moveDownLabel = stringResource(R.string.action_move_down)
+    ElevatedCard(
+        elevation = CardDefaults.elevatedCardElevation(defaultElevation = elevation),
+        // Le glisser-déposer est inaccessible au lecteur d'écran : il propose « Monter » et « Descendre » à la place.
+        modifier = Modifier.fillMaxWidth().semantics {
+            customActions = listOfNotNull(
+                CustomAccessibilityAction(moveUpLabel) {
+                    onMoveBy(-1)
+                    true
+                }.takeIf { canMoveUp },
+                CustomAccessibilityAction(moveDownLabel) {
+                    onMoveBy(1)
+                    true
+                }.takeIf { canMoveDown }
+            )
+        }
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(start = 12.dp, top = 12.dp)) {
+            ExerciseThumbnail(item.exercise)
+            Column(modifier = Modifier.weight(1f).padding(horizontal = 12.dp)) {
+                Text(
+                    item.exercise.name,
+                    style = MaterialTheme.typography.titleMedium,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis
+                )
+                // Note permanente de l'exercice (réglage de machine, placement…), rappelée à chaque séance.
+                item.exercise.note?.let { note ->
+                    Text(
+                        note,
+                        style = MaterialTheme.typography.bodySmall,
+                        fontStyle = FontStyle.Italic,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.clickable(onClick = onEditNote)
+                    )
+                }
+            }
+            OverflowMenu(
+                listOf(
+                    MenuEntry(R.string.workout_replace_exercise, R.drawable.ic_edit, onClick = onReplace),
+                    MenuEntry(R.string.workout_exercise_note, onClick = onEditNote),
+                    MenuEntry(
+                        R.string.workout_remove_exercise,
+                        R.drawable.ic_delete,
+                        isDestructive = true,
+                        onClick = onRemove
+                    )
+                )
+            )
+            dragHandle()
+        }
+        Column(
+            verticalArrangement = Arrangement.spacedBy(4.dp),
+            modifier = Modifier.padding(start = 8.dp, end = 8.dp, top = 8.dp)
+        ) {
+            SetHeaderRow(item.exercise)
+            val types = item.sets.map { it.type }
+            val workNumbers = workSetNumbers(types)
+            val matched = matchPrevious(types, previous)
+            item.sets.forEachIndexed { index, set ->
+                // key : chaque ligne garde son propre texte saisi si une série au-dessus est retirée.
+                key(set.id) {
+                    WorkoutSetRow(
+                        set = set,
+                        workNumber = workNumbers[index],
+                        previous = matched[index],
+                        exercise = item.exercise,
+                        canRemove = item.sets.size > 1,
+                        actions = setActions
+                    )
+                }
+            }
+        }
+        TextButton(onClick = onAddSet, modifier = Modifier.padding(start = 4.dp, bottom = 4.dp)) {
+            Icon(
+                painterResource(R.drawable.ic_add),
+                contentDescription = null,
+                modifier = Modifier.size(ButtonDefaults.IconSize)
+            )
+            Text(
+                stringResource(R.string.template_set_add),
+                modifier = Modifier.padding(start = ButtonDefaults.IconSpacing)
+            )
+        }
+    }
+}
+
+@Composable
+private fun WorkoutDialogs(workout: Workout, viewModel: WorkoutViewModel) {
+    when (val dialog = viewModel.dialog) {
+        null -> Unit
+        WorkoutDialog.Rename -> NameDialog(
+            title = stringResource(R.string.workout_rename),
+            initialName = workout.name,
+            confirmLabel = stringResource(R.string.action_save),
+            onConfirm = viewModel::onRename,
+            onDismiss = viewModel::dismissDialog
+        )
+        WorkoutDialog.Note -> NoteDialog(
+            title = stringResource(R.string.workout_note),
+            hint = stringResource(R.string.workout_note_hint),
+            initialNote = workout.note.orEmpty(),
+            onDismiss = viewModel::dismissDialog,
+            onSave = viewModel::onNoteSave
+        )
+        is WorkoutDialog.ExerciseNote -> NoteDialog(
+            title = stringResource(R.string.exercise_note),
+            hint = stringResource(R.string.exercise_note_hint),
+            initialNote = dialog.exercise.note.orEmpty(),
+            onDismiss = viewModel::dismissDialog,
+            onSave = { viewModel.onExerciseNoteSave(dialog.exercise.id, it) }
+        )
+        is WorkoutDialog.Rpe -> {
+            val none = stringResource(R.string.workout_rpe_none)
+            ChoiceDialog(
+                title = stringResource(R.string.workout_rpe_title),
+                options = listOf<Double?>(null) + RPE_CHOICES,
+                selected = dialog.current,
+                label = { rpe -> rpe?.let(::formatDecimal) ?: none },
+                onSelect = { viewModel.onRpeSelected(dialog.setId, it) },
+                onDismiss = viewModel::dismissDialog
+            )
+        }
+        WorkoutDialog.Discard -> ConfirmDialog(
+            title = stringResource(R.string.workout_discard_title),
+            text = stringResource(R.string.workout_discard_text),
+            confirmLabel = stringResource(R.string.workout_discard_confirm),
+            isDestructive = true,
+            onConfirm = viewModel::discard,
+            onDismiss = viewModel::dismissDialog
+        )
+        WorkoutDialog.FinishEmpty -> ConfirmDialog(
+            title = stringResource(R.string.workout_finish_empty_title),
+            text = stringResource(R.string.workout_finish_empty_text),
+            confirmLabel = stringResource(R.string.workout_discard_confirm),
+            isDestructive = true,
+            onConfirm = viewModel::discard,
+            onDismiss = viewModel::dismissDialog
+        )
+        is WorkoutDialog.FinishIncomplete -> ConfirmDialog(
+            title = stringResource(R.string.workout_finish_title),
+            text = pluralStringResource(
+                R.plurals.workout_finish_incomplete,
+                dialog.incompleteSets,
+                dialog.incompleteSets
+            ),
+            confirmLabel = stringResource(R.string.workout_finish_confirm),
+            isDestructive = false,
+            onConfirm = viewModel::finish,
+            onDismiss = viewModel::dismissDialog
+        )
+    }
+}
+
+@Composable
+private fun ConfirmDialog(
+    title: String,
+    text: String,
+    confirmLabel: String,
+    isDestructive: Boolean,
+    onConfirm: () -> Unit,
+    onDismiss: () -> Unit
+) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(title) },
+        text = { Text(text) },
+        confirmButton = {
+            TextButton(
+                onClick = onConfirm,
+                colors = if (isDestructive) {
+                    ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error)
+                } else {
+                    ButtonDefaults.textButtonColors()
+                }
+            ) { Text(confirmLabel) }
+        },
+        dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.workout_keep)) } }
+    )
+}

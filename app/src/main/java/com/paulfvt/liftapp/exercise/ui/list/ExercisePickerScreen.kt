@@ -1,5 +1,6 @@
 package com.paulfvt.liftapp.exercise.ui.list
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material3.Checkbox
@@ -26,12 +27,14 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.paulfvt.liftapp.R
 import com.paulfvt.liftapp.core.designsystem.component.ScreenTitle
 
-// Catalogue en mode sélection multiple, ouvert depuis l'éditeur de template.
-// Les exercices déjà présents dans le template sont grisés : un exercice n'y figure qu'une fois.
+// Catalogue en mode sélection, ouvert depuis l'éditeur de template ou la séance en cours.
+// Les exercices déjà présents sont grisés : un exercice n'y figure qu'une fois.
+// En sélection simple (remplacer un exercice), un appui sur une ligne choisit l'exercice et ferme l'écran.
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ExercisePickerScreen(
     excludedIds: Set<Long>,
+    singleSelection: Boolean,
     onCancel: () -> Unit,
     onConfirm: (List<Long>) -> Unit,
     viewModel: ExerciseListViewModel = hiltViewModel()
@@ -43,7 +46,11 @@ fun ExercisePickerScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { ScreenTitle(stringResource(R.string.picker_title)) },
+                title = {
+                    ScreenTitle(
+                        stringResource(if (singleSelection) R.string.picker_replace_title else R.string.picker_title)
+                    )
+                },
                 navigationIcon = {
                     IconButton(onClick = onCancel) {
                         Icon(painterResource(R.drawable.ic_close), stringResource(R.string.action_cancel))
@@ -80,19 +87,23 @@ fun ExercisePickerScreen(
                             style = MaterialTheme.typography.labelMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
-                    } else {
+                    } else if (!singleSelection) {
                         // onCheckedChange null : c'est toute la ligne qui coche, cible tactile plus grande.
                         Checkbox(checked = selected, onCheckedChange = null)
                     }
                 },
-                modifier = Modifier.toggleable(
-                    value = selected,
-                    enabled = !alreadyAdded,
-                    role = Role.Checkbox,
-                    onValueChange = { checked ->
-                        selectedIds = if (checked) selectedIds + exercise.id else selectedIds - exercise.id
-                    }
-                )
+                modifier = if (singleSelection) {
+                    Modifier.clickable(enabled = !alreadyAdded) { onConfirm(listOf(exercise.id)) }
+                } else {
+                    Modifier.toggleable(
+                        value = selected,
+                        enabled = !alreadyAdded,
+                        role = Role.Checkbox,
+                        onValueChange = { checked ->
+                            selectedIds = if (checked) selectedIds + exercise.id else selectedIds - exercise.id
+                        }
+                    )
+                }
             )
         }
     }

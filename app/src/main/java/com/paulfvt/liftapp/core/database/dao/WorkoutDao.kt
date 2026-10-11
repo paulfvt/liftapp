@@ -42,6 +42,9 @@ interface WorkoutDao {
     )
     suspend fun lastWorkoutExerciseId(exerciseId: Long, templateId: Long?, status: WorkoutStatus): Long?
 
+    @Query("SELECT * FROM workout_set WHERE id = :id")
+    suspend fun getSet(id: Long): WorkoutSetEntity?
+
     @Query("SELECT * FROM workout_set WHERE workoutExerciseId = :workoutExerciseId ORDER BY sortOrder")
     suspend fun getSets(workoutExerciseId: Long): List<WorkoutSetEntity>
 

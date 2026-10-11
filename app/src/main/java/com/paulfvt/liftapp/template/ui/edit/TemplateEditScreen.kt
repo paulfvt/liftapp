@@ -3,7 +3,6 @@ package com.paulfvt.liftapp.template.ui.edit
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -22,8 +21,6 @@ import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -40,7 +37,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -65,8 +61,9 @@ import com.paulfvt.liftapp.core.designsystem.component.DragHandle
 import com.paulfvt.liftapp.core.designsystem.component.ScreenTitle
 import com.paulfvt.liftapp.core.domain.workSetNumbers
 import com.paulfvt.liftapp.core.model.SetType
+import com.paulfvt.liftapp.core.ui.SetTypeButton
 import com.paulfvt.liftapp.core.ui.durationLabel
-import com.paulfvt.liftapp.core.ui.labelRes
+import com.paulfvt.liftapp.core.ui.setName
 import com.paulfvt.liftapp.exercise.ui.ExerciseThumbnail
 import com.paulfvt.liftapp.template.domain.MAX_SET_COUNT
 import com.paulfvt.liftapp.template.domain.MIN_SET_COUNT
@@ -374,18 +371,13 @@ private fun TemplateSetRow(
     onTargetRepsChange: (String) -> Unit,
     onRemove: () -> Unit
 ) {
-    // Nom de la série pour le lecteur d'écran : « Série 2 », « Échauffement », « Dégressive ».
-    val name = if (workNumber != null) {
-        stringResource(R.string.set_label_work, workNumber)
-    } else {
-        stringResource(set.type.labelRes)
-    }
+    val name = setName(set.type, workNumber)
     val repsDescription = stringResource(R.string.template_set_target_reps, name)
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.fillMaxWidth().padding(start = 12.dp, end = 4.dp, bottom = 4.dp)
     ) {
-        SetTypeButton(type = set.type, workNumber = workNumber, name = name, onTypeChange = onTypeChange)
+        SetTypeButton(type = set.type, workNumber = workNumber, onTypeChange = onTypeChange)
         OutlinedTextField(
             value = set.targetReps?.toString().orEmpty(),
             onValueChange = onTargetRepsChange,
@@ -400,43 +392,6 @@ private fun TemplateSetRow(
             colors = IconButtonDefaults.iconButtonColors(contentColor = MaterialTheme.colorScheme.onSurfaceVariant)
         ) {
             Icon(painterResource(R.drawable.ic_remove), stringResource(R.string.template_set_remove, name))
-        }
-    }
-}
-
-// Pastille du type de série : un appui ouvre le choix échauffement, travail ou dégressive.
-@Composable
-private fun SetTypeButton(type: SetType, workNumber: Int?, name: String, onTypeChange: (SetType) -> Unit) {
-    var expanded by remember { mutableStateOf(false) }
-    val description = stringResource(R.string.template_set_change_type, name)
-    val (text, color) = when (type) {
-        SetType.WARMUP -> stringResource(R.string.set_short_warmup) to MaterialTheme.colorScheme.tertiary
-        SetType.DROP -> stringResource(R.string.set_short_drop) to MaterialTheme.colorScheme.secondary
-        SetType.WORK -> workNumber.toString() to MaterialTheme.colorScheme.onSurface
-    }
-    Box {
-        TextButton(
-            onClick = { expanded = true },
-            contentPadding = PaddingValues(0.dp),
-            modifier = Modifier.size(48.dp).semantics { contentDescription = description }
-        ) {
-            Text(text, style = MaterialTheme.typography.headlineSmall, color = color)
-        }
-        DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
-            SetType.entries.forEach { option ->
-                DropdownMenuItem(
-                    text = { Text(stringResource(option.labelRes)) },
-                    trailingIcon = if (option == type) {
-                        { Icon(painterResource(R.drawable.ic_check), contentDescription = null) }
-                    } else {
-                        null
-                    },
-                    onClick = {
-                        expanded = false
-                        onTypeChange(option)
-                    }
-                )
-            }
         }
     }
 }

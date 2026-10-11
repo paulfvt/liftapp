@@ -7,6 +7,7 @@ import com.paulfvt.liftapp.core.database.entity.WorkoutEntity
 import com.paulfvt.liftapp.core.database.entity.WorkoutExerciseEntity
 import com.paulfvt.liftapp.core.database.entity.WorkoutSetEntity
 import com.paulfvt.liftapp.core.model.SetType
+import com.paulfvt.liftapp.core.model.TrackingType
 import com.paulfvt.liftapp.core.model.WorkoutStatus
 import com.paulfvt.liftapp.exercise.data.toDomain
 import com.paulfvt.liftapp.template.data.TemplateRepository
@@ -20,6 +21,7 @@ import com.paulfvt.liftapp.workout.domain.WorkoutExercise
 import com.paulfvt.liftapp.workout.domain.WorkoutSet
 import com.paulfvt.liftapp.workout.domain.WorkoutSummary
 import com.paulfvt.liftapp.workout.domain.addedSet
+import com.paulfvt.liftapp.workout.domain.canComplete
 import com.paulfvt.liftapp.workout.domain.differsFrom
 import com.paulfvt.liftapp.workout.domain.prefill
 import com.paulfvt.liftapp.workout.domain.setsForAddedExercise
@@ -32,7 +34,12 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 // Résultat d'une fin de séance : le résumé, et le nouveau contenu du template si la séance l'a modifié.
-data class FinishedWorkout(val summary: WorkoutSummary, val templateId: Long?, val templateUpdate: TemplateDraft?)
+data class FinishedWorkout(
+    val name: String,
+    val summary: WorkoutSummary,
+    val templateId: Long?,
+    val templateUpdate: TemplateDraft?
+)
 
 // Unique point d'accès aux séances. Une seule séance peut être en cours à la fois.
 @Singleton
@@ -129,6 +136,15 @@ class WorkoutRepository @Inject constructor(
     suspend fun setCompleted(setId: Long, isCompleted: Boolean) =
         dao.updateSetCompleted(setId, isCompleted, if (isCompleted) clock.instant() else null)
 
+    // Coche ou décoche une série. La vérification se fait sur la valeur en base, donc après les saisies en attente :
+    // renvoie false (sans rien changer) si la série ne peut pas être validée faute de valeur.
+    suspend fun toggleCompleted(setId: Long, trackingType: TrackingType): Boolean = database.withTransaction {
+        val set = dao.getSet(setId) ?: return@withTransaction true
+        if (!set.isCompleted && !canComplete(set.toValues(), trackingType)) return@withTransaction false
+        setCompleted(setId, !set.isCompleted)
+        true
+    }
+
     suspend fun rename(workoutId: Long, name: String) = dao.updateName(workoutId, name.trim())
 
     // Une note vide est enregistrée comme absente.
@@ -144,7 +160,7 @@ class WorkoutRepository @Inject constructor(
         dao.deleteIncompleteSets(workoutId)
         dao.deleteExercisesWithoutSets(workoutId)
         dao.updateStatus(workoutId, WorkoutStatus.FINISHED, endedAt)
-        FinishedWorkout(summarize(workout, endedAt), workout.templateId, templateUpdate)
+        FinishedWorkout(workout.name, summarize(workout, endedAt), workout.templateId, templateUpdate)
     }
 
     suspend fun updateTemplate(templateId: Long, draft: TemplateDraft) = templates.updateTemplate(templateId, draft)

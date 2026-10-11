@@ -4,11 +4,13 @@
 
 Plan validé le 11 octobre 2026. Minuteur, notification et mode salle en phase 5 ; choix kg/lb en phase 10.
 
-- [ ] Base v3 (repos et reps cibles dans la séance), migration testée.
-- [ ] Logique pure testée : performance précédente, pré-remplissage, saisie des valeurs, résumé.
-- [ ] `WorkoutDao`, `WorkoutRepository`, test de reprise après redémarrage.
-- [ ] Démarrage (aperçu du template, séance vide), écran de séance, bandeau EN DIRECT.
-- [ ] Fin de séance : résumé, mise à jour du template, abandon.
+- [x] Base v3 (repos et reps cibles dans la séance), migration testée.
+- [x] Logique pure testée : performance précédente, pré-remplissage, saisie des valeurs, résumé.
+- [x] `WorkoutDao`, `WorkoutRepository`, test de reprise après redémarrage.
+- [x] Démarrage (aperçu du template, séance vide), écran de séance, bandeau EN DIRECT, reprise automatique
+  au lancement.
+- [x] Fin de séance : résumé, mise à jour du template, abandon. Parcours complet vérifié sur l'émulateur,
+  thèmes clair et sombre.
 - [ ] Test sur le S25+ par le développeur.
 
 ## Phase 3 — Templates : terminée le 11 octobre 2026
@@ -72,6 +74,15 @@ Plan validé le 11 octobre 2026. Minuteur, notification et mode salle en phase 5
   d'Android 8 ne sait pas supprimer une colonne) et convertit « 4 séries de 8 » en 4 séries de travail à 8 reps.
   Testée avec `MigrationTestHelper` (dépendance de test `room-testing`, validée).
 - **Numérotation des séries** : seules les séries de travail sont numérotées ; échauffement « É », dégressive « D ».
+- **Écriture continue de la séance** : chaque saisie part dans une file d'écritures qui tourne dans le scope de
+  l'application (`WorkoutViewModel`). Une seule coroutine la vide, donc l'ordre de frappe est respecté, et une saisie
+  faite juste avant de quitter l'écran n'est pas perdue.
+- **Champs de saisie de la séance** : le texte tapé n'est jamais remplacé pendant que le champ a le focus (la base
+  renvoie la valeur avec un temps de retard) ; il est resynchronisé quand le champ perd le focus.
+- **Séance en plein écran** : pas de barre du bas sur la séance ni sur le catalogue ouvert depuis elle. Ailleurs,
+  un bandeau EN DIRECT ramène à la séance. Au lancement, une séance encore en cours est rouverte directement.
+- **Séance abandonnée** : gardée avec le statut `DISCARDED` (modèle du cahier), ignorée par « Précédent ».
+- **Couleur « success »** du guide de style ajoutée au thème Compose (`ExtendedColors`), Material 3 n'en ayant pas.
 
 ## Questions ouvertes
 - Les séries dégressives comptent-elles pour les records ? À trancher avant la phase 6. En phase 4, elles comptent

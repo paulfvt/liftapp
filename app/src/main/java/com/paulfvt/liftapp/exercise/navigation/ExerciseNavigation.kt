@@ -23,10 +23,10 @@ data object ExerciseCreateRoute
 @Serializable
 data class ExerciseEditRoute(val exerciseId: Long)
 
-// Catalogue en mode sélection multiple. Les exercices cochés sont renvoyés à l'écran précédent,
-// dans son SavedStateHandle sous la clé PICKED_EXERCISE_IDS_KEY.
+// Catalogue en mode sélection. Les exercices choisis sont renvoyés à l'écran précédent, dans son SavedStateHandle
+// sous la clé PICKED_EXERCISE_IDS_KEY. singleSelection : un seul appui choisit l'exercice (pour en remplacer un).
 @Serializable
-data class ExercisePickerRoute(val excludedIds: List<Long>)
+data class ExercisePickerRoute(val excludedIds: List<Long>, val singleSelection: Boolean = false)
 
 const val PICKED_EXERCISE_IDS_KEY = "picked_exercise_ids"
 
@@ -58,8 +58,10 @@ fun NavGraphBuilder.exerciseScreens(navController: NavController) {
         )
     }
     composable<ExercisePickerRoute> { entry ->
+        val route = entry.toRoute<ExercisePickerRoute>()
         ExercisePickerScreen(
-            excludedIds = entry.toRoute<ExercisePickerRoute>().excludedIds.toSet(),
+            excludedIds = route.excludedIds.toSet(),
+            singleSelection = route.singleSelection,
             onCancel = navController::popBackStack,
             onConfirm = { ids ->
                 navController.previousBackStackEntry?.savedStateHandle?.set(PICKED_EXERCISE_IDS_KEY, ids.toLongArray())

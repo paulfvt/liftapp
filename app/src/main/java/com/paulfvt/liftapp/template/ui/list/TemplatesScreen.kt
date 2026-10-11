@@ -15,16 +15,21 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -71,9 +76,18 @@ fun TemplatesScreen(
     onOpenTemplate: (Long) -> Unit,
     onCreateTemplate: (folderId: Long?) -> Unit,
     onOpenCatalog: () -> Unit,
+    onOpenWorkout: () -> Unit,
     viewModel: TemplatesViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    LaunchedEffect(viewModel.isWorkoutStarted) {
+        if (viewModel.isWorkoutStarted) {
+            viewModel.onWorkoutOpened()
+            onOpenWorkout()
+        }
+    }
+    val emptyWorkoutName = stringResource(R.string.workout_empty_name)
+    val startEmpty = { viewModel.startEmpty(emptyWorkoutName) }
     Scaffold(
         topBar = {
             TopAppBar(
@@ -104,25 +118,36 @@ fun TemplatesScreen(
     ) { padding ->
         when {
             uiState.isLoading -> Unit
-            uiState.isEmpty -> EmptyTemplates(Modifier.padding(padding))
+            uiState.isEmpty -> EmptyTemplates(onStartEmpty = startEmpty, modifier = Modifier.padding(padding))
             else -> TemplateList(
                 library = uiState.library,
                 viewModel = viewModel,
-                onOpenTemplate = onOpenTemplate,
                 onCreateTemplate = onCreateTemplate,
+                onStartEmpty = startEmpty,
                 modifier = Modifier.padding(padding)
             )
         }
     }
-    TemplatesDialogs(viewModel = viewModel, folders = uiState.library.folders.map { it.folder })
+    TemplatesDialogs(viewModel = viewModel, folders = uiState.library.folders.map { it.folder }, onOpenWorkout)
+    viewModel.preview?.let { preview ->
+        TemplatePreviewSheet(
+            preview = preview,
+            onStart = { viewModel.startFromTemplate(preview.templateId) },
+            onEdit = {
+                viewModel.closePreview()
+                onOpenTemplate(preview.templateId)
+            },
+            onDismiss = viewModel::closePreview
+        )
+    }
 }
 
 @Composable
 private fun TemplateList(
     library: TemplateLibrary,
     viewModel: TemplatesViewModel,
-    onOpenTemplate: (Long) -> Unit,
     onCreateTemplate: (folderId: Long?) -> Unit,
+    onStartEmpty: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val haptics = LocalHapticFeedback.current
@@ -170,7 +195,7 @@ private fun TemplateList(
                             )
                         )
                     },
-                    onClick = { onOpenTemplate(template.id) },
+                    onClick = { viewModel.openPreview(template.id) },
                     onRename = { viewModel.openDialog(TemplatesDialog.RenameTemplate(template)) },
                     onDuplicate = { copyName -> viewModel.duplicateTemplate(template.id, copyName) },
                     onChangeFolder = { viewModel.openDialog(TemplatesDialog.MoveTemplate(template)) },
@@ -188,6 +213,7 @@ private fun TemplateList(
         contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 96.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
+        item(key = "start-empty") { StartEmptyButton(onStartEmpty, Modifier.fillMaxWidth()) }
         templateItems(localLibrary.unfiled)
         localLibrary.folders.forEachIndexed { index, section ->
             val folder = section.folder
@@ -338,7 +364,26 @@ private fun FolderHeader(
 }
 
 @Composable
-private fun EmptyTemplates(modifier: Modifier = Modifier) {
+private fun StartEmptyButton(onClick: () -> Unit, modifier: Modifier = Modifier) {
+    OutlinedButton(
+        onClick = onClick,
+        contentPadding = ButtonDefaults.ButtonWithIconContentPadding,
+        modifier = modifier
+    ) {
+        Icon(
+            painterResource(R.drawable.ic_play_arrow),
+            contentDescription = null,
+            modifier = Modifier.size(ButtonDefaults.IconSize)
+        )
+        Text(
+            stringResource(R.string.workout_start_empty),
+            modifier = Modifier.padding(start = ButtonDefaults.IconSpacing)
+        )
+    }
+}
+
+@Composable
+private fun EmptyTemplates(onStartEmpty: () -> Unit, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier.fillMaxSize().padding(32.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp, Alignment.CenterVertically),
@@ -361,11 +406,12 @@ private fun EmptyTemplates(modifier: Modifier = Modifier) {
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center
         )
+        StartEmptyButton(onStartEmpty)
     }
 }
 
 @Composable
-private fun TemplatesDialogs(viewModel: TemplatesViewModel, folders: List<TemplateFolder>) {
+private fun TemplatesDialogs(viewModel: TemplatesViewModel, folders: List<TemplateFolder>, onOpenWorkout: () -> Unit) {
     when (val dialog = viewModel.dialog) {
         null -> Unit
         TemplatesDialog.CreateFolder -> NameDialog(
@@ -408,6 +454,22 @@ private fun TemplatesDialogs(viewModel: TemplatesViewModel, folders: List<Templa
                 onDismiss = viewModel::dismissDialog
             )
         }
+        TemplatesDialog.WorkoutAlreadyRunning -> AlertDialog(
+            onDismissRequest = viewModel::dismissDialog,
+            title = { Text(stringResource(R.string.workout_already_running_title)) },
+            text = { Text(stringResource(R.string.workout_already_running_text)) },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        viewModel.dismissDialog()
+                        onOpenWorkout()
+                    }
+                ) { Text(stringResource(R.string.workout_resume)) }
+            },
+            dismissButton = {
+                TextButton(onClick = viewModel::dismissDialog) { Text(stringResource(R.string.action_cancel)) }
+            }
+        )
         is TemplatesDialog.DeleteTemplate -> ConfirmDeleteDialog(
             title = stringResource(R.string.template_delete_title, dialog.template.name),
             text = stringResource(R.string.template_delete_text),
