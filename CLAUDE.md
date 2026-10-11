@@ -75,6 +75,13 @@ En cas d'ambiguïté ou de point non couvert, pose la question au lieu d'invente
   un exercice au plus une fois par template.
 - Séries détaillées dans les templates (8 octobre 2026, écart avec le cahier § 4.3 et § 5) : chaque série prévue a
   son type et ses reps cibles (table `template_set`, schéma v2). Une série ajoutée est une série de travail sans cible.
+- Séance en cours (11 octobre 2026) :
+  - pré-remplissage par type : la n-ième série d'un type reprend la n-ième série de ce type la dernière fois,
+    sinon la dernière série de ce type ;
+  - reps et poids pré-remplis depuis la dernière fois, la cible du template est seulement affichée ;
+  - exercices au poids du corps : champ lest facultatif (`weightKg`, négatif = assistance) ;
+  - un exercice ajouté pendant la séance reprend les séries de la dernière fois, sinon 3 séries de travail vides ;
+  - en fin de séance, les séries non validées sont retirées, après un avertissement.
 - Design « ON AIR » (7 octobre 2026) : référence dans `design-system/`, rouge signal (`primaryContainer`) pour les
   actions principales, lueur réservée aux moments forts. Polices Barlow embarquées (OFL, à citer dans « À propos »).
 

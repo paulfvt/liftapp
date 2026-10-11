@@ -1,6 +1,15 @@
 # Avancement
 
-## Phase en cours : 4 — Séance en cours (plan à valider)
+## Phase en cours : 4 — Séance en cours
+
+Plan validé le 11 octobre 2026. Minuteur, notification et mode salle en phase 5 ; choix kg/lb en phase 10.
+
+- [ ] Base v3 (repos et reps cibles dans la séance), migration testée.
+- [ ] Logique pure testée : performance précédente, pré-remplissage, saisie des valeurs, résumé.
+- [ ] `WorkoutDao`, `WorkoutRepository`, test de reprise après redémarrage.
+- [ ] Démarrage (aperçu du template, séance vide), écran de séance, bandeau EN DIRECT.
+- [ ] Fin de séance : résumé, mise à jour du template, abandon.
+- [ ] Test sur le S25+ par le développeur.
 
 ## Phase 3 — Templates : terminée le 11 octobre 2026
 - Design system « ON AIR » validé (`design-system/`) et appliqué au thème Compose.
@@ -65,8 +74,8 @@
 - **Numérotation des séries** : seules les séries de travail sont numérotées ; échauffement « É », dégressive « D ».
 
 ## Questions ouvertes
-- Les séries dégressives comptent-elles pour les records et les statistiques ? À trancher avant la phase 4.
-- Exercices au poids du corps (tractions, dips) : faut-il un champ « lest » optionnel en séance ? Phase 4.
+- Les séries dégressives comptent-elles pour les records ? À trancher avant la phase 6. En phase 4, elles comptent
+  dans le tonnage du résumé (seuls les échauffements en sont exclus).
 
 ## Problèmes connus
 - `kotlinx-coroutines-test` doit rester à la même version que `kotlinx-coroutines-core` utilisé par l'app

@@ -5,6 +5,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.paulfvt.liftapp.core.database.dao.ExerciseDao
 import com.paulfvt.liftapp.core.database.dao.TemplateDao
+import com.paulfvt.liftapp.core.database.dao.WorkoutDao
 import com.paulfvt.liftapp.core.database.entity.BadgeEntity
 import com.paulfvt.liftapp.core.database.entity.BodyMeasurementEntity
 import com.paulfvt.liftapp.core.database.entity.ExerciseEntity
@@ -24,7 +25,7 @@ import com.paulfvt.liftapp.core.database.entity.WorkoutTemplateEntity
 // Toute modification d'une entité impose d'augmenter version et d'écrire une migration testée.
 // Le schéma de chaque version est exporté dans app/schemas/ (exportSchema = true par défaut).
 @Database(
-    version = 2,
+    version = 3,
     entities = [
         ExerciseEntity::class,
         ExerciseMuscleEntity::class,
@@ -48,6 +49,8 @@ abstract class LiftDatabase : RoomDatabase() {
     abstract fun exerciseDao(): ExerciseDao
 
     abstract fun templateDao(): TemplateDao
+
+    abstract fun workoutDao(): WorkoutDao
 
     companion object {
         const val NAME = "lift.db"

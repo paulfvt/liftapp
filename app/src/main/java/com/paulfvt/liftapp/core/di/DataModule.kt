@@ -9,6 +9,7 @@ import androidx.room.Room
 import com.paulfvt.liftapp.core.database.LiftDatabase
 import com.paulfvt.liftapp.core.database.dao.ExerciseDao
 import com.paulfvt.liftapp.core.database.migration.MIGRATION_1_2
+import com.paulfvt.liftapp.core.database.migration.MIGRATION_2_3
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,7 +26,7 @@ object DataModule {
     @Singleton
     fun provideDatabase(@ApplicationContext context: Context): LiftDatabase =
         Room.databaseBuilder(context, LiftDatabase::class.java, LiftDatabase.NAME)
-            .addMigrations(MIGRATION_1_2)
+            .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
             .build()
 
     @Provides

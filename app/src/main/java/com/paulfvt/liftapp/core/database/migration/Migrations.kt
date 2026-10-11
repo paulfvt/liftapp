@@ -62,3 +62,12 @@ val MIGRATION_1_2 = object : Migration(1, 2) {
         }
     }
 }
+
+// Version 3 : la séance garde le repos et les reps cibles de son template. Ajouter une colonne suffit ici,
+// les lignes existantes reçoivent NULL.
+val MIGRATION_2_3 = object : Migration(2, 3) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL("ALTER TABLE workout_exercise ADD COLUMN restSeconds INTEGER")
+        db.execSQL("ALTER TABLE workout_set ADD COLUMN targetReps INTEGER")
+    }
+}

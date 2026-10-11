@@ -55,7 +55,9 @@ data class WorkoutExerciseEntity(
     val workoutId: Long,
     val exerciseId: Long,
     val sortOrder: Int,
-    val note: String?
+    val note: String?,
+    // Repos repris du template (version 3 du schéma), utilisé par le minuteur. Null = pas de repos réglé.
+    val restSeconds: Int?
 )
 
 // Valeurs en unités métriques : kg, secondes, mètres. RPE de 6 à 10 par demi-points.
@@ -82,7 +84,9 @@ data class WorkoutSetEntity(
     val distanceM: Double?,
     val rpe: Double?,
     val isCompleted: Boolean,
-    val completedAt: Instant?
+    val completedAt: Instant?,
+    // Reps cibles reprises du template (version 3 du schéma), affichées pendant la séance.
+    val targetReps: Int?
 )
 
 // Cache recalculable à partir des séries, jamais la source de vérité.
