@@ -1,19 +1,15 @@
 # Avancement
 
-## Phase en cours : 3 — Templates
+## Phase en cours : 4 — Séance en cours (plan à valider)
 
-Plan validé le 7 octobre 2026 : reps cibles en une seule case vide par défaut, réorganisation par glisser-déposer
-(bibliothèque Reorderable), 2 minutes de repos par défaut.
-
-- [x] Design system « ON AIR » validé (`design-system/`) et appliqué au thème Compose.
-- [x] Couche données (`TemplateDao`, `TemplateRepository`) et logique pure testée (brouillon, dossiers, ordre).
-- [x] Onglet Séances : templates hors dossier puis dossiers repliables ; créer, renommer, dupliquer, déplacer,
+## Phase 3 — Templates : terminée le 11 octobre 2026
+- Design system « ON AIR » validé (`design-system/`) et appliqué au thème Compose.
+- Onglet Séances : templates hors dossier puis dossiers repliables ; créer, renommer, dupliquer, déplacer,
   supprimer ; glisser-déposer dans une même section.
-- [x] Éditeur de template et catalogue en mode sélection multiple.
-- [x] Séries détaillées (type et reps cibles par série), base en version 2 avec la première migration, testée.
-- [x] Tests instrumentés : 11/11 sur l'émulateur API 37 (dont 5 nouveaux pour les templates). Parcours complet
-  vérifié à la main sur l'émulateur, thèmes clair et sombre.
-- [ ] Test sur le S25+ par le développeur.
+- Éditeur de template : séries détaillées (type et reps cibles par série), repos par exercice, catalogue en mode
+  sélection multiple. Base en version 2 avec la première migration, testée.
+- 53 tests JVM et 12 tests instrumentés verts, testé sur le S25+.
+- Supersets : hors V1 (décision du 6 octobre 2026), donc absents de cette phase.
 
 ## Phase 2 — Modèle de données et catalogue : terminée le 7 octobre 2026
 - Base Room v1 avec toutes les tables du modèle (schéma exporté dans `app/schemas/`).
