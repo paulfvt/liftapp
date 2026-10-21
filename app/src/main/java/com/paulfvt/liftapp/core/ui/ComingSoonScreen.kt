@@ -38,6 +38,6 @@ fun ComingSoonScreen(@StringRes titleRes: Int, modifier: Modifier = Modifier) {
 @Composable
 private fun ComingSoonScreenPreview() {
     LiftTheme {
-        ComingSoonScreen(titleRes = R.string.nav_home)
+        ComingSoonScreen(titleRes = R.string.nav_profile)
     }
 }

@@ -27,10 +27,9 @@ import com.paulfvt.liftapp.workout.navigation.workoutScreen
 fun LiftNavHost(navController: NavHostController, modifier: Modifier = Modifier) {
     NavHost(
         navController = navController,
-        startDestination = HomeRoute,
+        startDestination = TemplatesGraph,
         modifier = modifier
     ) {
-        composable<HomeRoute> { ComingSoonScreen(R.string.nav_home) }
         navigation<TemplatesGraph>(startDestination = TemplatesRoute) {
             composable<TemplatesRoute> {
                 TemplatesScreen(
