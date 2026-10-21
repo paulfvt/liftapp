@@ -1,16 +1,16 @@
 # Avancement
 
-## Phase en cours : 6 — Historique, records et courbes
+## Prochaine étape : à décider
 
-Plan validé le 21 octobre 2026.
+Décision du 6 octobre 2026 : publication en test fermé après la phase 6. À trancher avec le développeur : préparer
+d'abord le test fermé (une partie de la phase 11), ou passer à la phase 7.
 
-- [x] Logique pure testée : 1RM, records, points des courbes, périodes, regroupement par mois, échelle des courbes.
-- [x] Records recalculés en fin de séance, après modification et après suppression d'une séance (tests instrumentés).
-- [x] Onglet Historique : liste par mois, détail, suppression.
-- [x] Modification d'une séance passée.
-- [x] Onglet Progrès et écran Progression d'un exercice (records, courbes avec Vico). Vérifié sur l'émulateur.
-- [ ] Relancer les tests instrumentés après les derniers ajustements d'affichage, et la suppression sur l'émulateur.
-- [ ] Test sur le S25+.
+## Phase 6 — Historique, records et courbes : terminée le 21 octobre 2026
+- Onglet Historique : séances par mois, détail, modification (en mémoire jusqu'à « Enregistrer ») et suppression.
+- Records recalculés en entier pour les exercices touchés : fin de séance, modification, suppression.
+- Onglet Progrès et écran Progression d'un exercice : records datés, courbes (Vico) sur 1 mois, 3 mois, 1 an ou tout,
+  reps max par charge. Accessible aussi depuis le détail d'une séance et la fiche d'un exercice.
+- 118 tests JVM et 31 tests instrumentés verts. Vérifié sur l'émulateur, validé par le développeur le 21 octobre 2026.
 
 ## Phase 5 — Minuteur et notification : terminée le 21 octobre 2026
 - Sans service de premier plan : notification avec compte à rebours dessiné par le système et alarme exacte pour
