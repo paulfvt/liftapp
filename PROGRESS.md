@@ -2,7 +2,16 @@
 
 ## Phase en cours : 5 — Minuteur et notification
 
-Plan à valider.
+Plan validé le 21 octobre 2026 : notification avec compte à rebours dessiné par le système et alarme exacte pour
+l'alerte de fin de repos, sans service de premier plan (voir « Décisions techniques »).
+
+- [ ] Base v4 (début et fin du repos dans la séance), migration testée.
+- [ ] Logique pure testée : repos (+30 s, −15 s, passer), série suivante pour la notification.
+- [ ] Valider une série démarre le repos ; actions de la notification.
+- [ ] Notification de séance (écran verrouillé, Live Update si disponible), alarme et alerte de fin de repos.
+- [ ] Minuteur à l'écran, demande des permissions à la première séance, son et vibration désactivables.
+- [ ] Mode salle : écran allumé, une série à la fois, gros boutons.
+- [ ] Test sur le S25+ : 3 min écran verrouillé, rotation, arrière-plan.
 
 ## Phase 4 — Séance en cours : terminée le 21 octobre 2026
 - Base v3 (repos et reps cibles dans la séance), migration testée.
@@ -84,6 +93,12 @@ Plan à valider.
   un bandeau EN DIRECT ramène à la séance. Au lancement, une séance encore en cours est rouverte directement.
 - **Séance abandonnée** : gardée avec le statut `DISCARDED` (modèle du cahier), ignorée par « Précédent ».
 - **Couleur « success »** du guide de style ajoutée au thème Compose (`ExtendedColors`), Material 3 n'en ayant pas.
+- **Minuteur sans service de premier plan** (validé le 21 octobre 2026) : aucun type de service ne convient
+  proprement (`health` exige une permission de capteur ou « Activité physique » inutile ici, `specialUse` est
+  examiné par Google, `shortService` est limité à 3 min). L'heure de fin du repos est enregistrée dans la séance ;
+  la notification affiche un compte à rebours dessiné par Android à partir de cette heure, donc juste même quand
+  l'app ne tourne pas. Une alarme exacte (`SCHEDULE_EXACT_ALARM`, accordée par l'utilisateur) déclenche l'alerte de
+  fin de repos ; sans elle, alarme inexacte qui peut arriver en retard écran verrouillé.
 
 ## Questions ouvertes
 - Les séries dégressives comptent-elles pour les records ? À trancher avant la phase 6. En phase 4, elles comptent
