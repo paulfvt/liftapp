@@ -99,6 +99,12 @@ interface WorkoutDao {
     @Query("UPDATE workout_set SET distanceM = :distanceM WHERE id = :id")
     suspend fun updateSetDistance(id: Long, distanceM: Double?)
 
+    @Query(
+        "UPDATE workout_set SET weightKg = :weightKg, reps = :reps, durationSec = :durationSec, " +
+            "distanceM = :distanceM WHERE id = :id"
+    )
+    suspend fun updateSetValues(id: Long, weightKg: Double?, reps: Int?, durationSec: Int?, distanceM: Double?)
+
     @Query("UPDATE workout_set SET rpe = :rpe WHERE id = :id")
     suspend fun updateSetRpe(id: Long, rpe: Double?)
 

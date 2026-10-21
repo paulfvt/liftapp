@@ -135,6 +135,14 @@ class WorkoutRepository @Inject constructor(
 
     suspend fun updateSetRpe(setId: Long, rpe: Double?) = dao.updateSetRpe(setId, rpe)
 
+    // Boutons − et + du mode salle : le pas est appliqué à la valeur en base, pas à celle affichée, pour que des
+    // appuis rapides s'additionnent même si l'écran n'a pas encore reçu la valeur précédente.
+    suspend fun changeSetValues(setId: Long, change: (SetValues) -> SetValues) = database.withTransaction {
+        val set = dao.getSet(setId) ?: return@withTransaction
+        val values = change(set.toValues())
+        dao.updateSetValues(setId, values.weightKg, values.reps, values.durationSec, values.distanceM)
+    }
+
     suspend fun setCompleted(setId: Long, isCompleted: Boolean) =
         dao.updateSetCompleted(setId, isCompleted, if (isCompleted) clock.instant() else null)
 

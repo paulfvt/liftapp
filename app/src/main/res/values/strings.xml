@@ -201,6 +201,21 @@
     <string name="setting_on">Activé</string>
     <string name="setting_off">Désactivé</string>
 
+    <!-- Mode salle -->
+    <string name="workout_gym_mode">Mode salle</string>
+    <string name="gym_previous">Précédent : %1$s</string>
+    <plurals name="gym_target">
+        <item quantity="one">Objectif : %d rep</item>
+        <item quantity="many">Objectif : %d reps</item>
+        <item quantity="other">Objectif : %d reps</item>
+    </plurals>
+    <string name="gym_complete">Valider la série</string>
+    <string name="gym_finish">Terminer</string>
+    <string name="gym_all_done">Toutes les séries sont validées.</string>
+    <string name="gym_show_all">Voir toute la séance</string>
+    <string name="gym_decrease">Moins %1$s</string>
+    <string name="gym_increase">Plus %1$s</string>
+
     <!-- Permissions demandées à la première séance -->
     <string name="permission_notifications_title">Minuteur écran verrouillé</string>
     <string name="permission_notifications_text">Autorise les notifications pour suivre ta séance et le compte à rebours du repos sans déverrouiller ton téléphone.</string>

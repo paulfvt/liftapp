@@ -75,6 +75,7 @@ import com.paulfvt.liftapp.workout.domain.WorkoutExercise
 import com.paulfvt.liftapp.workout.domain.formatDecimal
 import com.paulfvt.liftapp.workout.domain.formatDuration
 import com.paulfvt.liftapp.workout.domain.matchPrevious
+import com.paulfvt.liftapp.workout.domain.nextSet
 import sh.calvin.reorderable.ReorderableItem
 import sh.calvin.reorderable.rememberReorderableLazyListState
 
@@ -136,6 +137,24 @@ private fun ActiveWorkout(
         onFinished = viewModel::onPermissionsAsked
     )
     val elapsed = formatDuration(rememberElapsedSeconds(workout.startedAt))
+    val next = workout.nextSet()
+    val restTimer: @Composable (large: Boolean, modifier: Modifier) -> Unit = { large, modifier ->
+        workout.rest?.let { rest ->
+            RestTimer(
+                rest = rest,
+                onRemove = viewModel::onRemoveRest,
+                onAdd = viewModel::onAddRest,
+                onSkip = viewModel::onSkipRest,
+                modifier = modifier,
+                large = large,
+                footer = {
+                    viewModel.missingPermissions.firstOrNull()?.let { missing ->
+                        LateAlertWarning(onEnable = { context.openAlertSettings(missing) })
+                    }
+                }
+            )
+        }
+    }
     Scaffold(
         topBar = {
             TopAppBar(
@@ -152,6 +171,11 @@ private fun ActiveWorkout(
                                 viewModel.openDialog(WorkoutDialog.Rename)
                             },
                             MenuEntry(R.string.workout_note) { viewModel.openDialog(WorkoutDialog.Note) },
+                            MenuEntry(
+                                R.string.workout_gym_mode,
+                                R.drawable.ic_fitness_center,
+                                isChecked = settings.gymMode
+                            ) { viewModel.onGymModeChange(!settings.gymMode) },
                             MenuEntry(R.string.workout_rest_sound, isChecked = settings.restSound) {
                                 viewModel.onRestSoundChange(!settings.restSound)
                             },
@@ -169,27 +193,42 @@ private fun ActiveWorkout(
         bottomBar = {
             Surface(tonalElevation = 3.dp) {
                 Column(Modifier.navigationBarsPadding()) {
-                    workout.rest?.let { rest ->
-                        RestTimer(
-                            rest = rest,
-                            onRemove = viewModel::onRemoveRest,
-                            onAdd = viewModel::onAddRest,
-                            onSkip = viewModel::onSkipRest,
-                            modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp),
-                            footer = {
-                                viewModel.missingPermissions.firstOrNull()?.let { missing ->
-                                    LateAlertWarning(onEnable = { context.openAlertSettings(missing) })
-                                }
-                            }
+                    if (settings.gymMode) {
+                        GymBottomBar(
+                            hasNextSet = next != null,
+                            onComplete = { next?.let { viewModel.onToggleCompleted(it.set.id) } },
+                            onFinish = viewModel::onFinishClick
                         )
+                    } else {
+                        restTimer(false, Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp))
+                        FinishButton(viewModel::onFinishClick)
                     }
-                    FinishButton(viewModel::onFinishClick)
                 }
             }
         },
         snackbarHost = { SnackbarHost(snackbarHostState) }
     ) { padding ->
-        WorkoutContent(workout, previous, viewModel, onPickExercises, Modifier.padding(padding))
+        if (settings.gymMode) {
+            val gymActions = remember(viewModel) {
+                GymActions(
+                    onStep = viewModel::onStepValues,
+                    onWeightChange = viewModel::onWeightChange,
+                    onRepsChange = viewModel::onRepsChange,
+                    onDurationChange = viewModel::onDurationChange,
+                    onDistanceChange = viewModel::onDistanceChange
+                )
+            }
+            GymModeContent(
+                next = next,
+                previous = previous,
+                actions = gymActions,
+                onShowAll = { viewModel.onGymModeChange(false) },
+                modifier = Modifier.padding(padding),
+                restTimer = { restTimer(true, Modifier) }
+            )
+        } else {
+            WorkoutContent(workout, previous, viewModel, onPickExercises, Modifier.padding(padding))
+        }
     }
     WorkoutDialogs(workout, viewModel)
 }

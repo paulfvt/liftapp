@@ -20,6 +20,8 @@ import com.paulfvt.liftapp.template.domain.updateSet
 import com.paulfvt.liftapp.workout.domain.RestPeriod
 import com.paulfvt.liftapp.workout.domain.SetValues
 import com.paulfvt.liftapp.workout.domain.Workout
+import com.paulfvt.liftapp.workout.domain.stepReps
+import com.paulfvt.liftapp.workout.domain.stepWeight
 import java.time.Clock
 import java.time.Instant
 import java.time.ZoneId
@@ -248,6 +250,21 @@ class WorkoutDataTest {
         val workoutId = inProgress().id
         workouts.finish(workoutId)
         assertNull(database.workoutDao().getWorkout(workoutId)?.restEndsAt)
+    }
+
+    @Test
+    fun gymModeStepsAddUpOnTheStoredValue() = runTest {
+        val bench = newExercise("Développé couché")
+        workouts.startFromTemplate(template("Push A", bench))
+        val set = inProgress().exercises.single().sets.first()
+
+        // Trois appuis rapides sur « + » : chacun part de la valeur en base, aucun n'est perdu.
+        repeat(3) {
+            workouts.changeSetValues(set.id) { it.copy(weightKg = stepWeight(it.weightKg, 1, allowNegative = false)) }
+        }
+        workouts.changeSetValues(set.id) { it.copy(reps = stepReps(it.reps, 1)) }
+
+        assertEquals(SetValues(weightKg = 7.5, reps = 1), inProgress().exercises.single().sets.first().values)
     }
 
     @Test

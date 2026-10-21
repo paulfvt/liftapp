@@ -20,6 +20,7 @@ import com.paulfvt.liftapp.workout.data.WorkoutSettingsRepository
 import com.paulfvt.liftapp.workout.domain.PreviousSet
 import com.paulfvt.liftapp.workout.domain.REST_ADD_SECONDS
 import com.paulfvt.liftapp.workout.domain.REST_REMOVE_SECONDS
+import com.paulfvt.liftapp.workout.domain.SetValues
 import com.paulfvt.liftapp.workout.domain.Workout
 import com.paulfvt.liftapp.workout.domain.completedSetCount
 import com.paulfvt.liftapp.workout.domain.incompleteSetCount
@@ -163,6 +164,14 @@ class WorkoutViewModel @Inject constructor(
     fun onRemoveRest() = persist { workouts.adjustRest(-REST_REMOVE_SECONDS) }
 
     fun onSkipRest() = persist { workouts.skipRest() }
+
+    fun onStepValues(setId: Long, change: (SetValues) -> SetValues) = persist {
+        workouts.changeSetValues(setId, change)
+    }
+
+    fun onGymModeChange(enabled: Boolean) {
+        appScope.launch { settingsRepository.setGymMode(enabled) }
+    }
 
     fun onRestSoundChange(enabled: Boolean) {
         appScope.launch { settingsRepository.setRestSound(enabled) }

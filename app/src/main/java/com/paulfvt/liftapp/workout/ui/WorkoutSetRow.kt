@@ -35,6 +35,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
@@ -112,7 +113,7 @@ fun SetHeaderRow(exercise: Exercise) {
 
 // Titres des colonnes de saisie selon le type de suivi. Null : pas de première colonne (durée seule).
 @Composable
-private fun columnTitles(exercise: Exercise): Pair<String?, String> = when (exercise.trackingType) {
+internal fun columnTitles(exercise: Exercise): Pair<String?, String> = when (exercise.trackingType) {
     TrackingType.WEIGHT_REPS -> stringResource(R.string.workout_col_kg) to stringResource(R.string.workout_col_reps)
     TrackingType.REPS -> stringResource(R.string.workout_col_added_kg) to stringResource(R.string.workout_col_reps)
     TrackingType.DURATION -> null to stringResource(R.string.workout_col_time)
@@ -291,7 +292,7 @@ private fun DurationField(set: WorkoutSet, values: SetValues, description: Strin
 // Pendant la frappe, la base renvoie la valeur avec un temps de retard : le texte n'est donc resynchronisé avec la
 // valeur que lorsque le champ n'a pas le focus (pré-remplissage, exercice remplacé, fin de la saisie).
 @Composable
-private fun <T> SetValueField(
+internal fun <T> SetValueField(
     value: T?,
     format: (T?) -> String,
     filter: (String) -> String,
@@ -299,7 +300,9 @@ private fun <T> SetValueField(
     onValueChange: (T?) -> Unit,
     description: String,
     keyboardType: KeyboardType,
-    width: Dp
+    width: Dp,
+    height: Dp = 44.dp,
+    textStyle: TextStyle = MaterialTheme.typography.headlineSmall.copy(fontSize = 20.sp)
 ) {
     var text by remember { mutableStateOf(format(value)) }
     var isFocused by remember { mutableStateOf(false) }
@@ -313,16 +316,12 @@ private fun <T> SetValueField(
             onValueChange(parse(text))
         },
         singleLine = true,
-        textStyle = MaterialTheme.typography.headlineSmall.copy(
-            fontSize = 20.sp,
-            textAlign = TextAlign.Center,
-            color = MaterialTheme.colorScheme.onSurface
-        ),
+        textStyle = textStyle.copy(textAlign = TextAlign.Center, color = MaterialTheme.colorScheme.onSurface),
         cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
         keyboardOptions = KeyboardOptions(keyboardType = keyboardType, imeAction = ImeAction.Done),
         modifier = Modifier
             .width(width)
-            .height(44.dp)
+            .height(height)
             .background(MaterialTheme.colorScheme.surfaceContainerHighest, MaterialTheme.shapes.small)
             .onFocusChanged { isFocused = it.isFocused }
             .semantics { contentDescription = description },
@@ -365,7 +364,7 @@ private fun CompleteButton(completed: Boolean, name: String, onToggle: () -> Uni
 
 // « 80 × 8 », « +10 × 8 », « 12 reps », « 1:30 », « 5,2 · 25:00 » ou « — » si l'exercice n'a jamais été fait.
 @Composable
-private fun previousLabel(previous: PreviousSet?, exercise: Exercise): String {
+internal fun previousLabel(previous: PreviousSet?, exercise: Exercise): String {
     val none = stringResource(R.string.workout_previous_none)
     val values = previous?.values ?: return none
     return when (exercise.trackingType) {
