@@ -3,7 +3,9 @@
 ## Prochaine étape : à décider
 
 Décision du 6 octobre 2026 : publication en test fermé après la phase 6. À trancher avec le développeur : préparer
-d'abord le test fermé (une partie de la phase 11), ou passer à la phase 7.
+d'abord le test fermé (une partie de la phase 11), ou passer à la phase 7. Recommandation faite au développeur :
+le test fermé d'abord (icône, écran de premier lancement, politique de confidentialité, version signée), car Google
+exige 12 testeurs pendant 14 jours avant la production ; les phases 7 à 9 avanceraient pendant le test.
 
 ## Phase 6 — Historique, records et courbes : terminée le 21 octobre 2026
 - Onglet Historique : séances par mois, détail, modification (en mémoire jusqu'à « Enregistrer ») et suppression.
@@ -142,3 +144,10 @@ d'abord le test fermé (une partie de la phase 11), ou passer à la phase 7.
   (1.10.2, imposé par AndroidX), sinon les tests instrumentés échouent avec un `NoSuchMethodError`.
 - Avertissement lint `OldTargetApi` (targetSdk 36 alors que l'API 37 existe) : volontaire, c'est le niveau exigé
   par Google Play. À revoir avant la publication.
+- Tests instrumentés : Gradle peut afficher `BUILD SUCCESSFUL` alors que l'APK de test ne s'est pas installé
+  (émulateur pas encore prêt). Toujours vérifier le nombre de tests passés dans
+  `app/build/outputs/androidTest-results/connected/debug/*.xml` (31 au 21 octobre 2026).
+- Le filtre `-Pandroid.testInstrumentationRunnerArguments.class=…` n'a lancé aucun test : lancer toute la suite.
+- Émulateur `Medium_Phone_API_37.0` sans accès root ni `sqlite3` : pour préparer des données, récupérer la base avec
+  `adb exec-out run-as com.paulfvt.liftapp cat databases/lift.db`, la modifier sur le PC, puis la remettre avec
+  `run-as … cp` depuis `/data/local/tmp` (app arrêtée, fichiers `-wal` et `-shm` supprimés).

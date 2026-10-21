@@ -11,6 +11,7 @@ En cas d'ambiguïté ou de point non couvert, pose la question au lieu d'invente
 - Kotlin, Jetpack Compose, Material 3, Navigation Compose (routes typées avec kotlinx.serialization).
 - Room (SQLite) pour les données métier, DataStore pour les réglages et le profil fixe, coroutines et Flow.
 - Hilt pour l'injection de dépendances (KSP, jamais kapt).
+- Vico pour les courbes (`progress/ui/ProgressChart.kt`), reorderable pour le glisser-déposer.
 - Glance pour le widget, CameraX + Coil pour les photos, androidx.biometric pour le verrouillage.
 - AGP 9 avec Kotlin intégré : ne pas appliquer `org.jetbrains.kotlin.android`. Versions dans `gradle/libs.versions.toml`.
 - minSdk 26. targetSdk = niveau exigé par Google Play à la publication (36 en octobre 2026).
@@ -84,9 +85,24 @@ En cas d'ambiguïté ou de point non couvert, pose la question au lieu d'invente
   - en fin de séance, les séries non validées sont retirées, après un avertissement.
 - Design « ON AIR » (7 octobre 2026) : référence dans `design-system/`, rouge signal (`primaryContainer`) pour les
   actions principales, lueur réservée aux moments forts. Polices Barlow embarquées (OFL, à citer dans « À propos »).
+- Minuteur de repos (21 octobre 2026) :
+  - sans service de premier plan : notification avec compte à rebours dessiné par Android et alarme exacte
+    (`SCHEDULE_EXACT_ALARM`) pour l'alerte de fin de repos ;
+  - valider une série lance le repos de son exercice (2 min par défaut, rien si 0 s), pas de repos après la dernière
+    série de la séance ; −15 s, +30 s, Passer ;
+  - son et vibration réglés dans le menu de la séance en attendant l'écran Réglages (phase 10) ;
+  - mode salle : interrupteur dans le menu de la séance, écran allumé, une série à la fois, gros boutons.
+- Records (21 octobre 2026) :
+  - les séries dégressives comptent, seuls les échauffements sont exclus ; une série à 0 rep ne compte pas ;
+  - 1RM d'Epley de 2 à 12 reps, une série à 1 rep vaut son poids ;
+  - exercices sans charge : poids du corps = reps max (sans assistance) et lest max, durée max, distance max ;
+  - toujours recalculés en entier pour un exercice (fin, modification, suppression d'une séance).
+- Graphiques avec Vico (`com.patrykandpatrick.vico:compose`, Apache 2.0), validé le 21 octobre 2026.
 
 ## Méthode de travail (section 7)
 
+- **En début de session : lire `PROGRESS.md`** (phase en cours ou prochaine étape à décider, décisions techniques,
+  problèmes connus) avant de proposer quoi que ce soit.
 - Une phase à la fois, dans l'ordre. Une phase est terminée quand ses tests passent et que le développeur l'a testée
   sur son téléphone (Samsung Galaxy S25+, Android 16).
 - Avant chaque phase : plan court (fichiers créés ou modifiés, choix techniques) puis attente de validation.
