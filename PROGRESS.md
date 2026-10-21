@@ -20,7 +20,15 @@ Plan validé le 21 octobre 2026 :
    classification du contenu.
 
 À faire par le développeur : compte développeur Google Play (25 $, vérification d'identité), 12 testeurs avec une
-adresse Gmail.
+adresse Gmail, clé d'envoi et `keystore.properties` (commande dans le README).
+
+Fait le 21 octobre 2026 :
+- Étape 1 : signature configurée. Release minifiée par R8 testée sur l'émulateur (catalogue et images, template,
+  séance, minuteur, fin de séance, historique, courbes) sans plantage.
+- Étapes 2 à 4 : app ouverte sur Séances (4 onglets), Profil → « À propos » → texte des licences, écran de bienvenue.
+- Étape 5 : trois pistes d'icône dans `design-system/icon.html`, en attente du choix du développeur.
+- Étape 6 : brouillon `docs/politique-de-confidentialite.md`, nom et adresse de contact à compléter.
+- Reste : icône dans l'app, mise en ligne de la politique, fiche Play Store, test sur le S25+.
 
 ## Phase 6 — Historique, records et courbes : terminée le 21 octobre 2026
 - Onglet Historique : séances par mois, détail, modification (en mémoire jusqu'à « Enregistrer ») et suppression.
@@ -151,8 +159,21 @@ adresse Gmail.
   reps max et lest max, durée = durée max, distance = distance max, chacun avec sa courbe.
 - **Graphiques avec Vico** (`compose-m3`, Apache 2.0, validé le 21 octobre 2026) : axes, zoom et valeur au toucher
   sans les recoder ; servira aussi aux mesures (phase 7) et à la projection (phase 8).
+- **Signature de la release** : `keystore.properties` absent (CI, autre PC) → release signée avec la clé de debug,
+  installable pour tester R8 mais refusée par Google Play, donc impossible à publier par erreur.
+- **Package `onboarding`** ajouté à la liste du cahier des charges (écran de bienvenue, enrichi en phases 8 et 10).
+  La préférence `welcome_done` est lue avant d'afficher quoi que ce soit : tant qu'elle ne l'est pas (quelques
+  millisecondes), seul le fond de la fenêtre est visible.
+- **Licences** : textes officiels Apache 2.0 et OFL 1.1 copiés depuis les notices d'Android Studio, copyright Barlow
+  lu dans les fichiers de police. Rangés dans `res/raw` avec un paragraphe par ligne pour se replier à l'écran.
+  Le catalogue est dans le domaine public (Unlicense) : crédité, sans texte de licence à joindre.
+- **`BuildConfig` activé** pour afficher la version dans « À propos ».
+- **Aucune permission internet** dans l'app (vérifié dans le manifeste final) : argument de la politique de
+  confidentialité et du formulaire « Sécurité des données » (aucune donnée collectée).
 
 ## Questions ouvertes
+- Icône : choisir une des trois pistes de `design-system/icon.html`.
+- Politique de confidentialité : nom affiché et adresse de contact (publics), nom du dépôt public qui l'hébergera.
 
 ## Problèmes connus
 - `kotlinx-coroutines-test` doit rester à la même version que `kotlinx-coroutines-core` utilisé par l'app
