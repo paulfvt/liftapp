@@ -16,6 +16,17 @@ Plan validé le 21 octobre 2026 (un commit par étape) :
    option (androidx.biometric, `MainActivity` passe en `FragmentActivity`).
 8. Politique de confidentialité (caméra, photos), tests, émulateur, `PROGRESS.md`.
 
+Fait le 21 octobre 2026 (142 tests JVM verts, vérifié sur l'émulateur) :
+- Étape 1 : profil fixe et écran de modification.
+- Étapes 2 et 3 : mesures complètes (saisie, courbe avec moyenne mobile du poids, historique, suppression).
+  `ProgressChart` prend maintenant une valeur par jour (`DailyValue`) et une tendance facultative.
+- Étape 4 commencée : logique des photos testée (`profile/domain/Photos.kt`). Reste : `PhotoDao`, stockage
+  dans `files/photos/` (réduction à 2048 px, rotation EXIF), timeline, import, section Photos du Profil.
+- Reste ensuite : étapes 5 à 8 (CameraX, comparaison, verrouillage, fin de phase). Les tests instrumentés
+  (dont `MeasurementDataTest`) ne sont pas encore relancés.
+- Émulateur : la capture `adb shell screencap` sort noire pour l'app ; utiliser
+  `adb emu screenrecord screenshot <fichier.png>` (capture côté PC).
+
 Dépendances validées le 21 octobre 2026 : CameraX et androidx.biometric (Google, Apache 2.0).
 Pas de changement de schéma : les tables `body_measurement` et `progress_photo` existent depuis la v1.
 Reportés en phase 10 (Réglages, cahier § 4.11) : unités lb et in, masquage du poids et de la section photos.

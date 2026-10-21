@@ -1,0 +1,45 @@
+package com.paulfvt.liftapp.profile.domain
+
+import com.paulfvt.liftapp.core.model.PhotoPose
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
+
+// Photo de progression : fileName est le nom du fichier dans le dossier privé photos/ de l'app.
+data class ProgressPhoto(val id: Long, val fileName: String, val pose: PhotoPose, val takenAt: Instant)
+
+// Plus grand côté d'une photo enregistrée : assez pour comparer le détail des muscles, sans garder les 12 Mo
+// d'une photo de téléphone moderne.
+const val MAX_PHOTO_SIDE = 2048
+
+// Facteur de sous-échantillonnage au décodage (une puissance de 2, comme l'exige Android) : le plus grand qui
+// garde le grand côté au moins égal à maxSide. La réduction exacte se fait ensuite.
+fun sampleSizeFor(width: Int, height: Int, maxSide: Int = MAX_PHOTO_SIDE): Int {
+    val longest = maxOf(width, height)
+    var sample = 1
+    while (longest / (sample * 2) >= maxSide) sample *= 2
+    return sample
+}
+
+private val EXIF_DATE = DateTimeFormatter.ofPattern("yyyy:MM:dd HH:mm:ss")
+
+// Date de prise de vue écrite dans la photo (« 2026:10:21 18:30:05 », heure locale de l'appareil qui l'a prise).
+// null si elle manque ou est illisible : la date du jour est alors proposée.
+fun parseExifDate(text: String?, zone: ZoneId): Instant? {
+    if (text.isNullOrBlank()) return null
+    return try {
+        LocalDateTime.parse(text.trim(), EXIF_DATE).atZone(zone).toInstant()
+    } catch (_: DateTimeParseException) {
+        null
+    }
+}
+
+// Photos d'une pose (toutes si pose est null), dans l'ordre reçu.
+fun List<ProgressPhoto>.ofPose(pose: PhotoPose?): List<ProgressPhoto> =
+    if (pose == null) this else filter { it.pose == pose }
+
+// Silhouette fantôme : la photo la plus récente de la même pose, pour garder le même cadrage.
+fun List<ProgressPhoto>.latestOfPose(pose: PhotoPose): ProgressPhoto? =
+    filter { it.pose == pose }.maxByOrNull { it.takenAt }
