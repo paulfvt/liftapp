@@ -98,6 +98,9 @@ En cas d'ambiguïté ou de point non couvert, pose la question au lieu d'invente
   - exercices sans charge : poids du corps = reps max (sans assistance) et lest max, durée max, distance max ;
   - toujours recalculés en entier pour un exercice (fin, modification, suppression d'une séance).
 - Graphiques avec Vico (`com.patrykandpatrick.vico:compose`, Apache 2.0), validé le 21 octobre 2026.
+- Test fermé avant la phase 7 (21 octobre 2026) : nom « LiftApp » et identifiant `com.paulfvt.liftapp` définitifs,
+  onglet Accueil masqué jusqu'à la phase 9 (l'app s'ouvre sur Séances), Profil réduit à « À propos », écran de
+  bienvenue unique. Icône : piste B « Néon » de `design-system/icon.html` (barre en tube de néon rouge sur fond noir).
 
 ## Méthode de travail (section 7)
 

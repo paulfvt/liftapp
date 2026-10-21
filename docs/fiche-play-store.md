@@ -36,7 +36,7 @@ Console au moment de la saisie.
   > LiftApp est en développement actif : objectif hebdomadaire, carte des muscles travaillés, mesures et photos
   > de progression arrivent bientôt.
 
-- **Icône** : 512 × 512 px, PNG 32 bits (à exporter une fois la piste choisie).
+- **Icône** : 512 × 512 px, PNG 32 bits : [play-store/icon-512.png](play-store/icon-512.png) (piste « Néon »).
 - **Image de présentation** : 1 024 × 500 px, JPEG ou PNG 24 bits.
 - **Captures d'écran** : au moins 2 (8 max) pour téléphone. Le grand côté ne doit pas dépasser le double du petit :
   les captures brutes du S25+ ou de l'émulateur (1080 × 2400) sont trop allongées, elles seront recadrées en

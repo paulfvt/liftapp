@@ -26,9 +26,11 @@ Fait le 21 octobre 2026 :
 - Étape 1 : signature configurée. Release minifiée par R8 testée sur l'émulateur (catalogue et images, template,
   séance, minuteur, fin de séance, historique, courbes) sans plantage.
 - Étapes 2 à 4 : app ouverte sur Séances (4 onglets), Profil → « À propos » → texte des licences, écran de bienvenue.
-- Étape 5 : trois pistes d'icône dans `design-system/icon.html`, en attente du choix du développeur.
+- Étape 5 : icône « Néon » (piste B de `design-system/icon.html`, choisie par le développeur) en icône adaptative
+  avec couche monochrome, vérifiée sur l'émulateur ; version Play Store dans `docs/play-store/icon-512.png`.
 - Étape 6 : brouillon `docs/politique-de-confidentialite.md`, nom et adresse de contact à compléter.
-- Reste : icône dans l'app, mise en ligne de la politique, fiche Play Store, test sur le S25+.
+- Étape 7 : brouillon `docs/fiche-play-store.md` (textes, réponses aux formulaires).
+- Reste : mise en ligne de la politique, image de présentation et captures, test sur le S25+.
 
 ## Phase 6 — Historique, records et courbes : terminée le 21 octobre 2026
 - Onglet Historique : séances par mois, détail, modification (en mémoire jusqu'à « Enregistrer ») et suppression.
@@ -168,11 +170,13 @@ Fait le 21 octobre 2026 :
   lu dans les fichiers de police. Rangés dans `res/raw` avec un paragraphe par ligne pour se replier à l'écran.
   Le catalogue est dans le domaine public (Unlicense) : crédité, sans texte de licence à joindre.
 - **`BuildConfig` activé** pour afficher la version dans « À propos ».
+- **Icône en vecteurs** : la lueur du néon est obtenue en repassant le même tracé quatre fois (halo large et
+  transparent, puis cœur clair), car les vecteurs Android n'ont pas de flou. Version Play Store rendue depuis le même
+  SVG par Chrome sans fenêtre (`--headless --screenshot`), sans nouvel outil à installer.
 - **Aucune permission internet** dans l'app (vérifié dans le manifeste final) : argument de la politique de
   confidentialité et du formulaire « Sécurité des données » (aucune donnée collectée).
 
 ## Questions ouvertes
-- Icône : choisir une des trois pistes de `design-system/icon.html`.
 - Politique de confidentialité : nom affiché et adresse de contact (publics), nom du dépôt public qui l'hébergera.
 
 ## Problèmes connus
