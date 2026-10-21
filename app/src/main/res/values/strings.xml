@@ -8,6 +8,14 @@
     <string name="nav_progress">Progrès</string>
     <string name="nav_profile">Profil</string>
 
+    <!-- Écran de bienvenue (premier lancement) -->
+    <string name="welcome_tagline">Ton carnet de musculation, simple et hors ligne.</string>
+    <string name="welcome_feature_templates">Prépare tes séances en templates et note chaque série, avec ta performance de la dernière fois.</string>
+    <string name="welcome_feature_timer">Minuteur de repos qui continue écran verrouillé.</string>
+    <string name="welcome_feature_progress">Records et courbes de progression pour chaque exercice.</string>
+    <string name="welcome_feature_privacy">Pas de compte ni de connexion : tes données restent sur ton téléphone.</string>
+    <string name="welcome_start">Commencer</string>
+
     <!-- Onglet Profil, À propos et licences -->
     <string name="profile_about_summary">Version, crédits et licences</string>
     <string name="profile_coming_soon">Tes mesures et tes photos de progression arriveront ici dans une prochaine version.</string>

@@ -27,12 +27,25 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.paulfvt.liftapp.history.navigation.WorkoutEditRoute
+import com.paulfvt.liftapp.onboarding.ui.WelcomeScreen
 import com.paulfvt.liftapp.workout.navigation.WorkoutRoute
 import com.paulfvt.liftapp.workout.ui.LiveWorkoutBar
 
-// Squelette de l'app : barre de navigation du bas, bandeau de la séance en cours et zone de contenu.
+// Racine de l'app : l'écran de bienvenue au premier lancement, puis le squelette avec ses onglets.
 @Composable
 fun LiftApp(openWorkoutRequest: Int = 0, viewModel: LiftAppViewModel = hiltViewModel()) {
+    val showWelcome by viewModel.showWelcome.collectAsStateWithLifecycle()
+    when (showWelcome) {
+        // Préférence pas encore lue : le fond de la fenêtre, de la couleur du thème, reste affiché.
+        null -> Unit
+        true -> WelcomeScreen(onStart = viewModel::finishWelcome)
+        false -> MainContent(openWorkoutRequest, viewModel)
+    }
+}
+
+// Squelette de l'app : barre de navigation du bas, bandeau de la séance en cours et zone de contenu.
+@Composable
+private fun MainContent(openWorkoutRequest: Int, viewModel: LiftAppViewModel) {
     val navController = rememberNavController()
     val currentBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = currentBackStackEntry?.destination
