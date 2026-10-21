@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">LiftApp</string>
 
     <!-- Barre de navigation du bas -->
@@ -176,6 +176,49 @@
     <string name="workout_update_template_confirm">Mettre à jour</string>
     <string name="workout_update_template_dismiss">Garder tel quel</string>
     <string name="workout_template_updated">Template mis à jour.</string>
+
+    <!-- Minuteur de repos -->
+    <string name="rest_title">Repos</string>
+    <string name="rest_add">+%1$d s</string>
+    <string name="rest_remove">−%1$d s</string>
+    <string name="rest_skip">Passer</string>
+    <plurals name="rest_add_description">
+        <item quantity="one">Ajouter %d seconde de repos</item>
+        <item quantity="many">Ajouter %d secondes de repos</item>
+        <item quantity="other">Ajouter %d secondes de repos</item>
+    </plurals>
+    <plurals name="rest_remove_description">
+        <item quantity="one">Retirer %d seconde de repos</item>
+        <item quantity="many">Retirer %d secondes de repos</item>
+        <item quantity="other">Retirer %d secondes de repos</item>
+    </plurals>
+    <string name="rest_skip_description">Passer le repos</string>
+    <string name="rest_remaining_description">Repos, il reste %1$s</string>
+    <string name="rest_alert_late">L\'alerte de fin de repos peut arriver en retard écran verrouillé.</string>
+    <string name="rest_alert_enable">Activer</string>
+    <string name="workout_rest_sound">Son en fin de repos</string>
+    <string name="workout_rest_vibration">Vibration en fin de repos</string>
+    <string name="setting_on">Activé</string>
+    <string name="setting_off">Désactivé</string>
+
+    <!-- Permissions demandées à la première séance -->
+    <string name="permission_notifications_title">Minuteur écran verrouillé</string>
+    <string name="permission_notifications_text">Autorise les notifications pour suivre ta séance et le compte à rebours du repos sans déverrouiller ton téléphone.</string>
+    <string name="permission_alarms_title">Alerte de fin de repos</string>
+    <string name="permission_alarms_text">Pour vibrer et sonner pile à la fin du repos, même écran verrouillé, LiftApp a besoin de l\'accès « Alarmes et rappels ». Active-le sur l\'écran suivant, puis reviens à ta séance.</string>
+    <string name="permission_allow">Autoriser</string>
+    <string name="permission_later">Plus tard</string>
+
+    <!-- Notification de séance -->
+    <string name="notification_channel_workout">Séance en cours</string>
+    <string name="notification_channel_workout_description">Série suivante et compte à rebours du repos, visibles écran verrouillé.</string>
+    <string name="notification_rest">Repos</string>
+    <string name="notification_next">Ensuite : %1$s · %2$s</string>
+    <string name="notification_all_done">Toutes les séries sont validées</string>
+    <!-- « sur » n'est pas une unité : pas de pluriel ici. -->
+    <string name="notification_set_position" tools:ignore="PluralsCandidate">Série %1$d sur %2$d</string>
+    <string name="notification_weight_reps">%1$s kg × %2$d</string>
+    <string name="notification_action_complete">Série validée</string>
     <string name="duration_hours_minutes">%1$d h %2$02d</string>
     <string name="weight_kg">%1$s kg</string>
 

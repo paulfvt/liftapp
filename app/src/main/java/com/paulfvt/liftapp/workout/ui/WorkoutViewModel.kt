@@ -12,14 +12,19 @@ import com.paulfvt.liftapp.R
 import com.paulfvt.liftapp.core.di.ApplicationScope
 import com.paulfvt.liftapp.core.model.Exercise
 import com.paulfvt.liftapp.core.model.SetType
-import com.paulfvt.liftapp.core.model.TrackingType
 import com.paulfvt.liftapp.exercise.data.ExerciseRepository
 import com.paulfvt.liftapp.workout.data.FinishedWorkout
 import com.paulfvt.liftapp.workout.data.WorkoutRepository
+import com.paulfvt.liftapp.workout.data.WorkoutSettings
+import com.paulfvt.liftapp.workout.data.WorkoutSettingsRepository
 import com.paulfvt.liftapp.workout.domain.PreviousSet
+import com.paulfvt.liftapp.workout.domain.REST_ADD_SECONDS
+import com.paulfvt.liftapp.workout.domain.REST_REMOVE_SECONDS
 import com.paulfvt.liftapp.workout.domain.Workout
 import com.paulfvt.liftapp.workout.domain.completedSetCount
 import com.paulfvt.liftapp.workout.domain.incompleteSetCount
+import com.paulfvt.liftapp.workout.notification.AlertPermission
+import com.paulfvt.liftapp.workout.notification.WorkoutSessionSync
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
@@ -60,6 +65,8 @@ sealed interface WorkoutDialog {
 class WorkoutViewModel @Inject constructor(
     private val workouts: WorkoutRepository,
     private val exercises: ExerciseRepository,
+    private val settingsRepository: WorkoutSettingsRepository,
+    private val sessionSync: WorkoutSessionSync,
     @param:ApplicationScope private val appScope: CoroutineScope,
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
@@ -77,6 +84,18 @@ class WorkoutViewModel @Inject constructor(
             }
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(STOP_TIMEOUT_MS), WorkoutUiState())
+
+    // Valeur de départ « déjà demandées » : la demande de permissions n'apparaît pas avant la lecture des réglages.
+    val settings: StateFlow<WorkoutSettings> = settingsRepository.settings
+        .stateIn(
+            viewModelScope,
+            SharingStarted.WhileSubscribed(STOP_TIMEOUT_MS),
+            WorkoutSettings(permissionsAsked = true)
+        )
+
+    // Ce qui manque pour l'alerte écran verrouillé, revérifié à chaque retour sur l'écran (réglages Android modifiés).
+    var missingPermissions by mutableStateOf(emptyList<AlertPermission>())
+        private set
 
     var dialog by mutableStateOf<WorkoutDialog?>(null)
         private set
@@ -133,11 +152,39 @@ class WorkoutViewModel @Inject constructor(
 
     fun onSetTypeChange(setId: Long, type: SetType) = persist { workouts.updateSetType(setId, type) }
 
-    fun onToggleCompleted(setId: Long, trackingType: TrackingType) = persist {
-        if (!workouts.toggleCompleted(setId, trackingType)) onMain { message = R.string.workout_cannot_complete }
+    fun onToggleCompleted(setId: Long) = persist {
+        if (!workouts.toggleCompleted(setId)) onMain { message = R.string.workout_cannot_complete }
     }
 
     fun onAddSet(workoutExerciseId: Long) = persist { workouts.addSet(workoutExerciseId) }
+
+    fun onAddRest() = persist { workouts.adjustRest(REST_ADD_SECONDS) }
+
+    fun onRemoveRest() = persist { workouts.adjustRest(-REST_REMOVE_SECONDS) }
+
+    fun onSkipRest() = persist { workouts.skipRest() }
+
+    fun onRestSoundChange(enabled: Boolean) {
+        appScope.launch { settingsRepository.setRestSound(enabled) }
+    }
+
+    fun onRestVibrationChange(enabled: Boolean) {
+        appScope.launch { settingsRepository.setRestVibration(enabled) }
+    }
+
+    fun currentMissingPermissions(): List<AlertPermission> = sessionSync.missingPermissions()
+
+    // Retour sur l'écran, par exemple depuis les réglages Android : la notification apparaît si elle vient d'être
+    // autorisée, et l'alarme repasse en exacte si « Alarmes et rappels » vient d'être accordé.
+    fun onResume() {
+        missingPermissions = sessionSync.missingPermissions()
+        appScope.launch { sessionSync.refresh() }
+    }
+
+    fun onPermissionsAsked() {
+        appScope.launch { settingsRepository.markPermissionsAsked() }
+        onResume()
+    }
 
     fun onRemoveSet(setId: Long) = persist { workouts.removeSet(setId) }
 

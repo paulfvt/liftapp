@@ -43,6 +43,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
@@ -53,6 +54,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.paulfvt.liftapp.R
 import com.paulfvt.liftapp.core.designsystem.component.DragHandle
@@ -121,6 +123,18 @@ private fun ActiveWorkout(
             viewModel.messageShown()
         }
     }
+    val settings by viewModel.settings.collectAsStateWithLifecycle()
+    val context = LocalContext.current
+    // Au retour sur l'écran (réglages Android modifiés, app rouverte), on revérifie les permissions.
+    LifecycleResumeEffect(viewModel) {
+        viewModel.onResume()
+        onPauseOrDispose { }
+    }
+    WorkoutPermissionRequests(
+        asked = settings.permissionsAsked,
+        missingPermissions = viewModel::currentMissingPermissions,
+        onFinished = viewModel::onPermissionsAsked
+    )
     val elapsed = formatDuration(rememberElapsedSeconds(workout.startedAt))
     Scaffold(
         topBar = {
@@ -138,6 +152,12 @@ private fun ActiveWorkout(
                                 viewModel.openDialog(WorkoutDialog.Rename)
                             },
                             MenuEntry(R.string.workout_note) { viewModel.openDialog(WorkoutDialog.Note) },
+                            MenuEntry(R.string.workout_rest_sound, isChecked = settings.restSound) {
+                                viewModel.onRestSoundChange(!settings.restSound)
+                            },
+                            MenuEntry(R.string.workout_rest_vibration, isChecked = settings.restVibration) {
+                                viewModel.onRestVibrationChange(!settings.restVibration)
+                            },
                             MenuEntry(R.string.workout_discard, R.drawable.ic_delete, isDestructive = true) {
                                 viewModel.openDialog(WorkoutDialog.Discard)
                             }
@@ -148,19 +168,22 @@ private fun ActiveWorkout(
         },
         bottomBar = {
             Surface(tonalElevation = 3.dp) {
-                Button(
-                    onClick = viewModel::onFinishClick,
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer,
-                        contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                    ),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .navigationBarsPadding()
-                        .padding(horizontal = 16.dp, vertical = 12.dp)
-                        .heightIn(min = 56.dp)
-                ) {
-                    Text(stringResource(R.string.workout_finish), style = MaterialTheme.typography.titleMedium)
+                Column(Modifier.navigationBarsPadding()) {
+                    workout.rest?.let { rest ->
+                        RestTimer(
+                            rest = rest,
+                            onRemove = viewModel::onRemoveRest,
+                            onAdd = viewModel::onAddRest,
+                            onSkip = viewModel::onSkipRest,
+                            modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp),
+                            footer = {
+                                viewModel.missingPermissions.firstOrNull()?.let { missing ->
+                                    LateAlertWarning(onEnable = { context.openAlertSettings(missing) })
+                                }
+                            }
+                        )
+                    }
+                    FinishButton(viewModel::onFinishClick)
                 }
             }
         },
@@ -169,6 +192,39 @@ private fun ActiveWorkout(
         WorkoutContent(workout, previous, viewModel, onPickExercises, Modifier.padding(padding))
     }
     WorkoutDialogs(workout, viewModel)
+}
+
+@Composable
+private fun FinishButton(onClick: () -> Unit) {
+    Button(
+        onClick = onClick,
+        colors = ButtonDefaults.buttonColors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer,
+            contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+        ),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 12.dp)
+            .heightIn(min = 56.dp)
+    ) {
+        Text(stringResource(R.string.workout_finish), style = MaterialTheme.typography.titleMedium)
+    }
+}
+
+// Sous le minuteur, tant que l'alerte de fin de repos n'est pas garantie écran verrouillé.
+@Composable
+private fun LateAlertWarning(onEnable: () -> Unit) {
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Text(
+            stringResource(R.string.rest_alert_late),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.weight(1f)
+        )
+        TextButton(onClick = onEnable, modifier = Modifier.heightIn(min = 48.dp)) {
+            Text(stringResource(R.string.rest_alert_enable))
+        }
+    }
 }
 
 @Composable

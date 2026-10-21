@@ -69,6 +69,9 @@ interface WorkoutDao {
     @Query("UPDATE workout SET note = :note WHERE id = :id")
     suspend fun updateNote(id: Long, note: String?)
 
+    @Query("UPDATE workout SET restStartedAt = :startedAt, restEndsAt = :endsAt WHERE id = :id")
+    suspend fun updateRest(id: Long, startedAt: Instant?, endsAt: Instant?)
+
     @Query("UPDATE workout SET status = :status, endedAt = :endedAt WHERE id = :id")
     suspend fun updateStatus(id: Long, status: WorkoutStatus, endedAt: Instant?)
 

@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- Notification de séance (Android 13+), demandée à la première séance, jamais au lancement. -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <!-- Live Updates d'Android 16 : permission sans demande à l'utilisateur. -->
+    <uses-permission android:name="android.permission.POST_PROMOTED_NOTIFICATIONS" />
+    <!-- Alarme exacte de fin de repos : l'utilisateur l'accorde dans « Alarmes et rappels ». -->
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
         android:name=".LiftApplication"
         android:allowBackup="true"
@@ -19,6 +27,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Récepteurs internes à l'app (exported = false) : seuls l'alarme et la notification de l'app les appellent. -->
+        <receiver
+            android:name=".workout.notification.RestEndReceiver"
+            android:exported="false" />
+        <receiver
+            android:name=".workout.notification.WorkoutActionReceiver"
+            android:exported="false" />
     </application>
 
 </manifest>

@@ -31,16 +31,20 @@ import com.paulfvt.liftapp.workout.ui.LiveWorkoutBar
 
 // Squelette de l'app : barre de navigation du bas, bandeau de la séance en cours et zone de contenu.
 @Composable
-fun LiftApp(viewModel: LiftAppViewModel = hiltViewModel()) {
+fun LiftApp(openWorkoutRequest: Int = 0, viewModel: LiftAppViewModel = hiltViewModel()) {
     val navController = rememberNavController()
     val currentBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = currentBackStackEntry?.destination
     val liveWorkout by viewModel.liveWorkout.collectAsStateWithLifecycle()
 
     // Une séance encore en cours au lancement (app tuée, téléphone redémarré) est rouverte telle quelle.
-    LaunchedEffect(Unit) {
+    // Même chose à chaque appui sur la notification de séance (openWorkoutRequest augmente).
+    LaunchedEffect(openWorkoutRequest) {
         if (viewModel.hasWorkoutInProgress()) {
-            navController.navigate(WorkoutRoute) { launchSingleTop = true }
+            // Déjà dans la pile (catalogue ouvert par-dessus, par exemple) : on y revient au lieu d'en empiler une autre.
+            if (!navController.popBackStack(WorkoutRoute, inclusive = false)) {
+                navController.navigate(WorkoutRoute) { launchSingleTop = true }
+            }
         }
     }
 

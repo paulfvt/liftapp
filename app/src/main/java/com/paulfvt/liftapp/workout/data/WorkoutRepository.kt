@@ -7,7 +7,6 @@ import com.paulfvt.liftapp.core.database.entity.WorkoutEntity
 import com.paulfvt.liftapp.core.database.entity.WorkoutExerciseEntity
 import com.paulfvt.liftapp.core.database.entity.WorkoutSetEntity
 import com.paulfvt.liftapp.core.model.SetType
-import com.paulfvt.liftapp.core.model.TrackingType
 import com.paulfvt.liftapp.core.model.WorkoutStatus
 import com.paulfvt.liftapp.exercise.data.toDomain
 import com.paulfvt.liftapp.template.data.TemplateRepository
@@ -15,15 +14,18 @@ import com.paulfvt.liftapp.template.domain.DEFAULT_REST_SECONDS
 import com.paulfvt.liftapp.template.domain.TemplateDraft
 import com.paulfvt.liftapp.workout.domain.PlannedSet
 import com.paulfvt.liftapp.workout.domain.PreviousSet
+import com.paulfvt.liftapp.workout.domain.RestPeriod
 import com.paulfvt.liftapp.workout.domain.SetValues
 import com.paulfvt.liftapp.workout.domain.Workout
 import com.paulfvt.liftapp.workout.domain.WorkoutExercise
 import com.paulfvt.liftapp.workout.domain.WorkoutSet
 import com.paulfvt.liftapp.workout.domain.WorkoutSummary
 import com.paulfvt.liftapp.workout.domain.addedSet
+import com.paulfvt.liftapp.workout.domain.adjusted
 import com.paulfvt.liftapp.workout.domain.canComplete
 import com.paulfvt.liftapp.workout.domain.differsFrom
 import com.paulfvt.liftapp.workout.domain.prefill
+import com.paulfvt.liftapp.workout.domain.restAfterCompleting
 import com.paulfvt.liftapp.workout.domain.setsForAddedExercise
 import com.paulfvt.liftapp.workout.domain.summarize
 import com.paulfvt.liftapp.workout.domain.toTemplateDraft
@@ -136,13 +138,46 @@ class WorkoutRepository @Inject constructor(
     suspend fun setCompleted(setId: Long, isCompleted: Boolean) =
         dao.updateSetCompleted(setId, isCompleted, if (isCompleted) clock.instant() else null)
 
-    // Coche ou décoche une série. La vérification se fait sur la valeur en base, donc après les saisies en attente :
-    // renvoie false (sans rien changer) si la série ne peut pas être validée faute de valeur.
-    suspend fun toggleCompleted(setId: Long, trackingType: TrackingType): Boolean = database.withTransaction {
+    // Coche ou décoche une série. Valider lance le repos de l'exercice ; décocher ne touche pas au repos en cours.
+    // La vérification se fait sur la valeur en base, donc après les saisies en attente : renvoie false (sans rien
+    // changer) si la série ne peut pas être validée faute de valeur.
+    suspend fun toggleCompleted(setId: Long): Boolean = database.withTransaction {
         val set = dao.getSet(setId) ?: return@withTransaction true
-        if (!set.isCompleted && !canComplete(set.toValues(), trackingType)) return@withTransaction false
-        setCompleted(setId, !set.isCompleted)
-        true
+        if (set.isCompleted) {
+            setCompleted(setId, false)
+            true
+        } else {
+            completeAndStartRest(set)
+        }
+    }
+
+    // Action « Série validée » de la notification : valide la série affichée si elle ne l'est pas déjà.
+    suspend fun completeSet(setId: Long): Boolean = database.withTransaction {
+        val set = dao.getSet(setId) ?: return@withTransaction false
+        set.isCompleted || completeAndStartRest(set)
+    }
+
+    // « +30 s » et « −15 s » sur le repos de la séance en cours.
+    suspend fun adjustRest(deltaSeconds: Int) = database.withTransaction {
+        val workout = inProgressId()?.let { dao.getWorkout(it) } ?: return@withTransaction
+        val rest = workout.restPeriod().adjusted(deltaSeconds, clock.instant())
+        dao.updateRest(workout.id, rest?.startedAt, rest?.endsAt)
+    }
+
+    suspend fun skipRest() {
+        inProgressId()?.let { dao.updateRest(it, null, null) }
+    }
+
+    private suspend fun completeAndStartRest(set: WorkoutSetEntity): Boolean {
+        val workoutId = requireNotNull(dao.getExercise(set.workoutExerciseId)).workoutId
+        val workout = requireNotNull(dao.getDetails(workoutId)).toDomain()
+        val exercise = workout.exercises.first { it.id == set.workoutExerciseId }.exercise
+        if (!canComplete(set.toValues(), exercise.trackingType)) return false
+        val now = clock.instant()
+        dao.updateSetCompleted(set.id, true, now)
+        val rest = workout.restAfterCompleting(set.id, now)
+        dao.updateRest(workoutId, rest?.startedAt, rest?.endsAt)
+        return true
     }
 
     suspend fun rename(workoutId: Long, name: String) = dao.updateName(workoutId, name.trim())
@@ -160,13 +195,17 @@ class WorkoutRepository @Inject constructor(
         dao.deleteIncompleteSets(workoutId)
         dao.deleteExercisesWithoutSets(workoutId)
         dao.updateStatus(workoutId, WorkoutStatus.FINISHED, endedAt)
+        dao.updateRest(workoutId, null, null)
         FinishedWorkout(workout.name, summarize(workout, endedAt), workout.templateId, templateUpdate)
     }
 
     suspend fun updateTemplate(templateId: Long, draft: TemplateDraft) = templates.updateTemplate(templateId, draft)
 
     // Une séance abandonnée est gardée avec ce statut mais n'apparaît ni dans l'historique ni dans « Précédent ».
-    suspend fun discard(workoutId: Long) = dao.updateStatus(workoutId, WorkoutStatus.DISCARDED, clock.instant())
+    suspend fun discard(workoutId: Long) = database.withTransaction {
+        dao.updateStatus(workoutId, WorkoutStatus.DISCARDED, clock.instant())
+        dao.updateRest(workoutId, null, null)
+    }
 
     private suspend fun insertWorkout(templateId: Long?, name: String): Long = dao.insertWorkout(
         WorkoutEntity(
@@ -205,6 +244,7 @@ private fun WorkoutDetails.toDomain() = Workout(
     name = workout.name,
     startedAt = workout.startedAt,
     note = workout.note,
+    rest = workout.restPeriod(),
     exercises = exercises.sortedBy { it.workoutExercise.sortOrder }.map { details ->
         WorkoutExercise(
             id = details.workoutExercise.id,
@@ -214,6 +254,12 @@ private fun WorkoutDetails.toDomain() = Workout(
         )
     }
 )
+
+private fun WorkoutEntity.restPeriod(): RestPeriod? {
+    val startedAt = restStartedAt ?: return null
+    val endsAt = restEndsAt ?: return null
+    return RestPeriod(startedAt, endsAt)
+}
 
 private fun WorkoutSetEntity.toValues() = SetValues(weightKg, reps, durationSec, distanceM)
 

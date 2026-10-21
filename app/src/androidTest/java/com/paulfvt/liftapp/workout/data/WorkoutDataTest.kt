@@ -17,6 +17,7 @@ import com.paulfvt.liftapp.template.domain.TemplateDraft
 import com.paulfvt.liftapp.template.domain.addExercises
 import com.paulfvt.liftapp.template.domain.updateExercise
 import com.paulfvt.liftapp.template.domain.updateSet
+import com.paulfvt.liftapp.workout.domain.RestPeriod
 import com.paulfvt.liftapp.workout.domain.SetValues
 import com.paulfvt.liftapp.workout.domain.Workout
 import java.time.Clock
@@ -27,6 +28,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
@@ -189,6 +191,66 @@ class WorkoutDataTest {
     }
 
     @Test
+    fun validatingASetStartsTheRestOfItsExerciseAndTheLastSetEndsIt() = runTest {
+        val bench = newExercise("Développé couché")
+        workouts.startFromTemplate(template("Push A", bench))
+        val sets = inProgress().exercises.single().sets
+        sets.forEach { workouts.updateSetReps(it.id, 8) }
+
+        assertTrue(workouts.toggleCompleted(sets[0].id))
+        assertEquals(RestPeriod(clock.now, clock.now.plusSeconds(120)), inProgress().rest)
+
+        // Décocher une série ne touche pas au repos en cours.
+        workouts.toggleCompleted(sets[0].id)
+        assertNotNull(inProgress().rest)
+
+        // Après la dernière série, il n'y a plus rien à attendre.
+        sets.forEach { workouts.toggleCompleted(it.id) }
+        assertTrue(inProgress().exercises.single().sets.all { it.isCompleted })
+        assertNull(inProgress().rest)
+    }
+
+    @Test
+    fun theNotificationActionOnlyValidatesASetWithValues() = runTest {
+        val bench = newExercise("Développé couché")
+        workouts.startFromTemplate(template("Push A", bench))
+        val set = inProgress().exercises.single().sets.first()
+
+        assertFalse(workouts.completeSet(set.id))
+        assertNull(inProgress().rest)
+
+        workouts.updateSetReps(set.id, 12)
+        assertTrue(workouts.completeSet(set.id))
+        // Un second appui (notification pas encore rafraîchie) ne décoche pas la série.
+        assertTrue(workouts.completeSet(set.id))
+        assertTrue(inProgress().exercises.single().sets.first().isCompleted)
+        assertNotNull(inProgress().rest)
+    }
+
+    @Test
+    fun restCanBeExtendedShortenedSkippedAndIsClearedAtTheEnd() = runTest {
+        val bench = newExercise("Développé couché")
+        workouts.startFromTemplate(template("Push A", bench))
+        val start = clock.now
+        val set = inProgress().exercises.single().sets.first()
+        workouts.updateSetReps(set.id, 12)
+        workouts.toggleCompleted(set.id)
+
+        workouts.adjustRest(30)
+        assertEquals(RestPeriod(start, start.plusSeconds(150)), inProgress().rest)
+        clock.now = start.plusSeconds(100)
+        workouts.adjustRest(-15)
+        assertEquals(RestPeriod(start, start.plusSeconds(135)), inProgress().rest)
+        workouts.skipRest()
+        assertNull(inProgress().rest)
+
+        workouts.adjustRest(30)
+        val workoutId = inProgress().id
+        workouts.finish(workoutId)
+        assertNull(database.workoutDao().getWorkout(workoutId)?.restEndsAt)
+    }
+
+    @Test
     fun workoutInProgressIsResumedAfterTheAppIsRestarted() = runTest {
         // Base sur disque, pas en mémoire : on la ferme puis on la rouvre comme après un redémarrage.
         database.close()
@@ -205,7 +267,7 @@ class WorkoutDataTest {
         val firstSet = before.exercises.single().sets.first()
         workouts.updateSetWeight(firstSet.id, 42.5)
         workouts.updateSetReps(firstSet.id, 12)
-        workouts.setCompleted(firstSet.id, true)
+        workouts.toggleCompleted(firstSet.id)
         workouts.updateNote(before.id, "Épaule gauche sensible")
 
         database.close()
@@ -219,6 +281,8 @@ class WorkoutDataTest {
         val resumedSet = after.exercises.single().sets.first()
         assertEquals(SetValues(weightKg = 42.5, reps = 12), resumedSet.values)
         assertTrue(resumedSet.isCompleted)
+        // Le repos reprend avec la même heure de fin : le minuteur reste juste.
+        assertEquals(RestPeriod(clock.now, clock.now.plusSeconds(120)), after.rest)
         database.close()
         context.deleteDatabase(name)
         database = Room.inMemoryDatabaseBuilder(context, LiftDatabase::class.java).build()

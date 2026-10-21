@@ -79,7 +79,7 @@ class SetActions(
     val onRepsChange: (setId: Long, Int?) -> Unit,
     val onDurationChange: (setId: Long, Int?) -> Unit,
     val onDistanceChange: (setId: Long, Double?) -> Unit,
-    val onToggleCompleted: (setId: Long, TrackingType) -> Unit,
+    val onToggleCompleted: (setId: Long) -> Unit,
     val onRpeClick: (WorkoutSet) -> Unit,
     val onRemove: (setId: Long) -> Unit
 )
@@ -203,7 +203,7 @@ fun WorkoutSetRow(
         CompleteButton(
             completed = set.isCompleted,
             name = name,
-            onToggle = { actions.onToggleCompleted(set.id, exercise.trackingType) }
+            onToggle = { actions.onToggleCompleted(set.id) }
         )
     }
 }
