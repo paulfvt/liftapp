@@ -18,6 +18,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,15 +34,18 @@ import com.paulfvt.liftapp.exercise.ui.ExerciseThumbnail
 import com.paulfvt.liftapp.template.domain.TemplateExerciseDraft
 
 // Aperçu d'un template : ses exercices et leurs séries, avec « Démarrer » et « Modifier ».
+// « Démarrer » doit être visible dès l'ouverture, quelle que soit la longueur du template.
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TemplatePreviewSheet(preview: TemplatePreview, onStart: () -> Unit, onEdit: () -> Unit, onDismiss: () -> Unit) {
-    ModalBottomSheet(onDismissRequest = onDismiss) {
+    // Par défaut, Material 3 ouvre une feuille haute à mi-écran, ce qui cachait les boutons :
+    // elle s'ouvre ici directement à la hauteur de son contenu (au plus, la hauteur de l'écran).
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    ModalBottomSheet(onDismissRequest = onDismiss, sheetState = sheetState) {
         Column(
             verticalArrangement = Arrangement.spacedBy(12.dp),
             modifier = Modifier
                 .fillMaxWidth()
-                .verticalScroll(rememberScrollState())
                 .padding(horizontal = 16.dp)
                 .navigationBarsPadding()
                 .padding(bottom = 16.dp)
@@ -51,14 +55,21 @@ fun TemplatePreviewSheet(preview: TemplatePreview, onStart: () -> Unit, onEdit: 
                 style = MaterialTheme.typography.headlineMedium,
                 modifier = Modifier.semantics { heading() }
             )
-            if (preview.draft.exercises.isEmpty()) {
-                Text(
-                    stringResource(R.string.template_no_exercise),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
+            // Seule la liste défile : elle prend la place restante (sans s'étirer si elle est courte),
+            // et les boutons restent toujours sous elle, à l'écran.
+            Column(
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+                modifier = Modifier.weight(1f, fill = false).verticalScroll(rememberScrollState())
+            ) {
+                if (preview.draft.exercises.isEmpty()) {
+                    Text(
+                        stringResource(R.string.template_no_exercise),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+                preview.draft.exercises.forEach { PreviewExerciseRow(it) }
             }
-            preview.draft.exercises.forEach { PreviewExerciseRow(it) }
             Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.padding(top = 8.dp)) {
                 OutlinedButton(onClick = onEdit, modifier = Modifier.weight(1f).heightIn(min = 56.dp)) {
                     Text(stringResource(R.string.template_preview_edit))
