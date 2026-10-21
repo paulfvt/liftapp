@@ -1,21 +1,19 @@
 # Avancement
 
-## Phase en cours : 5 — Minuteur et notification
+## Phase en cours : 6 — Historique, records et courbes
 
-Plan validé le 21 octobre 2026 : notification avec compte à rebours dessiné par le système et alarme exacte pour
-l'alerte de fin de repos, sans service de premier plan (voir « Décisions techniques »).
+Plan à valider.
 
-- [x] Base v4 (début et fin du repos dans la séance), migration testée.
-- [x] Logique pure testée : repos (+30 s, −15 s, passer), série suivante pour la notification.
-- [x] Valider une série démarre le repos ; actions de la notification.
-- [x] Notification de séance (écran verrouillé, Live Update si disponible), alarme et alerte de fin de repos.
-  Vérifié sur l'émulateur (API 37) : Live Update acceptée, actions « Série validée » et « +30 s », alarme exacte
-  écran verrouillé (vibration 51 ms après la fin du repos), son joué par le système.
-- [x] 97 tests JVM et 25 tests instrumentés verts.
-- [x] Minuteur à l'écran, demande des permissions à la première séance, son et vibration désactivables.
-- [x] Mode salle : écran allumé, une série à la fois, gros boutons.
-- [ ] Test sur le S25+ : 3 min écran verrouillé, rotation, arrière-plan ; Live Update dans la barre d'état
-  (One UI peut ajouter ses propres critères) ; vibration et son de fin de repos.
+## Phase 5 — Minuteur et notification : terminée le 21 octobre 2026
+- Sans service de premier plan : notification avec compte à rebours dessiné par le système et alarme exacte pour
+  l'alerte de fin de repos (voir « Décisions techniques »).
+- Base v4 (début et fin du repos dans la séance), migration testée.
+- Valider une série lance le repos ; −15 s, +30 s, Passer ; actions « Série validée » et « +30 s » dans la
+  notification, Live Update sur Android 16.
+- Permissions demandées à la première séance ; son et vibration de fin de repos désactivables.
+- Mode salle : écran allumé, une série à la fois, gros boutons.
+- 97 tests JVM et 25 tests instrumentés verts. Vérifié sur l'émulateur (alarme à l'heure écran verrouillé, son joué
+  par le système), validé par le développeur le 21 octobre 2026.
 
 ## Phase 4 — Séance en cours : terminée le 21 octobre 2026
 - Base v3 (repos et reps cibles dans la séance), migration testée.
