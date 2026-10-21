@@ -2,7 +2,14 @@
 
 ## Phase en cours : 6 — Historique, records et courbes
 
-Plan à valider.
+Plan validé le 21 octobre 2026.
+
+- [ ] Logique pure testée : 1RM, records, points des courbes, périodes, regroupement par mois.
+- [ ] Records recalculés en fin de séance, après modification et après suppression d'une séance.
+- [ ] Onglet Historique : liste par mois, détail, suppression.
+- [ ] Modification d'une séance passée.
+- [ ] Onglet Progrès et écran Progression d'un exercice (records, courbes avec Vico).
+- [ ] Test sur le S25+.
 
 ## Phase 5 — Minuteur et notification : terminée le 21 octobre 2026
 - Sans service de premier plan : notification avec compte à rebours dessiné par le système et alarme exacte pour
@@ -119,10 +126,15 @@ Plan à valider.
 - **Mode salle** : interrupteur mémorisé dans le menu de la séance. Écran maintenu allumé, seule la série à faire est
   affichée, boutons − et + de 72 dp (2,5 kg, 1 rep, 15 s, 100 m en km ou 5 m), valeurs aussi modifiables au clavier.
   Les pas sont appliqués à la valeur en base pour que des appuis rapides s'additionnent.
+- **Records** (validé le 21 octobre 2026) : les séries dégressives comptent, seuls les échauffements sont exclus.
+  Une série à 1 rep a un 1RM égal au poids soulevé ; Epley au-delà, jusqu'à 12 reps. Les records sont toujours
+  recalculés en entier pour un exercice (fin de séance, modification, suppression), jamais modifiés au coup par coup.
+- **Records des exercices sans charge** (écart avec le cahier § 4.6, validé le 21 octobre 2026) : poids du corps =
+  reps max et lest max, durée = durée max, distance = distance max, chacun avec sa courbe.
+- **Graphiques avec Vico** (`compose-m3`, Apache 2.0, validé le 21 octobre 2026) : axes, zoom et valeur au toucher
+  sans les recoder ; servira aussi aux mesures (phase 7) et à la projection (phase 8).
 
 ## Questions ouvertes
-- Les séries dégressives comptent-elles pour les records ? À trancher avant la phase 6. En phase 4, elles comptent
-  dans le tonnage du résumé (seuls les échauffements en sont exclus).
 
 ## Problèmes connus
 - `kotlinx-coroutines-test` doit rester à la même version que `kotlinx-coroutines-core` utilisé par l'app
