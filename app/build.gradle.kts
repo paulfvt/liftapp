@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
@@ -6,6 +8,13 @@ plugins {
     alias(libs.plugins.hilt)
     alias(libs.plugins.room)
     alias(libs.plugins.ktlint)
+}
+
+// Clé d'envoi Google Play : chemin et mots de passe lus dans keystore.properties, ignoré par Git
+// (modèle : keystore.properties.example). Google signe ensuite l'app avec sa propre clé (Play App Signing).
+val keystorePropertiesFile: File = rootProject.file("keystore.properties")
+val keystoreProperties = Properties().apply {
+    if (keystorePropertiesFile.exists()) keystorePropertiesFile.inputStream().use { load(it) }
 }
 
 android {
@@ -24,8 +33,22 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        if (keystorePropertiesFile.exists()) {
+            create("upload") {
+                storeFile = rootProject.file(keystoreProperties.getProperty("storeFile"))
+                storePassword = keystoreProperties.getProperty("storePassword")
+                keyAlias = keystoreProperties.getProperty("keyAlias")
+                keyPassword = keystoreProperties.getProperty("keyPassword")
+            }
+        }
+    }
+
     buildTypes {
         release {
+            // Sans keystore.properties (CI, autre PC), la release est signée avec la clé de debug pour pouvoir
+            // l'installer et la tester. Google Play refuse un bundle signé ainsi : il ne peut pas partir par erreur.
+            signingConfig = signingConfigs.findByName("upload") ?: signingConfigs.getByName("debug")
             isMinifyEnabled = true
             // Retire aussi les ressources inutilisées (images, textes) de l'APK final.
             isShrinkResources = true
