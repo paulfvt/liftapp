@@ -1,17 +1,18 @@
 # Avancement
 
-## Phase en cours : 4 — Séance en cours
+## Phase en cours : 5 — Minuteur et notification
 
-Plan validé le 11 octobre 2026. Minuteur, notification et mode salle en phase 5 ; choix kg/lb en phase 10.
+Plan à valider.
 
-- [x] Base v3 (repos et reps cibles dans la séance), migration testée.
-- [x] Logique pure testée : performance précédente, pré-remplissage, saisie des valeurs, résumé.
-- [x] `WorkoutDao`, `WorkoutRepository`, test de reprise après redémarrage.
-- [x] Démarrage (aperçu du template, séance vide), écran de séance, bandeau EN DIRECT, reprise automatique
+## Phase 4 — Séance en cours : terminée le 21 octobre 2026
+- Base v3 (repos et reps cibles dans la séance), migration testée.
+- Logique pure testée : performance précédente, pré-remplissage, saisie des valeurs, résumé.
+- `WorkoutDao`, `WorkoutRepository`, test de reprise après redémarrage.
+- Démarrage (aperçu du template, séance vide), écran de séance, bandeau EN DIRECT, reprise automatique
   au lancement.
-- [x] Fin de séance : résumé, mise à jour du template, abandon. Parcours complet vérifié sur l'émulateur,
-  thèmes clair et sombre.
-- [ ] Test sur le S25+ par le développeur.
+- Fin de séance : résumé, mise à jour du template, abandon. Thèmes clair et sombre.
+- 79 tests JVM et 20 tests instrumentés, testé sur le S25+.
+- Choix kg/lb reporté en phase 10.
 
 ## Phase 3 — Templates : terminée le 11 octobre 2026
 - Design system « ON AIR » validé (`design-system/`) et appliqué au thème Compose.
