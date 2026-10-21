@@ -5,13 +5,17 @@
 Plan validé le 21 octobre 2026 : notification avec compte à rebours dessiné par le système et alarme exacte pour
 l'alerte de fin de repos, sans service de premier plan (voir « Décisions techniques »).
 
-- [ ] Base v4 (début et fin du repos dans la séance), migration testée.
-- [ ] Logique pure testée : repos (+30 s, −15 s, passer), série suivante pour la notification.
-- [ ] Valider une série démarre le repos ; actions de la notification.
-- [ ] Notification de séance (écran verrouillé, Live Update si disponible), alarme et alerte de fin de repos.
-- [ ] Minuteur à l'écran, demande des permissions à la première séance, son et vibration désactivables.
-- [ ] Mode salle : écran allumé, une série à la fois, gros boutons.
-- [ ] Test sur le S25+ : 3 min écran verrouillé, rotation, arrière-plan.
+- [x] Base v4 (début et fin du repos dans la séance), migration testée.
+- [x] Logique pure testée : repos (+30 s, −15 s, passer), série suivante pour la notification.
+- [x] Valider une série démarre le repos ; actions de la notification.
+- [x] Notification de séance (écran verrouillé, Live Update si disponible), alarme et alerte de fin de repos.
+  Vérifié sur l'émulateur (API 37) : Live Update acceptée, actions « Série validée » et « +30 s », alarme exacte
+  écran verrouillé (vibration 51 ms après la fin du repos), son joué par le système.
+- [x] 97 tests JVM et 25 tests instrumentés verts.
+- [x] Minuteur à l'écran, demande des permissions à la première séance, son et vibration désactivables.
+- [x] Mode salle : écran allumé, une série à la fois, gros boutons.
+- [ ] Test sur le S25+ : 3 min écran verrouillé, rotation, arrière-plan ; Live Update dans la barre d'état
+  (One UI peut ajouter ses propres critères) ; vibration et son de fin de repos.
 
 ## Phase 4 — Séance en cours : terminée le 21 octobre 2026
 - Base v3 (repos et reps cibles dans la séance), migration testée.
@@ -99,6 +103,24 @@ l'alerte de fin de repos, sans service de premier plan (voir « Décisions techn
   la notification affiche un compte à rebours dessiné par Android à partir de cette heure, donc juste même quand
   l'app ne tourne pas. Une alarme exacte (`SCHEDULE_EXACT_ALARM`, accordée par l'utilisateur) déclenche l'alerte de
   fin de repos ; sans elle, alarme inexacte qui peut arriver en retard écran verrouillé.
+- **Règles du repos** : valider une série lance le repos de son exercice (2 min si non réglé, rien si 0 s) ; pas de
+  repos après la dernière série de la séance ; décocher une série ne touche pas au repos ; +30 s sur un repos terminé
+  relance 30 s. L'alerte n'est jouée que si l'alarme arrive moins d'une minute après la fin du repos.
+- **Alerte de fin de repos** : la vibration est jouée par l'app (usage « alarme », rien en silencieux), car un canal
+  de notification garde la vibration choisie à sa création. Le son passe par une notification brève « Repos terminé »
+  sur un canal à part, publiée seulement si le son est activé : un son joué directement par l'app est coupé par
+  Android quand elle est en arrière-plan (constaté sur l'émulateur écran verrouillé). Vibreur, silencieux et « Ne pas
+  déranger » sont alors gérés par Android.
+- **Son et vibration réglés depuis le menu de la séance** (écart temporaire avec le cahier § 4.5 / § 4.10) : ils
+  rejoindront l'écran Réglages en phase 10. Stockés dans DataStore (`WorkoutSettingsRepository`).
+- **Après un redémarrage du téléphone**, notification et alarme reviennent à la réouverture de l'app (pas de
+  récepteur de démarrage, qui demanderait une permission de plus). La séance et l'heure de fin du repos sont, elles,
+  gardées en base.
+- **Notification** : canal sans son ni vibration, visible écran verrouillé ; hors repos, elle affiche la durée de la
+  séance. « Série validée » n'est proposée que si la série suivante a ses valeurs. Un appui ouvre la séance.
+- **Mode salle** : interrupteur mémorisé dans le menu de la séance. Écran maintenu allumé, seule la série à faire est
+  affichée, boutons − et + de 72 dp (2,5 kg, 1 rep, 15 s, 100 m en km ou 5 m), valeurs aussi modifiables au clavier.
+  Les pas sont appliqués à la valeur en base pour que des appuis rapides s'additionnent.
 
 ## Questions ouvertes
 - Les séries dégressives comptent-elles pour les records ? À trancher avant la phase 6. En phase 4, elles comptent

@@ -37,10 +37,11 @@ import javax.inject.Singleton
 class WorkoutNotifier @Inject constructor(@ApplicationContext private val context: Context) {
     private val manager = NotificationManagerCompat.from(context)
 
-    // Canal sans son ni vibration : la notification change à chaque série, seule la fin du repos doit alerter,
-    // et cette alerte est jouée à part (RestAlerter) pour respecter les réglages son et vibration de l'app.
-    fun createChannel() {
-        val channel = NotificationChannel(
+    // Deux canaux. « Séance en cours », sans son ni vibration : la notification change à chaque série.
+    // « Fin du repos », avec le son de notification du téléphone mais sans vibration (jouée par RestAlerter, pour
+    // pouvoir la couper depuis l'app). Android y applique lui-même vibreur, silencieux et « Ne pas déranger ».
+    fun createChannels() {
+        val workout = NotificationChannel(
             CHANNEL_ID,
             context.getString(R.string.notification_channel_workout),
             NotificationManager.IMPORTANCE_DEFAULT
@@ -51,13 +52,53 @@ class WorkoutNotifier @Inject constructor(@ApplicationContext private val contex
             setShowBadge(false)
             lockscreenVisibility = Notification.VISIBILITY_PUBLIC
         }
-        context.getSystemService(NotificationManager::class.java).createNotificationChannel(channel)
+        val restEnd = NotificationChannel(
+            REST_END_CHANNEL_ID,
+            context.getString(R.string.notification_channel_rest_end),
+            NotificationManager.IMPORTANCE_DEFAULT
+        ).apply {
+            description = context.getString(R.string.notification_channel_rest_end_description)
+            enableVibration(false)
+            setShowBadge(false)
+            lockscreenVisibility = Notification.VISIBILITY_PUBLIC
+        }
+        context.getSystemService(NotificationManager::class.java)
+            .createNotificationChannels(listOf(workout, restEnd))
+    }
+
+    // Son de fin de repos : notification brève qui disparaît d'elle-même après quelques secondes.
+    fun showRestEnd(notice: WorkoutNotice) {
+        val next = notice.next
+        val notification = NotificationCompat.Builder(context, REST_END_CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_timer)
+            .setContentTitle(context.getString(R.string.notification_rest_end))
+            .setContentText(next?.let { context.getString(R.string.notification_next, it.exercise.name, describe(it)) })
+            .setCategory(NotificationCompat.CATEGORY_REMINDER)
+            .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+            .setContentIntent(openWorkoutIntent())
+            .setAutoCancel(true)
+            .setTimeoutAfter(REST_END_TIMEOUT_MS)
+            .build()
+        post(REST_END_NOTIFICATION_ID, notification)
     }
 
     // Android 13+ : rien ne s'affiche sans la permission POST_NOTIFICATIONS.
     fun canNotify(): Boolean = manager.areNotificationsEnabled() && hasPermission()
 
-    fun show(notice: WorkoutNotice, now: Instant) {
+    fun show(notice: WorkoutNotice, now: Instant) = post(NOTIFICATION_ID, build(notice, now))
+
+    fun cancel() {
+        manager.cancel(NOTIFICATION_ID)
+        manager.cancel(REST_END_NOTIFICATION_ID)
+    }
+
+    private fun hasPermission(): Boolean = Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU ||
+        ActivityCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) ==
+        PackageManager.PERMISSION_GRANTED
+
+    // La vérification de permission est écrite ici en entier (et non via hasPermission) : c'est ce que l'analyse
+    // Android Lint sait reconnaître avant un appel à notify.
+    private fun post(id: Int, notification: Notification) {
         if (!manager.areNotificationsEnabled()) return
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
             ActivityCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) !=
@@ -65,14 +106,8 @@ class WorkoutNotifier @Inject constructor(@ApplicationContext private val contex
         ) {
             return
         }
-        manager.notify(NOTIFICATION_ID, build(notice, now))
+        manager.notify(id, notification)
     }
-
-    fun cancel() = manager.cancel(NOTIFICATION_ID)
-
-    private fun hasPermission(): Boolean = Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU ||
-        ActivityCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) ==
-        PackageManager.PERMISSION_GRANTED
 
     private fun build(notice: WorkoutNotice, now: Instant): Notification {
         val rest = notice.rest?.takeIf { it.isRunning(now) }
@@ -178,7 +213,10 @@ class WorkoutNotifier @Inject constructor(@ApplicationContext private val contex
 
     private companion object {
         const val CHANNEL_ID = "workout"
+        const val REST_END_CHANNEL_ID = "rest_end"
         const val NOTIFICATION_ID = 1
+        const val REST_END_NOTIFICATION_ID = 2
+        const val REST_END_TIMEOUT_MS = 10_000L
         const val REQUEST_OPEN = 0
         const val REQUEST_COMPLETE = 1
         const val REQUEST_ADD_REST = 2

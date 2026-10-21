@@ -34,7 +34,7 @@ class WorkoutSessionSync @Inject constructor(
     // Lancé au démarrage de l'app. Après un redémarrage du téléphone, notification et alarme reviennent donc dès que
     // l'app est rouverte (la séance, elle, est reprise telle quelle).
     fun start() {
-        notifier.createChannel()
+        notifier.createChannels()
         scope.launch {
             workouts.observeInProgress().map { it?.toNotice() }.distinctUntilChanged().collect { apply(it) }
         }

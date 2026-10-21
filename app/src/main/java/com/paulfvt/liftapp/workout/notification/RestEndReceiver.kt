@@ -7,6 +7,7 @@ import com.paulfvt.liftapp.core.di.ApplicationScope
 import com.paulfvt.liftapp.workout.data.WorkoutRepository
 import com.paulfvt.liftapp.workout.data.WorkoutSettingsRepository
 import com.paulfvt.liftapp.workout.domain.RestPeriod
+import com.paulfvt.liftapp.workout.domain.toNotice
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.Clock
 import java.time.Duration
@@ -25,6 +26,8 @@ class RestEndReceiver : BroadcastReceiver() {
 
     @Inject lateinit var alerter: RestAlerter
 
+    @Inject lateinit var notifier: WorkoutNotifier
+
     @Inject lateinit var sync: WorkoutSessionSync
 
     @Inject lateinit var clock: Clock
@@ -37,8 +40,13 @@ class RestEndReceiver : BroadcastReceiver() {
         val pending = goAsync()
         scope.launch {
             try {
-                val rest = workouts.observeInProgress().first()?.rest
-                if (rest != null && shouldAlert(rest, clock.instant())) alerter.alert(settings.current())
+                val workout = workouts.observeInProgress().first()
+                val rest = workout?.rest
+                if (rest != null && shouldAlert(rest, clock.instant())) {
+                    val current = settings.current()
+                    if (current.restVibration) alerter.vibrate()
+                    if (current.restSound) notifier.showRestEnd(workout.toNotice())
+                }
                 sync.refresh()
             } finally {
                 pending.finish()

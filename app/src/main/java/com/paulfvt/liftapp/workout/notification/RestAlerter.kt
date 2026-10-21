@@ -1,36 +1,25 @@
 package com.paulfvt.liftapp.workout.notification
 
-import android.app.NotificationManager
 import android.content.Context
 import android.media.AudioAttributes
 import android.media.AudioManager
-import android.media.RingtoneManager
 import android.os.Build
 import android.os.VibrationAttributes
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.os.VibratorManager
-import android.provider.Settings
-import com.paulfvt.liftapp.workout.data.WorkoutSettings
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
-// Alerte de fin de repos. Elle est jouée par l'app plutôt que par le canal de notification : un canal garde le son et
-// la vibration choisis à sa création, alors que l'app doit pouvoir couper l'un ou l'autre à tout moment.
-// Le mode du téléphone est respecté : pas de son en vibreur, en silencieux ni en « Ne pas déranger », pas de
-// vibration en silencieux.
+// Vibration de fin de repos. Elle est jouée par l'app plutôt que par un canal de notification : un canal garde la
+// vibration choisie à sa création, alors que l'app doit pouvoir la couper à tout moment. Rien en mode silencieux.
+// Le son, lui, passe par une notification (WorkoutNotifier.showRestEnd) : depuis Android 15, un son joué par une app
+// en arrière-plan est coupé, ce que l'essai sur l'émulateur a confirmé écran verrouillé.
 @Singleton
 class RestAlerter @Inject constructor(@ApplicationContext private val context: Context) {
-    fun alert(settings: WorkoutSettings) {
-        val ringerMode = context.getSystemService(AudioManager::class.java).ringerMode
-        if (settings.restVibration && ringerMode != AudioManager.RINGER_MODE_SILENT) vibrate()
-        val filter = context.getSystemService(NotificationManager::class.java).currentInterruptionFilter
-        val doNotDisturb = filter != NotificationManager.INTERRUPTION_FILTER_ALL
-        if (settings.restSound && ringerMode == AudioManager.RINGER_MODE_NORMAL && !doNotDisturb) playSound()
-    }
-
-    private fun vibrate() {
+    fun vibrate() {
+        if (context.getSystemService(AudioManager::class.java).ringerMode == AudioManager.RINGER_MODE_SILENT) return
         val vibrator = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             context.getSystemService(VibratorManager::class.java).defaultVibrator
         } else {
@@ -46,16 +35,6 @@ class RestAlerter @Inject constructor(@ApplicationContext private val context: C
             @Suppress("DEPRECATION")
             vibrator.vibrate(effect, AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_ALARM).build())
         }
-    }
-
-    // Son de notification choisi par l'utilisateur dans les réglages du téléphone.
-    private fun playSound() {
-        val ringtone = RingtoneManager.getRingtone(context, Settings.System.DEFAULT_NOTIFICATION_URI) ?: return
-        ringtone.audioAttributes = AudioAttributes.Builder()
-            .setUsage(AudioAttributes.USAGE_NOTIFICATION_EVENT)
-            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-            .build()
-        ringtone.play()
     }
 
     private companion object {
