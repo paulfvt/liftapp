@@ -18,6 +18,28 @@
 
     <!-- Onglet Profil, À propos et licences -->
     <string name="profile_about_summary">Version, crédits et licences</string>
+    <string name="profile_title_empty">Ton profil</string>
+    <string name="profile_details_empty">Taille, âge et sexe, tous facultatifs</string>
+    <string name="profile_height_value">%1$s cm</string>
+    <plurals name="profile_age">
+        <item quantity="one">%d an</item>
+        <item quantity="other">%d ans</item>
+    </plurals>
+    <string name="profile_edit_title">Modifier le profil</string>
+    <string name="profile_edit_hint">Tout est facultatif et reste sur ton téléphone.</string>
+    <string name="profile_first_name">Prénom</string>
+    <string name="profile_height">Taille</string>
+    <string name="profile_birth_date">Date de naissance</string>
+    <string name="profile_not_set">Non renseignée</string>
+    <string name="profile_clear_birth_date">Effacer la date de naissance</string>
+    <string name="profile_sex">Sexe</string>
+    <string name="profile_sex_female">Femme</string>
+    <string name="profile_sex_male">Homme</string>
+    <string name="profile_sex_unspecified">Non précisé</string>
+    <string name="profile_error_first_name">%1$d caractères maximum.</string>
+    <string name="profile_error_height">Entre une taille entre 50 et 260 cm.</string>
+    <string name="profile_error_birth_date">Choisis une date passée.</string>
+    <string name="profile_discard_text">Tes changements sur le profil ne seront pas enregistrés.</string>
     <string name="profile_coming_soon">Tes mesures et tes photos de progression arriveront ici dans une prochaine version.</string>
     <string name="about_title">À propos</string>
     <string name="about_version">Version %1$s</string>
@@ -53,6 +75,7 @@
     <string name="action_edit">Modifier</string>
     <string name="action_more">Plus d\'options</string>
     <string name="action_clear">Effacer</string>
+    <string name="action_ok">OK</string>
     <string name="action_create">Créer</string>
     <string name="action_delete">Supprimer</string>
     <string name="action_rename">Renommer</string>
@@ -274,6 +297,7 @@
     <string name="notification_action_complete">Série validée</string>
     <string name="duration_hours_minutes">%1$d h %2$02d</string>
     <string name="weight_kg">%1$s kg</string>
+    <string name="unit_cm">cm</string>
 
     <!-- Historique -->
     <string name="history_empty_title">Aucune séance pour l\'instant</string>

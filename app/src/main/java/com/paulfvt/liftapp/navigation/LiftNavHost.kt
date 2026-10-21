@@ -12,6 +12,7 @@ import com.paulfvt.liftapp.history.navigation.WorkoutDetailRoute
 import com.paulfvt.liftapp.history.navigation.historyScreens
 import com.paulfvt.liftapp.history.ui.HistoryScreen
 import com.paulfvt.liftapp.profile.navigation.AboutRoute
+import com.paulfvt.liftapp.profile.navigation.ProfileEditRoute
 import com.paulfvt.liftapp.profile.navigation.profileScreens
 import com.paulfvt.liftapp.profile.ui.ProfileScreen
 import com.paulfvt.liftapp.progress.navigation.ExerciseProgressRoute
@@ -57,7 +58,10 @@ fun LiftNavHost(navController: NavHostController, modifier: Modifier = Modifier)
         }
         navigation<ProfileGraph>(startDestination = ProfileRoute) {
             composable<ProfileRoute> {
-                ProfileScreen(onOpenAbout = { navController.navigate(AboutRoute) })
+                ProfileScreen(
+                    onEditProfile = { navController.navigate(ProfileEditRoute) },
+                    onOpenAbout = { navController.navigate(AboutRoute) }
+                )
             }
             profileScreens(navController)
         }

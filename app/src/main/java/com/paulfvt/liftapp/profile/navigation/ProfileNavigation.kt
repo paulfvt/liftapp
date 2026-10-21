@@ -5,7 +5,11 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.paulfvt.liftapp.profile.ui.AboutScreen
 import com.paulfvt.liftapp.profile.ui.LicenseScreen
+import com.paulfvt.liftapp.profile.ui.ProfileEditScreen
 import kotlinx.serialization.Serializable
+
+@Serializable
+data object ProfileEditRoute
 
 @Serializable
 data object AboutRoute
@@ -15,6 +19,9 @@ data object AboutRoute
 data class LicenseRoute(val licenseId: String)
 
 fun NavGraphBuilder.profileScreens(navController: NavController) {
+    composable<ProfileEditRoute> {
+        ProfileEditScreen(onClose = { navController.popBackStack<ProfileEditRoute>(inclusive = true) })
+    }
     composable<AboutRoute> {
         AboutScreen(
             onBack = { navController.popBackStack<AboutRoute>(inclusive = true) },

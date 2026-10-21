@@ -8,6 +8,7 @@ import com.paulfvt.liftapp.workout.domain.formatDecimal
 import java.text.NumberFormat
 import java.time.Duration
 import java.time.Instant
+import java.time.LocalDate
 import java.time.YearMonth
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -42,6 +43,9 @@ fun dayAndTime(instant: Instant, zone: ZoneId = ZoneId.systemDefault()): String 
 
 // « 21 oct. 2026 ».
 fun shortDay(instant: Instant, zone: ZoneId = ZoneId.systemDefault()): String = SHORT_DAY.format(instant.atZone(zone))
+
+// « 3 mai 1998 », pour une date sans heure (date de naissance).
+fun shortDate(date: LocalDate): String = SHORT_DAY.format(date)
 
 // « Octobre 2026 ».
 fun monthTitle(month: YearMonth): String = MONTH.format(month).replaceFirstChar { it.uppercase(Locale.FRENCH) }
