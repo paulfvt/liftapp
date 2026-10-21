@@ -12,6 +12,7 @@ Android en reprend les valeurs dans `core/designsystem/theme/`.
 | `index.html`   | Guide de style vivant : fondations, 30 composants Material 3, 5 extensions muscu, Dev Mode.   |
 | `concept.html` | Deux écrans d'exemple (accueil, séance en cours) construits uniquement avec les composants.  |
 | `icons.html`   | Sprite SVG des icônes, copié en haut de `index.html` et `concept.html`.                      |
+| `icon.html`    | Pistes d'icône de l'app ; la piste B « Néon » est retenue.                                   |
 
 Ouvrir `index.html` dans un navigateur (double-clic, pas de serveur nécessaire). Le thème choisi en haut à droite est
 mémorisé et partagé entre les trois pages.

@@ -1,17 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Icône 24 dp agrandie (x2,25) et centrée dans la zone sûre de 66 dp d'une icône adaptative de 108 dp. -->
+<!-- Icône « Néon » (design-system/icon.html, piste B) : barre dessinée en tube de néon.
+     Le même tracé est repris quatre fois, du halo large et transparent au cœur clair.
+     Réduit à 80 % autour du centre pour respirer dans tous les masques de lanceur. -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp"
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
     <group
-        android:scaleX="2.25"
-        android:scaleY="2.25"
-        android:translateX="27"
-        android:translateY="27">
+        android:pivotX="54"
+        android:pivotY="54"
+        android:scaleX="0.8"
+        android:scaleY="0.8">
         <path
-            android:fillColor="#FFFFFFFF"
-            android:pathData="M20.57,14.86L22,13.43 20.57,12 17,15.57 8.43,7 12,3.43 10.57,2 9.14,3.43 7.71,2 5.57,4.14 4.14,2.71 2.71,4.14l1.43,1.43L2,7.71l1.43,1.43L2,10.57 3.43,12 7,8.43 15.57,17 12,20.57 13.43,22l1.43,-1.43L16.29,22l2.14,-2.14 1.43,1.43 1.43,-1.43 -1.43,-1.43L22,16.29z" />
+            android:pathData="M35.5,36H36.5A3,3 0,0 1,39.5,39V69A3,3 0,0 1,36.5,72H35.5A3,3 0,0 1,32.5,69V39A3,3 0,0 1,35.5,36ZM71.5,36H72.5A3,3 0,0 1,75.5,39V69A3,3 0,0 1,72.5,72H71.5A3,3 0,0 1,68.5,69V39A3,3 0,0 1,71.5,36ZM27.2,43H27.3A2.2,2.2 0,0 1,29.5,45.2V62.8A2.2,2.2 0,0 1,27.3,65H27.2A2.2,2.2 0,0 1,25,62.8V45.2A2.2,2.2 0,0 1,27.2,43ZM80.7,43H80.8A2.2,2.2 0,0 1,83,45.2V62.8A2.2,2.2 0,0 1,80.8,65H80.7A2.2,2.2 0,0 1,78.5,62.8V45.2A2.2,2.2 0,0 1,80.7,43ZM40,54H68M29.5,54H32.5M75.5,54H78.5M20,54H25M83,54H88"
+            android:strokeColor="#FFEB281E"
+            android:strokeAlpha="0.16"
+            android:strokeWidth="8"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
+        <path
+            android:pathData="M35.5,36H36.5A3,3 0,0 1,39.5,39V69A3,3 0,0 1,36.5,72H35.5A3,3 0,0 1,32.5,69V39A3,3 0,0 1,35.5,36ZM71.5,36H72.5A3,3 0,0 1,75.5,39V69A3,3 0,0 1,72.5,72H71.5A3,3 0,0 1,68.5,69V39A3,3 0,0 1,71.5,36ZM27.2,43H27.3A2.2,2.2 0,0 1,29.5,45.2V62.8A2.2,2.2 0,0 1,27.3,65H27.2A2.2,2.2 0,0 1,25,62.8V45.2A2.2,2.2 0,0 1,27.2,43ZM80.7,43H80.8A2.2,2.2 0,0 1,83,45.2V62.8A2.2,2.2 0,0 1,80.8,65H80.7A2.2,2.2 0,0 1,78.5,62.8V45.2A2.2,2.2 0,0 1,80.7,43ZM40,54H68M29.5,54H32.5M75.5,54H78.5M20,54H25M83,54H88"
+            android:strokeColor="#FFEB281E"
+            android:strokeAlpha="0.32"
+            android:strokeWidth="4.6"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
+        <path
+            android:pathData="M35.5,36H36.5A3,3 0,0 1,39.5,39V69A3,3 0,0 1,36.5,72H35.5A3,3 0,0 1,32.5,69V39A3,3 0,0 1,35.5,36ZM71.5,36H72.5A3,3 0,0 1,75.5,39V69A3,3 0,0 1,72.5,72H71.5A3,3 0,0 1,68.5,69V39A3,3 0,0 1,71.5,36ZM27.2,43H27.3A2.2,2.2 0,0 1,29.5,45.2V62.8A2.2,2.2 0,0 1,27.3,65H27.2A2.2,2.2 0,0 1,25,62.8V45.2A2.2,2.2 0,0 1,27.2,43ZM80.7,43H80.8A2.2,2.2 0,0 1,83,45.2V62.8A2.2,2.2 0,0 1,80.8,65H80.7A2.2,2.2 0,0 1,78.5,62.8V45.2A2.2,2.2 0,0 1,80.7,43ZM40,54H68M29.5,54H32.5M75.5,54H78.5M20,54H25M83,54H88"
+            android:strokeColor="#FFFF5A4E"
+            android:strokeWidth="2.6"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
+        <path
+            android:pathData="M35.5,36H36.5A3,3 0,0 1,39.5,39V69A3,3 0,0 1,36.5,72H35.5A3,3 0,0 1,32.5,69V39A3,3 0,0 1,35.5,36ZM71.5,36H72.5A3,3 0,0 1,75.5,39V69A3,3 0,0 1,72.5,72H71.5A3,3 0,0 1,68.5,69V39A3,3 0,0 1,71.5,36ZM27.2,43H27.3A2.2,2.2 0,0 1,29.5,45.2V62.8A2.2,2.2 0,0 1,27.3,65H27.2A2.2,2.2 0,0 1,25,62.8V45.2A2.2,2.2 0,0 1,27.2,43ZM80.7,43H80.8A2.2,2.2 0,0 1,83,45.2V62.8A2.2,2.2 0,0 1,80.8,65H80.7A2.2,2.2 0,0 1,78.5,62.8V45.2A2.2,2.2 0,0 1,80.7,43ZM40,54H68M29.5,54H32.5M75.5,54H78.5M20,54H25M83,54H88"
+            android:strokeColor="#FFFFD9D5"
+            android:strokeWidth="1"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
     </group>
 </vector>
