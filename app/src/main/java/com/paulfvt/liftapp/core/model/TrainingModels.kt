@@ -16,11 +16,16 @@ enum class SetType {
     DROP
 }
 
+// MAX_WEIGHT est la charge pour « poids × reps », le lest pour un exercice au poids du corps. Les trois derniers
+// types (phase 6) servent aux exercices sans charge. Stockés par leur nom : en ajouter ne demande pas de migration.
 enum class PersonalRecordType {
     MAX_WEIGHT,
     MAX_ESTIMATED_1RM,
     MAX_SET_VOLUME,
-    MAX_REPS_AT_WEIGHT
+    MAX_REPS_AT_WEIGHT,
+    MAX_REPS,
+    MAX_DURATION,
+    MAX_DISTANCE
 }
 
 enum class MeasurementType {
