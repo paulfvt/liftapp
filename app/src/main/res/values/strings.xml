@@ -260,6 +260,37 @@
     <string name="history_edit_no_exercise">Garde au moins un exercice, ou supprime la séance depuis son détail.</string>
     <string name="history_edit_missing_values">Complète les valeurs de chaque série, ou retire les séries vides.</string>
 
+    <!-- Progrès : records et courbes -->
+    <string name="progress_empty_title">Tes progrès apparaîtront ici</string>
+    <string name="progress_empty_text">Termine une séance : chaque exercice aura ses records et ses courbes.</string>
+    <string name="progress_last_time">Dernière fois le %1$s</string>
+    <plurals name="progress_sessions">
+        <item quantity="one">%d séance</item>
+        <item quantity="many">%d séances</item>
+        <item quantity="other">%d séances</item>
+    </plurals>
+    <string name="progress_no_history_title">Pas encore de séance</string>
+    <string name="progress_no_history_text">Termine une séance avec cet exercice pour voir ses records et sa courbe.</string>
+    <string name="progress_records">Records</string>
+    <string name="progress_chart">Courbe</string>
+    <string name="progress_record_date">le %1$s</string>
+    <string name="progress_no_session_in_period">Aucune séance sur cette période.</string>
+    <string name="progress_chart_range">de %1$s à %2$s</string>
+    <string name="period_month">1 mois</string>
+    <string name="period_three_months">3 mois</string>
+    <string name="period_year">1 an</string>
+    <string name="period_all">Tout</string>
+    <string name="metric_1rm">1RM estimé</string>
+    <string name="metric_max_weight">Charge max</string>
+    <string name="metric_max_extra_load">Lest max</string>
+    <string name="metric_volume">Volume</string>
+    <string name="metric_max_reps">Reps max</string>
+    <string name="metric_max_duration">Durée max</string>
+    <string name="metric_max_distance">Distance max</string>
+    <string name="record_best_set_volume">Meilleure série</string>
+    <string name="record_reps_at_weight">Reps max par charge</string>
+    <string name="exercise_open_progress">Voir la progression</string>
+
     <!-- Catalogue d'exercices -->
     <string name="exercises_title">Exercices</string>
     <string name="exercises_search">Rechercher un exercice</string>

@@ -77,6 +77,9 @@ dependencies {
     implementation(libs.coil.compose)
     // Glisser-déposer dans les listes Compose (Apache 2.0) : Compose ne le propose pas en natif.
     implementation(libs.reorderable)
+    // Courbes de progression (Apache 2.0), validé le 21 octobre 2026. Le module Material 3 de Vico n'est pas
+    // utilisé : son seul rôle (reprendre les couleurs du thème) tient en quelques lignes dans ProgressChart.
+    implementation(libs.vico.compose)
 
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)

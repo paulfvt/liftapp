@@ -145,3 +145,13 @@ data class PerformedExercise(
     val workoutCount: Int,
     val headline: PersonalRecord?
 )
+
+// Record correspondant à une mesure. Pour le volume, le record est la meilleure série, la courbe la séance entière.
+fun ExerciseMetric.recordType(): PersonalRecordType = when (this) {
+    ExerciseMetric.ESTIMATED_1RM -> PersonalRecordType.MAX_ESTIMATED_1RM
+    ExerciseMetric.MAX_WEIGHT -> PersonalRecordType.MAX_WEIGHT
+    ExerciseMetric.VOLUME -> PersonalRecordType.MAX_SET_VOLUME
+    ExerciseMetric.MAX_REPS -> PersonalRecordType.MAX_REPS
+    ExerciseMetric.MAX_DURATION -> PersonalRecordType.MAX_DURATION
+    ExerciseMetric.MAX_DISTANCE -> PersonalRecordType.MAX_DISTANCE
+}

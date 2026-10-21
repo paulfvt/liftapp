@@ -8,6 +8,7 @@ import com.paulfvt.liftapp.exercise.ui.detail.ExerciseDetailScreen
 import com.paulfvt.liftapp.exercise.ui.edit.ExerciseEditScreen
 import com.paulfvt.liftapp.exercise.ui.list.ExerciseListScreen
 import com.paulfvt.liftapp.exercise.ui.list.ExercisePickerScreen
+import com.paulfvt.liftapp.progress.navigation.ExerciseProgressRoute
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -42,7 +43,8 @@ fun NavGraphBuilder.exerciseScreens(navController: NavController) {
     composable<ExerciseDetailRoute> {
         ExerciseDetailScreen(
             onBack = navController::popBackStack,
-            onEdit = { id -> navController.navigate(ExerciseEditRoute(id)) }
+            onEdit = { id -> navController.navigate(ExerciseEditRoute(id)) },
+            onOpenProgress = { id -> navController.navigate(ExerciseProgressRoute(id)) }
         )
     }
     composable<ExerciseCreateRoute> {

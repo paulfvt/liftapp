@@ -50,6 +50,7 @@ import com.paulfvt.liftapp.exercise.ui.ExerciseImageAnimation
 fun ExerciseDetailScreen(
     onBack: () -> Unit,
     onEdit: (Long) -> Unit,
+    onOpenProgress: (Long) -> Unit,
     viewModel: ExerciseDetailViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -57,6 +58,7 @@ fun ExerciseDetailScreen(
         uiState = uiState,
         onBack = onBack,
         onEdit = onEdit,
+        onOpenProgress = onOpenProgress,
         onSaveNote = viewModel::saveNote,
         onSetHidden = viewModel::setHidden
     )
@@ -68,6 +70,7 @@ private fun ExerciseDetailContent(
     uiState: ExerciseDetailUiState,
     onBack: () -> Unit,
     onEdit: (Long) -> Unit,
+    onOpenProgress: (Long) -> Unit,
     onSaveNote: (String) -> Unit,
     onSetHidden: (Boolean) -> Unit
 ) {
@@ -86,6 +89,13 @@ private fun ExerciseDetailContent(
                 },
                 actions = {
                     if (exercise != null) {
+                        // Records et courbes de l'exercice (onglet Progrès).
+                        IconButton(onClick = { onOpenProgress(exercise.id) }) {
+                            Icon(
+                                painterResource(R.drawable.ic_trending_up),
+                                stringResource(R.string.exercise_open_progress)
+                            )
+                        }
                         if (exercise.isCustom) {
                             IconButton(onClick = { onEdit(exercise.id) }) {
                                 Icon(

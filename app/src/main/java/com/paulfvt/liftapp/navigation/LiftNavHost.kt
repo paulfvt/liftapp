@@ -13,7 +13,9 @@ import com.paulfvt.liftapp.exercise.navigation.exerciseScreens
 import com.paulfvt.liftapp.history.navigation.WorkoutDetailRoute
 import com.paulfvt.liftapp.history.navigation.historyScreens
 import com.paulfvt.liftapp.history.ui.HistoryScreen
+import com.paulfvt.liftapp.progress.navigation.ExerciseProgressRoute
 import com.paulfvt.liftapp.progress.navigation.progressScreens
+import com.paulfvt.liftapp.progress.ui.ProgressScreen
 import com.paulfvt.liftapp.template.navigation.TemplateEditRoute
 import com.paulfvt.liftapp.template.navigation.templateScreens
 import com.paulfvt.liftapp.template.ui.list.TemplatesScreen
@@ -48,7 +50,9 @@ fun LiftNavHost(navController: NavHostController, modifier: Modifier = Modifier)
             historyScreens(navController)
         }
         navigation<ProgressGraph>(startDestination = ProgressRoute) {
-            composable<ProgressRoute> { ComingSoonScreen(R.string.nav_progress) }
+            composable<ProgressRoute> {
+                ProgressScreen(onOpenExercise = { id -> navController.navigate(ExerciseProgressRoute(id)) })
+            }
             progressScreens(navController)
         }
         composable<ProfileRoute> { ComingSoonScreen(R.string.nav_profile) }
