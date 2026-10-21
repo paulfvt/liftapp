@@ -1,11 +1,26 @@
 # Avancement
 
-## Prochaine étape : à décider
+## En cours : préparation du test fermé (une partie de la phase 11)
 
-Décision du 6 octobre 2026 : publication en test fermé après la phase 6. À trancher avec le développeur : préparer
-d'abord le test fermé (une partie de la phase 11), ou passer à la phase 7. Recommandation faite au développeur :
-le test fermé d'abord (icône, écran de premier lancement, politique de confidentialité, version signée), car Google
-exige 12 testeurs pendant 14 jours avant la production ; les phases 7 à 9 avanceraient pendant le test.
+Décidé le 21 octobre 2026 : le test fermé passe avant la phase 7, car Google exige 12 testeurs inscrits pendant
+14 jours d'affilée avant la production. Les phases 7 à 9 avancent pendant le test. Nom et identifiant gardés :
+« LiftApp », `com.paulfvt.liftapp` (l'identifiant ne pourra plus changer après le premier envoi).
+
+Plan validé le 21 octobre 2026 :
+1. Version de release signée : clé d'envoi créée par le développeur, mots de passe dans `keystore.properties`
+   (hors Git), Play App Signing. Release testée sur l'émulateur (R8).
+2. Pendant le test, l'app s'ouvre sur Séances et l'onglet Accueil est masqué (retour en phase 9).
+3. Onglet Profil réduit pour l'instant à « À propos » : version et licences (free-exercise-db, Barlow, bibliothèques
+   Apache 2.0), écrit à la main sans nouvelle dépendance.
+4. Premier lancement : un seul écran de bienvenue (ce que fait l'app, données gardées sur le téléphone,
+   « Commencer »). Unités (phase 10) et objectif hebdomadaire (phase 8) s'y ajouteront.
+5. Icône ON AIR : maquette dans `design-system/` à valider, puis icône adaptative en vecteur et version 512 px.
+6. Politique de confidentialité en français, hébergée sur un petit dépôt public à part (le dépôt de l'app est privé).
+7. Fiche Play Store : descriptions, captures, bannière, réponses préparées pour « Sécurité des données » et la
+   classification du contenu.
+
+À faire par le développeur : compte développeur Google Play (25 $, vérification d'identité), 12 testeurs avec une
+adresse Gmail.
 
 ## Phase 6 — Historique, records et courbes : terminée le 21 octobre 2026
 - Onglet Historique : séances par mois, détail, modification (en mémoire jusqu'à « Enregistrer ») et suppression.
