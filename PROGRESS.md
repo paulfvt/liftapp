@@ -4,11 +4,12 @@
 
 Plan validé le 21 octobre 2026.
 
-- [ ] Logique pure testée : 1RM, records, points des courbes, périodes, regroupement par mois.
-- [ ] Records recalculés en fin de séance, après modification et après suppression d'une séance.
-- [ ] Onglet Historique : liste par mois, détail, suppression.
-- [ ] Modification d'une séance passée.
-- [ ] Onglet Progrès et écran Progression d'un exercice (records, courbes avec Vico).
+- [x] Logique pure testée : 1RM, records, points des courbes, périodes, regroupement par mois, échelle des courbes.
+- [x] Records recalculés en fin de séance, après modification et après suppression d'une séance (tests instrumentés).
+- [x] Onglet Historique : liste par mois, détail, suppression.
+- [x] Modification d'une séance passée.
+- [x] Onglet Progrès et écran Progression d'un exercice (records, courbes avec Vico). Vérifié sur l'émulateur.
+- [ ] Relancer les tests instrumentés après les derniers ajustements d'affichage, et la suppression sur l'émulateur.
 - [ ] Test sur le S25+.
 
 ## Phase 5 — Minuteur et notification : terminée le 21 octobre 2026

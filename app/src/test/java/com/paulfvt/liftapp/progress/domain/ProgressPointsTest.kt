@@ -61,4 +61,14 @@ class ProgressPointsTest {
         assertEquals(listOf(YearMonth.of(2026, 11), YearMonth.of(2026, 10)), groups.map { it.month })
         assertEquals(2, groups.first().items.size)
     }
+
+    @Test
+    fun `chart range uses round bounds around the values`() {
+        assertEquals(ChartRange(90.0, 105.0, 5.0), chartRange(listOf(92.0, 101.33)))
+        // Une seule valeur : une marge autour d'elle.
+        assertEquals(ChartRange(95.0, 105.0, 5.0), chartRange(listOf(100.0)))
+        // Jamais sous 0.
+        assertEquals(0.0, chartRange(listOf(1.0, 3.0)).min, 0.0)
+        assertEquals(ChartRange(500.0, 2_000.0, 500.0), chartRange(listOf(895.0, 1_805.0)))
+    }
 }

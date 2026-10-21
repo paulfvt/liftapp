@@ -18,8 +18,10 @@ import com.patrykandpatrick.vico.compose.cartesian.Zoom
 import com.patrykandpatrick.vico.compose.cartesian.axis.HorizontalAxis
 import com.patrykandpatrick.vico.compose.cartesian.axis.VerticalAxis
 import com.patrykandpatrick.vico.compose.cartesian.data.CartesianChartModelProducer
+import com.patrykandpatrick.vico.compose.cartesian.data.CartesianLayerRangeProvider
 import com.patrykandpatrick.vico.compose.cartesian.data.CartesianValueFormatter
 import com.patrykandpatrick.vico.compose.cartesian.data.lineModel
+import com.patrykandpatrick.vico.compose.cartesian.layer.CartesianLayerPadding
 import com.patrykandpatrick.vico.compose.cartesian.layer.LineCartesianLayer
 import com.patrykandpatrick.vico.compose.cartesian.layer.rememberLine
 import com.patrykandpatrick.vico.compose.cartesian.layer.rememberLineCartesianLayer
@@ -35,6 +37,7 @@ import com.patrykandpatrick.vico.compose.common.VicoTheme
 import com.patrykandpatrick.vico.compose.common.component.ShapeComponent
 import com.patrykandpatrick.vico.compose.common.component.rememberTextComponent
 import com.paulfvt.liftapp.progress.domain.ProgressPoint
+import com.paulfvt.liftapp.progress.domain.chartRange
 import java.time.LocalDate
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -65,7 +68,9 @@ fun ProgressChart(
     LaunchedEffect(byDay) {
         modelProducer.runTransaction { lineModel { series(x = byDay.keys.toList(), y = byDay.values.toList()) } }
     }
-    val span = if (byDay.isEmpty()) 0L else byDay.lastKey() - byDay.firstKey()
+    if (byDay.isEmpty()) return
+    val span = byDay.lastKey() - byDay.firstKey()
+    val range = remember(byDay) { chartRange(byDay.values.toList()) }
     val labelSpacing = (span / BOTTOM_LABEL_COUNT).toInt().coerceAtLeast(1)
 
     val amber = MaterialTheme.colorScheme.tertiary
@@ -104,9 +109,15 @@ fun ProgressChart(
                                 LineCartesianLayer.Point(ShapeComponent(Fill(amber), CircleShape), size = 8.dp)
                             )
                         )
-                    )
+                    ),
+                    rangeProvider = remember(range) {
+                        CartesianLayerRangeProvider.fixed(minY = range.min, maxY = range.max)
+                    }
                 ),
-                startAxis = VerticalAxis.rememberStart(valueFormatter = valueFormatter),
+                startAxis = VerticalAxis.rememberStart(
+                    valueFormatter = valueFormatter,
+                    itemPlacer = remember(range) { VerticalAxis.ItemPlacer.step({ range.step }) }
+                ),
                 bottomAxis = HorizontalAxis.rememberBottom(
                     valueFormatter = dateFormatter,
                     itemPlacer = remember(labelSpacing) {
@@ -117,6 +128,8 @@ fun ProgressChart(
                     label = rememberTextComponent(),
                     valueFormatter = markerFormatter
                 ),
+                // Marge à droite : la dernière date de l'axe n'est pas coupée par le bord.
+                layerPadding = { CartesianLayerPadding(unscalableStart = 8.dp, unscalableEnd = 24.dp) },
                 getXStep = { _, _, _ -> 1.0 }
             ),
             modelProducer = modelProducer,

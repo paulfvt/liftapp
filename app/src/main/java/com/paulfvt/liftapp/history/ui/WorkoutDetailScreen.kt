@@ -27,6 +27,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontStyle
@@ -40,17 +41,22 @@ import com.paulfvt.liftapp.core.designsystem.component.OverflowMenu
 import com.paulfvt.liftapp.core.designsystem.component.ScreenTitle
 import com.paulfvt.liftapp.core.designsystem.component.StatTile
 import com.paulfvt.liftapp.core.domain.workSetNumbers
+import com.paulfvt.liftapp.core.model.Exercise
+import com.paulfvt.liftapp.core.model.TrackingType
 import com.paulfvt.liftapp.core.ui.dayAndTime
 import com.paulfvt.liftapp.core.ui.durationText
 import com.paulfvt.liftapp.core.ui.setName
 import com.paulfvt.liftapp.core.ui.wholeNumber
 import com.paulfvt.liftapp.exercise.ui.ExerciseThumbnail
 import com.paulfvt.liftapp.history.domain.toHistoryItem
-import com.paulfvt.liftapp.workout.domain.PreviousSet
+import com.paulfvt.liftapp.workout.domain.DistanceUnit
+import com.paulfvt.liftapp.workout.domain.SetValues
 import com.paulfvt.liftapp.workout.domain.Workout
 import com.paulfvt.liftapp.workout.domain.WorkoutExercise
+import com.paulfvt.liftapp.workout.domain.distanceUnitFor
 import com.paulfvt.liftapp.workout.domain.formatDecimal
-import com.paulfvt.liftapp.workout.ui.previousLabel
+import com.paulfvt.liftapp.workout.domain.formatDistance
+import com.paulfvt.liftapp.workout.domain.formatDuration
 
 // Détail d'une séance terminée, en lecture. Modifier et Supprimer sont dans le menu.
 @OptIn(ExperimentalMaterial3Api::class)
@@ -124,6 +130,7 @@ private fun WorkoutDetailContent(workout: Workout, onOpenProgress: (Long) -> Uni
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
+                // Deux tuiles par ligne, comme le résumé de fin de séance : les chiffres restent sur une ligne.
                 Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                     StatTile(
                         stringResource(R.string.workout_summary_duration),
@@ -135,9 +142,16 @@ private fun WorkoutDetailContent(workout: Workout, onOpenProgress: (Long) -> Uni
                         stringResource(R.string.weight_kg, wholeNumber(item.tonnageKg)),
                         Modifier.weight(1f)
                     )
+                }
+                Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                     StatTile(
                         stringResource(R.string.workout_summary_sets),
                         item.setCount.toString(),
+                        Modifier.weight(1f)
+                    )
+                    StatTile(
+                        stringResource(R.string.workout_summary_exercises),
+                        item.exerciseNames.size.toString(),
                         Modifier.weight(1f)
                     )
                 }
@@ -184,7 +198,7 @@ private fun ExerciseDetailCard(item: WorkoutExercise, onOpenProgress: () -> Unit
                         modifier = Modifier.width(120.dp)
                     )
                     Text(
-                        previousLabel(PreviousSet(set.type, set.values), item.exercise),
+                        performedSetText(set.values, item.exercise),
                         style = MaterialTheme.typography.titleMedium,
                         modifier = Modifier.weight(1f)
                     )
@@ -197,6 +211,34 @@ private fun ExerciseDetailCard(item: WorkoutExercise, onOpenProgress: () -> Unit
                     }
                 }
             }
+        }
+    }
+}
+
+// « 80 kg × 8 », « +10 kg × 8 » (lest), « 12 reps », « 1:30 », « 5,2 km · 25:00 ».
+@Composable
+private fun performedSetText(values: SetValues, exercise: Exercise): String {
+    val reps = values.reps
+    val weight = values.weightKg
+    return when (exercise.trackingType) {
+        TrackingType.WEIGHT_REPS, TrackingType.REPS -> when {
+            reps == null -> stringResource(R.string.workout_previous_none)
+            weight == null || (exercise.trackingType == TrackingType.REPS && weight == 0.0) ->
+                pluralStringResource(R.plurals.workout_previous_reps, reps, reps)
+            exercise.trackingType == TrackingType.REPS && weight > 0 ->
+                stringResource(R.string.notification_weight_reps, "+" + formatDecimal(weight), reps)
+            else -> stringResource(R.string.notification_weight_reps, formatDecimal(weight), reps)
+        }
+        TrackingType.DURATION -> formatDuration(values.durationSec)
+        TrackingType.DISTANCE -> {
+            val unit = distanceUnitFor(exercise.category)
+            val unitLabel = stringResource(
+                if (unit == DistanceUnit.KILOMETER) R.string.workout_col_km else R.string.workout_col_m
+            )
+            listOfNotNull(
+                values.distanceM?.let { "${formatDistance(it, unit)} $unitLabel" },
+                values.durationSec?.let(::formatDuration)
+            ).joinToString(" · ")
         }
     }
 }
