@@ -1,6 +1,29 @@
 # Avancement
 
-## En cours : préparation du test fermé (une partie de la phase 11)
+## En cours : phase 7 — Profil, mesures et photos
+
+Plan validé le 21 octobre 2026 (un commit par étape) :
+1. Profil fixe (prénom, taille, date de naissance, sexe, tous facultatifs) dans le DataStore ; l'onglet Profil
+   regroupe infos, mesures, photos et « À propos ».
+2. Mesures : calculs du domaine testés (valeur par jour, moyenne mobile sur 7 jours, dernière valeur, écart).
+3. Mesures : DAO, repository, saisie datée (poids, tours, masse grasse avec méthode), une courbe par mesure,
+   moyenne mobile pour le poids. Chaque saisie crée une entrée ; suppression possible, pas de modification.
+4. Photos : stockage privé (`files/photos/`, exclu de la sauvegarde cloud), timeline par date filtrable par pose,
+   import depuis la galerie (sélecteur de photos d'Android, sans permission).
+5. Prise de photo dans l'app avec CameraX et silhouette fantôme de la dernière photo de la même pose.
+6. Comparaison avant/après avec curseur.
+7. Verrouillage facultatif : PIN propre à l'app (empreinte PBKDF2 salée, jamais en clair), visage ou empreinte en
+   option (androidx.biometric, `MainActivity` passe en `FragmentActivity`).
+8. Politique de confidentialité (caméra, photos), tests, émulateur, `PROGRESS.md`.
+
+Dépendances validées le 21 octobre 2026 : CameraX et androidx.biometric (Google, Apache 2.0).
+Pas de changement de schéma : les tables `body_measurement` et `progress_photo` existent depuis la v1.
+Reportés en phase 10 (Réglages, cahier § 4.11) : unités lb et in, masquage du poids et de la section photos.
+
+## En pause : préparation du test fermé (une partie de la phase 11)
+
+Le 21 octobre 2026, le développeur a choisi de passer à la phase 7 et de créer le compte Google Play plus tard.
+Envoyer sur le Play Store un build issu d'une phase terminée.
 
 Décidé le 21 octobre 2026 : le test fermé passe avant la phase 7, car Google exige 12 testeurs inscrits pendant
 14 jours d'affilée avant la production. Les phases 7 à 9 avancent pendant le test. Nom et identifiant gardés :

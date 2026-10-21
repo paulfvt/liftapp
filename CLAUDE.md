@@ -101,6 +101,10 @@ En cas d'ambiguïté ou de point non couvert, pose la question au lieu d'invente
 - Test fermé avant la phase 7 (21 octobre 2026) : nom « LiftApp » et identifiant `com.paulfvt.liftapp` définitifs,
   onglet Accueil masqué jusqu'à la phase 9 (l'app s'ouvre sur Séances), Profil réduit à « À propos », écran de
   bienvenue unique. Icône : piste B « Néon » de `design-system/icon.html` (barre en tube de néon rouge sur fond noir).
+- Phase 7 (21 octobre 2026) : CameraX et androidx.biometric validés. Verrouillage des photos facultatif ; une fois
+  déverrouillées, elles le restent tant que l'app est au premier plan et se reverrouillent dès qu'elle passe en
+  arrière-plan. PIN oublié : confirmation par le verrouillage du téléphone, puis nouveau PIN, photos gardées.
+  Mesures : chaque saisie crée une entrée, suppression possible, pas de modification ; kg et cm jusqu'à la phase 10.
 
 ## Méthode de travail (section 7)
 
