@@ -29,8 +29,10 @@ Fait le 21 octobre 2026 :
 - Étape 5 : icône « Néon » (piste B de `design-system/icon.html`, choisie par le développeur) en icône adaptative
   avec couche monochrome, vérifiée sur l'émulateur ; version Play Store dans `docs/play-store/icon-512.png`.
 - Étape 6 : brouillon `docs/politique-de-confidentialite.md`, nom et adresse de contact à compléter.
-- Étape 7 : brouillon `docs/fiche-play-store.md` (textes, réponses aux formulaires).
-- Reste : mise en ligne de la politique, image de présentation et captures, test sur le S25+.
+- Étape 7 : `docs/fiche-play-store.md` (textes, réponses aux formulaires), image de présentation et six captures
+  légendées dans `docs/play-store/`, faites sur l'émulateur avec des données de démonstration
+  (`tools/play-store/`).
+- Reste : mise en ligne de la politique de confidentialité, test sur le S25+.
 
 ## Phase 6 — Historique, records et courbes : terminée le 21 octobre 2026
 - Onglet Historique : séances par mois, détail, modification (en mémoire jusqu'à « Enregistrer ») et suppression.
@@ -180,6 +182,8 @@ Fait le 21 octobre 2026 :
 - Politique de confidentialité : nom affiché et adresse de contact (publics), nom du dépôt public qui l'hébergera.
 
 ## Problèmes connus
+- Aperçu d'un template (feuille du bas) : avec 5 exercices, la feuille s'ouvre à mi-hauteur et cache « Démarrer »
+  sous le bord de l'écran (émulateur 1080 × 2400) ; il faut la tirer vers le haut. Constaté le 21 octobre 2026.
 - `kotlinx-coroutines-test` doit rester à la même version que `kotlinx-coroutines-core` utilisé par l'app
   (1.10.2, imposé par AndroidX), sinon les tests instrumentés échouent avec un `NoSuchMethodError`.
 - Avertissement lint `OldTargetApi` (targetSdk 36 alors que l'API 37 existe) : volontaire, c'est le niveau exigé

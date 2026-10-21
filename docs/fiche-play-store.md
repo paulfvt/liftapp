@@ -37,11 +37,23 @@ Console au moment de la saisie.
   > de progression arrivent bientôt.
 
 - **Icône** : 512 × 512 px, PNG 32 bits : [play-store/icon-512.png](play-store/icon-512.png) (piste « Néon »).
-- **Image de présentation** : 1 024 × 500 px, JPEG ou PNG 24 bits.
-- **Captures d'écran** : au moins 2 (8 max) pour téléphone. Le grand côté ne doit pas dépasser le double du petit :
-  les captures brutes du S25+ ou de l'émulateur (1080 × 2400) sont trop allongées, elles seront recadrées en
-  1080 × 2160. Proposition : liste des templates, séance en cours avec le minuteur, mode salle, courbe de progression,
-  détail d'une séance.
+- **Image de présentation** : 1 024 × 500 px, PNG 24 bits :
+  [play-store/feature-graphic.png](play-store/feature-graphic.png), source dans `feature-graphic.html`.
+- **Captures d'écran** (2 à 8, téléphone) : six captures de 1080 × 2160 dans
+  [play-store/screenshots/](play-store/screenshots/), dans l'ordre d'affichage : séance en cours, progression,
+  templates, mode salle, historique, fiche d'exercice. Le grand côté ne doit pas dépasser le double du petit : les
+  captures brutes (1080 × 2400) sont donc réduites et posées sous une légende.
+
+### Refaire les captures (après un changement d'interface)
+
+1. Sur l'émulateur, récupérer la base (app arrêtée) avec `run-as` (voir « Problèmes connus » dans `PROGRESS.md`),
+   puis lancer `python tools/play-store/seed_demo_data.py lift.db` sur la copie et la remettre en place.
+2. Dans l'app, supprimer la séance « À supprimer » de l'historique : les records sont recalculés.
+3. Mode démo de la barre d'état (`adb shell am broadcast -a com.android.systemui.demo -e command enter`, puis
+   `clock -e hhmm 1830`), et autorisations notifications et alarmes exactes accordées.
+4. Capturer avec `adb exec-out screencap -p` : `1-templates`, `2-workout` (séance Push démarrée, échauffements et
+   première série validés), `3-gym-mode`, `4-progress` (développé couché), `5-history`, `6-exercise`.
+5. `python tools/play-store/compose_screenshots.py <captures> docs/play-store/screenshots app/src/main/res/font`.
 
 ## Contenu de l'application (rubrique « Règles et programmes »)
 
