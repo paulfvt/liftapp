@@ -1,0 +1,49 @@
+<!doctype html>
+<!-- Image de présentation du Play Store (1024 x 500). Rendu en PNG avec Chrome sans fenêtre :
+     chrome --headless=new --hide-scrollbars --force-device-scale-factor=1 --window-size=1024,500
+            --screenshot=feature-graphic.png feature-graphic.html -->
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>LiftApp · Image de présentation</title>
+<style>
+@font-face{font-family:'Barlow Condensed';font-weight:700;src:url('../../app/src/main/res/font/barlow_condensed_bold.ttf')}
+@font-face{font-family:'Barlow';font-weight:600;src:url('../../app/src/main/res/font/barlow_semibold.ttf')}
+html,body{margin:0;padding:0}
+.graphic{
+  width:1024px;height:500px;overflow:hidden;position:relative;display:flex;align-items:center;
+  background:#0D0A0A radial-gradient(60% 90% at 28% 50%, rgb(217 36 27 / .26), transparent 70%);
+}
+.graphic svg{position:absolute;left:62px;top:70px}
+.text{margin-left:486px}
+h1{margin:0;font:700 132px/0.9 'Barlow Condensed';letter-spacing:.02em;color:#FF7468}
+p{margin:18px 0 0;font:600 34px/1.25 'Barlow';color:#F3EAE8;max-width:500px}
+</style>
+</head>
+<body>
+<div class="graphic">
+  <!-- Même dessin que l'icône « Néon » (design-system/icon.html, piste B). -->
+  <svg width="380" height="360" viewBox="16 18 76 72" aria-hidden="true">
+    <defs>
+      <g id="shapes">
+        <rect x="32.5" y="36" width="7" height="36" rx="3"/>
+        <rect x="68.5" y="36" width="7" height="36" rx="3"/>
+        <rect x="25" y="43" width="4.5" height="22" rx="2.2"/>
+        <rect x="78.5" y="43" width="4.5" height="22" rx="2.2"/>
+        <path d="M40 54H68M29.5 54H32.5M75.5 54H78.5M20 54H25M83 54H88"/>
+      </g>
+    </defs>
+    <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <use href="#shapes" stroke="#EB281E" stroke-opacity=".16" stroke-width="8"/>
+      <use href="#shapes" stroke="#EB281E" stroke-opacity=".32" stroke-width="4.6"/>
+      <use href="#shapes" stroke="#FF5A4E" stroke-width="2.6"/>
+      <use href="#shapes" stroke="#FFD9D5" stroke-width="1"/>
+    </g>
+  </svg>
+  <div class="text">
+    <h1>LIFTAPP</h1>
+    <p>Ton carnet de musculation, simple et hors ligne.</p>
+  </div>
+</div>
+</body>
+</html>
