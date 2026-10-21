@@ -1,7 +1,9 @@
 package com.paulfvt.liftapp.progress.domain
 
+import com.paulfvt.liftapp.core.domain.DailyValue
 import com.paulfvt.liftapp.core.model.TrackingType
 import java.time.Instant
+import java.time.LocalDate
 import java.time.ZoneId
 import kotlin.math.abs
 import kotlin.math.ceil
@@ -31,6 +33,17 @@ enum class ChartPeriod(val months: Long?) {
     THREE_MONTHS(3),
     YEAR(12),
     ALL(null)
+}
+
+// Deux séances le même jour donnent un seul point de courbe : la meilleure valeur.
+fun List<ProgressPoint>.bestPerDay(zone: ZoneId): List<DailyValue> = groupBy { it.date.atZone(zone).toLocalDate() }
+    .map { (date, sameDay) -> DailyValue(date, sameDay.maxOf { it.value }) }
+    .sortedBy { it.date }
+
+// Même découpage pour une série déjà ramenée à une valeur par jour (mesures du corps).
+fun List<DailyValue>.within(period: ChartPeriod, today: LocalDate): List<DailyValue> {
+    val start = period.months?.let { today.minusMonths(it) } ?: return this
+    return filter { !it.date.isBefore(start) }
 }
 
 fun List<ProgressPoint>.within(period: ChartPeriod, now: Instant, zone: ZoneId): List<ProgressPoint> {

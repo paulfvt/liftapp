@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
+import com.paulfvt.liftapp.core.domain.DailyValue
 import com.paulfvt.liftapp.core.model.Exercise
 import com.paulfvt.liftapp.exercise.data.ExerciseRepository
 import com.paulfvt.liftapp.progress.data.RecordRepository
@@ -11,6 +12,7 @@ import com.paulfvt.liftapp.progress.domain.ChartPeriod
 import com.paulfvt.liftapp.progress.domain.ExerciseMetric
 import com.paulfvt.liftapp.progress.domain.PersonalRecord
 import com.paulfvt.liftapp.progress.domain.ProgressPoint
+import com.paulfvt.liftapp.progress.domain.bestPerDay
 import com.paulfvt.liftapp.progress.domain.metricsFor
 import com.paulfvt.liftapp.progress.domain.progressPoints
 import com.paulfvt.liftapp.progress.domain.within
@@ -32,6 +34,8 @@ data class ExerciseProgressUiState(
     val metric: ExerciseMetric? = null,
     val period: ChartPeriod = DEFAULT_PERIOD,
     val points: List<ProgressPoint> = emptyList(),
+    // Les mêmes points ramenés à un par jour, pour la courbe.
+    val chartDays: List<DailyValue> = emptyList(),
     val hasHistory: Boolean = false
 )
 
@@ -74,6 +78,7 @@ class ExerciseProgressViewModel @Inject constructor(
             metric = metric,
             period = period,
             points = points,
+            chartDays = points.bestPerDay(ZoneId.systemDefault()),
             hasHistory = sets.isNotEmpty()
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(STOP_TIMEOUT_MS), ExerciseProgressUiState())

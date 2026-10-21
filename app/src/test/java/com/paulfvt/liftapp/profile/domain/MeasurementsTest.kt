@@ -1,5 +1,6 @@
 package com.paulfvt.liftapp.profile.domain
 
+import com.paulfvt.liftapp.core.domain.DailyValue
 import com.paulfvt.liftapp.core.model.BodyFatMethod
 import com.paulfvt.liftapp.core.model.MeasurementType
 import java.time.Instant
@@ -16,7 +17,7 @@ class MeasurementsTest {
     private fun weight(at: String, kg: Double, id: Long = 0) =
         BodyMeasurement(id, MeasurementType.BODY_WEIGHT, kg, null, Instant.parse(at))
 
-    private fun day(date: String, value: Double) = DailyMeasure(LocalDate.parse(date), value)
+    private fun day(date: String, value: Double) = DailyValue(LocalDate.parse(date), value)
 
     @Test
     fun `two weigh-ins on the same day give their average`() {

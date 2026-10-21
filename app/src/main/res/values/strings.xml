@@ -20,7 +20,6 @@
     <string name="profile_about_summary">Version, crédits et licences</string>
     <string name="profile_title_empty">Ton profil</string>
     <string name="profile_details_empty">Taille, âge et sexe, tous facultatifs</string>
-    <string name="profile_height_value">%1$s cm</string>
     <plurals name="profile_age">
         <item quantity="one">%d an</item>
         <item quantity="other">%d ans</item>
@@ -38,9 +37,44 @@
     <string name="profile_sex_unspecified">Non précisé</string>
     <string name="profile_error_first_name">%1$d caractères maximum.</string>
     <string name="profile_error_height">Entre une taille entre 50 et 260 cm.</string>
-    <string name="profile_error_birth_date">Choisis une date passée.</string>
+    <!-- Mesures du corps -->
+    <string name="profile_measurements">Mesures</string>
+    <string name="measurements_empty">Note ton poids et tes tours pour suivre leur évolution.</string>
+    <string name="measurement_add">Ajouter une mesure</string>
+    <string name="measurement_new_title">Nouvelle mesure</string>
+    <string name="measurement_type">Mesure</string>
+    <string name="measurement_method">Méthode</string>
+    <string name="measurement_date">Date</string>
+    <string name="measurement_weight">Poids</string>
+    <string name="measurement_arm">Bras</string>
+    <string name="measurement_chest">Poitrine</string>
+    <string name="measurement_waist">Taille</string>
+    <string name="measurement_hips">Hanches</string>
+    <string name="measurement_thigh">Cuisse</string>
+    <string name="measurement_calf">Mollet</string>
+    <string name="measurement_body_fat">Masse grasse</string>
+    <string name="body_fat_method_scale">Balance</string>
+    <string name="body_fat_method_caliper">Pince</string>
+    <string name="body_fat_method_estimate">Estimation</string>
+    <string name="measurement_error_missing">Entre une valeur.</string>
+    <string name="measurement_error_range">Entre %1$s et %2$s.</string>
+    <string name="measurement_error_method">Choisis la méthode de mesure.</string>
+    <string name="measurement_last">Dernière fois : %1$s le %2$s</string>
+    <string name="measurement_discard_text">Cette mesure ne sera pas enregistrée.</string>
+    <string name="measurement_change_stable">stable</string>
+    <string name="measurement_history">Historique</string>
+    <string name="measurement_none_in_period">Aucune mesure sur cette période.</string>
+    <plurals name="measurement_days">
+        <item quantity="one">%d jour mesuré</item>
+        <item quantity="other">%d jours mesurés</item>
+    </plurals>
+    <string name="measurement_trend_short">moy. 7 j</string>
+    <string name="measurement_trend_legend">Points : tes pesées. Ligne : moyenne sur 7 jours.</string>
+    <string name="measurement_delete_title">Supprimer cette mesure ?</string>
+    <string name="measurement_delete_text">%1$s du %2$s sera retiré de tes mesures.</string>
+    <string name="measurement_delete_description">Supprimer la mesure du %1$s</string>
     <string name="profile_discard_text">Tes changements sur le profil ne seront pas enregistrés.</string>
-    <string name="profile_coming_soon">Tes mesures et tes photos de progression arriveront ici dans une prochaine version.</string>
+    <string name="profile_coming_soon">Les photos de progression arrivent bientôt.</string>
     <string name="about_title">À propos</string>
     <string name="about_version">Version %1$s</string>
     <string name="about_description">Carnet de musculation qui fonctionne sans connexion. Pas de compte : tes données restent sur ton téléphone.</string>
@@ -298,6 +332,11 @@
     <string name="duration_hours_minutes">%1$d h %2$02d</string>
     <string name="weight_kg">%1$s kg</string>
     <string name="unit_cm">cm</string>
+    <string name="unit_kg">kg</string>
+    <string name="unit_percent" formatted="false">%</string>
+    <string name="value_cm">%1$s cm</string>
+    <string name="value_percent">%1$s %%</string>
+    <string name="error_date_in_future">Choisis une date passée.</string>
 
     <!-- Historique -->
     <string name="history_empty_title">Aucune séance pour l\'instant</string>

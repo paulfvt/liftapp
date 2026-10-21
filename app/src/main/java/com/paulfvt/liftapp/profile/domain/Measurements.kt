@@ -1,5 +1,6 @@
 package com.paulfvt.liftapp.profile.domain
 
+import com.paulfvt.liftapp.core.domain.DailyValue
 import com.paulfvt.liftapp.core.model.BodyFatMethod
 import com.paulfvt.liftapp.core.model.MeasurementType
 import com.paulfvt.liftapp.workout.domain.parseDecimal
@@ -17,24 +18,22 @@ data class BodyMeasurement(
     val measuredAt: Instant
 )
 
-// Un point de courbe par jour : la moyenne des saisies de ce jour (pesée du matin et du soir à parts égales).
-data class DailyMeasure(val date: LocalDate, val value: Double)
-
 const val MOVING_AVERAGE_DAYS = 7
 
-fun dailyValues(measurements: List<BodyMeasurement>, zone: ZoneId): List<DailyMeasure> =
+// Un point de courbe par jour : la moyenne des saisies de ce jour (pesée du matin et du soir à parts égales).
+fun dailyValues(measurements: List<BodyMeasurement>, zone: ZoneId): List<DailyValue> =
     measurements.groupBy { it.measuredAt.atZone(zone).toLocalDate() }
-        .map { (date, sameDay) -> DailyMeasure(date, sameDay.map { it.value }.average()) }
+        .map { (date, sameDay) -> DailyValue(date, sameDay.map { it.value }.average()) }
         .sortedBy { it.date }
 
 // Moyenne mobile : pour chaque jour mesuré, la moyenne des valeurs des 7 derniers jours, ce jour compris. Les jours
 // sans pesée sont simplement absents (pas de valeur inventée), et la fenêtre suit le calendrier, mois compris.
-fun movingAverage(daily: List<DailyMeasure>, days: Int = MOVING_AVERAGE_DAYS): List<DailyMeasure> {
+fun movingAverage(daily: List<DailyValue>, days: Int = MOVING_AVERAGE_DAYS): List<DailyValue> {
     val sorted = daily.sortedBy { it.date }
     return sorted.map { day ->
         val windowStart = day.date.minusDays(days - 1L)
         val window = sorted.filter { !it.date.isBefore(windowStart) && !it.date.isAfter(day.date) }
-        DailyMeasure(day.date, window.map { it.value }.average())
+        DailyValue(day.date, window.map { it.value }.average())
     }
 }
 

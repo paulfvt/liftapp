@@ -2,8 +2,10 @@ package com.paulfvt.liftapp.core.ui
 
 import androidx.annotation.StringRes
 import com.paulfvt.liftapp.R
+import com.paulfvt.liftapp.core.model.BodyFatMethod
 import com.paulfvt.liftapp.core.model.Equipment
 import com.paulfvt.liftapp.core.model.ExerciseCategory
+import com.paulfvt.liftapp.core.model.MeasurementType
 import com.paulfvt.liftapp.core.model.Muscle
 import com.paulfvt.liftapp.core.model.MuscleGroup
 import com.paulfvt.liftapp.core.model.SetType
@@ -86,4 +88,25 @@ val SetType.labelRes: Int
         SetType.WARMUP -> R.string.set_type_warmup
         SetType.WORK -> R.string.set_type_work
         SetType.DROP -> R.string.set_type_drop
+    }
+
+@get:StringRes
+val MeasurementType.labelRes: Int
+    get() = when (this) {
+        MeasurementType.BODY_WEIGHT -> R.string.measurement_weight
+        MeasurementType.ARM -> R.string.measurement_arm
+        MeasurementType.CHEST -> R.string.measurement_chest
+        MeasurementType.WAIST -> R.string.measurement_waist
+        MeasurementType.HIPS -> R.string.measurement_hips
+        MeasurementType.THIGH -> R.string.measurement_thigh
+        MeasurementType.CALF -> R.string.measurement_calf
+        MeasurementType.BODY_FAT -> R.string.measurement_body_fat
+    }
+
+@get:StringRes
+val BodyFatMethod.labelRes: Int
+    get() = when (this) {
+        BodyFatMethod.SCALE -> R.string.body_fat_method_scale
+        BodyFatMethod.CALIPER -> R.string.body_fat_method_caliper
+        BodyFatMethod.ESTIMATE -> R.string.body_fat_method_estimate
     }

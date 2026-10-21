@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -21,11 +22,13 @@ import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
@@ -35,13 +38,24 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.paulfvt.liftapp.R
 import com.paulfvt.liftapp.core.designsystem.component.ScreenTitle
+import com.paulfvt.liftapp.core.designsystem.component.SectionTitle
+import com.paulfvt.liftapp.core.model.MeasurementType
+import com.paulfvt.liftapp.core.ui.labelRes
+import com.paulfvt.liftapp.core.ui.shortDay
+import com.paulfvt.liftapp.profile.domain.MeasurementSummary
 import com.paulfvt.liftapp.workout.domain.formatDecimal
 import java.util.Locale
 
 // Onglet Profil : le profil fixe, puis les mesures, les photos et « À propos ».
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProfileScreen(onEditProfile: () -> Unit, onOpenAbout: () -> Unit, viewModel: ProfileViewModel = hiltViewModel()) {
+fun ProfileScreen(
+    onEditProfile: () -> Unit,
+    onOpenMeasurement: (MeasurementType) -> Unit,
+    onAddMeasurement: () -> Unit,
+    onOpenAbout: () -> Unit,
+    viewModel: ProfileViewModel = hiltViewModel()
+) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     Scaffold(topBar = { TopAppBar(title = { ScreenTitle(stringResource(R.string.nav_profile)) }) }) { padding ->
         if (uiState.isLoading) return@Scaffold
@@ -54,6 +68,12 @@ fun ProfileScreen(onEditProfile: () -> Unit, onOpenAbout: () -> Unit, viewModel:
                 .padding(vertical = 16.dp)
         ) {
             ProfileCard(uiState, onEditProfile, modifier = Modifier.padding(horizontal = 16.dp))
+            MeasurementsSection(
+                summaries = uiState.measurements,
+                onOpen = onOpenMeasurement,
+                onAdd = onAddMeasurement,
+                modifier = Modifier.padding(horizontal = 16.dp)
+            )
             Text(
                 stringResource(R.string.profile_coming_soon),
                 style = MaterialTheme.typography.bodyMedium,
@@ -76,7 +96,7 @@ fun ProfileScreen(onEditProfile: () -> Unit, onOpenAbout: () -> Unit, viewModel:
 private fun ProfileCard(uiState: ProfileUiState, onEdit: () -> Unit, modifier: Modifier = Modifier) {
     val profile = uiState.profile
     val details = buildList {
-        profile.heightCm?.let { add(stringResource(R.string.profile_height_value, formatDecimal(it))) }
+        profile.heightCm?.let { add(stringResource(R.string.value_cm, formatDecimal(it))) }
         uiState.age?.let { add(pluralStringResource(R.plurals.profile_age, it, it)) }
         profile.sex?.let { add(stringResource(sexLabel(it))) }
     }
@@ -123,6 +143,61 @@ private fun ProfileCard(uiState: ProfileUiState, onEdit: () -> Unit, modifier: M
                 contentDescription = stringResource(R.string.profile_edit_title),
                 tint = MaterialTheme.colorScheme.onSurfaceVariant
             )
+        }
+    }
+}
+
+// Dernière valeur de chaque mesure (« Poids 79,4 kg · −0,6 kg »), un appui ouvre sa courbe et son historique.
+@Composable
+private fun MeasurementsSection(
+    summaries: List<MeasurementSummary>,
+    onOpen: (MeasurementType) -> Unit,
+    onAdd: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp), modifier = modifier) {
+        SectionTitle(stringResource(R.string.profile_measurements))
+        ElevatedCard(modifier = Modifier.fillMaxWidth()) {
+            if (summaries.isEmpty()) {
+                Text(
+                    stringResource(R.string.measurements_empty),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.padding(start = 16.dp, top = 16.dp, end = 16.dp)
+                )
+            }
+            summaries.forEach { summary ->
+                val latest = summary.latest
+                ListItem(
+                    headlineContent = { Text(stringResource(latest.type.labelRes)) },
+                    supportingContent = { Text(shortDay(latest.measuredAt)) },
+                    trailingContent = {
+                        Column(horizontalAlignment = Alignment.End) {
+                            Text(
+                                measureText(latest.type, latest.value),
+                                style = MaterialTheme.typography.titleMedium,
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
+                            summary.change?.let {
+                                Text(changeText(latest.type, it), style = MaterialTheme.typography.bodySmall)
+                            }
+                        }
+                    },
+                    colors = ListItemDefaults.colors(containerColor = Color.Transparent),
+                    modifier = Modifier.clickable(role = Role.Button) { onOpen(latest.type) }
+                )
+            }
+            TextButton(onClick = onAdd, modifier = Modifier.padding(horizontal = 4.dp, vertical = 4.dp)) {
+                Icon(
+                    painterResource(R.drawable.ic_add),
+                    contentDescription = null,
+                    modifier = Modifier.size(ButtonDefaults.IconSize)
+                )
+                Text(
+                    stringResource(R.string.measurement_add),
+                    modifier = Modifier.padding(start = ButtonDefaults.IconSpacing)
+                )
+            }
         }
     }
 }

@@ -182,7 +182,7 @@ private fun ChartSection(
                     format(points.last().value)
                 )
             val metricName = stringResource(metric.chartLabelRes(exercise.trackingType))
-            ProgressChart(points = points, valueText = format, description = "$metricName. $summary")
+            ProgressChart(values = uiState.chartDays, valueText = format, description = "$metricName. $summary")
             // Résumé visible, utile à tous : d'où l'on part et où l'on en est sur la période.
             Text(
                 summary,
@@ -201,7 +201,7 @@ private fun ChipRow(content: @Composable () -> Unit) {
     ) { content() }
 }
 
-private fun ChartPeriod.labelRes(): Int = when (this) {
+fun ChartPeriod.labelRes(): Int = when (this) {
     ChartPeriod.MONTH -> R.string.period_month
     ChartPeriod.THREE_MONTHS -> R.string.period_three_months
     ChartPeriod.YEAR -> R.string.period_year

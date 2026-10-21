@@ -1,10 +1,12 @@
 package com.paulfvt.liftapp.progress.domain
 
+import com.paulfvt.liftapp.core.domain.DailyValue
 import com.paulfvt.liftapp.core.model.SetType
 import com.paulfvt.liftapp.core.model.TrackingType
 import com.paulfvt.liftapp.history.domain.groupByMonth
 import com.paulfvt.liftapp.workout.domain.SetValues
 import java.time.Instant
+import java.time.LocalDate
 import java.time.YearMonth
 import java.time.ZoneId
 import org.junit.Assert.assertEquals
@@ -50,6 +52,28 @@ class ProgressPointsTest {
         assertEquals(listOf(2L), points.within(ChartPeriod.MONTH, now, paris).map { it.workoutId })
         assertEquals(listOf(1L, 2L), points.within(ChartPeriod.THREE_MONTHS, now, paris).map { it.workoutId })
         assertEquals(points, points.within(ChartPeriod.ALL, now, paris))
+    }
+
+    @Test
+    fun `two sessions on the same day give one chart point with the best value`() {
+        val points = listOf(
+            ProgressPoint(1, Instant.parse("2026-10-20T07:00:00Z"), 100.0),
+            ProgressPoint(2, Instant.parse("2026-10-20T18:00:00Z"), 102.5),
+            // 23 h 30 UTC = le 21 à Paris.
+            ProgressPoint(3, Instant.parse("2026-10-20T23:30:00Z"), 90.0)
+        )
+        assertEquals(
+            listOf(DailyValue(LocalDate.parse("2026-10-20"), 102.5), DailyValue(LocalDate.parse("2026-10-21"), 90.0)),
+            points.bestPerDay(paris)
+        )
+    }
+
+    @Test
+    fun `daily values are cut by calendar months back from today`() {
+        val values = listOf("2026-07-20", "2026-09-21", "2026-10-01").map { DailyValue(LocalDate.parse(it), 1.0) }
+        val today = LocalDate.parse("2026-10-21")
+        assertEquals(values.drop(1), values.within(ChartPeriod.MONTH, today))
+        assertEquals(values, values.within(ChartPeriod.ALL, today))
     }
 
     @Test
