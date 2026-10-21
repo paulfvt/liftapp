@@ -27,11 +27,9 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.paulfvt.liftapp.R
 import com.paulfvt.liftapp.core.designsystem.component.StatTile
+import com.paulfvt.liftapp.core.ui.durationText
+import com.paulfvt.liftapp.core.ui.wholeNumber
 import com.paulfvt.liftapp.workout.data.FinishedWorkout
-import java.text.NumberFormat
-import java.time.Duration
-import java.util.Locale
-import kotlin.math.roundToLong
 
 @Composable
 fun WorkoutSummaryContent(
@@ -140,19 +138,3 @@ private fun TemplateUpdateCard(templateName: String, onUpdate: () -> Unit, onKee
         }
     }
 }
-
-// « 58 min » ou « 1 h 05 ».
-@Composable
-private fun durationText(duration: Duration): String {
-    val hours = duration.toHours().toInt()
-    val minutes = (duration.toMinutes() % 60).toInt()
-    return if (hours > 0) {
-        stringResource(R.string.duration_hours_minutes, hours, minutes)
-    } else {
-        stringResource(R.string.duration_minutes, minutes)
-    }
-}
-
-// Nombre entier avec séparateur de milliers français : « 9 840 ».
-private fun wholeNumber(value: Double): String =
-    NumberFormat.getIntegerInstance(Locale.FRENCH).format(value.roundToLong())

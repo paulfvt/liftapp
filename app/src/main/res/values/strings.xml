@@ -240,6 +240,26 @@
     <string name="duration_hours_minutes">%1$d h %2$02d</string>
     <string name="weight_kg">%1$s kg</string>
 
+    <!-- Historique -->
+    <string name="history_empty_title">Aucune séance pour l\'instant</string>
+    <string name="history_empty_text">Tes séances terminées apparaîtront ici, avec leurs chiffres. Tu pourras les corriger après coup.</string>
+    <plurals name="history_sets">
+        <item quantity="one">%d série</item>
+        <item quantity="many">%d séries</item>
+        <item quantity="other">%d séries</item>
+    </plurals>
+    <string name="history_edit">Modifier</string>
+    <string name="history_open_progress">Voir la progression : %1$s</string>
+    <string name="history_delete_title">Supprimer la séance ?</string>
+    <string name="history_delete_text">Elle disparaîtra de ton historique et tes records seront recalculés. C\'est définitif.</string>
+    <string name="history_edit_title">Modifier la séance</string>
+    <string name="history_edit_name">Nom de la séance</string>
+    <string name="history_edit_note">Note</string>
+    <string name="history_edit_discard_text">Tes changements sur cette séance ne seront pas enregistrés.</string>
+    <string name="history_edit_blank_name">Donne un nom à la séance.</string>
+    <string name="history_edit_no_exercise">Garde au moins un exercice, ou supprime la séance depuis son détail.</string>
+    <string name="history_edit_missing_values">Complète les valeurs de chaque série, ou retire les séries vides.</string>
+
     <!-- Catalogue d'exercices -->
     <string name="exercises_title">Exercices</string>
     <string name="exercises_search">Rechercher un exercice</string>

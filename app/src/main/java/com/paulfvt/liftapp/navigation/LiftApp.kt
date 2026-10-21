@@ -26,6 +26,7 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.paulfvt.liftapp.history.navigation.WorkoutEditRoute
 import com.paulfvt.liftapp.workout.navigation.WorkoutRoute
 import com.paulfvt.liftapp.workout.ui.LiveWorkoutBar
 
@@ -48,9 +49,12 @@ fun LiftApp(openWorkoutRequest: Int = 0, viewModel: LiftAppViewModel = hiltViewM
         }
     }
 
-    // La séance est en plein écran : pas de barre du bas sur elle, ni sur le catalogue ouvert depuis elle.
-    val isOnWorkout = currentDestination?.hasRoute(WorkoutRoute::class) == true ||
-        navController.previousBackStackEntry?.destination?.hasRoute(WorkoutRoute::class) == true
+    // La séance en cours et la modification d'une séance passée sont en plein écran : pas de barre du bas sur elles,
+    // ni sur le catalogue ouvert depuis elles.
+    val previousDestination = navController.previousBackStackEntry?.destination
+    val isOnWorkout = listOf(WorkoutRoute::class, WorkoutEditRoute::class).any { route ->
+        currentDestination?.hasRoute(route) == true || previousDestination?.hasRoute(route) == true
+    }
 
     // Les écrans gèrent eux-mêmes la barre d'état (via leur TopAppBar) : ce Scaffold ne réserve que la place
     // de la barre du bas, sinon la marge du haut serait appliquée deux fois.

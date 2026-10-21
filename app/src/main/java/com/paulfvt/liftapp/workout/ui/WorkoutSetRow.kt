@@ -85,15 +85,23 @@ class SetActions(
     val onRemove: (setId: Long) -> Unit
 )
 
+// Séance en cours (LIVE) : colonne « Précédent » et case de validation. Séance passée modifiée (EDIT) : ni l'une
+// ni l'autre, toutes ses séries sont validées.
+enum class SetRowMode {
+    LIVE,
+    EDIT
+}
+
 @Composable
-fun SetHeaderRow(exercise: Exercise) {
+fun SetHeaderRow(exercise: Exercise, mode: SetRowMode = SetRowMode.LIVE) {
     val (first, second) = columnTitles(exercise)
     Row(
         horizontalArrangement = Arrangement.spacedBy(ColumnGap),
         modifier = Modifier.fillMaxWidth().padding(horizontal = 4.dp)
     ) {
         ColumnTitle(stringResource(R.string.template_set_header), Modifier.width(TypeColumn))
-        ColumnTitle(stringResource(R.string.workout_col_previous), Modifier.weight(1f), TextAlign.Start)
+        val previousTitle = if (mode == SetRowMode.LIVE) stringResource(R.string.workout_col_previous) else ""
+        ColumnTitle(previousTitle, Modifier.weight(1f), TextAlign.Start)
         if (first != null) ColumnTitle(first, Modifier.width(FirstFieldColumn))
         ColumnTitle(
             second,
@@ -147,9 +155,11 @@ fun WorkoutSetRow(
     previous: PreviousSet?,
     exercise: Exercise,
     canRemove: Boolean,
-    actions: SetActions
+    actions: SetActions,
+    mode: SetRowMode = SetRowMode.LIVE
 ) {
     val name = setName(set.type, workNumber)
+    val isLive = mode == SetRowMode.LIVE
     val successColors = LocalExtendedColors.current
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -158,7 +168,7 @@ fun WorkoutSetRow(
             .fillMaxWidth()
             // Série validée : fond vert discret, comme dans le guide de style.
             .background(
-                if (set.isCompleted) successColors.success.copy(alpha = 0.14f) else Color.Transparent,
+                if (isLive && set.isCompleted) successColors.success.copy(alpha = 0.14f) else Color.Transparent,
                 MaterialTheme.shapes.small
             )
             .padding(horizontal = 4.dp, vertical = 2.dp)
@@ -180,13 +190,15 @@ fun WorkoutSetRow(
             )
         }
         Column(modifier = Modifier.weight(1f)) {
-            Text(
-                previousLabel(previous, exercise),
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
+            if (isLive) {
+                Text(
+                    previousLabel(previous, exercise),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
             val details = listOfNotNull(
                 set.targetReps?.let { stringResource(R.string.workout_target, it) },
                 set.rpe?.let { stringResource(R.string.workout_rpe, formatDecimal(it)) }
@@ -201,11 +213,15 @@ fun WorkoutSetRow(
             }
         }
         ValueFields(set, exercise, name, actions)
-        CompleteButton(
-            completed = set.isCompleted,
-            name = name,
-            onToggle = { actions.onToggleCompleted(set.id) }
-        )
+        if (isLive) {
+            CompleteButton(
+                completed = set.isCompleted,
+                name = name,
+                onToggle = { actions.onToggleCompleted(set.id) }
+            )
+        } else {
+            Spacer(Modifier.width(CompleteColumn))
+        }
     }
 }
 

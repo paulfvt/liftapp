@@ -10,6 +10,10 @@ import com.paulfvt.liftapp.R
 import com.paulfvt.liftapp.core.ui.ComingSoonScreen
 import com.paulfvt.liftapp.exercise.navigation.ExerciseListRoute
 import com.paulfvt.liftapp.exercise.navigation.exerciseScreens
+import com.paulfvt.liftapp.history.navigation.WorkoutDetailRoute
+import com.paulfvt.liftapp.history.navigation.historyScreens
+import com.paulfvt.liftapp.history.ui.HistoryScreen
+import com.paulfvt.liftapp.progress.navigation.progressScreens
 import com.paulfvt.liftapp.template.navigation.TemplateEditRoute
 import com.paulfvt.liftapp.template.navigation.templateScreens
 import com.paulfvt.liftapp.template.ui.list.TemplatesScreen
@@ -37,8 +41,16 @@ fun LiftNavHost(navController: NavHostController, modifier: Modifier = Modifier)
             templateScreens(navController)
             exerciseScreens(navController)
         }
-        composable<HistoryRoute> { ComingSoonScreen(R.string.nav_history) }
-        composable<ProgressRoute> { ComingSoonScreen(R.string.nav_progress) }
+        navigation<HistoryGraph>(startDestination = HistoryRoute) {
+            composable<HistoryRoute> {
+                HistoryScreen(onOpenWorkout = { id -> navController.navigate(WorkoutDetailRoute(id)) })
+            }
+            historyScreens(navController)
+        }
+        navigation<ProgressGraph>(startDestination = ProgressRoute) {
+            composable<ProgressRoute> { ComingSoonScreen(R.string.nav_progress) }
+            progressScreens(navController)
+        }
         composable<ProfileRoute> { ComingSoonScreen(R.string.nav_profile) }
         // Séance en cours à la racine : elle s'ouvre depuis n'importe quel onglet (bandeau EN DIRECT).
         workoutScreen(navController)
