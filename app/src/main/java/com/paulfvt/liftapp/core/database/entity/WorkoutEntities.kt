@@ -29,7 +29,11 @@ data class WorkoutEntity(
     val startedAt: Instant,
     val endedAt: Instant?,
     val status: WorkoutStatus,
-    val note: String?
+    val note: String?,
+    // Repos en cours (version 4 du schéma) : la fin enregistrée sert de référence au minuteur, à la notification et à
+    // l'alarme, ce qui le rend juste après une rotation, un arrêt de l'app ou un redémarrage. Null = pas de repos.
+    val restStartedAt: Instant? = null,
+    val restEndsAt: Instant? = null
 )
 
 // Pas de onDelete sur exerciseId : un exercice utilisé dans l'historique ne peut pas être supprimé.

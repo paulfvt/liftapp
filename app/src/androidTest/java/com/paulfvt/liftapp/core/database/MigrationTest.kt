@@ -5,6 +5,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.paulfvt.liftapp.core.database.migration.MIGRATION_1_2
 import com.paulfvt.liftapp.core.database.migration.MIGRATION_2_3
+import com.paulfvt.liftapp.core.database.migration.MIGRATION_3_4
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -105,6 +106,28 @@ class MigrationTest {
             assertEquals(5, cursor.getInt(1))
             assertEquals(8.5, cursor.getDouble(2), 0.0)
             assertTrue(cursor.isNull(3))
+        }
+    }
+
+    @Test
+    fun migration3To4KeepsTheWorkoutInProgressWithoutRest() {
+        helper.createDatabase(TEST_DB, 3).use { db ->
+            db.execSQL(
+                "INSERT INTO workout (id, templateId, name, startedAt, endedAt, status, note) " +
+                    "VALUES (7, NULL, 'Push', 1000, NULL, 'IN_PROGRESS', 'Épaule')"
+            )
+        }
+
+        val db = helper.runMigrationsAndValidate(TEST_DB, 4, true, MIGRATION_3_4)
+
+        db.query("SELECT name, startedAt, status, note, restStartedAt, restEndsAt FROM workout WHERE id = 7").use {
+            it.moveToFirst()
+            assertEquals("Push", it.getString(0))
+            assertEquals(1000L, it.getLong(1))
+            assertEquals("IN_PROGRESS", it.getString(2))
+            assertEquals("Épaule", it.getString(3))
+            assertTrue(it.isNull(4))
+            assertTrue(it.isNull(5))
         }
     }
 

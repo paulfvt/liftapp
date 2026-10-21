@@ -7,6 +7,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.paulfvt.liftapp.core.database.LiftDatabase
 import com.paulfvt.liftapp.core.database.migration.MIGRATION_1_2
 import com.paulfvt.liftapp.core.database.migration.MIGRATION_2_3
+import com.paulfvt.liftapp.core.database.migration.MIGRATION_3_4
 import com.paulfvt.liftapp.core.model.Muscle
 import com.paulfvt.liftapp.core.model.SetType
 import com.paulfvt.liftapp.exercise.data.ExerciseRepository
@@ -194,7 +195,7 @@ class WorkoutDataTest {
         val name = "resume-test.db"
         context.deleteDatabase(name)
         fun open() = Room.databaseBuilder(context, LiftDatabase::class.java, name)
-            .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
+            .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
             .build()
         database = open()
         createRepositories()

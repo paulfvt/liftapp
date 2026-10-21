@@ -71,3 +71,11 @@ val MIGRATION_2_3 = object : Migration(2, 3) {
         db.execSQL("ALTER TABLE workout_set ADD COLUMN targetReps INTEGER")
     }
 }
+
+// Version 4 : la séance retient le début et la fin du repos en cours, pour le minuteur et la notification.
+val MIGRATION_3_4 = object : Migration(3, 4) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL("ALTER TABLE workout ADD COLUMN restStartedAt INTEGER")
+        db.execSQL("ALTER TABLE workout ADD COLUMN restEndsAt INTEGER")
+    }
+}

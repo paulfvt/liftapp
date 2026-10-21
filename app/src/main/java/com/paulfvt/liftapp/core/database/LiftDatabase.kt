@@ -25,7 +25,7 @@ import com.paulfvt.liftapp.core.database.entity.WorkoutTemplateEntity
 // Toute modification d'une entité impose d'augmenter version et d'écrire une migration testée.
 // Le schéma de chaque version est exporté dans app/schemas/ (exportSchema = true par défaut).
 @Database(
-    version = 3,
+    version = 4,
     entities = [
         ExerciseEntity::class,
         ExerciseMuscleEntity::class,
