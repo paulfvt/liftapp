@@ -6,13 +6,14 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
-import com.paulfvt.liftapp.R
-import com.paulfvt.liftapp.core.ui.ComingSoonScreen
 import com.paulfvt.liftapp.exercise.navigation.ExerciseListRoute
 import com.paulfvt.liftapp.exercise.navigation.exerciseScreens
 import com.paulfvt.liftapp.history.navigation.WorkoutDetailRoute
 import com.paulfvt.liftapp.history.navigation.historyScreens
 import com.paulfvt.liftapp.history.ui.HistoryScreen
+import com.paulfvt.liftapp.profile.navigation.AboutRoute
+import com.paulfvt.liftapp.profile.navigation.profileScreens
+import com.paulfvt.liftapp.profile.ui.ProfileScreen
 import com.paulfvt.liftapp.progress.navigation.ExerciseProgressRoute
 import com.paulfvt.liftapp.progress.navigation.progressScreens
 import com.paulfvt.liftapp.progress.ui.ProgressScreen
@@ -22,7 +23,7 @@ import com.paulfvt.liftapp.template.ui.list.TemplatesScreen
 import com.paulfvt.liftapp.workout.navigation.WorkoutRoute
 import com.paulfvt.liftapp.workout.navigation.workoutScreen
 
-// Graphe de navigation : chaque phase remplacera un ComingSoonScreen par le vrai écran.
+// Graphe de navigation : un graphe imbriqué par onglet, plus la séance en cours à la racine.
 @Composable
 fun LiftNavHost(navController: NavHostController, modifier: Modifier = Modifier) {
     NavHost(
@@ -54,7 +55,12 @@ fun LiftNavHost(navController: NavHostController, modifier: Modifier = Modifier)
             }
             progressScreens(navController)
         }
-        composable<ProfileRoute> { ComingSoonScreen(R.string.nav_profile) }
+        navigation<ProfileGraph>(startDestination = ProfileRoute) {
+            composable<ProfileRoute> {
+                ProfileScreen(onOpenAbout = { navController.navigate(AboutRoute) })
+            }
+            profileScreens(navController)
+        }
         // Séance en cours à la racine : elle s'ouvre depuis n'importe quel onglet (bandeau EN DIRECT).
         workoutScreen(navController)
     }

@@ -66,6 +66,8 @@ android {
 
     buildFeatures {
         compose = true
+        // Génère BuildConfig.VERSION_NAME, affiché dans « À propos ».
+        buildConfig = true
     }
 }
 

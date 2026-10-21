@@ -8,7 +8,35 @@
     <string name="nav_progress">Progrès</string>
     <string name="nav_profile">Profil</string>
 
-    <string name="coming_soon">Bientôt disponible</string>
+    <!-- Onglet Profil, À propos et licences -->
+    <string name="profile_about_summary">Version, crédits et licences</string>
+    <string name="profile_coming_soon">Tes mesures et tes photos de progression arriveront ici dans une prochaine version.</string>
+    <string name="about_title">À propos</string>
+    <string name="about_version">Version %1$s</string>
+    <string name="about_description">Carnet de musculation qui fonctionne sans connexion. Pas de compte : tes données restent sur ton téléphone.</string>
+    <string name="about_credits_exercises">Exercices</string>
+    <string name="about_credits_fonts">Polices</string>
+    <string name="about_credits_libraries">Bibliothèques</string>
+    <string name="about_read_license">Lire la licence %1$s</string>
+    <string name="license_apache_title">Apache 2.0</string>
+    <string name="license_ofl_title">SIL OFL 1.1</string>
+    <string name="credit_free_exercise_db">free-exercise-db</string>
+    <string name="credit_free_exercise_db_detail">Catalogue et images d\'exercices de yuhonas, dans le domaine public (Unlicense). Noms et instructions traduits en français.</string>
+    <string name="credit_barlow">Barlow et Barlow Condensed</string>
+    <string name="credit_barlow_detail">Copyright 2017 The Barlow Project Authors</string>
+    <string name="credit_jetpack">Android Jetpack</string>
+    <string name="credit_jetpack_detail">Compose, Material 3, Room, Navigation, DataStore et Lifecycle, de Google</string>
+    <string name="credit_hilt">Hilt et Dagger</string>
+    <string name="credit_by_google">De Google</string>
+    <string name="credit_kotlin">Kotlin, kotlinx.coroutines et kotlinx.serialization</string>
+    <string name="credit_kotlin_detail">De JetBrains</string>
+    <string name="credit_coil">Coil</string>
+    <string name="credit_coil_detail">Des contributeurs de Coil</string>
+    <string name="credit_reorderable">Reorderable</string>
+    <string name="credit_reorderable_detail">De Calvin Liang</string>
+    <string name="credit_vico">Vico</string>
+    <string name="credit_vico_detail">De Patryk Goworowski et Patrick Michalik</string>
+    <string name="credit_material_icons">Icônes Material</string>
 
     <!-- Actions communes -->
     <string name="action_back">Retour</string>

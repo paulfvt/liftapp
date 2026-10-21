@@ -14,7 +14,7 @@ data object TemplatesGraph
 @Serializable
 data object TemplatesRoute
 
-// Graphes imbriqués des onglets Historique et Progrès, pour la même raison que TemplatesGraph.
+// Graphes imbriqués des onglets Historique, Progrès et Profil, pour la même raison que TemplatesGraph.
 @Serializable
 data object HistoryGraph
 
@@ -26,6 +26,9 @@ data object ProgressGraph
 
 @Serializable
 data object ProgressRoute
+
+@Serializable
+data object ProfileGraph
 
 @Serializable
 data object ProfileRoute
@@ -40,5 +43,5 @@ enum class TopLevelDestination(
     TEMPLATES(TemplatesGraph, R.drawable.ic_fitness_center, R.string.nav_templates),
     HISTORY(HistoryGraph, R.drawable.ic_history, R.string.nav_history),
     PROGRESS(ProgressGraph, R.drawable.ic_trending_up, R.string.nav_progress),
-    PROFILE(ProfileRoute, R.drawable.ic_person, R.string.nav_profile)
+    PROFILE(ProfileGraph, R.drawable.ic_person, R.string.nav_profile)
 }

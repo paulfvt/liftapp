@@ -27,7 +27,6 @@ import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -35,6 +34,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.paulfvt.liftapp.R
 import com.paulfvt.liftapp.core.designsystem.component.EmptyState
 import com.paulfvt.liftapp.core.designsystem.component.ScreenTitle
+import com.paulfvt.liftapp.core.designsystem.component.SectionTitle
 import com.paulfvt.liftapp.core.model.Exercise
 import com.paulfvt.liftapp.core.model.PersonalRecordType
 import com.paulfvt.liftapp.core.ui.shortDay
@@ -91,16 +91,6 @@ fun ExerciseProgressScreen(onBack: () -> Unit, viewModel: ExerciseProgressViewMo
             }
         }
     }
-}
-
-@Composable
-private fun SectionTitle(text: String) {
-    Text(
-        text.uppercase(),
-        style = MaterialTheme.typography.labelLarge,
-        color = MaterialTheme.colorScheme.onSurfaceVariant,
-        modifier = Modifier.semantics { heading() }
-    )
 }
 
 @Composable
