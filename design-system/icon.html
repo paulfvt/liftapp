@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LiftApp · Icône</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+/* Mise en page de la démo uniquement. Les icônes sont dessinées en SVG sur la grille 108 x 108 d'une icône
+   adaptative Android : seule la zone centrale de 72 x 72 est visible, découpée par le masque du lanceur. */
+body{font-family:var(--font-body);color:var(--on-surface);background:var(--surface-container-lowest);background-image:var(--wash);min-height:100vh;padding:24px 16px 60px}
+h1{font:700 28px var(--font-display);text-transform:uppercase;letter-spacing:.04em;text-align:center;margin:0 0 6px}
+.intro{max-width:760px;margin:0 auto 28px;text-align:center;color:var(--on-surface-variant);line-height:1.5}
+.options{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;max-width:1080px;margin:0 auto}
+.card{background:var(--surface-container);border:1px solid var(--outline-variant);border-radius:16px;padding:20px}
+.card h2{font:700 22px var(--font-display);text-transform:uppercase;letter-spacing:.04em;margin:0 0 4px}
+.card p{margin:0 0 16px;color:var(--on-surface-variant);line-height:1.45;font-size:14px}
+.hero{display:flex;justify-content:center;margin-bottom:16px}
+.label{font:600 12px var(--font-body);color:var(--on-surface-variant);text-transform:uppercase;letter-spacing:.06em;margin:14px 0 8px}
+.wall{display:flex;gap:14px;align-items:center;justify-content:center;padding:14px;border-radius:12px}
+.wall.light{background:linear-gradient(135deg,#e9e3f5,#f7efe4)}
+.wall.dark{background:linear-gradient(135deg,#1c2230,#0b0d12)}
+.wall.themed{background:linear-gradient(135deg,#efe6e4,#e3d7d4)}
+.app{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11px}
+.wall.light .app,.wall.themed .app{color:#222}
+.wall.dark .app{color:#eee}
+svg{display:block}
+</style>
+</head>
+<body>
+<h1>Icône de l'app</h1>
+<p class="intro">Trois pistes dans le style ON AIR. Chacune est montrée en grand, dans les trois formes de masque des
+lanceurs (rond, « squircle » de Samsung, carré arrondi), sur fond clair et sombre, puis en icône à thème
+(Android 13 et plus : le système la recolore d'une seule teinte).</p>
+<div class="options" id="options"></div>
+
+<script>
+// Chaque piste : un fond et un premier plan, sur la grille 108 x 108. Le premier plan reste dans le cercle
+// central de 66 de diamètre (zone sûre), le seul garanti visible quel que soit le masque.
+const RED = '#D9241B', INK = '#0D0A0A';
+
+const barbell = c => `
+  <rect x="22" y="52" width="64" height="4" rx="1.5" fill="${c}"/>
+  <rect x="32" y="35" width="8" height="38" rx="2.5" fill="${c}"/>
+  <rect x="68" y="35" width="8" height="38" rx="2.5" fill="${c}"/>
+  <rect x="26" y="42" width="5" height="24" rx="2" fill="${c}"/>
+  <rect x="77" y="42" width="5" height="24" rx="2" fill="${c}"/>`;
+
+// Barre en tubes de néon : les mêmes formes en contours, entourées de halos de plus en plus larges et transparents.
+const neonShapes = `
+  <rect x="32.5" y="36" width="7" height="36" rx="3"/>
+  <rect x="68.5" y="36" width="7" height="36" rx="3"/>
+  <rect x="25" y="43" width="4.5" height="22" rx="2.2"/>
+  <rect x="78.5" y="43" width="4.5" height="22" rx="2.2"/>
+  <path d="M40 54H68M29.5 54H32.5M75.5 54H78.5M20 54H25M83 54H88"/>`;
+const neon = mono => mono
+  ? `<g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round">${neonShapes}</g>`
+  : `<g fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <g stroke="#EB281E" stroke-opacity=".16" stroke-width="8">${neonShapes}</g>
+      <g stroke="#EB281E" stroke-opacity=".32" stroke-width="4.6">${neonShapes}</g>
+      <g stroke="#FF5A4E" stroke-width="2.6">${neonShapes}</g>
+      <g stroke="#FFD9D5" stroke-width="1">${neonShapes}</g>
+    </g>`;
+
+// Disque de fonte vu de face, qui rappelle aussi le voyant rouge « en direct » d'un studio.
+const plate = mono => mono
+  ? `<path fill="currentColor" fill-rule="evenodd" d="M54 27a27 27 0 1 0 0 54a27 27 0 1 0 0-54zM54 32.5a21.5 21.5 0 1 0 0 43a21.5 21.5 0 1 0 0-43zM54 34a20 20 0 1 1 0 40a20 20 0 1 1 0-40zM54 44.5a9.5 9.5 0 1 0 0 19a9.5 9.5 0 1 0 0-19zM54 49.5a4.5 4.5 0 1 1 0 9a4.5 4.5 0 1 1 0-9z"/>`
+  : `<circle cx="54" cy="54" r="30.5" fill="#EB281E" fill-opacity=".14"/>
+     <circle cx="54" cy="54" r="28.6" fill="#EB281E" fill-opacity=".22"/>
+     <circle cx="54" cy="54" r="27" fill="${RED}"/>
+     <circle cx="54" cy="54" r="20.75" fill="none" stroke="${INK}" stroke-opacity=".45" stroke-width="1.5"/>
+     <circle cx="54" cy="54" r="9.5" fill="#FFFFFF"/>
+     <circle cx="54" cy="54" r="4.5" fill="${INK}"/>`;
+
+// Le dessin occupe environ 50 sur 108, comme les icônes du système : il respire dans tous les masques.
+const fit = (content, k) => `<g transform="translate(54 54) scale(${k}) translate(-54 -54)">${content}</g>`;
+
+const OPTIONS = [
+  {
+    name: 'A · Signal',
+    text: 'Fond rouge signal, barre blanche pleine. La plus lisible en petit, dans la couleur des boutons principaux. Plus classique.',
+    bg: () => `<rect x="0" y="0" width="108" height="108" fill="${RED}"/>`,
+    fg: mono => fit(barbell(mono ? 'currentColor' : '#FFFFFF'), .8)
+  },
+  {
+    name: 'B · Néon',
+    text: 'Fond noir, barre dessinée en tube de néon rouge. Reprend l\'enseigne de studio ; un peu moins nette en très petit.',
+    bg: () => `<rect x="0" y="0" width="108" height="108" fill="${INK}"/>
+               <rect x="0" y="0" width="108" height="108" fill="url(#wash)"/>`,
+    fg: mono => fit(neon(mono), .8)
+  },
+  {
+    name: 'C · Disque',
+    text: 'Fond noir, disque de fonte rouge vu de face, qui évoque aussi le voyant « en direct ». La plus singulière, mais un disque se lit moins vite « muscu » qu\'une barre.',
+    bg: () => `<rect x="0" y="0" width="108" height="108" fill="${INK}"/>`,
+    fg: mono => fit(plate(mono), .85)
+  }
+];
+
+// Masques des lanceurs, dessinés de 0 à 1 puis agrandis à la zone visible (18 à 90).
+const FIT = 'transform="translate(18 18) scale(72)"';
+const MASKS = {
+  rond: `<circle cx=".5" cy=".5" r=".5" ${FIT}/>`,
+  squircle: `<path d="M.5 0C.9 0 1 .1 1 .5S.9 1 .5 1 0 .9 0 .5 .1 0 .5 0z" ${FIT}/>`,
+  carré: `<rect width="1" height="1" rx=".22" ${FIT}/>`
+};
+
+let uid = 0;
+function icon(option, size, mask, mono = false) {
+  const id = 'i' + (uid++);
+  const background = mono
+    ? `<rect x="0" y="0" width="108" height="108" fill="#F4DDD9"/>`
+    : option.bg();
+  return `<svg width="${size}" height="${size}" viewBox="18 18 72 72" role="img" aria-label="${option.name}"
+      style="color:#5D3F3B">
+    <defs>
+      <clipPath id="${id}">${MASKS[mask]}</clipPath>
+      <radialGradient id="wash" cx=".5" cy=".5" r=".5">
+        <stop offset="0" stop-color="#D9241B" stop-opacity=".22"/><stop offset="1" stop-color="#D9241B" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <g clip-path="url(#${id})">${background}${option.fg(mono)}</g>
+  </svg>`;
+}
+
+const row = (option, wall, mono) => `<div class="wall ${wall}">${
+  Object.keys(MASKS).map(mask => `<div class="app">${icon(option, 56, mask, mono)}<span>LiftApp</span></div>`).join('')
+}</div>`;
+
+document.getElementById('options').innerHTML = OPTIONS.map(option => `
+  <section class="card">
+    <h2>${option.name}</h2>
+    <p>${option.text}</p>
+    <div class="hero">${icon(option, 168, 'squircle')}</div>
+    <div class="label">Fond clair</div>${row(option, 'light', false)}
+    <div class="label">Fond sombre</div>${row(option, 'dark', false)}
+    <div class="label">Icône à thème</div>${row(option, 'themed', true)}
+  </section>`).join('');
+</script>
+</body>
+</html>
