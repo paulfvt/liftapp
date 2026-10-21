@@ -30,7 +30,8 @@ data class Workout(
     val name: String,
     val startedAt: Instant,
     val note: String?,
-    val exercises: List<WorkoutExercise>
+    val exercises: List<WorkoutExercise>,
+    val rest: RestPeriod? = null
 )
 
 // Série faite lors d'une séance terminée, base du pré-remplissage et de la colonne « Précédent ».

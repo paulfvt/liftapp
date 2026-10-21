@@ -32,9 +32,10 @@ fun set(
     weightKg: Double? = null,
     reps: Int? = null,
     completed: Boolean = true,
-    targetReps: Int? = null
+    targetReps: Int? = null,
+    id: Long = 0
 ) = WorkoutSet(
-    id = 0,
+    id = id,
     type = type,
     values = SetValues(weightKg = weightKg, reps = reps),
     targetReps = targetReps,
