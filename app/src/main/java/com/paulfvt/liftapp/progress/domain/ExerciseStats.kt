@@ -1,5 +1,6 @@
 package com.paulfvt.liftapp.progress.domain
 
+import com.paulfvt.liftapp.core.model.Exercise
 import com.paulfvt.liftapp.core.model.PersonalRecordType
 import com.paulfvt.liftapp.core.model.SetType
 import com.paulfvt.liftapp.core.model.TrackingType
@@ -128,3 +129,19 @@ private fun bestOf(ordered: List<PerformedSet>, value: (PerformedSet) -> Double?
     }
     return best
 }
+
+// Record mis en avant dans la liste de l'onglet Progrès.
+fun headlineRecordType(trackingType: TrackingType): PersonalRecordType = when (trackingType) {
+    TrackingType.WEIGHT_REPS -> PersonalRecordType.MAX_ESTIMATED_1RM
+    TrackingType.REPS -> PersonalRecordType.MAX_REPS
+    TrackingType.DURATION -> PersonalRecordType.MAX_DURATION
+    TrackingType.DISTANCE -> PersonalRecordType.MAX_DISTANCE
+}
+
+// Exercice déjà fait, tel que listé dans l'onglet Progrès.
+data class PerformedExercise(
+    val exercise: Exercise,
+    val lastPerformedAt: Instant,
+    val workoutCount: Int,
+    val headline: PersonalRecord?
+)

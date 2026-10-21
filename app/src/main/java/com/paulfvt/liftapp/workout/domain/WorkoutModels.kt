@@ -31,6 +31,7 @@ data class Workout(
     val startedAt: Instant,
     val note: String?,
     val exercises: List<WorkoutExercise>,
+    val endedAt: Instant? = null,
     val rest: RestPeriod? = null
 )
 

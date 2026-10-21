@@ -2,23 +2,19 @@ package com.paulfvt.liftapp.workout.data
 
 import androidx.room.withTransaction
 import com.paulfvt.liftapp.core.database.LiftDatabase
-import com.paulfvt.liftapp.core.database.entity.WorkoutDetails
 import com.paulfvt.liftapp.core.database.entity.WorkoutEntity
 import com.paulfvt.liftapp.core.database.entity.WorkoutExerciseEntity
 import com.paulfvt.liftapp.core.database.entity.WorkoutSetEntity
 import com.paulfvt.liftapp.core.model.SetType
 import com.paulfvt.liftapp.core.model.WorkoutStatus
-import com.paulfvt.liftapp.exercise.data.toDomain
+import com.paulfvt.liftapp.progress.data.RecordRepository
 import com.paulfvt.liftapp.template.data.TemplateRepository
 import com.paulfvt.liftapp.template.domain.DEFAULT_REST_SECONDS
 import com.paulfvt.liftapp.template.domain.TemplateDraft
 import com.paulfvt.liftapp.workout.domain.PlannedSet
 import com.paulfvt.liftapp.workout.domain.PreviousSet
-import com.paulfvt.liftapp.workout.domain.RestPeriod
 import com.paulfvt.liftapp.workout.domain.SetValues
 import com.paulfvt.liftapp.workout.domain.Workout
-import com.paulfvt.liftapp.workout.domain.WorkoutExercise
-import com.paulfvt.liftapp.workout.domain.WorkoutSet
 import com.paulfvt.liftapp.workout.domain.WorkoutSummary
 import com.paulfvt.liftapp.workout.domain.addedSet
 import com.paulfvt.liftapp.workout.domain.adjusted
@@ -48,6 +44,7 @@ data class FinishedWorkout(
 class WorkoutRepository @Inject constructor(
     private val database: LiftDatabase,
     private val templates: TemplateRepository,
+    private val records: RecordRepository,
     private val clock: Clock
 ) {
     private val dao = database.workoutDao()
@@ -204,6 +201,7 @@ class WorkoutRepository @Inject constructor(
         dao.deleteExercisesWithoutSets(workoutId)
         dao.updateStatus(workoutId, WorkoutStatus.FINISHED, endedAt)
         dao.updateRest(workoutId, null, null)
+        records.recompute(workout.exercises.map { it.exercise.id })
         FinishedWorkout(workout.name, summarize(workout, endedAt), workout.templateId, templateUpdate)
     }
 
@@ -244,47 +242,4 @@ class WorkoutRepository @Inject constructor(
         )
         dao.insertSets(sets.toEntities(id))
     }
-}
-
-private fun WorkoutDetails.toDomain() = Workout(
-    id = workout.id,
-    templateId = workout.templateId,
-    name = workout.name,
-    startedAt = workout.startedAt,
-    note = workout.note,
-    rest = workout.restPeriod(),
-    exercises = exercises.sortedBy { it.workoutExercise.sortOrder }.map { details ->
-        WorkoutExercise(
-            id = details.workoutExercise.id,
-            exercise = details.exercise.toDomain(),
-            restSeconds = details.workoutExercise.restSeconds,
-            sets = details.sets.sortedBy { it.sortOrder }.map { it.toDomain() }
-        )
-    }
-)
-
-private fun WorkoutEntity.restPeriod(): RestPeriod? {
-    val startedAt = restStartedAt ?: return null
-    val endsAt = restEndsAt ?: return null
-    return RestPeriod(startedAt, endsAt)
-}
-
-private fun WorkoutSetEntity.toValues() = SetValues(weightKg, reps, durationSec, distanceM)
-
-private fun WorkoutSetEntity.toDomain() = WorkoutSet(id, type, toValues(), rpe, targetReps, isCompleted)
-
-private fun List<PlannedSet>.toEntities(workoutExerciseId: Long, firstOrder: Int = 0) = mapIndexed { index, planned ->
-    WorkoutSetEntity(
-        workoutExerciseId = workoutExerciseId,
-        sortOrder = firstOrder + index,
-        type = planned.type,
-        weightKg = planned.values.weightKg,
-        reps = planned.values.reps,
-        durationSec = planned.values.durationSec,
-        distanceM = planned.values.distanceM,
-        rpe = null,
-        isCompleted = false,
-        completedAt = null,
-        targetReps = planned.targetReps
-    )
 }

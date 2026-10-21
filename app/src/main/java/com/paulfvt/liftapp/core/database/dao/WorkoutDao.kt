@@ -4,6 +4,9 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
+import com.paulfvt.liftapp.core.database.entity.PerformedExerciseRow
+import com.paulfvt.liftapp.core.database.entity.PerformedSetRow
+import com.paulfvt.liftapp.core.database.entity.SetCompletionRow
 import com.paulfvt.liftapp.core.database.entity.WorkoutDetails
 import com.paulfvt.liftapp.core.database.entity.WorkoutEntity
 import com.paulfvt.liftapp.core.database.entity.WorkoutExerciseEntity
@@ -24,6 +27,65 @@ interface WorkoutDao {
     @Transaction
     @Query("SELECT * FROM workout WHERE id = :id")
     suspend fun getDetails(id: Long): WorkoutDetails?
+
+    // Historique : séances d'un statut, la plus récente d'abord.
+    @Transaction
+    @Query("SELECT * FROM workout WHERE status = :status ORDER BY startedAt DESC")
+    fun observeAllByStatus(status: WorkoutStatus): Flow<List<WorkoutDetails>>
+
+    @Transaction
+    @Query("SELECT * FROM workout WHERE id = :id")
+    fun observeDetails(id: Long): Flow<WorkoutDetails?>
+
+    @Query("SELECT DISTINCT exerciseId FROM workout_exercise WHERE workoutId = :workoutId")
+    suspend fun exerciseIdsOf(workoutId: Long): List<Long>
+
+    // Séries validées d'un exercice dans les séances d'un statut, dans l'ordre où elles ont été faites.
+    @Query(
+        """
+        SELECT s.id AS setId, w.id AS workoutId, w.startedAt AS performedAt, s.type, s.weightKg, s.reps,
+               s.durationSec, s.distanceM
+        FROM workout_set s
+        INNER JOIN workout_exercise we ON we.id = s.workoutExerciseId
+        INNER JOIN workout w ON w.id = we.workoutId
+        WHERE we.exerciseId = :exerciseId AND w.status = :status AND s.isCompleted = 1
+        ORDER BY w.startedAt, we.sortOrder, s.sortOrder
+        """
+    )
+    suspend fun performedSets(exerciseId: Long, status: WorkoutStatus): List<PerformedSetRow>
+
+    @Query(
+        """
+        SELECT s.id AS setId, w.id AS workoutId, w.startedAt AS performedAt, s.type, s.weightKg, s.reps,
+               s.durationSec, s.distanceM
+        FROM workout_set s
+        INNER JOIN workout_exercise we ON we.id = s.workoutExerciseId
+        INNER JOIN workout w ON w.id = we.workoutId
+        WHERE we.exerciseId = :exerciseId AND w.status = :status AND s.isCompleted = 1
+        ORDER BY w.startedAt, we.sortOrder, s.sortOrder
+        """
+    )
+    fun observePerformedSets(exerciseId: Long, status: WorkoutStatus): Flow<List<PerformedSetRow>>
+
+    @Query(
+        """
+        SELECT we.exerciseId AS exerciseId, MAX(w.startedAt) AS lastPerformedAt, COUNT(DISTINCT w.id) AS workoutCount
+        FROM workout_exercise we INNER JOIN workout w ON w.id = we.workoutId
+        WHERE w.status = :status
+        GROUP BY we.exerciseId
+        ORDER BY lastPerformedAt DESC
+        """
+    )
+    fun observePerformedExercises(status: WorkoutStatus): Flow<List<PerformedExerciseRow>>
+
+    @Query(
+        """
+        SELECT s.id, s.completedAt FROM workout_set s
+        INNER JOIN workout_exercise we ON we.id = s.workoutExerciseId
+        WHERE we.workoutId = :workoutId
+        """
+    )
+    suspend fun setCompletionsOf(workoutId: Long): List<SetCompletionRow>
 
     @Query("SELECT * FROM workout WHERE id = :id")
     suspend fun getWorkout(id: Long): WorkoutEntity?
@@ -83,6 +145,13 @@ interface WorkoutDao {
 
     @Query("DELETE FROM workout_exercise WHERE id = :id")
     suspend fun deleteExercise(id: Long)
+
+    // Les séries et les lignes de records liées partent avec (clés étrangères ON DELETE CASCADE).
+    @Query("DELETE FROM workout_exercise WHERE workoutId = :workoutId")
+    suspend fun deleteExercisesOf(workoutId: Long)
+
+    @Query("DELETE FROM workout WHERE id = :id")
+    suspend fun deleteWorkout(id: Long)
 
     @Query("UPDATE workout_set SET type = :type WHERE id = :id")
     suspend fun updateSetType(id: Long, type: SetType)

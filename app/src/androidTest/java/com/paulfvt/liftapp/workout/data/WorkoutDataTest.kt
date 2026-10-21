@@ -12,6 +12,7 @@ import com.paulfvt.liftapp.core.model.Muscle
 import com.paulfvt.liftapp.core.model.SetType
 import com.paulfvt.liftapp.exercise.data.ExerciseRepository
 import com.paulfvt.liftapp.exercise.domain.ExerciseDraft
+import com.paulfvt.liftapp.progress.data.RecordRepository
 import com.paulfvt.liftapp.template.data.TemplateRepository
 import com.paulfvt.liftapp.template.domain.TemplateDraft
 import com.paulfvt.liftapp.template.domain.addExercises
@@ -70,7 +71,7 @@ class WorkoutDataTest {
     private fun createRepositories() {
         exercises = ExerciseRepository(database)
         templates = TemplateRepository(database)
-        workouts = WorkoutRepository(database, templates, clock)
+        workouts = WorkoutRepository(database, templates, RecordRepository(database, exercises), clock)
     }
 
     private suspend fun newExercise(name: String): Long =
