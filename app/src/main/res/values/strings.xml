@@ -48,6 +48,16 @@
     <string name="photos_empty_title">Aucune photo</string>
     <string name="photos_empty_text">Prends une photo de temps en temps, au même endroit et avec la même lumière, pour voir ton corps changer.</string>
     <string name="photos_import">Importer une photo</string>
+    <string name="photo_take">Prendre une photo</string>
+    <string name="camera_shutter">Prendre la photo</string>
+    <string name="camera_switch">Changer de caméra</string>
+    <string name="camera_ghost">Silhouette de la dernière photo</string>
+    <string name="camera_ghost_hint">Aligne-toi sur la silhouette de ta dernière photo.</string>
+    <string name="camera_first_photo">Première photo de cette pose : place-toi au centre, à la même distance chaque fois.</string>
+    <string name="camera_error">La photo n\'a pas pu être enregistrée. Réessaie.</string>
+    <string name="camera_permission_text">LiftApp a besoin de la caméra pour prendre tes photos de progression. Elles restent dans l\'app, sur ton téléphone.</string>
+    <string name="camera_permission_allow">Autoriser la caméra</string>
+    <string name="camera_permission_settings">Ouvrir les réglages de l\'app</string>
     <string name="photos_filter_all">Toutes</string>
     <string name="photo_pose">Pose</string>
     <string name="photo_pose_front">Face</string>
@@ -113,7 +123,7 @@
     <string name="credit_barlow">Barlow et Barlow Condensed</string>
     <string name="credit_barlow_detail">Copyright 2017 The Barlow Project Authors</string>
     <string name="credit_jetpack">Android Jetpack</string>
-    <string name="credit_jetpack_detail">Compose, Material 3, Room, Navigation, DataStore et Lifecycle, de Google</string>
+    <string name="credit_jetpack_detail">Compose, Material 3, Room, Navigation, DataStore, Lifecycle et CameraX, de Google</string>
     <string name="credit_hilt">Hilt et Dagger</string>
     <string name="credit_by_google">De Google</string>
     <string name="credit_kotlin">Kotlin, kotlinx.coroutines et kotlinx.serialization</string>

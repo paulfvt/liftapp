@@ -105,6 +105,15 @@ dependencies {
     // Courbes de progression (Apache 2.0), validé le 21 octobre 2026. Le module Material 3 de Vico n'est pas
     // utilisé : son seul rôle (reprendre les couleurs du thème) tient en quelques lignes dans ProgressChart.
     implementation(libs.vico.compose)
+    // Prise de photo dans l'app avec la silhouette fantôme (Apache 2.0), validé le 21 octobre 2026 : l'appareil photo
+    // du système ne permet pas de superposer une image. camera-compose affiche l'aperçu directement en Compose.
+    implementation(libs.androidx.camera.core)
+    implementation(libs.androidx.camera.camera2)
+    implementation(libs.androidx.camera.lifecycle)
+    implementation(libs.androidx.camera.compose)
+    // Lecture de l'orientation et de la date des photos. Déjà apportée par CameraX, déclarée car utilisée
+    // directement : elle corrige des failles de la version intégrée aux anciens Android.
+    implementation(libs.androidx.exifinterface)
 
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)

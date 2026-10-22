@@ -7,6 +7,7 @@ import com.paulfvt.liftapp.profile.ui.AboutScreen
 import com.paulfvt.liftapp.profile.ui.LicenseScreen
 import com.paulfvt.liftapp.profile.ui.MeasurementEntryScreen
 import com.paulfvt.liftapp.profile.ui.MeasurementScreen
+import com.paulfvt.liftapp.profile.ui.PhotoCaptureScreen
 import com.paulfvt.liftapp.profile.ui.PhotoScreen
 import com.paulfvt.liftapp.profile.ui.PhotosScreen
 import com.paulfvt.liftapp.profile.ui.ProfileEditScreen
@@ -28,6 +29,10 @@ data object PhotosRoute
 
 @Serializable
 data class PhotoRoute(val id: Long)
+
+// Prise de photo en plein écran, avec la pose déjà choisie si on vient d'un filtre de la timeline.
+@Serializable
+data class PhotoCaptureRoute(val pose: String? = null)
 
 @Serializable
 data object AboutRoute
@@ -52,8 +57,12 @@ fun NavGraphBuilder.profileScreens(navController: NavController) {
     composable<PhotosRoute> {
         PhotosScreen(
             onBack = { navController.popBackStack<PhotosRoute>(inclusive = true) },
-            onOpenPhoto = { id -> navController.navigate(PhotoRoute(id)) }
+            onOpenPhoto = { id -> navController.navigate(PhotoRoute(id)) },
+            onTakePhoto = { pose -> navController.navigate(PhotoCaptureRoute(pose?.name)) }
         )
+    }
+    composable<PhotoCaptureRoute> {
+        PhotoCaptureScreen(onClose = { navController.popBackStack<PhotoCaptureRoute>(inclusive = true) })
     }
     composable<PhotoRoute> {
         PhotoScreen(onBack = { navController.popBackStack<PhotoRoute>(inclusive = true) })

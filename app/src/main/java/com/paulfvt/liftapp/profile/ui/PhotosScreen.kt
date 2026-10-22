@@ -26,6 +26,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -65,7 +66,12 @@ private const val GRID_COLUMNS = 3
 // Timeline des photos par mois, la plus récente d'abord, filtrable par pose.
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PhotosScreen(onBack: () -> Unit, onOpenPhoto: (Long) -> Unit, viewModel: PhotosViewModel = hiltViewModel()) {
+fun PhotosScreen(
+    onBack: () -> Unit,
+    onOpenPhoto: (Long) -> Unit,
+    onTakePhoto: (PhotoPose?) -> Unit,
+    viewModel: PhotosViewModel = hiltViewModel()
+) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     // Sélecteur de photos d'Android : aucune permission nécessaire, l'app ne voit que l'image choisie.
     val picker = rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
@@ -87,6 +93,15 @@ fun PhotosScreen(onBack: () -> Unit, onOpenPhoto: (Long) -> Unit, viewModel: Pho
                     }
                 }
             )
+        },
+        floatingActionButton = {
+            if (uiState.hasPhotos) {
+                ExtendedFloatingActionButton(
+                    onClick = { onTakePhoto(uiState.pose) },
+                    icon = { Icon(painterResource(R.drawable.ic_photo_camera), contentDescription = null) },
+                    text = { Text(stringResource(R.string.photo_take)) }
+                )
+            }
         }
     ) { padding ->
         when {
@@ -98,6 +113,16 @@ fun PhotosScreen(onBack: () -> Unit, onOpenPhoto: (Long) -> Unit, viewModel: Pho
                     text = stringResource(R.string.photos_empty_text),
                     modifier = Modifier.weight(1f)
                 )
+                Button(
+                    onClick = { onTakePhoto(null) },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.primaryContainer,
+                        contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                    ),
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp).heightIn(min = 56.dp)
+                ) {
+                    Text(stringResource(R.string.photo_take))
+                }
                 OutlinedButton(
                     onClick = pickImage,
                     modifier = Modifier.fillMaxWidth().padding(16.dp).heightIn(min = 56.dp)
@@ -109,7 +134,8 @@ fun PhotosScreen(onBack: () -> Unit, onOpenPhoto: (Long) -> Unit, viewModel: Pho
                 PoseFilter(uiState.pose, viewModel::onPoseSelected)
                 LazyVerticalGrid(
                     columns = GridCells.Fixed(GRID_COLUMNS),
-                    contentPadding = PaddingValues(16.dp),
+                    // Marge du bas : les dernières vignettes ne sont pas cachées par le bouton flottant.
+                    contentPadding = PaddingValues(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 96.dp),
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalArrangement = Arrangement.spacedBy(8.dp),
                     modifier = Modifier.fillMaxSize()

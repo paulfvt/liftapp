@@ -8,6 +8,10 @@
     <!-- Alarme exacte de fin de repos : l'utilisateur l'accorde dans « Alarmes et rappels ». -->
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- Photos de progression prises dans l'app, demandée à la première photo. La caméra n'est pas exigée :
+         l'app reste installable sur un appareil sans caméra (l'import depuis la galerie suffit alors). -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera.any" android:required="false" />
 
     <application
         android:name=".LiftApplication"
