@@ -2,6 +2,7 @@ package com.paulfvt.liftapp.profile.domain
 
 import com.paulfvt.liftapp.core.model.PhotoPose
 import java.time.Instant
+import java.time.LocalDate
 import java.time.ZoneId
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
@@ -44,5 +45,17 @@ class PhotosTest {
         assertNull(photos.latestOfPose(PhotoPose.BACK))
         assertEquals(listOf(3L), photos.ofPose(PhotoPose.SIDE).map { it.id })
         assertEquals(photos, photos.ofPose(null))
+    }
+
+    @Test
+    fun `an imported photo keeps its own time unless its day is changed`() {
+        val fromImage = Instant.parse("2026-10-18T16:45:00Z")
+        val now = Instant.parse("2026-10-21T09:00:00Z")
+        assertEquals(fromImage, photoTakenAt(LocalDate.parse("2026-10-18"), fromImage, now, paris))
+        assertEquals(
+            Instant.parse("2026-10-17T10:00:00Z"),
+            photoTakenAt(LocalDate.parse("2026-10-17"), fromImage, now, paris)
+        )
+        assertEquals(now, photoTakenAt(LocalDate.parse("2026-10-21"), null, now, paris))
     }
 }

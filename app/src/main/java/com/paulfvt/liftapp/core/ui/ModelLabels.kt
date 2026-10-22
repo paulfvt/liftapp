@@ -8,6 +8,7 @@ import com.paulfvt.liftapp.core.model.ExerciseCategory
 import com.paulfvt.liftapp.core.model.MeasurementType
 import com.paulfvt.liftapp.core.model.Muscle
 import com.paulfvt.liftapp.core.model.MuscleGroup
+import com.paulfvt.liftapp.core.model.PhotoPose
 import com.paulfvt.liftapp.core.model.SetType
 import com.paulfvt.liftapp.core.model.TrackingType
 
@@ -109,4 +110,12 @@ val BodyFatMethod.labelRes: Int
         BodyFatMethod.SCALE -> R.string.body_fat_method_scale
         BodyFatMethod.CALIPER -> R.string.body_fat_method_caliper
         BodyFatMethod.ESTIMATE -> R.string.body_fat_method_estimate
+    }
+
+@get:StringRes
+val PhotoPose.labelRes: Int
+    get() = when (this) {
+        PhotoPose.FRONT -> R.string.photo_pose_front
+        PhotoPose.SIDE -> R.string.photo_pose_side
+        PhotoPose.BACK -> R.string.photo_pose_back
     }

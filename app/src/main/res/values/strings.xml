@@ -37,6 +37,31 @@
     <string name="profile_sex_unspecified">Non précisé</string>
     <string name="profile_error_first_name">%1$d caractères maximum.</string>
     <string name="profile_error_height">Entre une taille entre 50 et 260 cm.</string>
+    <!-- Photos de progression -->
+    <string name="profile_photos">Photos</string>
+    <string name="photos_none_short">Aucune photo pour l\'instant.</string>
+    <string name="photos_see">Voir les photos</string>
+    <plurals name="photos_count">
+        <item quantity="one">%d photo</item>
+        <item quantity="other">%d photos</item>
+    </plurals>
+    <string name="photos_empty_title">Aucune photo</string>
+    <string name="photos_empty_text">Prends une photo de temps en temps, au même endroit et avec la même lumière, pour voir ton corps changer.</string>
+    <string name="photos_import">Importer une photo</string>
+    <string name="photos_filter_all">Toutes</string>
+    <string name="photo_pose">Pose</string>
+    <string name="photo_pose_front">Face</string>
+    <string name="photo_pose_side">Profil</string>
+    <string name="photo_pose_back">Dos</string>
+    <string name="photo_description_front">Photo de face du %1$s</string>
+    <string name="photo_description_side">Photo de profil du %1$s</string>
+    <string name="photo_description_back">Photo de dos du %1$s</string>
+    <string name="photo_import_title">Importer la photo</string>
+    <string name="photo_import_confirm">Importer</string>
+    <string name="photo_import_error">Impossible d\'ouvrir cette image.</string>
+    <string name="photo_delete_title">Supprimer cette photo ?</string>
+    <string name="photo_delete_text">Elle sera effacée de ton téléphone. C\'est définitif.</string>
+
     <!-- Mesures du corps -->
     <string name="profile_measurements">Mesures</string>
     <string name="measurements_empty">Note ton poids et tes tours pour suivre leur évolution.</string>
@@ -74,7 +99,6 @@
     <string name="measurement_delete_text">%1$s du %2$s sera retiré de tes mesures.</string>
     <string name="measurement_delete_description">Supprimer la mesure du %1$s</string>
     <string name="profile_discard_text">Tes changements sur le profil ne seront pas enregistrés.</string>
-    <string name="profile_coming_soon">Les photos de progression arrivent bientôt.</string>
     <string name="about_title">À propos</string>
     <string name="about_version">Version %1$s</string>
     <string name="about_description">Carnet de musculation qui fonctionne sans connexion. Pas de compte : tes données restent sur ton téléphone.</string>

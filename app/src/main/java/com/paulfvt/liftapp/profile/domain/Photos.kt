@@ -2,6 +2,7 @@ package com.paulfvt.liftapp.profile.domain
 
 import com.paulfvt.liftapp.core.model.PhotoPose
 import java.time.Instant
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -43,3 +44,8 @@ fun List<ProgressPhoto>.ofPose(pose: PhotoPose?): List<ProgressPhoto> =
 // Silhouette fantôme : la photo la plus récente de la même pose, pour garder le même cadrage.
 fun List<ProgressPhoto>.latestOfPose(pose: PhotoPose): ProgressPhoto? =
     filter { it.pose == pose }.maxByOrNull { it.takenAt }
+
+// Moment enregistré pour une photo importée : l'heure de prise de vue notée dans la photo si on garde son jour,
+// sinon la même règle que pour une mesure (maintenant pour aujourd'hui, midi pour un jour passé).
+fun photoTakenAt(date: LocalDate, fromImage: Instant?, now: Instant, zone: ZoneId): Instant =
+    fromImage?.takeIf { it.atZone(zone).toLocalDate() == date } ?: measuredAtFor(date, now, zone)

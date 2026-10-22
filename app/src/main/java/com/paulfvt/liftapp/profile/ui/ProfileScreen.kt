@@ -43,7 +43,9 @@ import com.paulfvt.liftapp.core.model.MeasurementType
 import com.paulfvt.liftapp.core.ui.labelRes
 import com.paulfvt.liftapp.core.ui.shortDay
 import com.paulfvt.liftapp.profile.domain.MeasurementSummary
+import com.paulfvt.liftapp.profile.domain.ProgressPhoto
 import com.paulfvt.liftapp.workout.domain.formatDecimal
+import java.io.File
 import java.util.Locale
 
 // Onglet Profil : le profil fixe, puis les mesures, les photos et « À propos ».
@@ -53,6 +55,7 @@ fun ProfileScreen(
     onEditProfile: () -> Unit,
     onOpenMeasurement: (MeasurementType) -> Unit,
     onAddMeasurement: () -> Unit,
+    onOpenPhotos: () -> Unit,
     onOpenAbout: () -> Unit,
     viewModel: ProfileViewModel = hiltViewModel()
 ) {
@@ -74,10 +77,10 @@ fun ProfileScreen(
                 onAdd = onAddMeasurement,
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
-            Text(
-                stringResource(R.string.profile_coming_soon),
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            PhotosSection(
+                uiState = uiState,
+                fileOf = viewModel::file,
+                onOpen = onOpenPhotos,
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
             ListItem(
@@ -201,3 +204,55 @@ private fun MeasurementsSection(
         }
     }
 }
+
+// Les dernières photos en vignettes ; un appui ouvre la timeline.
+@Composable
+private fun PhotosSection(
+    uiState: ProfileUiState,
+    fileOf: (ProgressPhoto) -> File,
+    onOpen: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp), modifier = modifier) {
+        SectionTitle(stringResource(R.string.profile_photos))
+        ElevatedCard(onClick = onOpen, modifier = Modifier.fillMaxWidth()) {
+            Column(verticalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.padding(16.dp)) {
+                if (uiState.latestPhotos.isEmpty()) {
+                    Text(
+                        stringResource(R.string.photos_none_short),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                } else {
+                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        uiState.latestPhotos.forEach { photo ->
+                            PhotoThumbnail(photo, fileOf(photo), onClick = onOpen, modifier = Modifier.weight(1f))
+                        }
+                        // Cases vides : les vignettes gardent la même taille avec une ou deux photos.
+                        repeat(LATEST_PHOTO_SLOTS - uiState.latestPhotos.size) { Box(Modifier.weight(1f)) }
+                    }
+                }
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    // Sans photo, le texte « Aucune photo » au-dessus suffit : pas de compteur à zéro.
+                    Text(
+                        if (uiState.photoCount > 0) {
+                            pluralStringResource(R.plurals.photos_count, uiState.photoCount, uiState.photoCount)
+                        } else {
+                            ""
+                        },
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.weight(1f)
+                    )
+                    Text(
+                        stringResource(R.string.photos_see),
+                        style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                }
+            }
+        }
+    }
+}
+
+private const val LATEST_PHOTO_SLOTS = 3
