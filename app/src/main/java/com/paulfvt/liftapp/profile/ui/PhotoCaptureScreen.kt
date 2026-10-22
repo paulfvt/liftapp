@@ -122,7 +122,10 @@ fun PhotoCaptureScreen(onClose: () -> Unit, viewModel: PhotoCaptureViewModel = h
             } else {
                 PermissionRequest(
                     onAllow = { permissionLauncher.launch(Manifest.permission.CAMERA) },
-                    onOpenSettings = { context.openAppSettings() }
+                    onOpenSettings = {
+                        viewModel.beforeLeavingApp()
+                        context.openAppSettings()
+                    }
                 )
             }
         }

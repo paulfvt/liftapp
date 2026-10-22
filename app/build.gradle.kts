@@ -114,6 +114,9 @@ dependencies {
     // Lecture de l'orientation et de la date des photos. Déjà apportée par CameraX, déclarée car utilisée
     // directement : elle corrige des failles de la version intégrée aux anciens Android.
     implementation(libs.androidx.exifinterface)
+    // Déverrouillage des photos par le visage, l'empreinte ou le verrouillage du téléphone (Apache 2.0), validé le
+    // 21 octobre 2026. Dernière version stable : 1.1.0.
+    implementation(libs.androidx.biometric)
 
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)

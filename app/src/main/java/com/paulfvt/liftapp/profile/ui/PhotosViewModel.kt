@@ -10,6 +10,7 @@ import androidx.lifecycle.viewModelScope
 import com.paulfvt.liftapp.core.model.PhotoPose
 import com.paulfvt.liftapp.history.domain.MonthGroup
 import com.paulfvt.liftapp.history.domain.groupByMonth
+import com.paulfvt.liftapp.profile.data.PhotoLockSession
 import com.paulfvt.liftapp.profile.data.PhotoRepository
 import com.paulfvt.liftapp.profile.domain.ProgressPhoto
 import com.paulfvt.liftapp.profile.domain.comparablePoses
@@ -47,6 +48,7 @@ data class PhotoImport(val uri: Uri, val pose: PhotoPose, val date: LocalDate, v
 class PhotosViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val photos: PhotoRepository,
+    private val lockSession: PhotoLockSession,
     private val clock: Clock
 ) : ViewModel() {
     private val zone: ZoneId get() = ZoneId.systemDefault()
@@ -74,6 +76,8 @@ class PhotosViewModel @Inject constructor(
         private set
 
     fun file(photo: ProgressPhoto): File = photos.file(photo)
+
+    fun beforeLeavingApp() = lockSession.keepUnlockedWhileAway()
 
     fun onPoseSelected(pose: PhotoPose?) {
         savedStateHandle[POSE_KEY] = pose

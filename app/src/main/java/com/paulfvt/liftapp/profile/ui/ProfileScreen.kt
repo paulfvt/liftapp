@@ -217,7 +217,19 @@ private fun PhotosSection(
         SectionTitle(stringResource(R.string.profile_photos))
         ElevatedCard(onClick = onOpen, modifier = Modifier.fillMaxWidth()) {
             Column(verticalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.padding(16.dp)) {
-                if (uiState.latestPhotos.isEmpty()) {
+                if (uiState.photosLocked) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
+                        Icon(
+                            painterResource(R.drawable.ic_lock),
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.primary
+                        )
+                        Text(stringResource(R.string.photos_locked), style = MaterialTheme.typography.bodyMedium)
+                    }
+                } else if (uiState.latestPhotos.isEmpty()) {
                     Text(
                         stringResource(R.string.photos_none_short),
                         style = MaterialTheme.typography.bodyMedium,

@@ -71,6 +71,7 @@ fun PhotosScreen(
     onOpenPhoto: (Long) -> Unit,
     onTakePhoto: (PhotoPose?) -> Unit,
     onCompare: (PhotoPose?) -> Unit,
+    onOpenLockSettings: () -> Unit,
     viewModel: PhotosViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -78,7 +79,11 @@ fun PhotosScreen(
     val picker = rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
         uri?.let(viewModel::onPicked)
     }
-    val pickImage = { picker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)) }
+    val pickImage = {
+        // Le sélecteur passe l'app en arrière-plan à ta demande : les photos ne se reverrouillent pas pour autant.
+        viewModel.beforeLeavingApp()
+        picker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+    }
     Scaffold(
         topBar = {
             TopAppBar(
@@ -96,6 +101,9 @@ fun PhotosScreen(
                     }
                     IconButton(onClick = pickImage) {
                         Icon(painterResource(R.drawable.ic_photo_library), stringResource(R.string.photos_import))
+                    }
+                    IconButton(onClick = onOpenLockSettings) {
+                        Icon(painterResource(R.drawable.ic_lock), stringResource(R.string.lock_settings_title))
                     }
                 }
             )

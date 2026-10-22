@@ -3,6 +3,8 @@ package com.paulfvt.liftapp.profile.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.paulfvt.liftapp.profile.data.MeasurementRepository
+import com.paulfvt.liftapp.profile.data.PhotoLockRepository
+import com.paulfvt.liftapp.profile.data.PhotoLockSession
 import com.paulfvt.liftapp.profile.data.PhotoRepository
 import com.paulfvt.liftapp.profile.data.ProfileRepository
 import com.paulfvt.liftapp.profile.domain.MeasurementSummary
@@ -28,7 +30,9 @@ data class ProfileUiState(
     val measurements: List<MeasurementSummary> = emptyList(),
     val photoCount: Int = 0,
     // Les plus récentes, en vignettes.
-    val latestPhotos: List<ProgressPhoto> = emptyList()
+    val latestPhotos: List<ProgressPhoto> = emptyList(),
+    // Verrouillées : ni vignettes ni aperçu tant que le code n'est pas tapé.
+    val photosLocked: Boolean = false
 )
 
 // Onglet Profil : le résumé du profil fixe et la dernière valeur de chaque mesure.
@@ -37,13 +41,16 @@ class ProfileViewModel @Inject constructor(
     profiles: ProfileRepository,
     measurements: MeasurementRepository,
     private val photos: PhotoRepository,
+    lock: PhotoLockRepository,
+    lockSession: PhotoLockSession,
     private val clock: Clock
 ) : ViewModel() {
     val uiState: StateFlow<ProfileUiState> = combine(
         profiles.profile,
         measurements.observeAll(),
-        photos.observeAll()
-    ) { profile, entries, allPhotos ->
+        photos.observeAll(),
+        combine(lock.settings, lockSession.isUnlocked) { settings, unlocked -> settings.isEnabled && !unlocked }
+    ) { profile, entries, allPhotos, photosLocked ->
         val today = clock.instant().atZone(ZoneId.systemDefault()).toLocalDate()
         ProfileUiState(
             isLoading = false,
@@ -51,7 +58,8 @@ class ProfileViewModel @Inject constructor(
             age = profile.birthDate?.let { ageOn(it, today) },
             measurements = summaries(entries),
             photoCount = allPhotos.size,
-            latestPhotos = allPhotos.take(LATEST_PHOTOS)
+            latestPhotos = if (photosLocked) emptyList() else allPhotos.take(LATEST_PHOTOS),
+            photosLocked = photosLocked
         )
     }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(STOP_TIMEOUT_MS), ProfileUiState())

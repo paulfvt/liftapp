@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.net.Uri
+import androidx.core.graphics.scale
 import androidx.exifinterface.media.ExifInterface
 import com.paulfvt.liftapp.profile.domain.MAX_PHOTO_SIDE
 import com.paulfvt.liftapp.profile.domain.parseExifDate
@@ -86,7 +87,7 @@ private fun Bitmap.scaledDown(): Bitmap {
     val longest = maxOf(width, height)
     if (longest <= MAX_PHOTO_SIDE) return this
     val ratio = MAX_PHOTO_SIDE.toFloat() / longest
-    return Bitmap.createScaledBitmap(this, (width * ratio).toInt(), (height * ratio).toInt(), true)
+    return scale((width * ratio).toInt(), (height * ratio).toInt())
 }
 
 // Redresse la photo selon l'orientation notée par l'appareil qui l'a prise (les miroirs, rares, sont ignorés).

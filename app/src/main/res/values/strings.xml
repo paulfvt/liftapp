@@ -35,7 +35,10 @@
     <string name="profile_sex_female">Femme</string>
     <string name="profile_sex_male">Homme</string>
     <string name="profile_sex_unspecified">Non précisé</string>
-    <string name="profile_error_first_name">%1$d caractères maximum.</string>
+    <plurals name="profile_error_first_name">
+        <item quantity="one">%d caractère maximum.</item>
+        <item quantity="other">%d caractères maximum.</item>
+    </plurals>
     <string name="profile_error_height">Entre une taille entre 50 et 260 cm.</string>
     <!-- Photos de progression -->
     <string name="profile_photos">Photos</string>
@@ -50,6 +53,41 @@
     <string name="photos_import">Importer une photo</string>
     <string name="photo_take">Prendre une photo</string>
     <string name="photos_compare">Comparer avant et après</string>
+    <string name="photos_locked">Photos verrouillées</string>
+    <!-- Verrouillage des photos -->
+    <string name="lock_settings_title">Verrouillage</string>
+    <string name="lock_title">Photos verrouillées</string>
+    <string name="lock_subtitle">Entre ton code.</string>
+    <string name="lock_new_pin_title">Choisis un code</string>
+    <string name="lock_new_pin_subtitle">De 4 à 8 chiffres, propre à LiftApp.</string>
+    <string name="lock_confirm_pin_title">Confirme ton code</string>
+    <string name="lock_confirm_pin_subtitle">Tape-le une seconde fois.</string>
+    <string name="lock_wrong_pin">Code incorrect.</string>
+    <string name="lock_mismatch">Les deux codes sont différents. Recommence.</string>
+    <string name="lock_wait">Trop d\'essais. Réessaie dans %1$d s.</string>
+    <string name="lock_use_biometric">Visage ou empreinte</string>
+    <string name="lock_biometric_title">Déverrouiller tes photos</string>
+    <string name="lock_use_pin">Utiliser le code</string>
+    <string name="lock_forgot">Code oublié ?</string>
+    <string name="lock_reset_title">Confirme que c\'est toi</string>
+    <string name="lock_reset_subtitle">Avec le verrouillage de ton téléphone, pour choisir un nouveau code. Tes photos sont gardées.</string>
+    <string name="lock_no_screen_lock_title">Pas de verrouillage d\'écran</string>
+    <string name="lock_no_screen_lock_text">Ton téléphone n\'a ni code, ni schéma, ni empreinte : impossible de vérifier que c\'est toi. Active le verrouillage de l\'écran dans les paramètres d\'Android, puis réessaie.</string>
+    <string name="lock_enable">Verrouiller les photos</string>
+    <string name="lock_enable_detail">Un code propre à l\'app pour voir tes photos.</string>
+    <string name="lock_change_pin">Changer le code</string>
+    <string name="lock_biometric">Visage ou empreinte</string>
+    <string name="lock_biometric_detail">Déverrouiller sans taper le code.</string>
+    <string name="lock_biometric_unavailable">Aucun visage ni empreinte enregistré sur ce téléphone.</string>
+    <string name="lock_explanation">Les photos se reverrouillent dès que tu quittes l\'app. Si tu oublies ton code, tu pourras en choisir un nouveau après avoir confirmé avec le verrouillage de ton téléphone.</string>
+    <string name="lock_disable_title">Retirer le verrouillage ?</string>
+    <string name="lock_disable_text">Tes photos seront visibles sans code.</string>
+    <string name="lock_disable_confirm">Retirer</string>
+    <string name="pin_delete">Effacer le dernier chiffre</string>
+    <plurals name="pin_digits_entered">
+        <item quantity="one">%d chiffre tapé</item>
+        <item quantity="other">%d chiffres tapés</item>
+    </plurals>
     <string name="compare_title">Avant / après</string>
     <string name="compare_before">Avant</string>
     <string name="compare_after">Après</string>
@@ -134,7 +172,7 @@
     <string name="credit_barlow">Barlow et Barlow Condensed</string>
     <string name="credit_barlow_detail">Copyright 2017 The Barlow Project Authors</string>
     <string name="credit_jetpack">Android Jetpack</string>
-    <string name="credit_jetpack_detail">Compose, Material 3, Room, Navigation, DataStore, Lifecycle et CameraX, de Google</string>
+    <string name="credit_jetpack_detail">Compose, Material 3, Room, Navigation, DataStore, Lifecycle, CameraX et Biometric, de Google</string>
     <string name="credit_hilt">Hilt et Dagger</string>
     <string name="credit_by_google">De Google</string>
     <string name="credit_kotlin">Kotlin, kotlinx.coroutines et kotlinx.serialization</string>

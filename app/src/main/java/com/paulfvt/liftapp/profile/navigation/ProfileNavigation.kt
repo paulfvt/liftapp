@@ -9,6 +9,8 @@ import com.paulfvt.liftapp.profile.ui.MeasurementEntryScreen
 import com.paulfvt.liftapp.profile.ui.MeasurementScreen
 import com.paulfvt.liftapp.profile.ui.PhotoCaptureScreen
 import com.paulfvt.liftapp.profile.ui.PhotoCompareScreen
+import com.paulfvt.liftapp.profile.ui.PhotoLockGate
+import com.paulfvt.liftapp.profile.ui.PhotoLockSettingsScreen
 import com.paulfvt.liftapp.profile.ui.PhotoScreen
 import com.paulfvt.liftapp.profile.ui.PhotosScreen
 import com.paulfvt.liftapp.profile.ui.ProfileEditScreen
@@ -40,6 +42,9 @@ data class PhotoCaptureRoute(val pose: String? = null)
 data class PhotoCompareRoute(val pose: String? = null)
 
 @Serializable
+data object PhotoLockSettingsRoute
+
+@Serializable
 data object AboutRoute
 
 // Texte complet d'une licence, désignée par OpenLicense.id.
@@ -59,22 +64,34 @@ fun NavGraphBuilder.profileScreens(navController: NavController) {
     composable<MeasurementEntryRoute> {
         MeasurementEntryScreen(onClose = { navController.popBackStack<MeasurementEntryRoute>(inclusive = true) })
     }
+    // Écrans des photos : tous derrière le verrou, qui remplace l'écran tant que les photos sont verrouillées.
     composable<PhotosRoute> {
-        PhotosScreen(
-            onBack = { navController.popBackStack<PhotosRoute>(inclusive = true) },
-            onOpenPhoto = { id -> navController.navigate(PhotoRoute(id)) },
-            onTakePhoto = { pose -> navController.navigate(PhotoCaptureRoute(pose?.name)) },
-            onCompare = { pose -> navController.navigate(PhotoCompareRoute(pose?.name)) }
-        )
+        val back = { navController.popBackStack<PhotosRoute>(inclusive = true) }
+        PhotoLockGate(onBack = { back() }) {
+            PhotosScreen(
+                onBack = { back() },
+                onOpenPhoto = { id -> navController.navigate(PhotoRoute(id)) },
+                onTakePhoto = { pose -> navController.navigate(PhotoCaptureRoute(pose?.name)) },
+                onCompare = { pose -> navController.navigate(PhotoCompareRoute(pose?.name)) },
+                onOpenLockSettings = { navController.navigate(PhotoLockSettingsRoute) }
+            )
+        }
     }
     composable<PhotoCaptureRoute> {
-        PhotoCaptureScreen(onClose = { navController.popBackStack<PhotoCaptureRoute>(inclusive = true) })
+        val close = { navController.popBackStack<PhotoCaptureRoute>(inclusive = true) }
+        PhotoLockGate(onBack = { close() }) { PhotoCaptureScreen(onClose = { close() }) }
     }
     composable<PhotoCompareRoute> {
-        PhotoCompareScreen(onBack = { navController.popBackStack<PhotoCompareRoute>(inclusive = true) })
+        val back = { navController.popBackStack<PhotoCompareRoute>(inclusive = true) }
+        PhotoLockGate(onBack = { back() }) { PhotoCompareScreen(onBack = { back() }) }
     }
     composable<PhotoRoute> {
-        PhotoScreen(onBack = { navController.popBackStack<PhotoRoute>(inclusive = true) })
+        val back = { navController.popBackStack<PhotoRoute>(inclusive = true) }
+        PhotoLockGate(onBack = { back() }) { PhotoScreen(onBack = { back() }) }
+    }
+    composable<PhotoLockSettingsRoute> {
+        val back = { navController.popBackStack<PhotoLockSettingsRoute>(inclusive = true) }
+        PhotoLockGate(onBack = { back() }) { PhotoLockSettingsScreen(onBack = { back() }) }
     }
     composable<AboutRoute> {
         AboutScreen(

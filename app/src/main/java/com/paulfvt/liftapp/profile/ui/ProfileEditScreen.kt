@@ -30,6 +30,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
@@ -94,7 +95,15 @@ fun ProfileEditScreen(onClose: () -> Unit, viewModel: ProfileEditViewModel = hil
                 label = { Text(stringResource(R.string.profile_first_name)) },
                 isError = firstNameError,
                 supportingText = if (firstNameError) {
-                    { Text(stringResource(R.string.profile_error_first_name, FIRST_NAME_MAX_LENGTH)) }
+                    {
+                        Text(
+                            pluralStringResource(
+                                R.plurals.profile_error_first_name,
+                                FIRST_NAME_MAX_LENGTH,
+                                FIRST_NAME_MAX_LENGTH
+                            )
+                        )
+                    }
                 } else {
                     null
                 },

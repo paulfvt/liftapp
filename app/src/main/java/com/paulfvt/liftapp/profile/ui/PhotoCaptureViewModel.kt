@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import com.paulfvt.liftapp.core.model.PhotoPose
+import com.paulfvt.liftapp.profile.data.PhotoLockSession
 import com.paulfvt.liftapp.profile.data.PhotoRepository
 import com.paulfvt.liftapp.profile.domain.latestOfPose
 import com.paulfvt.liftapp.profile.navigation.PhotoCaptureRoute
@@ -31,6 +32,7 @@ data class PhotoCaptureUiState(val pose: PhotoPose = PhotoPose.FRONT, val ghost:
 class PhotoCaptureViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val photos: PhotoRepository,
+    private val lockSession: PhotoLockSession,
     private val clock: Clock
 ) : ViewModel() {
     private val pose = savedStateHandle.getStateFlow(
@@ -55,6 +57,9 @@ class PhotoCaptureViewModel @Inject constructor(
 
     var isSaved by mutableStateOf(false)
         private set
+
+    // Les réglages d'Android passent l'app en arrière-plan à ta demande : les photos restent déverrouillées.
+    fun beforeLeavingApp() = lockSession.keepUnlockedWhileAway()
 
     fun onPoseChange(pose: PhotoPose) {
         savedStateHandle[POSE_KEY] = pose
