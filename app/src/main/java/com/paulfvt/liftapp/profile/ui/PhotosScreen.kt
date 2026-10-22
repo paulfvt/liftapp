@@ -70,6 +70,7 @@ fun PhotosScreen(
     onBack: () -> Unit,
     onOpenPhoto: (Long) -> Unit,
     onTakePhoto: (PhotoPose?) -> Unit,
+    onCompare: (PhotoPose?) -> Unit,
     viewModel: PhotosViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -88,6 +89,11 @@ fun PhotosScreen(
                 },
                 title = { ScreenTitle(stringResource(R.string.profile_photos)) },
                 actions = {
+                    if (uiState.canCompare) {
+                        IconButton(onClick = { onCompare(uiState.pose) }) {
+                            Icon(painterResource(R.drawable.ic_compare), stringResource(R.string.photos_compare))
+                        }
+                    }
                     IconButton(onClick = pickImage) {
                         Icon(painterResource(R.drawable.ic_photo_library), stringResource(R.string.photos_import))
                     }

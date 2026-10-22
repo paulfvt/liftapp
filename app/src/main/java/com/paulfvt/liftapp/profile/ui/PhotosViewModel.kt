@@ -12,6 +12,7 @@ import com.paulfvt.liftapp.history.domain.MonthGroup
 import com.paulfvt.liftapp.history.domain.groupByMonth
 import com.paulfvt.liftapp.profile.data.PhotoRepository
 import com.paulfvt.liftapp.profile.domain.ProgressPhoto
+import com.paulfvt.liftapp.profile.domain.comparablePoses
 import com.paulfvt.liftapp.profile.domain.ofPose
 import com.paulfvt.liftapp.profile.domain.photoTakenAt
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -31,6 +32,8 @@ import kotlinx.coroutines.launch
 data class PhotosUiState(
     val isLoading: Boolean = true,
     val hasPhotos: Boolean = false,
+    // Au moins une pose a deux photos : la comparaison avant/après est possible.
+    val canCompare: Boolean = false,
     // null : toutes les poses.
     val pose: PhotoPose? = null,
     val months: List<MonthGroup<ProgressPhoto>> = emptyList()
@@ -55,6 +58,7 @@ class PhotosViewModel @Inject constructor(
         PhotosUiState(
             isLoading = false,
             hasPhotos = all.isNotEmpty(),
+            canCompare = all.comparablePoses().isNotEmpty(),
             pose = pose,
             months = groupByMonth(all.ofPose(pose), zone) { it.takenAt }
         )

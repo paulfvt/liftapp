@@ -49,6 +49,17 @@
     <string name="photos_empty_text">Prends une photo de temps en temps, au même endroit et avec la même lumière, pour voir ton corps changer.</string>
     <string name="photos_import">Importer une photo</string>
     <string name="photo_take">Prendre une photo</string>
+    <string name="photos_compare">Comparer avant et après</string>
+    <string name="compare_title">Avant / après</string>
+    <string name="compare_before">Avant</string>
+    <string name="compare_after">Après</string>
+    <plurals name="compare_gap">
+        <item quantity="one">%d jour d\'écart</item>
+        <item quantity="other">%d jours d\'écart</item>
+    </plurals>
+    <string name="compare_need_two">Prends au moins deux photos de la même pose pour les comparer.</string>
+    <string name="compare_slider">Curseur entre la photo avant et la photo après</string>
+    <string name="compare_description">Comparaison de tes photos du %1$s et du %2$s</string>
     <string name="camera_shutter">Prendre la photo</string>
     <string name="camera_switch">Changer de caméra</string>
     <string name="camera_ghost">Silhouette de la dernière photo</string>

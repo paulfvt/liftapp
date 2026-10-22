@@ -7,6 +7,7 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
+import java.time.temporal.ChronoUnit
 
 // Photo de progression : fileName est le nom du fichier dans le dossier privé photos/ de l'app.
 data class ProgressPhoto(val id: Long, val fileName: String, val pose: PhotoPose, val takenAt: Instant)
@@ -49,3 +50,30 @@ fun List<ProgressPhoto>.latestOfPose(pose: PhotoPose): ProgressPhoto? =
 // sinon la même règle que pour une mesure (maintenant pour aujourd'hui, midi pour un jour passé).
 fun photoTakenAt(date: LocalDate, fromImage: Instant?, now: Instant, zone: ZoneId): Instant =
     fromImage?.takeIf { it.atZone(zone).toLocalDate() == date } ?: measuredAtFor(date, now, zone)
+
+// Comparaison avant/après : deux photos de la même pose, la plus ancienne avant.
+data class PhotoComparison(val before: ProgressPhoto, val after: ProgressPhoto)
+
+// Photos de la pose, de la plus ancienne à la plus récente (ordre des bandeaux de choix).
+fun List<ProgressPhoto>.chronologicalOfPose(pose: PhotoPose): List<ProgressPhoto> =
+    filter { it.pose == pose }.sortedBy { it.takenAt }
+
+// Poses qui ont assez de photos pour une comparaison.
+fun List<ProgressPhoto>.comparablePoses(): List<PhotoPose> =
+    PhotoPose.entries.filter { pose -> count { it.pose == pose } >= 2 }
+
+// Paire montrée : celle choisie si elle est valable, sinon la première et la dernière photo de la pose (le plus
+// grand écart). null s'il y a moins de deux photos de cette pose.
+fun List<ProgressPhoto>.comparison(pose: PhotoPose, beforeId: Long?, afterId: Long?): PhotoComparison? {
+    val ofPose = chronologicalOfPose(pose)
+    if (ofPose.size < 2) return null
+    val before = ofPose.firstOrNull { it.id == beforeId } ?: ofPose.first()
+    val after =
+        ofPose.firstOrNull { it.id == afterId && it.id != before.id } ?: ofPose.last().takeIf { it.id != before.id }
+            ?: ofPose.first { it.id != before.id }
+    return if (before.takenAt <= after.takenAt) PhotoComparison(before, after) else PhotoComparison(after, before)
+}
+
+// Écart en jours de calendrier entre les deux photos, dans le fuseau du téléphone.
+fun PhotoComparison.daysBetween(zone: ZoneId): Long =
+    ChronoUnit.DAYS.between(before.takenAt.atZone(zone).toLocalDate(), after.takenAt.atZone(zone).toLocalDate())

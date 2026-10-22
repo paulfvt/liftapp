@@ -58,4 +58,35 @@ class PhotosTest {
         )
         assertEquals(now, photoTakenAt(LocalDate.parse("2026-10-21"), null, now, paris))
     }
+
+    private val history = listOf(
+        photo(1, PhotoPose.FRONT, "2026-09-01T07:00:00Z"),
+        photo(2, PhotoPose.FRONT, "2026-09-20T07:00:00Z"),
+        photo(3, PhotoPose.FRONT, "2026-10-15T07:00:00Z"),
+        photo(4, PhotoPose.SIDE, "2026-10-15T07:00:00Z")
+    )
+
+    @Test
+    fun `by default the first and last photos of the pose are compared`() {
+        val pair = history.comparison(PhotoPose.FRONT, beforeId = null, afterId = null)!!
+        assertEquals(1L to 3L, pair.before.id to pair.after.id)
+        assertEquals(44L, pair.daysBetween(paris))
+    }
+
+    @Test
+    fun `chosen photos are kept, in chronological order, never the same twice`() {
+        assertEquals(2L to 3L, history.comparison(PhotoPose.FRONT, 2, 3)!!.let { it.before.id to it.after.id })
+        // Choisies à l'envers : remises dans l'ordre.
+        assertEquals(1L to 2L, history.comparison(PhotoPose.FRONT, 2, 1)!!.let { it.before.id to it.after.id })
+        // La même photo des deux côtés : l'autre côté prend la dernière.
+        assertEquals(2L to 3L, history.comparison(PhotoPose.FRONT, 2, 2)!!.let { it.before.id to it.after.id })
+        // Un identifiant d'une autre pose est ignoré.
+        assertEquals(1L to 3L, history.comparison(PhotoPose.FRONT, 4, null)!!.let { it.before.id to it.after.id })
+    }
+
+    @Test
+    fun `a pose needs two photos to be compared`() {
+        assertNull(history.comparison(PhotoPose.SIDE, null, null))
+        assertEquals(listOf(PhotoPose.FRONT), history.comparablePoses())
+    }
 }

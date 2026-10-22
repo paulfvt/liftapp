@@ -8,6 +8,7 @@ import com.paulfvt.liftapp.profile.ui.LicenseScreen
 import com.paulfvt.liftapp.profile.ui.MeasurementEntryScreen
 import com.paulfvt.liftapp.profile.ui.MeasurementScreen
 import com.paulfvt.liftapp.profile.ui.PhotoCaptureScreen
+import com.paulfvt.liftapp.profile.ui.PhotoCompareScreen
 import com.paulfvt.liftapp.profile.ui.PhotoScreen
 import com.paulfvt.liftapp.profile.ui.PhotosScreen
 import com.paulfvt.liftapp.profile.ui.ProfileEditScreen
@@ -34,6 +35,10 @@ data class PhotoRoute(val id: Long)
 @Serializable
 data class PhotoCaptureRoute(val pose: String? = null)
 
+// Comparaison avant/après, sur la pose du filtre de la timeline si elle en a assez.
+@Serializable
+data class PhotoCompareRoute(val pose: String? = null)
+
 @Serializable
 data object AboutRoute
 
@@ -58,11 +63,15 @@ fun NavGraphBuilder.profileScreens(navController: NavController) {
         PhotosScreen(
             onBack = { navController.popBackStack<PhotosRoute>(inclusive = true) },
             onOpenPhoto = { id -> navController.navigate(PhotoRoute(id)) },
-            onTakePhoto = { pose -> navController.navigate(PhotoCaptureRoute(pose?.name)) }
+            onTakePhoto = { pose -> navController.navigate(PhotoCaptureRoute(pose?.name)) },
+            onCompare = { pose -> navController.navigate(PhotoCompareRoute(pose?.name)) }
         )
     }
     composable<PhotoCaptureRoute> {
         PhotoCaptureScreen(onClose = { navController.popBackStack<PhotoCaptureRoute>(inclusive = true) })
+    }
+    composable<PhotoCompareRoute> {
+        PhotoCompareScreen(onBack = { navController.popBackStack<PhotoCompareRoute>(inclusive = true) })
     }
     composable<PhotoRoute> {
         PhotoScreen(onBack = { navController.popBackStack<PhotoRoute>(inclusive = true) })
