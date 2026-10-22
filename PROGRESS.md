@@ -1,32 +1,9 @@
 # Avancement
 
-## En cours : phase 7 — Profil, mesures et photos (code terminé le 22 octobre 2026, à tester sur le S25+)
+## Prochaine étape : phase 8 — Motivation (plan court à présenter puis valider)
 
-Plan validé le 21 octobre 2026, réalisé en entier (un commit par étape) :
-- Profil fixe (prénom, taille, date de naissance, sexe, tous facultatifs) dans le DataStore, écran de modification.
-- Mesures : poids, tours (bras, poitrine, taille, hanches, cuisse, mollet) et masse grasse avec sa méthode. Chaque
-  saisie crée une entrée, suppression possible. Une courbe par mesure ; pour le poids, les pesées en points et la
-  moyenne mobile sur 7 jours en ligne. Dernière valeur et écart dans l'onglet Profil.
-- Photos : copie réduite et redressée dans `files/photos/`, timeline par mois filtrable par pose, import par le
-  sélecteur de photos d'Android (date lue dans la photo), écran d'une photo avec suppression.
-- Prise de photo avec CameraX : aperçu 3:4, silhouette de la dernière photo de la même pose, caméra avant ou arrière.
-- Comparaison avant/après avec curseur, choix des deux photos, écart en jours.
-- Verrouillage facultatif : PIN, visage ou empreinte, code oublié par le verrouillage du téléphone.
-- Politique de confidentialité et fiche Play Store mises à jour (profil, mesures, photos, caméra, biométrie).
-- 151 tests JVM et 35 tests instrumentés verts. Lint sans nouvel avertissement. Vérifié sur l'émulateur en debug et
-  en release (R8) : profil, mesures, import, caméra avant et arrière, comparaison, verrou (mauvais code, attente,
-  reverrouillage en quittant l'app, galerie ouverte sans reverrouiller).
-
-À vérifier sur le S25+ avant de clore la phase (non testable sur l'émulateur) :
-- caméra réelle et silhouette fantôme, à la lumière d'une salle ou d'une chambre ;
-- déverrouillage par le visage ou l'empreinte ;
-- « Code oublié ? » avec le verrouillage du téléphone, puis nouveau code ;
-- reverrouillage en revenant de l'arrière-plan, rotation de l'écran sans reverrouillage.
-
-Dépendances validées le 21 octobre 2026 : CameraX 1.6.2 (`camera-core`, `camera-camera2`, `camera-lifecycle`,
-`camera-compose`), androidx.biometric 1.1.0, et androidx.exifinterface 1.4.2, déjà apportée par CameraX et déclarée
-car utilisée directement. Pas de changement de schéma : `body_measurement` et `progress_photo` existent depuis la v1.
-Reportés en phase 10 (Réglages, cahier § 4.11) : unités lb et in, masquage du poids et de la section photos.
+Phase 7 terminée le 22 octobre 2026. Le test fermé reste en pause (compte Google Play plus tard) : un build issu de la
+phase 7 peut lui servir.
 
 ## En pause : préparation du test fermé (une partie de la phase 11)
 
@@ -66,6 +43,30 @@ Fait le 21 octobre 2026 :
 - Corrigé : l'aperçu d'un template cachait « Démarrer » sous le bord de l'écran à partir de 5 exercices. La feuille
   s'ouvre maintenant en entier et seule la liste défile, boutons fixés en bas (vérifié avec 4, 5 et 12 exercices).
 - Reste : mise en ligne de la politique de confidentialité, test sur le S25+.
+
+## Phase 7 — Profil, mesures et photos : terminée le 22 octobre 2026
+
+- Profil fixe (prénom, taille, date de naissance, sexe, tous facultatifs) dans le DataStore, écran de modification.
+- Mesures : poids, tours (bras, poitrine, taille, hanches, cuisse, mollet) et masse grasse avec sa méthode. Chaque
+  saisie crée une entrée, suppression possible. Une courbe par mesure ; pour le poids, les pesées en points et la
+  moyenne mobile sur 7 jours en ligne. Dernière valeur et écart dans l'onglet Profil.
+- Photos : copie réduite et redressée dans `files/photos/`, timeline par mois filtrable par pose, import par le
+  sélecteur de photos d'Android (date lue dans la photo), écran d'une photo avec suppression.
+- Prise de photo avec CameraX : aperçu 3:4, silhouette de la dernière photo de la même pose, caméra avant ou arrière.
+- Comparaison avant/après avec curseur, choix des deux photos, écart en jours.
+- Verrouillage facultatif : PIN, visage ou empreinte, code oublié par le verrouillage du téléphone.
+- Politique de confidentialité et fiche Play Store mises à jour (profil, mesures, photos, caméra, biométrie).
+- 151 tests JVM et 35 tests instrumentés verts. Lint sans nouvel avertissement. Vérifié sur l'émulateur en debug et
+  en release (R8) : profil, mesures, import, caméra avant et arrière, comparaison, verrou (mauvais code, attente,
+  reverrouillage en quittant l'app, galerie ouverte sans reverrouiller).
+
+Testé et validé par le développeur sur le S25+ le 22 octobre 2026 : caméra réelle et silhouette, visage ou
+empreinte, « Code oublié ? » avec le verrouillage du téléphone, reverrouillage au retour, rotation sans reverrouillage.
+
+Dépendances validées le 21 octobre 2026 : CameraX 1.6.2 (`camera-core`, `camera-camera2`, `camera-lifecycle`,
+`camera-compose`), androidx.biometric 1.1.0, et androidx.exifinterface 1.4.2, déjà apportée par CameraX et déclarée
+car utilisée directement. Pas de changement de schéma : `body_measurement` et `progress_photo` existent depuis la v1.
+Reportés en phase 10 (Réglages, cahier § 4.11) : unités lb et in, masquage du poids et de la section photos.
 
 ## Phase 6 — Historique, records et courbes : terminée le 21 octobre 2026
 - Onglet Historique : séances par mois, détail, modification (en mémoire jusqu'à « Enregistrer ») et suppression.

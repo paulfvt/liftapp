@@ -3,13 +3,14 @@
 App Android de suivi de musculation, gratuite et hors-ligne. Elle s'inspire de Strong et Hevy et mise sur une
 progression visible et motivante : records, courbes, streak hebdomadaire, carte des muscles travaillés.
 
-> Projet en cours de développement : phases 1 à 6 sur 11 terminées (catalogue, templates, séance en cours, minuteur
-> et notification, historique, records et courbes), test fermé sur Google Play en préparation. Le détail est dans
-> [PROGRESS.md](PROGRESS.md).
+> Projet en cours de développement : phases 1 à 7 sur 11 terminées (catalogue, templates, séance en cours, minuteur
+> et notification, historique, records et courbes, profil, mesures et photos), test fermé sur Google Play en
+> préparation. Le détail est dans [PROGRESS.md](PROGRESS.md).
 
 ## Stack
 
-Kotlin · Jetpack Compose · Material 3 · Navigation Compose · Room · DataStore · Hilt · KSP · Vico · GitHub Actions
+Kotlin · Jetpack Compose · Material 3 · Navigation Compose · Room · DataStore · Hilt · KSP · Vico · CameraX ·
+Biometric · GitHub Actions
 
 Architecture en trois couches (UI, domaine, données), recommandée par Android. Le détail est dans [CLAUDE.md](CLAUDE.md).
 
