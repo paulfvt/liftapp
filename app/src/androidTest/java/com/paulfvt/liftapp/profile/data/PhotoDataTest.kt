@@ -36,8 +36,10 @@ class PhotoDataTest {
         photos = PhotoRepository(database, PhotoStorage(context))
     }
 
+    // Le stockage écrit dans le vrai dossier photos/ de l'app : on efface les fichiers créés par le test.
     @After
-    fun tearDown() {
+    fun tearDown() = runTest {
+        photos.observeAll().first().forEach { photos.file(it).delete() }
         database.close()
     }
 

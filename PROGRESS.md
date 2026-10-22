@@ -1,34 +1,31 @@
 # Avancement
 
-## En cours : phase 7 — Profil, mesures et photos
+## En cours : phase 7 — Profil, mesures et photos (code terminé le 22 octobre 2026, à tester sur le S25+)
 
-Plan validé le 21 octobre 2026 (un commit par étape) :
-1. Profil fixe (prénom, taille, date de naissance, sexe, tous facultatifs) dans le DataStore ; l'onglet Profil
-   regroupe infos, mesures, photos et « À propos ».
-2. Mesures : calculs du domaine testés (valeur par jour, moyenne mobile sur 7 jours, dernière valeur, écart).
-3. Mesures : DAO, repository, saisie datée (poids, tours, masse grasse avec méthode), une courbe par mesure,
-   moyenne mobile pour le poids. Chaque saisie crée une entrée ; suppression possible, pas de modification.
-4. Photos : stockage privé (`files/photos/`, exclu de la sauvegarde cloud), timeline par date filtrable par pose,
-   import depuis la galerie (sélecteur de photos d'Android, sans permission).
-5. Prise de photo dans l'app avec CameraX et silhouette fantôme de la dernière photo de la même pose.
-6. Comparaison avant/après avec curseur.
-7. Verrouillage facultatif : PIN propre à l'app (empreinte PBKDF2 salée, jamais en clair), visage ou empreinte en
-   option (androidx.biometric, `MainActivity` passe en `FragmentActivity`).
-8. Politique de confidentialité (caméra, photos), tests, émulateur, `PROGRESS.md`.
+Plan validé le 21 octobre 2026, réalisé en entier (un commit par étape) :
+- Profil fixe (prénom, taille, date de naissance, sexe, tous facultatifs) dans le DataStore, écran de modification.
+- Mesures : poids, tours (bras, poitrine, taille, hanches, cuisse, mollet) et masse grasse avec sa méthode. Chaque
+  saisie crée une entrée, suppression possible. Une courbe par mesure ; pour le poids, les pesées en points et la
+  moyenne mobile sur 7 jours en ligne. Dernière valeur et écart dans l'onglet Profil.
+- Photos : copie réduite et redressée dans `files/photos/`, timeline par mois filtrable par pose, import par le
+  sélecteur de photos d'Android (date lue dans la photo), écran d'une photo avec suppression.
+- Prise de photo avec CameraX : aperçu 3:4, silhouette de la dernière photo de la même pose, caméra avant ou arrière.
+- Comparaison avant/après avec curseur, choix des deux photos, écart en jours.
+- Verrouillage facultatif : PIN, visage ou empreinte, code oublié par le verrouillage du téléphone.
+- Politique de confidentialité et fiche Play Store mises à jour (profil, mesures, photos, caméra, biométrie).
+- 151 tests JVM et 35 tests instrumentés verts. Lint sans nouvel avertissement. Vérifié sur l'émulateur en debug et
+  en release (R8) : profil, mesures, import, caméra avant et arrière, comparaison, verrou (mauvais code, attente,
+  reverrouillage en quittant l'app, galerie ouverte sans reverrouiller).
 
-Fait le 21 octobre 2026 (142 tests JVM verts, vérifié sur l'émulateur) :
-- Étape 1 : profil fixe et écran de modification.
-- Étapes 2 et 3 : mesures complètes (saisie, courbe avec moyenne mobile du poids, historique, suppression).
-  `ProgressChart` prend maintenant une valeur par jour (`DailyValue`) et une tendance facultative.
-- Étape 4 commencée : logique des photos testée (`profile/domain/Photos.kt`). Reste : `PhotoDao`, stockage
-  dans `files/photos/` (réduction à 2048 px, rotation EXIF), timeline, import, section Photos du Profil.
-- Reste ensuite : étapes 5 à 8 (CameraX, comparaison, verrouillage, fin de phase). Les tests instrumentés
-  (dont `MeasurementDataTest`) ne sont pas encore relancés.
-- Émulateur : la capture `adb shell screencap` sort noire pour l'app ; utiliser
-  `adb emu screenrecord screenshot <fichier.png>` (capture côté PC).
+À vérifier sur le S25+ avant de clore la phase (non testable sur l'émulateur) :
+- caméra réelle et silhouette fantôme, à la lumière d'une salle ou d'une chambre ;
+- déverrouillage par le visage ou l'empreinte ;
+- « Code oublié ? » avec le verrouillage du téléphone, puis nouveau code ;
+- reverrouillage en revenant de l'arrière-plan, rotation de l'écran sans reverrouillage.
 
-Dépendances validées le 21 octobre 2026 : CameraX et androidx.biometric (Google, Apache 2.0).
-Pas de changement de schéma : les tables `body_measurement` et `progress_photo` existent depuis la v1.
+Dépendances validées le 21 octobre 2026 : CameraX 1.6.2 (`camera-core`, `camera-camera2`, `camera-lifecycle`,
+`camera-compose`), androidx.biometric 1.1.0, et androidx.exifinterface 1.4.2, déjà apportée par CameraX et déclarée
+car utilisée directement. Pas de changement de schéma : `body_measurement` et `progress_photo` existent depuis la v1.
 Reportés en phase 10 (Réglages, cahier § 4.11) : unités lb et in, masquage du poids et de la section photos.
 
 ## En pause : préparation du test fermé (une partie de la phase 11)
@@ -214,10 +211,32 @@ Fait le 21 octobre 2026 :
 - **Aucune permission internet** dans l'app (vérifié dans le manifeste final) : argument de la politique de
   confidentialité et du formulaire « Sécurité des données » (aucune donnée collectée).
 
+- **Courbes** : `ProgressChart` prend une valeur par jour (`core/domain/DailyValue`) et une tendance facultative.
+  Séances : meilleure valeur du jour ; mesures : moyenne du jour. La moyenne mobile est calculée sur toute la série
+  puis découpée à la période, pour que les premiers points tiennent compte des jours d'avant.
+- **Mesures** : affichées au dixième ; une mesure d'un jour passé est enregistrée à midi (heure exacte inconnue).
+- **Photos** : copie JPEG de 2048 px au plus, redressée selon l'EXIF puis enregistrée sans orientation. La prise de vue
+  CameraX écrit d'abord dans le cache, puis passe par la même copie. Silhouette à 35 % d'opacité, retournée en miroir
+  pour la caméra avant (son aperçu est un miroir, la photo enregistrée ne l'est pas).
+- **Verrou des photos** : PIN de 4 à 8 chiffres, empreinte PBKDF2-SHA256 (120 000 tours, sel de 16 octets) dans le
+  DataStore. Après 5 erreurs, attente de 30 s qui double à chaque erreur (15 min au plus), compteur gardé après un
+  redémarrage. Reverrouillage dans `MainActivity.onStop` (sauf rotation), sauf juste après avoir ouvert le sélecteur
+  de photos ou les réglages d'Android depuis l'app (`PhotoLockSession.keepUnlockedWhileAway`). Visage ou empreinte en
+  classe « faible » (`BIOMETRIC_WEAK`), la plupart des visages en font partie. `PhotoLockGate` entoure chaque écran
+  de photos dans la navigation : l'écran et son ViewModel ne sont créés qu'une fois déverrouillé.
+- **Clés du SavedStateHandle** : jamais le nom d'un argument de la route (bug rencontré : la clé « pose » lisait
+  l'argument vide de `PhotoCaptureRoute`).
+
 ## Questions ouvertes
+- Code des photos oublié sur un téléphone sans verrouillage d'écran : l'app explique qu'il faut d'abord en activer un
+  dans Android (aucune autre issue inventée). À confirmer par le développeur.
 - Politique de confidentialité : nom affiché et adresse de contact (publics), nom du dépôt public qui l'hébergera.
 
 ## Problèmes connus
+- `connectedDebugAndroidTest` désinstalle l'app de l'émulateur, données comprises. Sauvegarder avant :
+  `adb exec-out run-as com.paulfvt.liftapp tar -cf - databases files > sauvegarde.tar`, puis restaurer avec la version
+  debug installée (`run-as … tar -xf` depuis `/data/local/tmp`) avant de remettre une release par-dessus.
+- Captures du Play Store : elles ne montrent ni les mesures ni les photos, à refaire avant la production.
 - `kotlinx-coroutines-test` doit rester à la même version que `kotlinx-coroutines-core` utilisé par l'app
   (1.10.2, imposé par AndroidX), sinon les tests instrumentés échouent avec un `NoSuchMethodError`.
 - Avertissement lint `OldTargetApi` (targetSdk 36 alors que l'API 37 existe) : volontaire, c'est le niveau exigé

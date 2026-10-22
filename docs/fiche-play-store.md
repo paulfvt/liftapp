@@ -29,12 +29,18 @@ Console au moment de la saisie.
   > • Records par exercice : 1RM estimé, charge max, meilleure série, reps max par charge.
   > • Courbes de progression sur 1 mois, 3 mois, 1 an ou depuis le début.
   >
+  > SUIS TON CORPS
+  > • Poids, tours et masse grasse, avec la moyenne sur 7 jours pour lisser les variations du poids.
+  > • Photos de progression avec la silhouette de la dernière photo pour garder le même cadrage.
+  > • Comparaison avant/après avec un curseur.
+  > • Photos rangées à part de ta galerie, verrouillables par un code, ton visage ou ton empreinte.
+  >
   > TES DONNÉES T'APPARTIENNENT
   > • Pas de compte, pas de publicité, pas de suivi.
   > • L'app n'a pas accès à internet : tes données ne quittent pas ton téléphone.
   >
-  > LiftApp est en développement actif : objectif hebdomadaire, carte des muscles travaillés, mesures et photos
-  > de progression arrivent bientôt.
+  > LiftApp est en développement actif : objectif hebdomadaire, carte des muscles travaillés et widget arrivent
+  > bientôt.
 
 - **Icône** : 512 × 512 px, PNG 32 bits : [play-store/icon-512.png](play-store/icon-512.png) (piste « Néon »).
 - **Image de présentation** : 1 024 × 500 px, PNG 24 bits :
@@ -73,6 +79,9 @@ Console au moment de la saisie.
 - **Applications de santé** : si la Play Console demande la déclaration, cocher le suivi d'activité physique,
   sans connexion à Santé Connect.
 - **Service de premier plan** : aucun (le minuteur n'en utilise pas), rien à déclarer.
+- **Caméra et biométrie** (phase 7) : `CAMERA` pour les photos prises dans l'app, `USE_BIOMETRIC` et
+  `USE_FINGERPRINT` (ajoutées par androidx.biometric) pour le déverrouillage des photos. Toujours aucune permission
+  internet : la réponse « aucune donnée collectée » reste valable.
 - **Alarmes exactes** : l'app utilise `SCHEDULE_EXACT_ALARM` (accordée par l'utilisateur), pas `USE_EXACT_ALARM`.
   Vérifier qu'aucune déclaration n'est demandée.
 
