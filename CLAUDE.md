@@ -105,6 +105,9 @@ En cas d'ambiguïté ou de point non couvert, pose la question au lieu d'invente
   déverrouillées, elles le restent tant que l'app est au premier plan et se reverrouillent dès qu'elle passe en
   arrière-plan. PIN oublié : confirmation par le verrouillage du téléphone, puis nouveau PIN, photos gardées.
   Mesures : chaque saisie crée une entrée, suppression possible, pas de modification ; kg et cm jusqu'à la phase 10.
+- Verrou des photos (22 octobre 2026) : PIN de 4 à 8 chiffres jamais stocké en clair, attente croissante après
+  5 erreurs, déverrouillage par visage ou empreinte en option. Le sélecteur de photos et les réglages d'Android ouverts
+  depuis l'app ne reverrouillent pas. Code oublié sans verrouillage d'écran : explication seulement (à confirmer).
 
 ## Méthode de travail (section 7)
 
