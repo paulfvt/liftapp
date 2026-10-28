@@ -35,9 +35,13 @@ import com.paulfvt.liftapp.core.designsystem.component.SectionTitle
 import com.paulfvt.liftapp.core.designsystem.component.StatTile
 import com.paulfvt.liftapp.core.designsystem.theme.LocalExtendedColors
 import com.paulfvt.liftapp.core.ui.durationText
+import com.paulfvt.liftapp.core.ui.kgText
 import com.paulfvt.liftapp.core.ui.shortDay
 import com.paulfvt.liftapp.core.ui.wholeNumber
+import com.paulfvt.liftapp.progress.data.ReachedTier
 import com.paulfvt.liftapp.progress.ui.formatMetric
+import com.paulfvt.liftapp.progress.ui.labelRes
+import com.paulfvt.liftapp.progress.ui.medalColor
 import com.paulfvt.liftapp.progress.ui.recordLabelRes
 import com.paulfvt.liftapp.workout.data.FinishedRecord
 import com.paulfvt.liftapp.workout.data.FinishedWorkout
@@ -122,6 +126,7 @@ fun WorkoutSummaryContent(
                 TonnageComparison(change, finished.previousStartedAt)
             }
             if (finished.records.isNotEmpty()) BrokenRecords(finished.records)
+            if (finished.achievements.tiers.isNotEmpty()) ReachedTiers(finished.achievements.tiers)
             val update = finished.templateUpdate
             when {
                 isTemplateUpdated -> Text(
@@ -183,6 +188,47 @@ private fun BrokenRecords(records: List<FinishedRecord>) {
                                     stringResource(metric.recordLabelRes(exercise.trackingType)),
                                     formatMetric(resources, metric, recordBreak.value, exercise),
                                     formatMetric(resources, metric, recordBreak.previous, exercise)
+                                ),
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Paliers d'objectifs atteints par cette séance, avec la couleur de leur médaille.
+@Composable
+private fun ReachedTiers(tiers: List<ReachedTier>) {
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.padding(top = 4.dp)) {
+        SectionTitle(stringResource(R.string.summary_tiers_title))
+        Card(
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLowest),
+            border = BorderStroke(1.dp, MaterialTheme.colorScheme.tertiary),
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                tiers.forEach { (exercise, goal, tier) ->
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(12.dp),
+                        modifier = Modifier.semantics(mergeDescendants = true) {}
+                    ) {
+                        Icon(
+                            painterResource(R.drawable.ic_military_tech),
+                            contentDescription = null,
+                            tint = tier.medalColor
+                        )
+                        Column {
+                            Text(exercise.name, style = MaterialTheme.typography.titleSmall)
+                            Text(
+                                stringResource(
+                                    R.string.summary_tier_line,
+                                    stringResource(tier.labelRes),
+                                    kgText(goal.valueOf(tier))
                                 ),
                                 style = MaterialTheme.typography.bodyMedium,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant

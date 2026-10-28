@@ -8,6 +8,8 @@ import com.paulfvt.liftapp.core.database.entity.WorkoutSetEntity
 import com.paulfvt.liftapp.core.model.Exercise
 import com.paulfvt.liftapp.core.model.SetType
 import com.paulfvt.liftapp.core.model.WorkoutStatus
+import com.paulfvt.liftapp.progress.data.AchievementRepository
+import com.paulfvt.liftapp.progress.data.Achievements
 import com.paulfvt.liftapp.progress.data.RecordRepository
 import com.paulfvt.liftapp.progress.domain.RecordBreak
 import com.paulfvt.liftapp.template.data.TemplateRepository
@@ -43,7 +45,8 @@ data class FinishedWorkout(
     val templateUpdate: TemplateDraft?,
     val records: List<FinishedRecord> = emptyList(),
     val previousTonnageKg: Double? = null,
-    val previousStartedAt: Instant? = null
+    val previousStartedAt: Instant? = null,
+    val achievements: Achievements = Achievements()
 )
 
 data class FinishedRecord(val exercise: Exercise, val recordBreak: RecordBreak)
@@ -54,6 +57,7 @@ class WorkoutRepository @Inject constructor(
     private val database: LiftDatabase,
     private val templates: TemplateRepository,
     private val records: RecordRepository,
+    private val achievements: AchievementRepository,
     private val clock: Clock
 ) {
     private val dao = database.workoutDao()
@@ -221,7 +225,8 @@ class WorkoutRepository @Inject constructor(
             templateUpdate = templateUpdate,
             records = brokenRecords(workout),
             previousTonnageKg = previous?.let { summarize(it, it.endedAt ?: it.startedAt).tonnageKg },
-            previousStartedAt = previous?.startedAt
+            previousStartedAt = previous?.startedAt,
+            achievements = achievements.refresh()
         )
     }
 

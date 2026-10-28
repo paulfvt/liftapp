@@ -7,20 +7,27 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalResources
@@ -37,9 +44,11 @@ import com.paulfvt.liftapp.core.designsystem.component.ScreenTitle
 import com.paulfvt.liftapp.core.designsystem.component.SectionTitle
 import com.paulfvt.liftapp.core.model.Exercise
 import com.paulfvt.liftapp.core.model.PersonalRecordType
+import com.paulfvt.liftapp.core.ui.kgText
 import com.paulfvt.liftapp.core.ui.shortDay
 import com.paulfvt.liftapp.progress.domain.ChartPeriod
 import com.paulfvt.liftapp.progress.domain.ExerciseMetric
+import com.paulfvt.liftapp.progress.domain.GoalTier
 import com.paulfvt.liftapp.progress.domain.PersonalRecord
 import com.paulfvt.liftapp.progress.domain.recordType
 import com.paulfvt.liftapp.workout.domain.formatDecimal
@@ -50,6 +59,17 @@ import com.paulfvt.liftapp.workout.domain.formatDecimal
 fun ExerciseProgressScreen(onBack: () -> Unit, viewModel: ExerciseProgressViewModel = hiltViewModel()) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val exercise = uiState.exercise
+    var isGoalDialogOpen by rememberSaveable { mutableStateOf(false) }
+    if (isGoalDialogOpen) {
+        GoalDialog(
+            currentKg = uiState.currentOneRepMaxKg,
+            onCreate = { tiers ->
+                viewModel.onCreateGoal(tiers)
+                isGoalDialogOpen = false
+            },
+            onDismiss = { isGoalDialogOpen = false }
+        )
+    }
     Scaffold(
         topBar = {
             TopAppBar(
@@ -76,6 +96,11 @@ fun ExerciseProgressScreen(onBack: () -> Unit, viewModel: ExerciseProgressViewMo
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 item(key = "records") { RecordsSection(exercise, uiState.records, uiState.metrics) }
+                if (uiState.canHaveGoal) {
+                    item(key = "goal") {
+                        GoalSection(uiState, onAdd = { isGoalDialogOpen = true }, onDelete = viewModel::onDeleteGoal)
+                    }
+                }
                 item(key = "chart") {
                     ChartSection(
                         exercise = exercise,
@@ -88,6 +113,41 @@ fun ExerciseProgressScreen(onBack: () -> Unit, viewModel: ExerciseProgressViewMo
                 if (repsAtWeight.isNotEmpty()) {
                     item(key = "reps-at-weight") { RepsAtWeightSection(repsAtWeight) }
                 }
+            }
+        }
+    }
+}
+
+// Objectif en cours (barre et paliers), sinon un bouton pour en fixer un, avec le dernier objectif atteint.
+@Composable
+private fun GoalSection(uiState: ExerciseProgressUiState, onAdd: () -> Unit, onDelete: (Long) -> Unit) {
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        SectionTitle(stringResource(R.string.goal_section))
+        val active = uiState.activeGoal
+        if (active != null) {
+            GoalCard(active, onDelete = { onDelete(active.goal.id) })
+        } else {
+            uiState.completedGoals.firstOrNull()?.let { done ->
+                val date = done.reachedAt[GoalTier.GOLD]?.let { shortDay(it) }.orEmpty()
+                Text(
+                    stringResource(R.string.goal_target, kgText(done.goldKg)) + " · " +
+                        stringResource(R.string.goal_completed_on, date),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+            Text(
+                stringResource(R.string.goal_add_hint),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            OutlinedButton(onClick = onAdd, modifier = Modifier.heightIn(min = 48.dp)) {
+                Icon(
+                    painterResource(R.drawable.ic_flag),
+                    contentDescription = null,
+                    modifier = Modifier.size(ButtonDefaults.IconSize)
+                )
+                Text(stringResource(R.string.goal_add), modifier = Modifier.padding(start = ButtonDefaults.IconSpacing))
             }
         }
     }

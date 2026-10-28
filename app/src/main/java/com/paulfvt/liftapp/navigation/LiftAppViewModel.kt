@@ -3,6 +3,7 @@ package com.paulfvt.liftapp.navigation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.paulfvt.liftapp.onboarding.data.OnboardingRepository
+import com.paulfvt.liftapp.progress.data.AchievementRepository
 import com.paulfvt.liftapp.progress.data.WeeklyGoalRepository
 import com.paulfvt.liftapp.workout.data.WorkoutRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,8 +24,15 @@ data class LiveWorkout(val name: String, val startedAt: Instant)
 class LiftAppViewModel @Inject constructor(
     private val workouts: WorkoutRepository,
     private val onboarding: OnboardingRepository,
-    private val weeklyGoals: WeeklyGoalRepository
+    private val weeklyGoals: WeeklyGoalRepository,
+    achievements: AchievementRepository
 ) : ViewModel() {
+    // Au lancement, l'historique déjà présent débloque sans célébration ce qu'il mérite (mise à jour de l'app,
+    // séances terminées depuis la notification).
+    init {
+        viewModelScope.launch { achievements.refresh() }
+    }
+
     // null tant que la préférence n'est pas lue : rien n'est affiché pendant ces quelques millisecondes,
     // pour ne pas montrer l'app une fraction de seconde avant l'écran de bienvenue.
     val showWelcome: StateFlow<Boolean?> = onboarding.isWelcomeDone

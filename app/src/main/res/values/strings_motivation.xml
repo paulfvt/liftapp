@@ -70,4 +70,28 @@
     <string name="credit_musclemap">MuscleMap</string>
     <string name="credit_musclemap_detail">Tracés des muscles, de Jsplice et des contributeurs de MuscleMap</string>
     <string name="license_mit_title">MIT</string>
+
+    <!-- Objectifs à paliers -->
+    <string name="goals_title">Objectifs</string>
+    <string name="goal_section">Objectif</string>
+    <string name="goal_add">Fixer un objectif</string>
+    <string name="goal_add_hint">Vise un 1RM estimé, avec trois paliers : bronze, argent et or.</string>
+    <string name="goal_target">Objectif : %1$s de 1RM estimé</string>
+    <string name="goal_current">1RM estimé actuel : %1$s</string>
+    <string name="goal_delete">Supprimer l\'objectif</string>
+    <string name="goal_tier_bronze">Bronze</string>
+    <string name="goal_tier_silver">Argent</string>
+    <string name="goal_tier_gold">Or</string>
+    <string name="goal_tier_pending">à venir</string>
+    <string name="goal_tier_reached_description">%1$s, %2$s, atteint le %3$s</string>
+    <string name="goal_tier_pending_description">%1$s, %2$s, pas encore atteint</string>
+    <string name="goal_progress_description">Objectif atteint à %1$d %%</string>
+    <string name="goal_dialog_title">Nouvel objectif</string>
+    <string name="goal_dialog_text">Ton 1RM estimé actuel : %1$s. Saisis ta cible (l\'or) : bronze et argent sont proposés en chemin, tu peux les changer.</string>
+    <string name="goal_error_invalid">Saisis trois charges valides, en kilos.</string>
+    <string name="goal_error_not_above_current">Le bronze doit dépasser ton 1RM estimé actuel.</string>
+    <string name="goal_error_not_increasing">Les paliers doivent monter : bronze, puis argent, puis or.</string>
+    <string name="goal_completed_on">Objectif atteint le %1$s</string>
+    <string name="summary_tiers_title">Objectifs</string>
+    <string name="summary_tier_line">Palier %1$s atteint : %2$s</string>
 </resources>

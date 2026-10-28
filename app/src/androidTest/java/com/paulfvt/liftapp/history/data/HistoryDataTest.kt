@@ -12,6 +12,7 @@ import com.paulfvt.liftapp.exercise.domain.ExerciseDraft
 import com.paulfvt.liftapp.history.domain.removeExercise
 import com.paulfvt.liftapp.history.domain.updateSetValues
 import com.paulfvt.liftapp.progress.data.RecordRepository
+import com.paulfvt.liftapp.progress.data.testAchievements
 import com.paulfvt.liftapp.progress.domain.PersonalRecord
 import com.paulfvt.liftapp.template.data.TemplateRepository
 import com.paulfvt.liftapp.workout.data.WorkoutRepository
@@ -52,8 +53,9 @@ class HistoryDataTest {
         database = Room.inMemoryDatabaseBuilder(context, LiftDatabase::class.java).build()
         exercises = ExerciseRepository(database)
         records = RecordRepository(database, exercises)
-        workouts = WorkoutRepository(database, TemplateRepository(database), records, clock)
-        history = HistoryRepository(database, records)
+        val achievements = testAchievements(database, exercises, clock)
+        workouts = WorkoutRepository(database, TemplateRepository(database), records, achievements, clock)
+        history = HistoryRepository(database, records, achievements)
     }
 
     @After

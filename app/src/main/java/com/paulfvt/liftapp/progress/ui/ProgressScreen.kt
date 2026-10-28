@@ -65,6 +65,17 @@ fun ProgressScreen(onOpenExercise: (Long) -> Unit, viewModel: ProgressViewModel 
                     }
                 }
             }
+            if (uiState.goals.isNotEmpty()) {
+                item(key = "goals") {
+                    SectionBlock(stringResource(R.string.goals_title)) {
+                        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                            uiState.goals.forEach { (exercise, status) ->
+                                GoalCard(status, title = exercise.name, onClick = { onOpenExercise(exercise.id) })
+                            }
+                        }
+                    }
+                }
+            }
             item(key = "exercises-title") {
                 SectionTitle(stringResource(R.string.progress_exercises), Modifier.padding(top = 8.dp))
             }

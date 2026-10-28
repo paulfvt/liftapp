@@ -6,6 +6,7 @@ import com.paulfvt.liftapp.core.database.entity.WorkoutExerciseEntity
 import com.paulfvt.liftapp.core.database.entity.WorkoutSetEntity
 import com.paulfvt.liftapp.core.model.WorkoutStatus
 import com.paulfvt.liftapp.history.domain.editProblem
+import com.paulfvt.liftapp.progress.data.AchievementRepository
 import com.paulfvt.liftapp.progress.data.RecordRepository
 import com.paulfvt.liftapp.workout.data.toDomain
 import com.paulfvt.liftapp.workout.domain.Workout
@@ -15,9 +16,13 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 // Séances terminées : historique, modification et suppression. Chaque modification recalcule les records des
-// exercices touchés, dans la même transaction.
+// exercices touchés, dans la même transaction, puis vérifie paliers et badges.
 @Singleton
-class HistoryRepository @Inject constructor(private val database: LiftDatabase, private val records: RecordRepository) {
+class HistoryRepository @Inject constructor(
+    private val database: LiftDatabase,
+    private val records: RecordRepository,
+    private val achievements: AchievementRepository
+) {
     private val dao = database.workoutDao()
 
     fun observeFinished(): Flow<List<Workout>> =
@@ -31,16 +36,19 @@ class HistoryRepository @Inject constructor(private val database: LiftDatabase, 
     suspend fun getWorkout(id: Long): Workout? =
         dao.getDetails(id)?.takeIf { it.workout.status == WorkoutStatus.FINISHED }?.toDomain()
 
-    suspend fun delete(workoutId: Long) = database.withTransaction {
-        val exerciseIds = dao.exerciseIdsOf(workoutId)
-        dao.deleteWorkout(workoutId)
-        records.recompute(exerciseIds)
+    suspend fun delete(workoutId: Long) {
+        database.withTransaction {
+            val exerciseIds = dao.exerciseIdsOf(workoutId)
+            dao.deleteWorkout(workoutId)
+            records.recompute(exerciseIds)
+            achievements.refresh()
+        }
     }
 
     // Enregistre une séance modifiée. Ses exercices et séries sont réécrits en entier, comme pour un template ;
     // les séries déjà présentes gardent leur heure de validation. Les records sont recalculés pour les exercices
     // d'avant et d'après (un exercice retiré peut perdre un record).
-    suspend fun save(edited: Workout) = database.withTransaction {
+    suspend fun save(edited: Workout): Unit = database.withTransaction {
         check(edited.editProblem() == null) { "Séance incomplète : ${edited.editProblem()}" }
         val before = dao.exerciseIdsOf(edited.id)
         val completedAt = dao.setCompletionsOf(edited.id).associate { it.id to it.completedAt }
@@ -77,5 +85,8 @@ class HistoryRepository @Inject constructor(private val database: LiftDatabase, 
             )
         }
         records.recompute(before + edited.exercises.map { it.exercise.id })
+        // Une séance corrigée à la hausse peut atteindre un palier ou débloquer un badge (acquis pour toujours).
+        achievements.refresh()
+        Unit
     }
 }
