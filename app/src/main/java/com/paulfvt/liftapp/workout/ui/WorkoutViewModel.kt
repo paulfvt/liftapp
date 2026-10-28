@@ -13,6 +13,11 @@ import com.paulfvt.liftapp.core.di.ApplicationScope
 import com.paulfvt.liftapp.core.model.Exercise
 import com.paulfvt.liftapp.core.model.SetType
 import com.paulfvt.liftapp.exercise.data.ExerciseRepository
+import com.paulfvt.liftapp.progress.data.RecordRepository
+import com.paulfvt.liftapp.progress.domain.ExerciseMetric
+import com.paulfvt.liftapp.progress.domain.LiveRecord
+import com.paulfvt.liftapp.progress.domain.PerformedSet
+import com.paulfvt.liftapp.progress.domain.liveRecords
 import com.paulfvt.liftapp.workout.data.FinishedWorkout
 import com.paulfvt.liftapp.workout.data.WorkoutRepository
 import com.paulfvt.liftapp.workout.data.WorkoutSettings
@@ -42,8 +47,16 @@ data class WorkoutUiState(
     val isLoading: Boolean = true,
     val workout: Workout? = null,
     // Séries de la dernière fois, par identifiant d'exercice (colonne « Précédent »).
-    val previous: Map<Long, List<PreviousSet>> = emptyMap()
+    val previous: Map<Long, List<PreviousSet>> = emptyMap(),
+    // Records battus par les séries validées de la séance, pour la célébration.
+    val records: List<SessionRecord> = emptyList()
 )
+
+// Record battu pendant la séance, avec son exercice pour l'afficher (« 1RM estimé : 102,5 kg »).
+data class SessionRecord(val exercise: Exercise, val record: LiveRecord) {
+    // Identifie le record d'une série pour une mesure : un nouveau couple déclenche la célébration.
+    val key: String get() = "${record.setId}:${record.metric.name}"
+}
 
 // Boîte de dialogue ouverte, gardée dans le ViewModel pour rester ouverte après une rotation.
 sealed interface WorkoutDialog {
@@ -66,6 +79,7 @@ sealed interface WorkoutDialog {
 class WorkoutViewModel @Inject constructor(
     private val workouts: WorkoutRepository,
     private val exercises: ExerciseRepository,
+    private val records: RecordRepository,
     private val settingsRepository: WorkoutSettingsRepository,
     private val sessionSync: WorkoutSessionSync,
     @param:ApplicationScope private val appScope: CoroutineScope,
@@ -73,6 +87,9 @@ class WorkoutViewModel @Inject constructor(
 ) : ViewModel() {
     // La dernière fois ne change pas pendant la séance : chaque exercice n'est lu qu'une fois.
     private val previousCache = mutableMapOf<Long, List<PreviousSet>>()
+
+    // Records d'avant la séance (séances terminées) : ils ne changent pas non plus pendant la séance.
+    private val bestCache = mutableMapOf<Long, Map<ExerciseMetric, Double>>()
 
     val uiState: StateFlow<WorkoutUiState> = workouts.observeInProgress().map { workout ->
         WorkoutUiState(
@@ -82,9 +99,19 @@ class WorkoutViewModel @Inject constructor(
                 item.exercise.id to previousCache.getOrPut(item.exercise.id) {
                     workouts.previousSets(item.exercise.id, workout?.templateId)
                 }
-            }
+            },
+            records = workout?.let { sessionRecords(it) }.orEmpty()
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(STOP_TIMEOUT_MS), WorkoutUiState())
+
+    private suspend fun sessionRecords(workout: Workout): List<SessionRecord> = workout.exercises.flatMap { item ->
+        val exercise = item.exercise
+        val best = bestCache.getOrPut(exercise.id) { records.bestValues(exercise.id, exercise.trackingType) }
+        val validated = item.sets.filter { it.isCompleted }.map { set ->
+            PerformedSet(set.id, workout.id, workout.startedAt, set.type, set.values)
+        }
+        liveRecords(validated, exercise.trackingType, best).map { SessionRecord(exercise, it) }
+    }
 
     // Valeur de départ « déjà demandées » : la demande de permissions n'apparaît pas avant la lecture des réglages.
     val settings: StateFlow<WorkoutSettings> = settingsRepository.settings

@@ -12,6 +12,9 @@ interface RecordDao {
     @Query("SELECT * FROM personal_record WHERE exerciseId = :exerciseId")
     fun observeFor(exerciseId: Long): Flow<List<PersonalRecordEntity>>
 
+    @Query("SELECT * FROM personal_record WHERE exerciseId = :exerciseId")
+    suspend fun getFor(exerciseId: Long): List<PersonalRecordEntity>
+
     @Query("SELECT * FROM personal_record")
     fun observeAll(): Flow<List<PersonalRecordEntity>>
 

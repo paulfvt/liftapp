@@ -4,13 +4,19 @@ import androidx.room.withTransaction
 import com.paulfvt.liftapp.core.database.LiftDatabase
 import com.paulfvt.liftapp.core.database.entity.PerformedSetRow
 import com.paulfvt.liftapp.core.database.entity.PersonalRecordEntity
+import com.paulfvt.liftapp.core.model.TrackingType
 import com.paulfvt.liftapp.core.model.WorkoutStatus
 import com.paulfvt.liftapp.exercise.data.ExerciseRepository
+import com.paulfvt.liftapp.progress.domain.ExerciseMetric
 import com.paulfvt.liftapp.progress.domain.PerformedExercise
 import com.paulfvt.liftapp.progress.domain.PerformedSet
 import com.paulfvt.liftapp.progress.domain.PersonalRecord
+import com.paulfvt.liftapp.progress.domain.RecordBreak
+import com.paulfvt.liftapp.progress.domain.celebratedMetrics
 import com.paulfvt.liftapp.progress.domain.computeRecords
 import com.paulfvt.liftapp.progress.domain.headlineRecordType
+import com.paulfvt.liftapp.progress.domain.recordBreaks
+import com.paulfvt.liftapp.progress.domain.recordType
 import com.paulfvt.liftapp.workout.domain.SetValues
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -38,6 +44,25 @@ class RecordRepository @Inject constructor(
             recordDao.deleteFor(exerciseId)
             recordDao.insertAll(computeRecords(sets, trackingType).map { it.toEntity(exerciseId) })
         }
+    }
+
+    // Meilleures valeurs des séances terminées pour les mesures célébrées : la référence d'une séance en cours.
+    suspend fun bestValues(exerciseId: Long, trackingType: TrackingType): Map<ExerciseMetric, Double> {
+        val records = recordDao.getFor(exerciseId).associateBy { it.recordType }
+        return celebratedMetrics(trackingType).mapNotNull { metric ->
+            records[metric.recordType()]?.let { metric to it.value }
+        }.toMap()
+    }
+
+    // Records battus séance par séance, pour plusieurs exercices (résumé de fin de séance, récap du mois).
+    suspend fun recordBreaks(exerciseIds: Collection<Long>): Map<Long, List<RecordBreak>> {
+        if (exerciseIds.isEmpty()) return emptyMap()
+        val trackingTypes = exercises.getExercises(exerciseIds.distinct()).associate { it.id to it.trackingType }
+        return workoutDao.performedSetsOf(exerciseIds.distinct(), WorkoutStatus.FINISHED)
+            .groupBy({ it.exerciseId }, { it.set.toPerformedSet() })
+            .mapValues { (exerciseId, sets) ->
+                trackingTypes[exerciseId]?.let { recordBreaks(sets, it) }.orEmpty()
+            }
     }
 
     fun observeRecords(exerciseId: Long): Flow<List<PersonalRecord>> =

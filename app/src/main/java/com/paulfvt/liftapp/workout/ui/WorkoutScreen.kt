@@ -3,6 +3,7 @@ package com.paulfvt.liftapp.workout.ui
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -68,6 +69,7 @@ import com.paulfvt.liftapp.core.ui.rememberElapsedSeconds
 import com.paulfvt.liftapp.exercise.ui.ExerciseThumbnail
 import com.paulfvt.liftapp.template.ui.ChoiceDialog
 import com.paulfvt.liftapp.template.ui.NameDialog
+import com.paulfvt.liftapp.workout.domain.NextSet
 import com.paulfvt.liftapp.workout.domain.PreviousSet
 import com.paulfvt.liftapp.workout.domain.RPE_CHOICES
 import com.paulfvt.liftapp.workout.domain.Workout
@@ -102,7 +104,7 @@ fun WorkoutScreen(
         uiState.isLoading || viewModel.isFinishing -> Unit
         // Plus de séance en cours (terminée ou abandonnée ailleurs) : rien à afficher.
         workout == null -> LaunchedEffect(Unit) { onClose() }
-        else -> ActiveWorkout(workout, uiState.previous, viewModel, onClose, onPickExercises)
+        else -> ActiveWorkout(workout, uiState.previous, uiState.records, viewModel, onClose, onPickExercises)
     }
 }
 
@@ -111,6 +113,7 @@ fun WorkoutScreen(
 private fun ActiveWorkout(
     workout: Workout,
     previous: Map<Long, List<PreviousSet>>,
+    records: List<SessionRecord>,
     viewModel: WorkoutViewModel,
     onMinimize: () -> Unit,
     onPickExercises: (excludedIds: List<Long>, replace: Boolean) -> Unit
@@ -208,29 +211,47 @@ private fun ActiveWorkout(
         },
         snackbarHost = { SnackbarHost(snackbarHostState) }
     ) { padding ->
-        if (settings.gymMode) {
-            val gymActions = remember(viewModel) {
-                GymActions(
-                    onStep = viewModel::onStepValues,
-                    onWeightChange = viewModel::onWeightChange,
-                    onRepsChange = viewModel::onRepsChange,
-                    onDurationChange = viewModel::onDurationChange,
-                    onDistanceChange = viewModel::onDistanceChange
-                )
-            }
-            GymModeContent(
-                next = next,
-                previous = previous,
-                actions = gymActions,
-                onShowAll = { viewModel.onGymModeChange(false) },
-                modifier = Modifier.padding(padding),
-                restTimer = { restTimer(true, Modifier) }
+        Box(Modifier.padding(padding)) {
+            ActiveWorkoutContent(workout, previous, settings.gymMode, next, viewModel, onPickExercises, restTimer)
+            RecordCelebration(
+                records = records,
+                modifier = Modifier.align(Alignment.TopCenter).padding(horizontal = 16.dp, vertical = 8.dp)
             )
-        } else {
-            WorkoutContent(workout, previous, viewModel, onPickExercises, Modifier.padding(padding))
         }
     }
     WorkoutDialogs(workout, viewModel)
+}
+
+@Composable
+private fun ActiveWorkoutContent(
+    workout: Workout,
+    previous: Map<Long, List<PreviousSet>>,
+    isGymMode: Boolean,
+    next: NextSet?,
+    viewModel: WorkoutViewModel,
+    onPickExercises: (excludedIds: List<Long>, replace: Boolean) -> Unit,
+    restTimer: @Composable (large: Boolean, modifier: Modifier) -> Unit
+) {
+    if (isGymMode) {
+        val gymActions = remember(viewModel) {
+            GymActions(
+                onStep = viewModel::onStepValues,
+                onWeightChange = viewModel::onWeightChange,
+                onRepsChange = viewModel::onRepsChange,
+                onDurationChange = viewModel::onDurationChange,
+                onDistanceChange = viewModel::onDistanceChange
+            )
+        }
+        GymModeContent(
+            next = next,
+            previous = previous,
+            actions = gymActions,
+            onShowAll = { viewModel.onGymModeChange(false) },
+            restTimer = { restTimer(true, Modifier) }
+        )
+    } else {
+        WorkoutContent(workout, previous, viewModel, onPickExercises)
+    }
 }
 
 @Composable

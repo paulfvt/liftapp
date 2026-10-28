@@ -37,4 +37,12 @@
         <item quantity="one">Record : %d semaine</item>
         <item quantity="other">Record : %d semaines</item>
     </plurals>
+
+    <!-- Records battus -->
+    <string name="record_new">Nouveau record</string>
+    <string name="record_new_detail">%1$s · %2$s : %3$s</string>
+    <plurals name="record_new_others">
+        <item quantity="one">et %d autre record</item>
+        <item quantity="other">et %d autres records</item>
+    </plurals>
 </resources>
