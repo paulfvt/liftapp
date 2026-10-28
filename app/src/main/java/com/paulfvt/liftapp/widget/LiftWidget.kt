@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.glance.ButtonDefaults
+import androidx.glance.ColorFilter
 import androidx.glance.GlanceId
 import androidx.glance.GlanceModifier
 import androidx.glance.GlanceTheme
@@ -27,7 +28,6 @@ import androidx.glance.appwidget.SizeMode
 import androidx.glance.appwidget.action.actionSendBroadcast
 import androidx.glance.appwidget.action.actionStartActivity
 import androidx.glance.appwidget.appWidgetBackground
-import androidx.glance.appwidget.components.CircleIconButton
 import androidx.glance.appwidget.components.FilledButton
 import androidx.glance.appwidget.cornerRadius
 import androidx.glance.appwidget.provideContent
@@ -141,7 +141,7 @@ private fun IdleContent(dashboard: Dashboard) {
                     )
                     RecordLine(dashboard)
                     Spacer(GlanceModifier.defaultWeight())
-                    StartButton(context, template?.id)
+                    StartButton(context, template?.id, context.getString(R.string.template_preview_start))
                 }
             }
         } else {
@@ -152,7 +152,12 @@ private fun IdleContent(dashboard: Dashboard) {
                     CompactStreak(dashboard)
                 }
                 Spacer(GlanceModifier.defaultWeight())
-                StartButton(context, template?.id)
+                // Petite taille : le nom de la prochaine séance sur le bouton, l'icône lecture tient lieu de « Démarrer ».
+                StartButton(
+                    context,
+                    template?.id,
+                    template?.name ?: context.getString(R.string.workout_start_empty)
+                )
             }
         }
     }
@@ -235,9 +240,9 @@ private fun RecordLine(dashboard: Dashboard) {
 }
 
 @Composable
-private fun StartButton(context: Context, templateId: Long?) {
+private fun StartButton(context: Context, templateId: Long?, text: String) {
     FilledButton(
-        text = context.getString(R.string.template_preview_start),
+        text = text,
         onClick = startAction(context, templateId),
         icon = ImageProvider(R.drawable.ic_play_arrow),
         colors = ButtonDefaults.buttonColors(
@@ -352,12 +357,21 @@ private fun CompleteSetButton(context: Context, setId: Long, medium: Boolean) {
             maxLines = 1
         )
     } else {
-        CircleIconButton(
-            imageProvider = ImageProvider(R.drawable.ic_check),
-            contentDescription = label,
-            onClick = actionSendBroadcast(intent),
-            backgroundColor = GlanceTheme.colors.primaryContainer,
-            contentColor = GlanceTheme.colors.onPrimaryContainer
-        )
+        // Bouton rond fait main : celui des composants Glance affiche une coche trop petite pour être lisible.
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = GlanceModifier
+                .size(48.dp)
+                .cornerRadius(24.dp)
+                .background(GlanceTheme.colors.primaryContainer)
+                .clickable(actionSendBroadcast(intent))
+        ) {
+            Image(
+                provider = ImageProvider(R.drawable.ic_check),
+                contentDescription = label,
+                colorFilter = ColorFilter.tint(GlanceTheme.colors.onPrimaryContainer),
+                modifier = GlanceModifier.size(28.dp)
+            )
+        }
     }
 }

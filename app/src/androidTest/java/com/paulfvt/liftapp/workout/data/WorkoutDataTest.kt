@@ -110,6 +110,24 @@ class WorkoutDataTest {
         clock.now = clock.now.plusSeconds(86_400)
     }
 
+    // Accueil et widget : une seule séance à la fois, et un template supprimé entre-temps ne démarre rien.
+    @Test
+    fun startOrResumeReopensTheRunningWorkoutAndIgnoresADeletedTemplate() = runTest {
+        val bench = newExercise("Développé couché")
+        val push = template("Push A", bench)
+        val pull = template("Pull A", bench)
+        templates.deleteTemplate(pull)
+
+        assertFalse(workouts.startOrResume(pull, "Séance libre"))
+        assertNull(workouts.observeInProgress().first())
+
+        assertTrue(workouts.startOrResume(push, "Séance libre"))
+        val started = inProgress()
+        assertTrue(workouts.startOrResume(null, "Séance libre"))
+        assertEquals(started.id, inProgress().id)
+        assertEquals("Push A", inProgress().name)
+    }
+
     @Test
     fun startingFromTemplateKeepsTypesAndTargetsAndPrefillsFromLastTime() = runTest {
         val bench = newExercise("Développé couché")

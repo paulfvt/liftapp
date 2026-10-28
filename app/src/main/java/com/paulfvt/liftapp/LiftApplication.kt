@@ -3,6 +3,7 @@ package com.paulfvt.liftapp
 import android.app.Application
 import com.paulfvt.liftapp.core.di.ApplicationScope
 import com.paulfvt.liftapp.exercise.data.CatalogImporter
+import com.paulfvt.liftapp.widget.WidgetUpdater
 import com.paulfvt.liftapp.workout.notification.WorkoutSessionSync
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
@@ -19,6 +20,8 @@ class LiftApplication : Application() {
 
     @Inject lateinit var workoutSessionSync: WorkoutSessionSync
 
+    @Inject lateinit var widgetUpdater: WidgetUpdater
+
     override fun onCreate() {
         super.onCreate()
         // En arrière-plan pour ne pas retarder l'ouverture de l'app. Les écrans observent la base
@@ -26,5 +29,7 @@ class LiftApplication : Application() {
         applicationScope.launch { catalogImporter.importIfNeeded() }
         // Notification et alarme de la séance en cours, aussi quand l'app est démarrée par une alarme ou une action.
         workoutSessionSync.start()
+        // Widget d'écran d'accueil redessiné à chaque changement de ses données.
+        widgetUpdater.start()
     }
 }

@@ -1,6 +1,7 @@
 package com.paulfvt.liftapp.workout.notification
 
 import com.paulfvt.liftapp.core.di.ApplicationScope
+import com.paulfvt.liftapp.widget.WidgetUpdater
 import com.paulfvt.liftapp.workout.data.WorkoutRepository
 import com.paulfvt.liftapp.workout.domain.WorkoutNotice
 import com.paulfvt.liftapp.workout.domain.toNotice
@@ -25,6 +26,7 @@ class WorkoutSessionSync @Inject constructor(
     private val workouts: WorkoutRepository,
     private val notifier: WorkoutNotifier,
     private val alarms: RestAlarmScheduler,
+    private val widgets: WidgetUpdater,
     private val clock: Clock,
     @param:ApplicationScope private val scope: CoroutineScope
 ) {
@@ -40,9 +42,13 @@ class WorkoutSessionSync @Inject constructor(
         }
     }
 
-    // Relit la base et reconstruit tout : après une action de la notification, la fin d'un repos ou une permission
-    // qui vient d'être accordée.
-    suspend fun refresh() = apply(workouts.observeInProgress().first()?.toNotice())
+    // Relit la base et reconstruit tout : après une action de la notification ou du widget, la fin d'un repos ou une
+    // permission qui vient d'être accordée. Le widget est redessiné même si la séance n'a pas changé : à la fin d'un
+    // repos, son compte à rebours doit laisser place à la durée de la séance.
+    suspend fun refresh() {
+        apply(workouts.observeInProgress().first()?.toNotice())
+        widgets.update()
+    }
 
     // Ce qui manque pour que l'alerte de fin de repos arrive à l'heure écran verrouillé, dans l'ordre où le demander.
     fun missingPermissions(): List<AlertPermission> = buildList {
@@ -71,6 +77,7 @@ class WorkoutSessionSync @Inject constructor(
         restEndJob = scope.launch {
             delay(Duration.between(now, rest.endsAt).toMillis())
             mutex.withLock { notifier.show(notice, clock.instant()) }
+            widgets.update()
         }
     }
 }
