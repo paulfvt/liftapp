@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Textes de la phase 10 (réglages et données), rangés à part pour garder strings.xml lisible. -->
+<resources>
+    <string name="settings_title">Réglages</string>
+    <string name="settings_summary">Thème, unités, repos, confidentialité, export et sauvegarde</string>
+    <string name="settings_display">Affichage</string>
+    <string name="settings_training">Entraînement</string>
+    <string name="settings_theme">Thème</string>
+    <string name="settings_theme_system">Système</string>
+    <string name="settings_theme_light">Clair</string>
+    <string name="settings_theme_dark">Sombre</string>
+    <string name="settings_default_rest">Repos par défaut</string>
+</resources>

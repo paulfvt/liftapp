@@ -1,17 +1,24 @@
 package com.paulfvt.liftapp
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.setValue
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.paulfvt.liftapp.core.designsystem.theme.LiftTheme
 import com.paulfvt.liftapp.navigation.LiftApp
 import com.paulfvt.liftapp.profile.data.PhotoLockSession
+import com.paulfvt.liftapp.settings.data.AppSettingsRepository
+import com.paulfvt.liftapp.settings.data.ThemeMode
 import com.paulfvt.liftapp.workout.data.WorkoutRepository
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -27,6 +34,9 @@ class MainActivity : FragmentActivity() {
     @Inject
     lateinit var workouts: WorkoutRepository
 
+    @Inject
+    lateinit var appSettings: AppSettingsRepository
+
     // Augmente à chaque appui sur la notification de séance alors que l'app est déjà ouverte.
     private var openWorkoutRequest by mutableIntStateOf(0)
 
@@ -35,7 +45,26 @@ class MainActivity : FragmentActivity() {
         // Dessine sous les barres système. Le Scaffold de LiftApp gère les marges (insets).
         enableEdgeToEdge()
         setContent {
-            LiftTheme {
+            // null tant que les réglages ne sont pas lus (quelques millisecondes) : le fond de la fenêtre reste affiché.
+            val settings by appSettings.settings.collectAsStateWithLifecycle(initialValue = null)
+            val themeMode = settings?.themeMode ?: return@setContent
+            val darkTheme = when (themeMode) {
+                ThemeMode.SYSTEM -> isSystemInDarkTheme()
+                ThemeMode.LIGHT -> false
+                ThemeMode.DARK -> true
+            }
+            // Icônes des barres système claires sur fond sombre, et inversement, selon le thème de l'app (pas celui du
+            // téléphone quand l'utilisateur en a choisi un).
+            DisposableEffect(darkTheme) {
+                val style = if (darkTheme) {
+                    SystemBarStyle.dark(Color.TRANSPARENT)
+                } else {
+                    SystemBarStyle.light(Color.TRANSPARENT, Color.TRANSPARENT)
+                }
+                enableEdgeToEdge(statusBarStyle = style, navigationBarStyle = style)
+                onDispose {}
+            }
+            LiftTheme(darkTheme = darkTheme) {
                 LiftApp(openWorkoutRequest)
             }
         }

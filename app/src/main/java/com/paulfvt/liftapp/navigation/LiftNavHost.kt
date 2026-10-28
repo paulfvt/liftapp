@@ -17,6 +17,7 @@ import com.paulfvt.liftapp.profile.navigation.MeasurementEntryRoute
 import com.paulfvt.liftapp.profile.navigation.MeasurementRoute
 import com.paulfvt.liftapp.profile.navigation.PhotosRoute
 import com.paulfvt.liftapp.profile.navigation.ProfileEditRoute
+import com.paulfvt.liftapp.profile.navigation.SettingsRoute
 import com.paulfvt.liftapp.profile.navigation.profileScreens
 import com.paulfvt.liftapp.profile.ui.ProfileScreen
 import com.paulfvt.liftapp.progress.navigation.ExerciseProgressRoute
@@ -79,7 +80,8 @@ fun LiftNavHost(navController: NavHostController, modifier: Modifier = Modifier)
                     onOpenMeasurement = { type -> navController.navigate(MeasurementRoute(type.name)) },
                     onAddMeasurement = { navController.navigate(MeasurementEntryRoute()) },
                     onOpenPhotos = { navController.navigate(PhotosRoute) },
-                    onOpenAbout = { navController.navigate(AboutRoute) }
+                    onOpenAbout = { navController.navigate(AboutRoute) },
+                    onOpenSettings = { navController.navigate(SettingsRoute) }
                 )
             }
             profileScreens(navController)

@@ -28,10 +28,13 @@ data class TemplateDraft(val name: String = "", val exercises: List<TemplateExer
 
 fun TemplateDraft.nameError(): NameError? = validateName(name)
 
-// Un exercice n'apparaît qu'une fois par template : ceux déjà présents sont ignorés.
-fun TemplateDraft.addExercises(new: List<Exercise>): TemplateDraft {
+// Un exercice n'apparaît qu'une fois par template : ceux déjà présents sont ignorés. restSeconds : le repos par défaut
+// choisi dans les réglages.
+fun TemplateDraft.addExercises(new: List<Exercise>, restSeconds: Int = DEFAULT_REST_SECONDS): TemplateDraft {
     val present = exercises.map { it.exercise.id }.toSet()
-    val added = new.distinctBy { it.id }.filter { it.id !in present }.map { TemplateExerciseDraft(it) }
+    val added = new.distinctBy { it.id }
+        .filter { it.id !in present }
+        .map { TemplateExerciseDraft(it, restSeconds = restSeconds) }
     return copy(exercises = exercises + added)
 }
 

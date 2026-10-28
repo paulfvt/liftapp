@@ -18,6 +18,7 @@ import com.paulfvt.liftapp.progress.domain.ExerciseMetric
 import com.paulfvt.liftapp.progress.domain.LiveRecord
 import com.paulfvt.liftapp.progress.domain.PerformedSet
 import com.paulfvt.liftapp.progress.domain.liveRecords
+import com.paulfvt.liftapp.settings.data.AppSettingsRepository
 import com.paulfvt.liftapp.workout.data.FinishedWorkout
 import com.paulfvt.liftapp.workout.data.WorkoutRepository
 import com.paulfvt.liftapp.workout.data.WorkoutSettings
@@ -80,6 +81,7 @@ class WorkoutViewModel @Inject constructor(
     private val workouts: WorkoutRepository,
     private val exercises: ExerciseRepository,
     private val records: RecordRepository,
+    private val appSettings: AppSettingsRepository,
     private val settingsRepository: WorkoutSettingsRepository,
     private val sessionSync: WorkoutSessionSync,
     @param:ApplicationScope private val appScope: CoroutineScope,
@@ -239,7 +241,8 @@ class WorkoutViewModel @Inject constructor(
             if (replaced != null) {
                 workouts.replaceExercise(replaced, exerciseIds.first())
             } else {
-                workouts.inProgressId()?.let { workouts.addExercises(it, exerciseIds) }
+                val rest = appSettings.current().defaultRestSeconds
+                workouts.inProgressId()?.let { workouts.addExercises(it, exerciseIds, rest) }
             }
         }
     }

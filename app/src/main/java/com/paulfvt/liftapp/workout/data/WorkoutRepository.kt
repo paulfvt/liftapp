@@ -109,14 +109,16 @@ class WorkoutRepository @Inject constructor(
         insertWorkout(templateId = null, name = name)
     }
 
-    suspend fun addExercises(workoutId: Long, exerciseIds: List<Long>) = database.withTransaction {
-        val templateId = requireNotNull(dao.getWorkout(workoutId)).templateId
-        val firstOrder = (dao.getExercises(workoutId).maxOfOrNull { it.sortOrder } ?: -1) + 1
-        exerciseIds.forEachIndexed { index, exerciseId ->
-            val planned = setsForAddedExercise(previousSets(exerciseId, templateId))
-            insertExercise(workoutId, exerciseId, firstOrder + index, DEFAULT_REST_SECONDS, planned)
+    // restSeconds : le repos par défaut choisi dans les réglages.
+    suspend fun addExercises(workoutId: Long, exerciseIds: List<Long>, restSeconds: Int = DEFAULT_REST_SECONDS) =
+        database.withTransaction {
+            val templateId = requireNotNull(dao.getWorkout(workoutId)).templateId
+            val firstOrder = (dao.getExercises(workoutId).maxOfOrNull { it.sortOrder } ?: -1) + 1
+            exerciseIds.forEachIndexed { index, exerciseId ->
+                val planned = setsForAddedExercise(previousSets(exerciseId, templateId))
+                insertExercise(workoutId, exerciseId, firstOrder + index, restSeconds, planned)
+            }
         }
-    }
 
     // Remplacer garde les séries prévues (types et cibles) et les pré-remplit avec le nouvel exercice.
     suspend fun replaceExercise(workoutExerciseId: Long, exerciseId: Long) = database.withTransaction {

@@ -121,4 +121,16 @@ class TemplateDraftTest {
         assertEquals(NameError.EMPTY, TemplateDraft(name = " ").nameError())
         assertNull(draft.nameError())
     }
+
+    @Test
+    fun `added exercises take the default rest chosen in the settings`() {
+        assertEquals(
+            DEFAULT_REST_SECONDS,
+            TemplateDraft().addExercises(listOf(exercise(1))).exercises.single().restSeconds
+        )
+        assertEquals(
+            90,
+            TemplateDraft().addExercises(listOf(exercise(1)), restSeconds = 90).exercises.single().restSeconds
+        )
+    }
 }

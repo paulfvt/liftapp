@@ -14,6 +14,7 @@ import com.paulfvt.liftapp.profile.ui.PhotoLockSettingsScreen
 import com.paulfvt.liftapp.profile.ui.PhotoScreen
 import com.paulfvt.liftapp.profile.ui.PhotosScreen
 import com.paulfvt.liftapp.profile.ui.ProfileEditScreen
+import com.paulfvt.liftapp.settings.ui.SettingsScreen
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -47,11 +48,17 @@ data object PhotoLockSettingsRoute
 @Serializable
 data object AboutRoute
 
+@Serializable
+data object SettingsRoute
+
 // Texte complet d'une licence, désignée par OpenLicense.id.
 @Serializable
 data class LicenseRoute(val licenseId: String)
 
 fun NavGraphBuilder.profileScreens(navController: NavController) {
+    composable<SettingsRoute> {
+        SettingsScreen(onBack = { navController.popBackStack<SettingsRoute>(inclusive = true) })
+    }
     composable<ProfileEditRoute> {
         ProfileEditScreen(onClose = { navController.popBackStack<ProfileEditRoute>(inclusive = true) })
     }

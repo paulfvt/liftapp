@@ -48,7 +48,7 @@ import com.paulfvt.liftapp.workout.domain.formatDecimal
 import java.io.File
 import java.util.Locale
 
-// Onglet Profil : le profil fixe, puis les mesures, les photos et « À propos ».
+// Onglet Profil : le profil fixe, puis les mesures, les photos, les réglages et « À propos ».
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileScreen(
@@ -57,6 +57,7 @@ fun ProfileScreen(
     onAddMeasurement: () -> Unit,
     onOpenPhotos: () -> Unit,
     onOpenAbout: () -> Unit,
+    onOpenSettings: () -> Unit,
     viewModel: ProfileViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -82,6 +83,13 @@ fun ProfileScreen(
                 fileOf = viewModel::file,
                 onOpen = onOpenPhotos,
                 modifier = Modifier.padding(horizontal = 16.dp)
+            )
+            ListItem(
+                headlineContent = { Text(stringResource(R.string.settings_title)) },
+                supportingContent = { Text(stringResource(R.string.settings_summary)) },
+                leadingContent = { Icon(painterResource(R.drawable.ic_settings), contentDescription = null) },
+                colors = ListItemDefaults.colors(containerColor = MaterialTheme.colorScheme.surface),
+                modifier = Modifier.clickable(role = Role.Button, onClick = onOpenSettings)
             )
             ListItem(
                 headlineContent = { Text(stringResource(R.string.about_title)) },

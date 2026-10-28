@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import com.paulfvt.liftapp.core.model.SetType
 import com.paulfvt.liftapp.exercise.data.ExerciseRepository
+import com.paulfvt.liftapp.settings.data.AppSettingsRepository
 import com.paulfvt.liftapp.template.data.TemplateRepository
 import com.paulfvt.liftapp.template.domain.NameError
 import com.paulfvt.liftapp.template.domain.TemplateDraft
@@ -32,7 +33,8 @@ import kotlinx.coroutines.launch
 class TemplateEditViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val templates: TemplateRepository,
-    private val exercises: ExerciseRepository
+    private val exercises: ExerciseRepository,
+    private val settings: AppSettingsRepository
 ) : ViewModel() {
     private val route = savedStateHandle.toRoute<TemplateEditRoute>()
     val isNew: Boolean = route.templateId == null
@@ -73,7 +75,8 @@ class TemplateEditViewModel @Inject constructor(
     fun onExercisesPicked(ids: List<Long>) {
         viewModelScope.launch {
             val picked = exercises.getExercises(ids)
-            updateDraft { it.addExercises(picked) }
+            val rest = settings.current().defaultRestSeconds
+            updateDraft { it.addExercises(picked, rest) }
         }
     }
 
