@@ -1,8 +1,28 @@
 # Avancement
 
-## Prochaine étape : phase 9 — Tableau de bord et widget (plan proposé le 28 octobre 2026, feu vert attendu)
+## En cours : phase 9 — Tableau de bord et widget, code terminé le 28 octobre 2026, à tester sur le S25+
 
-Plan proposé (un commit par étape) :
+Fait en une traite à la demande du développeur, un commit par étape :
+- Prochaine séance et dernier record (calculs testés), `DashboardRepository` commun à l'accueil et au widget.
+- Écran Accueil, premier onglet, ouvert au lancement : semaine (anneau, streak, objectif modifiable), prochaine
+  séance avec « Démarrer » (« Reprendre » si une séance est en cours, « Séance vide » sans template), dernier record,
+  souvenir. Progrès garde carte du corps, objectifs, badges, récap et exercices.
+- Widget Glance, petite et moyenne taille. Hors séance : anneau, streak, prochaine séance, dernier record,
+  « Démarrer » (l'app s'ouvre sur la séance créée). En séance : exercice, série, compte à rebours du repos ou durée de
+  la séance (Chronometer d'Android), « Série validée ». Aperçu dans le sélecteur de widgets.
+- Mises à jour du widget : à chaque changement de ses données tant que l'app tourne, après une action de la
+  notification ou du widget, à la fin d'un repos, et toutes les 3 h par Android.
+- Politique de confidentialité (widget visible sur l'écran d'accueil), fiche Play Store et crédits (Glance) à jour.
+- Vérifié sur l'émulateur : accueil et « Démarrer », widget posé depuis le sélecteur, « Démarrer » du widget,
+  passage en séance, « Série validée » depuis le widget, compte à rebours puis durée de la séance à la fin du repos,
+  petite taille, retour hors séance après abandon.
+- 221 tests JVM et 40 tests instrumentés verts (dont `startOrResume`). Lint sans nouvel avertissement.
+- Émulateur : données de démonstration restaurées après les tests instrumentés ; le widget est à reposer à la main
+  (la désinstallation l'a retiré).
+
+Reste : test du développeur sur le S25+ (widget sur le lanceur Samsung, écran verrouillé, thème clair).
+
+Plan validé le 28 octobre 2026 :
 1. Prochaine séance, calcul testé : template suivant le dernier utilisé dans son dossier, sinon le dernier utilisé ;
    template supprimé, dossier d'un seul template, aucun historique (premier template de la liste), aucun template
    (« Séance vide »).
@@ -299,6 +319,23 @@ Reportés en phase 10 (Réglages, cahier § 4.11) : unités lb et in, masquage d
   borne basse jamais sous le meilleur déjà atteint ; pas de projection au-delà de ±10 % d'incertitude.
 - **Ressources texte** : une apostrophe doit être écrite `\'`. Un script Python ou un heredoc du shell peut perdre la
   barre oblique : aapt refuse alors le fichier (« Invalid unicode escape »).
+- **Accueil et widget partagent `DashboardRepository`** (`home/data`) : prochaine séance (`nextTemplate`), dernier
+  record (`latestRecord`), streak et souvenir sont calculés d'une seule façon. Les templates récemment utilisés
+  viennent d'une requête groupée sur `workout.templateId`.
+- **Démarrage commun** : `WorkoutRepository.startOrResume` rouvre la séance en cours s'il y en a une, sinon démarre
+  celle demandée ; faux si le template a été supprimé entre-temps (le widget peut afficher un état ancien).
+- **« Démarrer » du widget** : ouvre `MainActivity` avec l'action `START_WORKOUT` (et l'identifiant du template).
+  Lancer un écran depuis un récepteur en arrière-plan est bloqué par Android ; l'ouverture directe de l'app par un
+  appui sur le widget, elle, est toujours permise. Traité dans `onCreate` (pas après une rotation) et `onNewIntent`.
+- **Widget (package `widget`)** : `LiftWidget` (Glance) lit ses données par un point d'entrée Hilt (`WidgetEntryPoint`)
+  car Android l'instancie lui-même. Pendant une séance, le tableau de bord n'est pas calculé (`flatMapLatest`) : chaque
+  saisie relancerait le calcul pour rien. Couleurs : `ColorProviders` de glance-material3 avec les schémas du thème ;
+  l'anneau (image) et le chronomètre (vue Android) utilisent des couleurs `widget_*` de `res/values(-night)`.
+- **Chronomètre du widget** : `AndroidRemoteViews` avec un `Chronometer` (layouts `widget_*_chronometer.xml`), base
+  exprimée en `elapsedRealtime`. Il décompte seul ; l'app redessine le widget à la fin du repos
+  (`WorkoutSessionSync`) pour passer à la durée de la séance.
+- **Bouton rond du widget** : fait main (Box et Image teintée) ; le `CircleIconButton` de Glance affichait une coche
+  minuscule.
 
 ## Questions ouvertes
 - Code des photos oublié sur un téléphone sans verrouillage d'écran : l'app explique qu'il faut d'abord en activer un
@@ -306,6 +343,11 @@ Reportés en phase 10 (Réglages, cahier § 4.11) : unités lb et in, masquage d
 - Politique de confidentialité : nom affiché et adresse de contact (publics), nom du dépôt public qui l'hébergera.
 
 ## Problèmes connus
+- Widget : juste après une mise à jour de l'app, il affiche l'écran de chargement de Glance jusqu'à ce que l'app
+  tourne à nouveau (une minute environ sur l'émulateur). Changer de thème clair ou sombre ne redessine l'anneau qu'à
+  la mise à jour suivante (c'est une image).
+- Widget : l'émulateur ne permet pas de le poser autrement qu'à la main (appui long sur l'écran d'accueil, Widgets,
+  recherche « LiftApp », glisser l'aperçu). `connectedDebugAndroidTest` le retire en désinstallant l'app.
 - Anneau et streak sont recalculés quand les données changent : si l'app reste ouverte au passage du dimanche au
   lundi, la nouvelle semaine n'apparaît qu'à la prochaine séance ou à la réouverture de l'onglet.
 - Lint signale des versions plus récentes (Gradle 9.8.2, DataStore 1.3.0, Kotlin 2.4.21, kotlinx.serialization

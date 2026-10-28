@@ -140,7 +140,7 @@ private fun IdleContent(dashboard: Dashboard) {
                         maxLines = 1
                     )
                     RecordLine(dashboard)
-                    Spacer(GlanceModifier.defaultWeight())
+                    Spacer(GlanceModifier.height(6.dp))
                     StartButton(context, template?.id, context.getString(R.string.template_preview_start))
                 }
             }

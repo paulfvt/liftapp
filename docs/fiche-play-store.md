@@ -30,6 +30,8 @@ Console au moment de la saisie.
   > • Courbes de progression sur 1 mois, 3 mois, 1 an ou depuis le début.
   >
   > RESTE MOTIVÉ
+  > • Accueil avec ta semaine, ta prochaine séance et ton dernier record.
+  > • Widget d'écran d'accueil : lance ta prochaine séance, puis suis ton repos et valide tes séries sans ouvrir l'app.
   > • Objectif de séances par semaine et streak en semaines : les jours de repos ne sont jamais pénalisés.
   > • Célébration de tes records pendant la séance, résumé de fin de séance comparé à la dernière fois.
   > • Carte du corps des muscles travaillés sur 7 jours.
@@ -46,7 +48,7 @@ Console au moment de la saisie.
   > • Pas de compte, pas de publicité, pas de suivi.
   > • L'app n'a pas accès à internet : tes données ne quittent pas ton téléphone.
   >
-  > LiftApp est en développement actif : tableau de bord et widget arrivent bientôt.
+  > LiftApp est en développement actif : réglages, export et sauvegarde arrivent bientôt.
 
 - **Icône** : 512 × 512 px, PNG 32 bits : [play-store/icon-512.png](play-store/icon-512.png) (piste « Néon »).
 - **Image de présentation** : 1 024 × 500 px, PNG 24 bits :

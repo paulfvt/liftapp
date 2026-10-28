@@ -173,7 +173,7 @@
     <string name="credit_barlow">Barlow et Barlow Condensed</string>
     <string name="credit_barlow_detail">Copyright 2017 The Barlow Project Authors</string>
     <string name="credit_jetpack">Android Jetpack</string>
-    <string name="credit_jetpack_detail">Compose, Material 3, Room, Navigation, DataStore, Lifecycle, CameraX et Biometric, de Google</string>
+    <string name="credit_jetpack_detail">Compose, Material 3, Room, Navigation, DataStore, Lifecycle, CameraX, Biometric et Glance, de Google</string>
     <string name="credit_hilt">Hilt et Dagger</string>
     <string name="credit_by_google">De Google</string>
     <string name="credit_kotlin">Kotlin, kotlinx.coroutines et kotlinx.serialization</string>

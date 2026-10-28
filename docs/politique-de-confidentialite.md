@@ -26,6 +26,9 @@ pas accès, et tes photos de progression n'apparaissent pas dans la galerie.
 - Pas de compte, pas de publicité, pas d'outil de mesure d'audience ni de suivi.
 - Le récap mensuel peut être partagé en image, seulement si tu appuies sur « Partager » : c'est toi qui choisis
   l'application qui la reçoit, dans le menu de partage d'Android. Rien d'autre n'est envoyé.
+- Si tu poses le widget sur ton écran d'accueil, il y affiche ta semaine, ta prochaine séance, ton dernier record et
+  ta séance en cours : toute personne qui voit ton écran d'accueil peut les lire. Ces informations restent sur le
+  téléphone.
 
 ## Photos et verrouillage
 
