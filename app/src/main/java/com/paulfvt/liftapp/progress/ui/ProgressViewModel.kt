@@ -5,11 +5,13 @@ import androidx.lifecycle.viewModelScope
 import com.paulfvt.liftapp.core.model.Exercise
 import com.paulfvt.liftapp.core.model.Muscle
 import com.paulfvt.liftapp.profile.data.ProfileRepository
+import com.paulfvt.liftapp.progress.data.BadgeRepository
 import com.paulfvt.liftapp.progress.data.BodyMapRepository
 import com.paulfvt.liftapp.progress.data.GoalRepository
 import com.paulfvt.liftapp.progress.data.MotivationRepository
 import com.paulfvt.liftapp.progress.data.RecordRepository
 import com.paulfvt.liftapp.progress.data.WeeklyGoalRepository
+import com.paulfvt.liftapp.progress.domain.Badge
 import com.paulfvt.liftapp.progress.domain.ExerciseHistory
 import com.paulfvt.liftapp.progress.domain.GoalStatus
 import com.paulfvt.liftapp.progress.domain.PerformedExercise
@@ -19,6 +21,7 @@ import com.paulfvt.liftapp.progress.domain.goalStatus
 import com.paulfvt.liftapp.progress.domain.muscleSets
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.time.Clock
+import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
 import javax.inject.Inject
@@ -37,6 +40,7 @@ data class ProgressUiState(
     val streak: WeeklyStreak? = null,
     val muscleSets: Map<Muscle, Double> = emptyMap(),
     val goals: List<ExerciseGoal> = emptyList(),
+    val badges: Map<Badge, Instant> = emptyMap(),
     val bodyFigures: List<BodyFigure> = emptyList(),
     val exercises: List<PerformedExercise> = emptyList()
 )
@@ -56,6 +60,7 @@ class ProgressViewModel @Inject constructor(
     profiles: ProfileRepository,
     bodyMaps: BodyMapRepository,
     goals: GoalRepository,
+    badges: BadgeRepository,
     private val weeklyGoals: WeeklyGoalRepository,
     private val clock: Clock
 ) : ViewModel() {
@@ -78,13 +83,15 @@ class ProgressViewModel @Inject constructor(
         weeklyGoals.observeStreak(),
         historyState,
         bodyFigures,
+        badges.observeUnlocked(),
         records.observePerformedExercises()
-    ) { streak, history, figures, exercises ->
+    ) { streak, history, figures, unlocked, exercises ->
         ProgressUiState(
             isLoading = false,
             streak = streak,
             muscleSets = history.muscleSets,
             goals = history.goals,
+            badges = unlocked,
             bodyFigures = figures,
             exercises = exercises
         )

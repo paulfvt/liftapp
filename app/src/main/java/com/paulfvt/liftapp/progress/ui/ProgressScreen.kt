@@ -34,6 +34,7 @@ import com.paulfvt.liftapp.core.designsystem.component.ScreenTitle
 import com.paulfvt.liftapp.core.designsystem.component.SectionTitle
 import com.paulfvt.liftapp.core.ui.shortDay
 import com.paulfvt.liftapp.exercise.ui.ExerciseThumbnail
+import com.paulfvt.liftapp.progress.domain.Badge
 import com.paulfvt.liftapp.progress.domain.PerformedExercise
 import com.paulfvt.liftapp.progress.domain.metricsFor
 
@@ -44,6 +45,7 @@ import com.paulfvt.liftapp.progress.domain.metricsFor
 fun ProgressScreen(onOpenExercise: (Long) -> Unit, viewModel: ProgressViewModel = hiltViewModel()) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     var isGoalDialogOpen by rememberSaveable { mutableStateOf(false) }
+    var openBadge by rememberSaveable { mutableStateOf<Badge?>(null) }
     Scaffold(topBar = { TopAppBar(title = { ScreenTitle(stringResource(R.string.nav_progress)) }) }) { padding ->
         if (uiState.isLoading) return@Scaffold
         LazyColumn(
@@ -76,6 +78,11 @@ fun ProgressScreen(onOpenExercise: (Long) -> Unit, viewModel: ProgressViewModel 
                     }
                 }
             }
+            item(key = "badges") {
+                SectionBlock(stringResource(R.string.badges_title, uiState.badges.size, Badge.entries.size)) {
+                    BadgeGrid(uiState.badges, onBadgeClick = { openBadge = it })
+                }
+            }
             item(key = "exercises-title") {
                 SectionTitle(stringResource(R.string.progress_exercises), Modifier.padding(top = 8.dp))
             }
@@ -86,6 +93,9 @@ fun ProgressScreen(onOpenExercise: (Long) -> Unit, viewModel: ProgressViewModel 
                 PerformedExerciseCard(performed, onClick = { onOpenExercise(performed.exercise.id) })
             }
         }
+    }
+    openBadge?.let { badge ->
+        BadgeDialog(badge, uiState.badges[badge], onDismiss = { openBadge = null })
     }
     val streak = uiState.streak
     if (isGoalDialogOpen && streak != null) {

@@ -29,6 +29,9 @@ interface ExerciseDao {
     @Query("SELECT * FROM exercise WHERE id IN (:ids)")
     suspend fun getWithMusclesByIds(ids: List<Long>): List<ExerciseWithMuscles>
 
+    @Query("SELECT id FROM exercise WHERE catalogKey IN (:catalogKeys)")
+    suspend fun idsForCatalogKeys(catalogKeys: List<String>): List<Long>
+
     @Query("SELECT * FROM exercise WHERE catalogKey IS NOT NULL")
     suspend fun getCatalogExercises(): List<ExerciseEntity>
 

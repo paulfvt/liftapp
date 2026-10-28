@@ -6,4 +6,4 @@ import java.time.Clock
 
 // Vérification des paliers et badges construite à la main pour les tests (Hilt n'est pas utilisé dans les tests).
 fun testAchievements(database: LiftDatabase, exercises: ExerciseRepository, clock: Clock) =
-    AchievementRepository(GoalRepository(database, exercises, clock))
+    AchievementRepository(GoalRepository(database, exercises, clock), BadgeRepository(database, exercises))

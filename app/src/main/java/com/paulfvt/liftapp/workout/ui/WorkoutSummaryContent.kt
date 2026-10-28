@@ -39,10 +39,13 @@ import com.paulfvt.liftapp.core.ui.kgText
 import com.paulfvt.liftapp.core.ui.shortDay
 import com.paulfvt.liftapp.core.ui.wholeNumber
 import com.paulfvt.liftapp.progress.data.ReachedTier
+import com.paulfvt.liftapp.progress.domain.Badge
 import com.paulfvt.liftapp.progress.ui.formatMetric
+import com.paulfvt.liftapp.progress.ui.iconRes
 import com.paulfvt.liftapp.progress.ui.labelRes
 import com.paulfvt.liftapp.progress.ui.medalColor
 import com.paulfvt.liftapp.progress.ui.recordLabelRes
+import com.paulfvt.liftapp.progress.ui.titleRes
 import com.paulfvt.liftapp.workout.data.FinishedRecord
 import com.paulfvt.liftapp.workout.data.FinishedWorkout
 import com.paulfvt.liftapp.workout.domain.tonnageChange
@@ -127,6 +130,7 @@ fun WorkoutSummaryContent(
             }
             if (finished.records.isNotEmpty()) BrokenRecords(finished.records)
             if (finished.achievements.tiers.isNotEmpty()) ReachedTiers(finished.achievements.tiers)
+            if (finished.achievements.badges.isNotEmpty()) UnlockedBadges(finished.achievements.badges)
             val update = finished.templateUpdate
             when {
                 isTemplateUpdated -> Text(
@@ -234,6 +238,35 @@ private fun ReachedTiers(tiers: List<ReachedTier>) {
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                         }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun UnlockedBadges(badges: List<Badge>) {
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.padding(top = 4.dp)) {
+        SectionTitle(stringResource(R.string.summary_badges_title))
+        Card(
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLowest),
+            border = BorderStroke(1.dp, MaterialTheme.colorScheme.tertiary),
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                badges.forEach { badge ->
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(12.dp),
+                        modifier = Modifier.semantics(mergeDescendants = true) {}
+                    ) {
+                        Icon(
+                            painterResource(badge.iconRes),
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.tertiary
+                        )
+                        Text(stringResource(badge.titleRes), style = MaterialTheme.typography.titleSmall)
                     }
                 }
             }

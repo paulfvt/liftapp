@@ -94,4 +94,37 @@
     <string name="goal_completed_on">Objectif atteint le %1$s</string>
     <string name="summary_tiers_title">Objectifs</string>
     <string name="summary_tier_line">Palier %1$s atteint : %2$s</string>
+
+    <!-- Badges -->
+    <string name="badges_title">Badges · %1$d/%2$d</string>
+    <string name="summary_badges_title">Badges débloqués</string>
+    <string name="badge_workouts_1">1re séance</string>
+    <string name="badge_workouts_10">10 séances</string>
+    <string name="badge_workouts_50">50 séances</string>
+    <string name="badge_workouts_100">100 séances</string>
+    <string name="badge_streak_4">4 semaines</string>
+    <string name="badge_streak_12">12 semaines</string>
+    <string name="badge_streak_52">52 semaines</string>
+    <string name="badge_club_100">Club des 100</string>
+    <string name="badge_club_140">Club des 140</string>
+    <string name="badge_club_180">Club des 180</string>
+    <string name="badge_workouts_1_text">Termine ta première séance.</string>
+    <string name="badge_workouts_10_text">Termine 10 séances.</string>
+    <string name="badge_workouts_50_text">Termine 50 séances.</string>
+    <string name="badge_workouts_100_text">Termine 100 séances.</string>
+    <string name="badge_streak_4_text">Tiens ton objectif hebdomadaire 4 semaines d\'affilée.</string>
+    <string name="badge_streak_12_text">Tiens ton objectif hebdomadaire 12 semaines d\'affilée.</string>
+    <string name="badge_streak_52_text">Tiens ton objectif hebdomadaire 52 semaines d\'affilée, soit un an.</string>
+    <string name="badge_club_100_text">Soulève 100 kg au développé couché à la barre, sur au moins une rep.</string>
+    <string name="badge_club_140_text">Soulève 140 kg au squat à la barre, sur au moins une rep.</string>
+    <string name="badge_club_180_text">Soulève 180 kg au soulevé de terre (classique ou sumo), sur au moins une rep.</string>
+    <string name="badge_hint_workouts">Séances terminées</string>
+    <string name="badge_hint_streak">Semaines d\'affilée</string>
+    <string name="badge_hint_bench">Développé couché</string>
+    <string name="badge_hint_squat">Squat</string>
+    <string name="badge_hint_deadlift">Soulevé de terre</string>
+    <string name="badge_unlocked_description">Badge %1$s, débloqué le %2$s</string>
+    <string name="badge_locked_description">Badge %1$s, à débloquer. %2$s</string>
+    <string name="badge_unlocked_on">Débloqué le %1$s.</string>
+    <string name="badge_not_yet">Pas encore débloqué.</string>
 </resources>
