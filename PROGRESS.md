@@ -1,6 +1,30 @@
 # Avancement
 
-## En cours : phase 8 — Motivation, code terminé le 28 octobre 2026, à tester sur le S25+
+## Prochaine étape : phase 9 — Tableau de bord et widget (plan proposé le 28 octobre 2026, feu vert attendu)
+
+Plan proposé (un commit par étape) :
+1. Prochaine séance, calcul testé : template suivant le dernier utilisé dans son dossier, sinon le dernier utilisé ;
+   template supprimé, dossier d'un seul template, aucun historique (premier template de la liste), aucun template
+   (« Séance vide »).
+2. Dernier record, calcul testé : le dernier record battu tous exercices confondus, avec sa date.
+3. Écran Accueil (package `home`) : semaine (anneau et streak), prochaine séance avec « Démarrer », dernier record,
+   souvenir. Onglet Accueil rétabli en premier, l'app s'ouvre dessus.
+4. Widget hors séance (Glance) : anneau dessiné en image, streak, prochaine séance avec « Démarrer », dernier record ;
+   petite et moyenne taille.
+5. Widget en séance : exercice, série, poids et reps, compte à rebours du repos par le `Chronometer` d'Android
+   (`AndroidRemoteViews`, sans rafraîchir le widget chaque seconde), « Série validée » par le récepteur de la
+   notification.
+6. Mises à jour du widget : changements de la séance et fin de repos (`WorkoutSessionSync`), fin ou modification
+   d'une séance, mise à jour périodique de secours pour le changement de semaine.
+7. Aperçu dans le sélecteur de widgets, politique de confidentialité, fiche Play Store, tests, émulateur,
+   `PROGRESS.md`.
+
+Décidé le 28 octobre 2026 (détail dans `CLAUDE.md`) : répartition Accueil et Progrès selon le cahier, « Démarrer »
+du widget lance la séance, Glance 1.2.0 (`glance-appwidget` et `glance-material3`) validé.
+
+## Phase 8 — Motivation : terminée le 28 octobre 2026
+
+Testée et validée par le développeur sur le S25+ le 28 octobre 2026.
 
 Plan validé le 28 octobre 2026, fait en une traite à la demande du développeur (un commit par étape).
 Règles métier tranchées le même jour : voir `CLAUDE.md`. Pas de nouvelle dépendance ni de changement de schéma :
@@ -25,8 +49,6 @@ Fait :
 - 213 tests JVM et 39 tests instrumentés verts (dont `MotivationDataTest`). Lint sans nouvel avertissement.
 - Corrigé avant commit : `LocalDate.EPOCH` (Android 14 et plus seulement) aurait planté sur Android 8 à 13, repéré
   par lint ; suppression d'un objectif désormais confirmée (ses paliers atteints seraient perdus).
-
-Reste : test du développeur sur le S25+ (vibration de la célébration, partage vers une vraie app, thème clair).
 
 Le test fermé reste en pause (compte Google Play plus tard) : un build issu de la phase 7 peut lui servir.
 

@@ -122,6 +122,12 @@ En cas d'ambiguïté ou de point non couvert, pose la question au lieu d'invente
   - projection : au moins 6 séances étalées sur 4 semaines ou plus, la dernière il y a moins de 4 semaines ;
   - souvenir : toujours affiché, formulation neutre sans progrès ;
   - carte du corps : 7 jours glissants, cardio exclu.
+- Phase 9, tableau de bord et widget (28 octobre 2026) :
+  - l'onglet Accueil revient en premier et l'app s'ouvre dessus ;
+  - Accueil : semaine (anneau et streak), prochaine séance avec « Démarrer », dernier record, souvenir. Progrès garde
+    la carte du corps, les objectifs, les badges, le récap et la liste des exercices ;
+  - « Démarrer » du widget lance la séance et ouvre l'app dessus ;
+  - Glance 1.2.0 validé : `glance-appwidget` et `glance-material3` (couleurs du thème ON AIR).
 
 ## Méthode de travail (section 7)
 
