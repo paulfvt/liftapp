@@ -197,4 +197,14 @@
     <string name="home_live_workout">Séance en cours</string>
     <string name="home_latest_record">Dernier record</string>
     <string name="home_no_template">Crée ton premier template dans l\'onglet Séances, ou lance une séance vide.</string>
+
+    <!-- Widget (phase 9) -->
+    <string name="widget_description">Ta semaine, ta prochaine séance et ton minuteur de repos.</string>
+    <string name="widget_streak">Streak : %1$s</string>
+    <string name="widget_weeks_short">sem.</string>
+    <string name="widget_record">Record : %1$s, %2$s</string>
+    <string name="widget_session_time">Séance</string>
+    <string name="widget_preview_ring">2/3</string>
+    <string name="widget_preview_streak">Streak : 4 semaines</string>
+    <string name="widget_preview_template">Push</string>
 </resources>

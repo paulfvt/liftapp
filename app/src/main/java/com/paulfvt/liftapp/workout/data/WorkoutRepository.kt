@@ -74,6 +74,18 @@ class WorkoutRepository @Inject constructor(
         return dao.getSets(workoutExerciseId).filter { it.isCompleted }.map { PreviousSet(it.type, it.toValues()) }
     }
 
+    // Accueil et widget : rouvre la séance en cours s'il y en a une (une seule à la fois), sinon démarre celle demandée
+    // (templateId null : séance vide). Faux si le template a été supprimé entre-temps : rien à ouvrir.
+    suspend fun startOrResume(templateId: Long?, emptyName: String): Boolean = database.withTransaction {
+        when {
+            inProgressId() != null -> Unit
+            templateId == null -> startEmpty(emptyName)
+            templates.getDraft(templateId) != null -> startFromTemplate(templateId)
+            else -> return@withTransaction false
+        }
+        true
+    }
+
     // Les séries du template sont créées avec leur type et leur cible, pré-remplies avec la dernière fois.
     suspend fun startFromTemplate(templateId: Long): Long = database.withTransaction {
         check(inProgressId() == null) { "Une séance est déjà en cours" }

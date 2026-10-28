@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="window_background">#FF0D0A0A</color>
+    <color name="widget_ring_track">#FF302829</color>
+    <color name="widget_ring_bar">#FFD9241B</color>
+    <color name="widget_rest">#FFFFB547</color>
+    <color name="widget_text">#FFF3EAE8</color>
 </resources>

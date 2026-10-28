@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Compte à rebours du repos dans le widget : animé par Android, en ambre comme le minuteur de la séance. -->
+<Chronometer xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_chronometer"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:fontFamily="sans-serif-condensed"
+    android:textColor="@color/widget_rest"
+    android:textSize="28sp"
+    android:textStyle="bold" />

@@ -2,4 +2,10 @@
 <resources>
     <!-- Fond affiché au lancement avant Compose : même couleur que la surface du thème, sans flash. -->
     <color name="window_background">#FFFFF8F6</color>
+    <!-- Widget : vues Android classiques (anneau dessiné, chronomètre), hors du thème Compose. Mêmes valeurs que le
+         thème ON AIR clair : piste surfaceContainerHighest, rouge signal, tertiary pour le repos, onSurface. -->
+    <color name="widget_ring_track">#FFEBDEDB</color>
+    <color name="widget_ring_bar">#FFD9241B</color>
+    <color name="widget_rest">#FF7E5000</color>
+    <color name="widget_text">#FF221919</color>
 </resources>

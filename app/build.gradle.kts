@@ -117,6 +117,11 @@ dependencies {
     // Déverrouillage des photos par le visage, l'empreinte ou le verrouillage du téléphone (Apache 2.0), validé le
     // 21 octobre 2026. Dernière version stable : 1.1.0.
     implementation(libs.androidx.biometric)
+    // Widget d'écran d'accueil (Apache 2.0), validé le 28 octobre 2026 : un widget est dessiné par le lanceur, pas par
+    // l'app ; Glance l'écrit comme du Compose puis le traduit en RemoteViews. glance-material3 reprend les couleurs du
+    // thème ON AIR, en clair et en sombre.
+    implementation(libs.androidx.glance.appwidget)
+    implementation(libs.androidx.glance.material3)
 
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)

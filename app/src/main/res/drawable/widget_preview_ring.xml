@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Anneau de l'aperçu du widget : piste grise et contour rouge signal. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="oval">
+            <stroke android:width="6dp" android:color="@color/widget_ring_track" />
+        </shape>
+    </item>
+    <item
+        android:bottom="1dp"
+        android:left="1dp"
+        android:right="1dp"
+        android:top="1dp">
+        <shape android:shape="oval">
+            <stroke
+                android:width="4dp"
+                android:color="@color/widget_ring_bar"
+                android:dashGap="40dp"
+                android:dashWidth="80dp" />
+        </shape>
+    </item>
+</layer-list>

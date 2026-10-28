@@ -52,10 +52,7 @@ class HomeViewModel @Inject constructor(
         if (isStarting) return
         isStarting = true
         viewModelScope.launch {
-            if (workouts.inProgressId() == null) {
-                if (templateId != null) workouts.startFromTemplate(templateId) else workouts.startEmpty(emptyName)
-            }
-            isWorkoutReady = true
+            isWorkoutReady = workouts.startOrResume(templateId, emptyName)
             isStarting = false
         }
     }

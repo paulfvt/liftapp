@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Déclaration du widget. Petite taille par défaut sur les anciens Android (minWidth, minHeight), moyenne (4 × 2)
+     à partir d'Android 12. Mise à jour périodique toutes les 3 h : elle rattrape le changement de semaine quand l'app
+     ne tourne pas ; le reste du temps, l'app met le widget à jour elle-même. -->
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:description="@string/widget_description"
+    android:initialLayout="@layout/glance_default_loading_layout"
+    android:minWidth="110dp"
+    android:minHeight="110dp"
+    android:minResizeWidth="110dp"
+    android:minResizeHeight="110dp"
+    android:previewLayout="@layout/widget_preview"
+    android:resizeMode="horizontal|vertical"
+    android:targetCellWidth="4"
+    android:targetCellHeight="2"
+    android:updatePeriodMillis="10800000"
+    android:widgetCategory="home_screen"
+    tools:targetApi="31" />
