@@ -108,6 +108,20 @@ En cas d'ambiguïté ou de point non couvert, pose la question au lieu d'invente
 - Verrou des photos (22 octobre 2026) : PIN de 4 à 8 chiffres jamais stocké en clair, attente croissante après
   5 erreurs, déverrouillage par visage ou empreinte en option. Le sélecteur de photos et les réglages d'Android ouverts
   depuis l'app ne reverrouillent pas. Code oublié sans verrouillage d'écran : explication seulement (à confirmer).
+- Phase 8, motivation (28 octobre 2026) :
+  - anneau, streak, carte du corps, souvenir, objectifs, badges et récap en haut de l'onglet Progrès tant que
+    l'accueil est masqué ; ils rejoignent l'accueil en phase 9 ;
+  - un changement d'objectif hebdo compte dès la semaine en cours, les semaines passées gardent le leur ;
+  - badges 4, 12 et 52 semaines : semaines d'affilée (la streak) ;
+  - records célébrés et « battus » : charge max, 1RM estimé, meilleur volume d'une série ; sans charge : reps, lest,
+    durée, distance. Pas les reps à une charge donnée ;
+  - paliers : l'utilisateur saisit l'or, bronze et argent proposés à 1/3 et 2/3 de l'écart depuis son 1RM actuel,
+    modifiables ;
+  - clubs : développé couché prise moyenne, large et powerlifting ; squat à la barre, complet et pieds écartés ;
+    soulevé de terre classique et sumo. Pas de Smith machine ;
+  - projection : au moins 6 séances étalées sur 4 semaines ou plus, la dernière il y a moins de 4 semaines ;
+  - souvenir : toujours affiché, formulation neutre sans progrès ;
+  - carte du corps : 7 jours glissants, cardio exclu.
 
 ## Méthode de travail (section 7)
 

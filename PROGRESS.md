@@ -1,9 +1,25 @@
 # Avancement
 
-## Prochaine étape : phase 8 — Motivation (plan court à présenter puis valider)
+## En cours : phase 8 — Motivation
 
-Phase 7 terminée le 22 octobre 2026. Le test fermé reste en pause (compte Google Play plus tard) : un build issu de la
-phase 7 peut lui servir.
+Plan validé le 28 octobre 2026 (un commit par étape) :
+1. Objectif hebdo et streak : calculs purs testés, objectif historisé dans `weekly_goal`, choix sur l'écran de
+   bienvenue (1 à 7, 3 par défaut) et depuis la carte de la semaine.
+2. Anneau et streak : composant `WeeklyRing`, carte « Cette semaine » en haut de Progrès.
+3. Records battus : historique rejoué par une fonction pure ; célébration en séance (pastille, vibration, TalkBack).
+4. Résumé de fin de séance : records battus, tonnage comparé à la dernière fois du même template, badges et paliers.
+5. Carte du corps : tracés MuscleMap (MIT) convertis par un script de `tools/`, dessinés avec `PathParser`.
+6. Objectifs à paliers sur le 1RM estimé, depuis la progression d'un exercice.
+7. Badges : séances, semaines d'affilée, clubs ; l'historique existant débloque les badges déjà mérités.
+8. Souvenirs : comparaison avec il y a 12, 6, 3 ou 1 mois.
+9. Récap mensuel partageable en image (menu de partage d'Android, `FileProvider`).
+10. Projection en fourchette sur la progression d'un exercice (modèle logarithmique).
+11. Tests, émulateur, `PROGRESS.md`, test sur le S25+.
+
+Pas de nouvelle dépendance ni de changement de schéma : `goal`, `weekly_goal` et `badge` existent depuis la v1.
+Règles métier tranchées le 28 octobre 2026 : voir `CLAUDE.md`.
+
+Le test fermé reste en pause (compte Google Play plus tard) : un build issu de la phase 7 peut lui servir.
 
 ## En pause : préparation du test fermé (une partie de la phase 11)
 
