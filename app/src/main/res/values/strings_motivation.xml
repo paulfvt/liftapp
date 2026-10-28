@@ -10,4 +10,31 @@
         <item quantity="one">séance par semaine</item>
         <item quantity="other">séances par semaine</item>
     </plurals>
+    <string name="weekly_goal_edit">Modifier l\'objectif</string>
+    <string name="weekly_goal_dialog_title">Objectif de la semaine</string>
+    <string name="weekly_goal_dialog_text">Le nouvel objectif compte dès cette semaine. Les semaines passées gardent le leur.</string>
+
+    <!-- Anneau et streak -->
+    <string name="week_title">Cette semaine</string>
+    <string name="progress_exercises">Exercices</string>
+    <string name="weekly_ring_sessions">séances</string>
+    <string name="weekly_ring_reached">objectif atteint</string>
+    <plurals name="weekly_ring_description">
+        <item quantity="one">%1$d séance sur %2$d cette semaine</item>
+        <item quantity="other">%1$d séances sur %2$d cette semaine</item>
+    </plurals>
+    <plurals name="week_remaining">
+        <item quantity="one">Encore %d séance pour tenir ton objectif.</item>
+        <item quantity="other">Encore %d séances pour tenir ton objectif.</item>
+    </plurals>
+    <string name="week_goal_reached">Objectif tenu cette semaine. Les jours de repos comptent aussi.</string>
+    <string name="streak_title">Streak</string>
+    <plurals name="streak_weeks_unit">
+        <item quantity="one">semaine</item>
+        <item quantity="other">semaines</item>
+    </plurals>
+    <plurals name="streak_best">
+        <item quantity="one">Record : %d semaine</item>
+        <item quantity="other">Record : %d semaines</item>
+    </plurals>
 </resources>

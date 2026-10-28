@@ -17,6 +17,9 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.pluralStringResource
@@ -27,36 +30,77 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.paulfvt.liftapp.R
-import com.paulfvt.liftapp.core.designsystem.component.EmptyState
 import com.paulfvt.liftapp.core.designsystem.component.ScreenTitle
+import com.paulfvt.liftapp.core.designsystem.component.SectionTitle
 import com.paulfvt.liftapp.core.ui.shortDay
 import com.paulfvt.liftapp.exercise.ui.ExerciseThumbnail
 import com.paulfvt.liftapp.progress.domain.PerformedExercise
 import com.paulfvt.liftapp.progress.domain.metricsFor
 
-// Onglet Progrès : chaque exercice déjà fait, avec son record principal. Un appui ouvre ses records et ses courbes.
+// Onglet Progrès : la semaine et la motivation en haut, puis chaque exercice déjà fait avec son record principal.
+// Un appui sur un exercice ouvre ses records et ses courbes.
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProgressScreen(onOpenExercise: (Long) -> Unit, viewModel: ProgressViewModel = hiltViewModel()) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    var isGoalDialogOpen by rememberSaveable { mutableStateOf(false) }
     Scaffold(topBar = { TopAppBar(title = { ScreenTitle(stringResource(R.string.nav_progress)) }) }) { padding ->
-        when {
-            uiState.isLoading -> Unit
-            uiState.exercises.isEmpty() -> EmptyState(
-                iconRes = R.drawable.ic_trending_up,
-                title = stringResource(R.string.progress_empty_title),
-                text = stringResource(R.string.progress_empty_text),
-                modifier = Modifier.padding(padding)
-            )
-            else -> LazyColumn(
-                modifier = Modifier.fillMaxSize().padding(padding),
-                contentPadding = PaddingValues(16.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                items(uiState.exercises, key = { it.exercise.id }) { performed ->
-                    PerformedExerciseCard(performed, onClick = { onOpenExercise(performed.exercise.id) })
+        if (uiState.isLoading) return@Scaffold
+        LazyColumn(
+            modifier = Modifier.fillMaxSize().padding(padding),
+            contentPadding = PaddingValues(16.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            uiState.streak?.let { streak ->
+                item(key = "week") {
+                    SectionBlock(stringResource(R.string.week_title)) {
+                        WeekCard(streak, onEditGoal = { isGoalDialogOpen = true })
+                    }
                 }
             }
+            item(key = "exercises-title") {
+                SectionTitle(stringResource(R.string.progress_exercises), Modifier.padding(top = 8.dp))
+            }
+            if (uiState.exercises.isEmpty()) {
+                item(key = "exercises-empty") { NoExerciseYet() }
+            }
+            items(uiState.exercises, key = { it.exercise.id }) { performed ->
+                PerformedExerciseCard(performed, onClick = { onOpenExercise(performed.exercise.id) })
+            }
+        }
+    }
+    val streak = uiState.streak
+    if (isGoalDialogOpen && streak != null) {
+        WeeklyGoalDialog(
+            currentGoal = streak.currentWeek.goal,
+            onConfirm = { goal ->
+                viewModel.onWeeklyGoalChange(goal)
+                isGoalDialogOpen = false
+            },
+            onDismiss = { isGoalDialogOpen = false }
+        )
+    }
+}
+
+// Titre de section suivi de son contenu.
+@Composable
+fun SectionBlock(title: String, content: @Composable () -> Unit) {
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        SectionTitle(title)
+        content()
+    }
+}
+
+@Composable
+private fun NoExerciseYet() {
+    ElevatedCard(modifier = Modifier.fillMaxWidth()) {
+        Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            Text(stringResource(R.string.progress_empty_title), style = MaterialTheme.typography.titleMedium)
+            Text(
+                stringResource(R.string.progress_empty_text),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
         }
     }
 }
