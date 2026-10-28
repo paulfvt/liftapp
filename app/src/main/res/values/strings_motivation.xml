@@ -178,4 +178,15 @@
         <item quantity="one">baleine bleue</item>
         <item quantity="other">baleines bleues</item>
     </plurals>
+
+    <!-- Projection -->
+    <string name="projection_title">Projection</string>
+    <string name="projection_available">À ce rythme, environ %1$s à %2$s de 1RM estimé vers %3$s.</string>
+    <string name="projection_disclaimer">Estimation tirée de tes séances des 6 derniers mois, qui tient compte du ralentissement de la progression. Ce n\'est pas une promesse.</string>
+    <string name="projection_not_enough">La projection apparaît après 6 séances étalées sur au moins 4 semaines, dont une ces 4 dernières semaines.</string>
+    <string name="projection_no_progress">Pas de progression nette ces derniers mois : pas de projection pour l\'instant.</string>
+    <string name="projection_irregular">Tes séances sont trop irrégulières pour une projection fiable.</string>
+    <string name="projection_period_early">début %1$s</string>
+    <string name="projection_period_mid">mi-%1$s</string>
+    <string name="projection_period_late">fin %1$s</string>
 </resources>

@@ -18,15 +18,18 @@ import com.paulfvt.liftapp.progress.domain.GoalTiers
 import com.paulfvt.liftapp.progress.domain.PerformedSet
 import com.paulfvt.liftapp.progress.domain.PersonalRecord
 import com.paulfvt.liftapp.progress.domain.ProgressPoint
+import com.paulfvt.liftapp.progress.domain.ProjectionResult
 import com.paulfvt.liftapp.progress.domain.TieredGoal
 import com.paulfvt.liftapp.progress.domain.bestPerDay
 import com.paulfvt.liftapp.progress.domain.goalStatus
 import com.paulfvt.liftapp.progress.domain.metricsFor
 import com.paulfvt.liftapp.progress.domain.progressPoints
+import com.paulfvt.liftapp.progress.domain.projectOneRepMax
 import com.paulfvt.liftapp.progress.domain.within
 import com.paulfvt.liftapp.progress.navigation.ExerciseProgressRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.time.Clock
+import java.time.LocalDate
 import java.time.ZoneId
 import javax.inject.Inject
 import kotlinx.coroutines.flow.SharingStarted
@@ -51,7 +54,10 @@ data class ExerciseProgressUiState(
     val canHaveGoal: Boolean = false,
     val currentOneRepMaxKg: Double = 0.0,
     val activeGoal: GoalStatus? = null,
-    val completedGoals: List<TieredGoal> = emptyList()
+    val completedGoals: List<TieredGoal> = emptyList(),
+    // Projection du 1RM estimé, seulement pour les exercices poids × reps.
+    val projection: ProjectionResult? = null,
+    val today: LocalDate = LocalDate.now()
 )
 
 // Données de l'exercice, réunies avant d'y appliquer la mesure et la période choisies.
@@ -112,9 +118,18 @@ class ExerciseProgressViewModel @Inject constructor(
             canHaveGoal = exercise?.trackingType == TrackingType.WEIGHT_REPS,
             currentOneRepMaxKg = recorded.firstOrNull { it.type == PersonalRecordType.MAX_ESTIMATED_1RM }?.value ?: 0.0,
             activeGoal = exerciseGoals.firstOrNull { !it.isCompleted }?.let { goalStatus(it, sets) },
-            completedGoals = exerciseGoals.filter { it.isCompleted }
+            completedGoals = exerciseGoals.filter { it.isCompleted },
+            projection = if (exercise?.trackingType == TrackingType.WEIGHT_REPS) projection(sets) else null,
+            today = today()
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(STOP_TIMEOUT_MS), ExerciseProgressUiState())
+
+    private fun today(): LocalDate = clock.instant().atZone(ZoneId.systemDefault()).toLocalDate()
+
+    private fun projection(sets: List<PerformedSet>): ProjectionResult {
+        val sessions = progressPoints(sets, ExerciseMetric.ESTIMATED_1RM, TrackingType.WEIGHT_REPS)
+        return projectOneRepMax(sessions, today(), ZoneId.systemDefault())
+    }
 
     fun onCreateGoal(tiers: GoalTiers) {
         viewModelScope.launch { goals.create(exerciseId, tiers) }

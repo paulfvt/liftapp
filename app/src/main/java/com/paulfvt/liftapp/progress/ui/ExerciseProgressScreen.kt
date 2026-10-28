@@ -109,6 +109,14 @@ fun ExerciseProgressScreen(onBack: () -> Unit, viewModel: ExerciseProgressViewMo
                         onPeriodSelected = viewModel::onPeriodSelected
                     )
                 }
+                uiState.projection?.let { projection ->
+                    item(key = "projection") {
+                        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                            SectionTitle(stringResource(R.string.projection_title))
+                            ProjectionCard(projection, uiState.today)
+                        }
+                    }
+                }
                 val repsAtWeight = uiState.records.filter { it.type == PersonalRecordType.MAX_REPS_AT_WEIGHT }
                 if (repsAtWeight.isNotEmpty()) {
                     item(key = "reps-at-weight") { RepsAtWeightSection(repsAtWeight) }
