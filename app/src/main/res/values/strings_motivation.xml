@@ -45,4 +45,10 @@
         <item quantity="one">et %d autre record</item>
         <item quantity="other">et %d autres records</item>
     </plurals>
+
+    <!-- Résumé de fin de séance -->
+    <string name="summary_volume_change">%1$s de volume par rapport au %2$s</string>
+    <string name="summary_volume_change_no_date">%1$s de volume par rapport à la dernière fois</string>
+    <string name="summary_records_title">Records battus</string>
+    <string name="summary_record_line">%1$s : %2$s · avant %3$s</string>
 </resources>

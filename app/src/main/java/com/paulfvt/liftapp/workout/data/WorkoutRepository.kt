@@ -5,9 +5,11 @@ import com.paulfvt.liftapp.core.database.LiftDatabase
 import com.paulfvt.liftapp.core.database.entity.WorkoutEntity
 import com.paulfvt.liftapp.core.database.entity.WorkoutExerciseEntity
 import com.paulfvt.liftapp.core.database.entity.WorkoutSetEntity
+import com.paulfvt.liftapp.core.model.Exercise
 import com.paulfvt.liftapp.core.model.SetType
 import com.paulfvt.liftapp.core.model.WorkoutStatus
 import com.paulfvt.liftapp.progress.data.RecordRepository
+import com.paulfvt.liftapp.progress.domain.RecordBreak
 import com.paulfvt.liftapp.template.data.TemplateRepository
 import com.paulfvt.liftapp.template.domain.DEFAULT_REST_SECONDS
 import com.paulfvt.liftapp.template.domain.TemplateDraft
@@ -26,18 +28,25 @@ import com.paulfvt.liftapp.workout.domain.setsForAddedExercise
 import com.paulfvt.liftapp.workout.domain.summarize
 import com.paulfvt.liftapp.workout.domain.toTemplateDraft
 import java.time.Clock
+import java.time.Instant
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-// Résultat d'une fin de séance : le résumé, et le nouveau contenu du template si la séance l'a modifié.
+// Résultat d'une fin de séance : le résumé, les records battus, le tonnage de la dernière fois avec le même
+// template, et le nouveau contenu du template si la séance l'a modifié.
 data class FinishedWorkout(
     val name: String,
     val summary: WorkoutSummary,
     val templateId: Long?,
-    val templateUpdate: TemplateDraft?
+    val templateUpdate: TemplateDraft?,
+    val records: List<FinishedRecord> = emptyList(),
+    val previousTonnageKg: Double? = null,
+    val previousStartedAt: Instant? = null
 )
+
+data class FinishedRecord(val exercise: Exercise, val recordBreak: RecordBreak)
 
 // Unique point d'accès aux séances. Une seule séance peut être en cours à la fois.
 @Singleton
@@ -202,7 +211,28 @@ class WorkoutRepository @Inject constructor(
         dao.updateStatus(workoutId, WorkoutStatus.FINISHED, endedAt)
         dao.updateRest(workoutId, null, null)
         records.recompute(workout.exercises.map { it.exercise.id })
-        FinishedWorkout(workout.name, summarize(workout, endedAt), workout.templateId, templateUpdate)
+        val previous = workout.templateId
+            ?.let { dao.previousIdOfTemplate(it, workout.startedAt, WorkoutStatus.FINISHED) }
+            ?.let { dao.getDetails(it)?.toDomain() }
+        FinishedWorkout(
+            name = workout.name,
+            summary = summarize(workout, endedAt),
+            templateId = workout.templateId,
+            templateUpdate = templateUpdate,
+            records = brokenRecords(workout),
+            previousTonnageKg = previous?.let { summarize(it, it.endedAt ?: it.startedAt).tonnageKg },
+            previousStartedAt = previous?.startedAt
+        )
+    }
+
+    // Records battus par cette séance, dans l'ordre des exercices de la séance.
+    private suspend fun brokenRecords(workout: Workout): List<FinishedRecord> {
+        val breaks = records.recordBreaks(workout.exercises.map { it.exercise.id })
+        return workout.exercises.flatMap { item ->
+            breaks[item.exercise.id].orEmpty()
+                .filter { it.workoutId == workout.id }
+                .map { FinishedRecord(item.exercise, it) }
+        }
     }
 
     suspend fun updateTemplate(templateId: Long, draft: TemplateDraft) = templates.updateTemplate(templateId, draft)

@@ -99,4 +99,13 @@ class WorkoutSummaryTest {
         assertEquals(listOf(TemplateSetDraft(WARMUP, 12), TemplateSetDraft(WORK, null)), draft.exercises.single().sets)
         assertEquals(120, draft.exercises.single().restSeconds)
     }
+
+    @Test
+    fun `tonnage change compares with the last time of the same template`() {
+        assertEquals(0.06, tonnageChange(5300.0, 5000.0)!!, 1e-9)
+        assertEquals(-0.1, tonnageChange(4500.0, 5000.0)!!, 1e-9)
+        assertEquals(null, tonnageChange(5000.0, null))
+        assertEquals(null, tonnageChange(5000.0, 0.0))
+        assertEquals(null, tonnageChange(0.0, 5000.0))
+    }
 }

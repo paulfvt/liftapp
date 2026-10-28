@@ -30,6 +30,13 @@ fun summarize(workout: Workout, endedAt: Instant): WorkoutSummary {
     )
 }
 
+// Évolution du tonnage par rapport à la dernière fois avec le même template : +0,06 pour « +6 % ». Rien si l'une
+// des deux séances n'a pas de tonnage (exercices au poids du corps ou de cardio seulement).
+fun tonnageChange(currentKg: Double, previousKg: Double?): Double? {
+    if (previousKg == null || previousKg <= 0 || currentKg <= 0) return null
+    return (currentKg - previousKg) / previousKg
+}
+
 fun Workout.incompleteSetCount(): Int = exercises.sumOf { exercise -> exercise.sets.count { !it.isCompleted } }
 
 fun Workout.completedSetCount(): Int = exercises.sumOf { exercise -> exercise.sets.count { it.isCompleted } }
