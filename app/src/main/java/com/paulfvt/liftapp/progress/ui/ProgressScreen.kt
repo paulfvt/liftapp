@@ -33,6 +33,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.paulfvt.liftapp.R
 import com.paulfvt.liftapp.core.designsystem.component.ScreenTitle
+import com.paulfvt.liftapp.core.designsystem.component.SectionBlock
 import com.paulfvt.liftapp.core.designsystem.component.SectionTitle
 import com.paulfvt.liftapp.core.ui.monthTitle
 import com.paulfvt.liftapp.core.ui.shortDay
@@ -43,7 +44,8 @@ import com.paulfvt.liftapp.progress.domain.PerformedExercise
 import com.paulfvt.liftapp.progress.domain.metricsFor
 import java.time.YearMonth
 
-// Onglet Progrès : la semaine et la motivation en haut, puis chaque exercice déjà fait avec son record principal.
+// Onglet Progrès : carte du corps, objectifs, badges et récap en haut, puis chaque exercice déjà fait avec son record
+// principal. La semaine et le souvenir sont sur l'accueil.
 // Un appui sur un exercice ouvre ses records et ses courbes.
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -53,7 +55,6 @@ fun ProgressScreen(
     viewModel: ProgressViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    var isGoalDialogOpen by rememberSaveable { mutableStateOf(false) }
     var openBadge by rememberSaveable { mutableStateOf<Badge?>(null) }
     Scaffold(topBar = { TopAppBar(title = { ScreenTitle(stringResource(R.string.nav_progress)) }) }) { padding ->
         if (uiState.isLoading) return@Scaffold
@@ -62,20 +63,6 @@ fun ProgressScreen(
             contentPadding = PaddingValues(16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            uiState.streak?.let { streak ->
-                item(key = "week") {
-                    SectionBlock(stringResource(R.string.week_title)) {
-                        WeekCard(streak, onEditGoal = { isGoalDialogOpen = true })
-                    }
-                }
-            }
-            uiState.flashback?.let { flashback ->
-                item(key = "flashback") {
-                    SectionBlock(stringResource(R.string.flashback_title)) {
-                        FlashbackCard(flashback, onClick = { onOpenExercise(flashback.exercise.id) })
-                    }
-                }
-            }
             if (uiState.bodyFigures.isNotEmpty()) {
                 item(key = "body-map") {
                     SectionBlock(stringResource(R.string.body_map_title)) {
@@ -119,26 +106,6 @@ fun ProgressScreen(
     }
     openBadge?.let { badge ->
         BadgeDialog(badge, uiState.badges[badge], onDismiss = { openBadge = null })
-    }
-    val streak = uiState.streak
-    if (isGoalDialogOpen && streak != null) {
-        WeeklyGoalDialog(
-            currentGoal = streak.currentWeek.goal,
-            onConfirm = { goal ->
-                viewModel.onWeeklyGoalChange(goal)
-                isGoalDialogOpen = false
-            },
-            onDismiss = { isGoalDialogOpen = false }
-        )
-    }
-}
-
-// Titre de section suivi de son contenu.
-@Composable
-fun SectionBlock(title: String, content: @Composable () -> Unit) {
-    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        SectionTitle(title)
-        content()
     }
 }
 

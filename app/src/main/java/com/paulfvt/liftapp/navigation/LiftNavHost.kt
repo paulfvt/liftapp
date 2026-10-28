@@ -11,6 +11,7 @@ import com.paulfvt.liftapp.exercise.navigation.exerciseScreens
 import com.paulfvt.liftapp.history.navigation.WorkoutDetailRoute
 import com.paulfvt.liftapp.history.navigation.historyScreens
 import com.paulfvt.liftapp.history.ui.HistoryScreen
+import com.paulfvt.liftapp.home.ui.HomeScreen
 import com.paulfvt.liftapp.profile.navigation.AboutRoute
 import com.paulfvt.liftapp.profile.navigation.MeasurementEntryRoute
 import com.paulfvt.liftapp.profile.navigation.MeasurementRoute
@@ -33,9 +34,17 @@ import com.paulfvt.liftapp.workout.navigation.workoutScreen
 fun LiftNavHost(navController: NavHostController, modifier: Modifier = Modifier) {
     NavHost(
         navController = navController,
-        startDestination = TemplatesGraph,
+        startDestination = HomeGraph,
         modifier = modifier
     ) {
+        navigation<HomeGraph>(startDestination = HomeRoute) {
+            composable<HomeRoute> {
+                HomeScreen(
+                    onOpenWorkout = { navController.navigate(WorkoutRoute) { launchSingleTop = true } },
+                    onOpenExercise = { id -> navController.navigate(ExerciseProgressRoute(id)) }
+                )
+            }
+        }
         navigation<TemplatesGraph>(startDestination = TemplatesRoute) {
             composable<TemplatesRoute> {
                 TemplatesScreen(

@@ -10,16 +10,12 @@ import com.paulfvt.liftapp.progress.data.BodyMapRepository
 import com.paulfvt.liftapp.progress.data.GoalRepository
 import com.paulfvt.liftapp.progress.data.MotivationRepository
 import com.paulfvt.liftapp.progress.data.RecordRepository
-import com.paulfvt.liftapp.progress.data.WeeklyGoalRepository
 import com.paulfvt.liftapp.progress.domain.Badge
 import com.paulfvt.liftapp.progress.domain.ExerciseHistory
-import com.paulfvt.liftapp.progress.domain.Flashback
 import com.paulfvt.liftapp.progress.domain.GoalStatus
 import com.paulfvt.liftapp.progress.domain.MonthlyRecap
 import com.paulfvt.liftapp.progress.domain.PerformedExercise
 import com.paulfvt.liftapp.progress.domain.TieredGoal
-import com.paulfvt.liftapp.progress.domain.WeeklyStreak
-import com.paulfvt.liftapp.progress.domain.flashback
 import com.paulfvt.liftapp.progress.domain.goalStatus
 import com.paulfvt.liftapp.progress.domain.monthlyRecap
 import com.paulfvt.liftapp.progress.domain.muscleSets
@@ -38,13 +34,10 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
 
 data class ProgressUiState(
     val isLoading: Boolean = true,
-    val streak: WeeklyStreak? = null,
     val muscleSets: Map<Muscle, Double> = emptyMap(),
-    val flashback: Flashback? = null,
     val monthRecap: MonthlyRecap? = null,
     val goals: List<ExerciseGoal> = emptyList(),
     val badges: Map<Badge, Instant> = emptyMap(),
@@ -58,13 +51,12 @@ data class ExerciseGoal(val exercise: Exercise, val status: GoalStatus)
 // Ce qui se calcule à partir de l'historique de tous les exercices.
 private data class HistoryState(
     val muscleSets: Map<Muscle, Double>,
-    val flashback: Flashback?,
     val monthRecap: MonthlyRecap,
     val goals: List<ExerciseGoal>
 )
 
-// Onglet Progrès : la semaine en cours et la motivation en haut (l'accueil est masqué jusqu'à la phase 9), puis
-// les exercices déjà faits, le plus récent d'abord.
+// Onglet Progrès : carte du corps, objectifs, badges et récap du mois, puis les exercices déjà faits, le plus récent
+// d'abord.
 @HiltViewModel
 class ProgressViewModel @Inject constructor(
     records: RecordRepository,
@@ -73,7 +65,6 @@ class ProgressViewModel @Inject constructor(
     bodyMaps: BodyMapRepository,
     goals: GoalRepository,
     badges: BadgeRepository,
-    private val weeklyGoals: WeeklyGoalRepository,
     private val clock: Clock
 ) : ViewModel() {
     private val zone: ZoneId get() = ZoneId.systemDefault()
@@ -92,17 +83,14 @@ class ProgressViewModel @Inject constructor(
         .flowOn(Dispatchers.Default)
 
     val uiState: StateFlow<ProgressUiState> = combine(
-        weeklyGoals.observeStreak(),
         historyState,
         bodyFigures,
         badges.observeUnlocked(),
         records.observePerformedExercises()
-    ) { streak, history, figures, unlocked, exercises ->
+    ) { history, figures, unlocked, exercises ->
         ProgressUiState(
             isLoading = false,
-            streak = streak,
             muscleSets = history.muscleSets,
-            flashback = history.flashback,
             monthRecap = history.monthRecap,
             goals = history.goals,
             badges = unlocked,
@@ -119,14 +107,9 @@ class ProgressViewModel @Inject constructor(
         }
         return HistoryState(
             muscleSets = muscleSets(histories, today, zone),
-            flashback = flashback(histories, today, zone),
             monthRecap = monthlyRecap(histories, YearMonth.from(today), zone),
             goals = goals
         )
-    }
-
-    fun onWeeklyGoalChange(goal: Int) {
-        viewModelScope.launch { weeklyGoals.changeGoal(goal) }
     }
 
     private companion object {

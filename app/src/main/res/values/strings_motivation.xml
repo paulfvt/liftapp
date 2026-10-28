@@ -191,4 +191,10 @@
     <string name="projection_period_early">début %1$s</string>
     <string name="projection_period_mid">mi-%1$s</string>
     <string name="projection_period_late">fin %1$s</string>
+
+    <!-- Accueil (phase 9) -->
+    <string name="home_next_session">Prochaine séance</string>
+    <string name="home_live_workout">Séance en cours</string>
+    <string name="home_latest_record">Dernier record</string>
+    <string name="home_no_template">Crée ton premier template dans l\'onglet Séances, ou lance une séance vide.</string>
 </resources>

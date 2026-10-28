@@ -3,6 +3,7 @@
     <string name="app_name">LiftApp</string>
 
     <!-- Barre de navigation du bas -->
+    <string name="nav_home">Accueil</string>
     <string name="nav_templates">Séances</string>
     <string name="nav_history">Historique</string>
     <string name="nav_progress">Progrès</string>

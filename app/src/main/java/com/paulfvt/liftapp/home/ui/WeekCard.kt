@@ -1,4 +1,4 @@
-package com.paulfvt.liftapp.progress.ui
+package com.paulfvt.liftapp.home.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import com.paulfvt.liftapp.R
 import com.paulfvt.liftapp.core.designsystem.component.WeeklyRing
 import com.paulfvt.liftapp.progress.domain.WeeklyStreak
+import com.paulfvt.liftapp.progress.ui.WeeklyGoalStepper
 
 // Carte « Cette semaine » : anneau de l'objectif, streak en semaines et ce qu'il reste à faire.
 @Composable
