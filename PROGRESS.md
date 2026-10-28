@@ -1,6 +1,26 @@
 # Avancement
 
-## En cours : phase 9 — Tableau de bord et widget, code terminé le 28 octobre 2026, à tester sur le S25+
+## Prochaine étape : phase 10 — Réglages et données (plan proposé le 28 octobre 2026, feu vert attendu)
+
+Plan proposé (un commit par étape) :
+1. Écran Réglages (depuis le Profil) : thème (système, clair, sombre), objectif hebdomadaire, temps de repos par
+   défaut, son et vibration (gardés aussi dans le menu de la séance), masquage du poids de corps et des photos.
+2. Unités kg/lb et cm/in : conversions et arrondis testés (0,5 kg, 1,25 lb), affichage et saisie partout (séance,
+   historique, objectifs, mesures, taille, notification, widget), mode salle à ±5 lb, choix sur l'écran de bienvenue.
+   La base reste en métrique.
+3. Masquage : poids de corps retiré de toute l'app, section photos du Profil cachée.
+4. Export CSV de l'historique (une ligne par série) et des mesures, enregistré par le sélecteur de fichiers.
+5. Sauvegarde complète en ZIP (base, réglages, profil, photos au choix) et restauration qui remplace tout : fichier
+   vérifié avant, version plus récente refusée, migrations Room pour une version plus ancienne, redémarrage de l'app.
+6. Documentation, tests, émulateur, `PROGRESS.md`.
+
+Pas de nouvelle dépendance prévue (ZIP et CSV avec la bibliothèque standard, sélecteur de fichiers d'Android).
+Décidé le 28 octobre 2026 (détail dans `CLAUDE.md`) : CSV au format Excel français, photos dans la sauvegarde au
+choix (cochées par défaut, avertissement), restauration par remplacement.
+
+## Phase 9 — Tableau de bord et widget : terminée le 28 octobre 2026
+
+Testée et validée par le développeur sur le S25+ le 28 octobre 2026.
 
 Fait en une traite à la demande du développeur, un commit par étape :
 - Prochaine séance et dernier record (calculs testés), `DashboardRepository` commun à l'accueil et au widget.
@@ -19,8 +39,6 @@ Fait en une traite à la demande du développeur, un commit par étape :
 - 221 tests JVM et 40 tests instrumentés verts (dont `startOrResume`). Lint sans nouvel avertissement.
 - Émulateur : données de démonstration restaurées après les tests instrumentés ; le widget est à reposer à la main
   (la désinstallation l'a retiré).
-
-Reste : test du développeur sur le S25+ (widget sur le lanceur Samsung, écran verrouillé, thème clair).
 
 Plan validé le 28 octobre 2026 :
 1. Prochaine séance, calcul testé : template suivant le dernier utilisé dans son dossier, sinon le dernier utilisé ;

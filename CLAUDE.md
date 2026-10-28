@@ -128,6 +128,11 @@ En cas d'ambiguïté ou de point non couvert, pose la question au lieu d'invente
     la carte du corps, les objectifs, les badges, le récap et la liste des exercices ;
   - « Démarrer » du widget lance la séance et ouvre l'app dessus ;
   - Glance 1.2.0 validé : `glance-appwidget` et `glance-material3` (couleurs du thème ON AIR).
+- Phase 10, réglages et données (28 octobre 2026) :
+  - export CSV au format Excel français : point-virgule, virgule décimale, en-têtes en français ;
+  - photos dans la sauvegarde au choix, cochées par défaut, avec un avertissement (fichier non chiffré, photos
+    lisibles sans le code) ;
+  - restauration par remplacement de toutes les données, après confirmation (pas de fusion).
 
 ## Méthode de travail (section 7)
 
