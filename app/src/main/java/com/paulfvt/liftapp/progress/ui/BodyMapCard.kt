@@ -79,9 +79,12 @@ fun BodyMapCard(muscleSets: Map<Muscle, Double>, figures: List<BodyFigure>, modi
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
                 modifier = Modifier.clearAndSetSemantics { contentDescription = summary }
             ) {
+                // Cadre commun aux deux silhouettes : même échelle, et « Face » et « Dos » alignés.
+                val frameWidth = figures.maxOf { it.width }
+                val frameHeight = figures.maxOf { it.height }
                 figures.forEach { figure ->
                     Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.weight(1f)) {
-                        BodyFigureCanvas(figure, muscleSets, colors)
+                        BodyFigureCanvas(figure, frameWidth, frameHeight, muscleSets, colors)
                         Text(
                             stringResource(
                                 if (figure.view == BodyView.FRONT) R.string.body_map_front else R.string.body_map_back
@@ -112,14 +115,23 @@ fun BodyMapCard(muscleSets: Map<Muscle, Double>, figures: List<BodyFigure>, modi
 }
 
 @Composable
-private fun BodyFigureCanvas(figure: BodyFigure, muscleSets: Map<Muscle, Double>, colors: Map<HeatLevel, Color>) {
+private fun BodyFigureCanvas(
+    figure: BodyFigure,
+    frameWidth: Float,
+    frameHeight: Float,
+    muscleSets: Map<Muscle, Double>,
+    colors: Map<HeatLevel, Color>
+) {
     val body = MaterialTheme.colorScheme.surfaceContainerHighest
     val separator = MaterialTheme.colorScheme.surfaceContainerLow
-    Canvas(Modifier.fillMaxWidth().aspectRatio(figure.width / figure.height)) {
-        val ratio = size.width / figure.width
-        // Mise à l'échelle depuis le coin haut gauche, puis décalage pour amener le corps dans le cadre.
+    Canvas(Modifier.fillMaxWidth().aspectRatio(frameWidth / frameHeight)) {
+        val ratio = size.width / frameWidth
+        // Mise à l'échelle depuis le coin haut gauche, puis décalage pour centrer le corps dans le cadre commun.
         scale(ratio, ratio, pivot = Offset.Zero) {
-            translate(-figure.left, -figure.top) {
+            translate(
+                -figure.left + (frameWidth - figure.width) / 2,
+                -figure.top + (frameHeight - figure.height) / 2
+            ) {
                 figure.outline.forEach { drawPath(it, body) }
                 figure.zones.forEach { (muscle, path) ->
                     drawPath(path, colors.getValue(heatLevel(muscleSets[muscle] ?: 0.0)))
