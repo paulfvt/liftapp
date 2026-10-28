@@ -42,6 +42,11 @@ private val CREDIT_GROUPS = listOf(
         license = null
     ),
     CreditGroup(
+        R.string.about_credits_body_map,
+        listOf(Credit(R.string.credit_musclemap, R.string.credit_musclemap_detail)),
+        OpenLicense.MIT_MUSCLEMAP
+    ),
+    CreditGroup(
         R.string.about_credits_fonts,
         listOf(Credit(R.string.credit_barlow, R.string.credit_barlow_detail)),
         OpenLicense.OFL_1_1

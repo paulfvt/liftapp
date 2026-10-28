@@ -58,6 +58,13 @@ fun ProgressScreen(onOpenExercise: (Long) -> Unit, viewModel: ProgressViewModel 
                     }
                 }
             }
+            if (uiState.bodyFigures.isNotEmpty()) {
+                item(key = "body-map") {
+                    SectionBlock(stringResource(R.string.body_map_title)) {
+                        BodyMapCard(uiState.muscleSets, uiState.bodyFigures)
+                    }
+                }
+            }
             item(key = "exercises-title") {
                 SectionTitle(stringResource(R.string.progress_exercises), Modifier.padding(top = 8.dp))
             }

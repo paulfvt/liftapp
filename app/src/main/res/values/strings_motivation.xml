@@ -51,4 +51,23 @@
     <string name="summary_volume_change_no_date">%1$s de volume par rapport à la dernière fois</string>
     <string name="summary_records_title">Records battus</string>
     <string name="summary_record_line">%1$s : %2$s · avant %3$s</string>
+
+    <!-- Carte du corps -->
+    <string name="body_map_title">Muscles travaillés · 7 jours</string>
+    <string name="body_map_front">Face</string>
+    <string name="body_map_back">Dos</string>
+    <string name="body_map_legend">Séries</string>
+    <string name="body_map_legend_description">Plus un muscle a de séries cette semaine, plus il est rouge : de 0 à 10 séries et plus.</string>
+    <string name="body_map_empty">Aucune série ces 7 derniers jours. Un muscle principal compte 1 série, un muscle secondaire 0,5.</string>
+    <string name="body_map_muscle_description">%1$s : %2$s séries</string>
+    <plurals name="body_map_description">
+        <item quantity="one">Carte du corps : %d muscle travaillé ces 7 derniers jours.</item>
+        <item quantity="other">Carte du corps : %d muscles travaillés ces 7 derniers jours.</item>
+    </plurals>
+
+    <!-- Crédits -->
+    <string name="about_credits_body_map">Carte du corps</string>
+    <string name="credit_musclemap">MuscleMap</string>
+    <string name="credit_musclemap_detail">Tracés des muscles, de Jsplice et des contributeurs de MuscleMap</string>
+    <string name="license_mit_title">MIT</string>
 </resources>
