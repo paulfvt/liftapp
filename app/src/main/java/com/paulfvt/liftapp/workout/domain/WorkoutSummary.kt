@@ -11,16 +11,21 @@ import java.time.Instant
 
 data class WorkoutSummary(val duration: Duration, val tonnageKg: Double, val completedSets: Int, val exerciseCount: Int)
 
-// Les échauffements sont affichés mais exclus des statistiques. Le tonnage compte la charge soulevée :
-// le poids du corps n'y entre pas, seul le lest positif compte pour les exercices au poids du corps.
+// Tonnage d'une série : la charge soulevée × les reps. Les échauffements ne comptent pas ; le poids du corps n'y
+// entre pas, seul le lest positif compte pour les exercices au poids du corps.
+fun setTonnageKg(trackingType: TrackingType, type: SetType, values: SetValues): Double {
+    if (type == SetType.WARMUP) return 0.0
+    val loaded = trackingType == TrackingType.WEIGHT_REPS || trackingType == TrackingType.REPS
+    return if (loaded) (values.weightKg ?: 0.0).coerceAtLeast(0.0) * (values.reps ?: 0) else 0.0
+}
+
+// Les échauffements sont affichés mais exclus des statistiques.
 fun summarize(workout: Workout, endedAt: Instant): WorkoutSummary {
     val counted = workout.exercises.flatMap { exercise ->
         exercise.sets.filter { it.isCompleted && it.type != SetType.WARMUP }.map { exercise to it }
     }
     val tonnage = counted.sumOf { (exercise, set) ->
-        val loaded = exercise.exercise.trackingType == TrackingType.WEIGHT_REPS ||
-            exercise.exercise.trackingType == TrackingType.REPS
-        if (loaded) (set.values.weightKg ?: 0.0).coerceAtLeast(0.0) * (set.values.reps ?: 0) else 0.0
+        setTonnageKg(exercise.exercise.trackingType, set.type, set.values)
     }
     return WorkoutSummary(
         duration = Duration.between(workout.startedAt, endedAt),

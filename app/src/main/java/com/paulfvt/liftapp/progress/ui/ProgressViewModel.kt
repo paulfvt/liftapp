@@ -15,16 +15,19 @@ import com.paulfvt.liftapp.progress.domain.Badge
 import com.paulfvt.liftapp.progress.domain.ExerciseHistory
 import com.paulfvt.liftapp.progress.domain.Flashback
 import com.paulfvt.liftapp.progress.domain.GoalStatus
+import com.paulfvt.liftapp.progress.domain.MonthlyRecap
 import com.paulfvt.liftapp.progress.domain.PerformedExercise
 import com.paulfvt.liftapp.progress.domain.TieredGoal
 import com.paulfvt.liftapp.progress.domain.WeeklyStreak
 import com.paulfvt.liftapp.progress.domain.flashback
 import com.paulfvt.liftapp.progress.domain.goalStatus
+import com.paulfvt.liftapp.progress.domain.monthlyRecap
 import com.paulfvt.liftapp.progress.domain.muscleSets
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.time.Clock
 import java.time.Instant
 import java.time.LocalDate
+import java.time.YearMonth
 import java.time.ZoneId
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
@@ -42,6 +45,7 @@ data class ProgressUiState(
     val streak: WeeklyStreak? = null,
     val muscleSets: Map<Muscle, Double> = emptyMap(),
     val flashback: Flashback? = null,
+    val monthRecap: MonthlyRecap? = null,
     val goals: List<ExerciseGoal> = emptyList(),
     val badges: Map<Badge, Instant> = emptyMap(),
     val bodyFigures: List<BodyFigure> = emptyList(),
@@ -55,6 +59,7 @@ data class ExerciseGoal(val exercise: Exercise, val status: GoalStatus)
 private data class HistoryState(
     val muscleSets: Map<Muscle, Double>,
     val flashback: Flashback?,
+    val monthRecap: MonthlyRecap,
     val goals: List<ExerciseGoal>
 )
 
@@ -98,6 +103,7 @@ class ProgressViewModel @Inject constructor(
             streak = streak,
             muscleSets = history.muscleSets,
             flashback = history.flashback,
+            monthRecap = history.monthRecap,
             goals = history.goals,
             badges = unlocked,
             bodyFigures = figures,
@@ -114,6 +120,7 @@ class ProgressViewModel @Inject constructor(
         return HistoryState(
             muscleSets = muscleSets(histories, today, zone),
             flashback = flashback(histories, today, zone),
+            monthRecap = monthlyRecap(histories, YearMonth.from(today), zone),
             goals = goals
         )
     }

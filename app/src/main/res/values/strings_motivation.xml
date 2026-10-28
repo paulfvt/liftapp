@@ -138,4 +138,44 @@
     <string name="flashback_gain">+%1$s depuis</string>
     <string name="flashback_lower">%1$s de moins qu\'à l\'époque</string>
     <string name="flashback_same">Le même niveau qu\'à l\'époque</string>
+
+    <!-- Récap mensuel -->
+    <string name="recap_title">Récap du mois</string>
+    <string name="recap_heading">Mon mois · %1$s</string>
+    <string name="recap_share">Partager le récap en image</string>
+    <string name="recap_share_chooser">Partager le récap</string>
+    <string name="recap_previous_month">Mois précédent</string>
+    <string name="recap_next_month">Mois suivant</string>
+    <string name="recap_empty">Pas de séance ce mois-ci.</string>
+    <string name="recap_tons">%1$s t</string>
+    <string name="recap_equivalence">Soit environ %1$s %2$s soulevés.</string>
+    <string name="recap_favorite">Exercice favori</string>
+    <plurals name="recap_sessions_label">
+        <item quantity="one">Séance</item>
+        <item quantity="other">Séances</item>
+    </plurals>
+    <plurals name="recap_records">
+        <item quantity="one">%d record battu</item>
+        <item quantity="other">%d records battus</item>
+    </plurals>
+    <plurals name="tonnage_cement_bag">
+        <item quantity="one">sac de ciment de 25 kg</item>
+        <item quantity="other">sacs de ciment de 25 kg</item>
+    </plurals>
+    <plurals name="tonnage_piano">
+        <item quantity="one">piano droit</item>
+        <item quantity="other">pianos droits</item>
+    </plurals>
+    <plurals name="tonnage_car">
+        <item quantity="one">voiture citadine</item>
+        <item quantity="other">voitures citadines</item>
+    </plurals>
+    <plurals name="tonnage_elephant">
+        <item quantity="one">éléphant d\'Afrique</item>
+        <item quantity="other">éléphants d\'Afrique</item>
+    </plurals>
+    <plurals name="tonnage_blue_whale">
+        <item quantity="one">baleine bleue</item>
+        <item quantity="other">baleines bleues</item>
+    </plurals>
 </resources>

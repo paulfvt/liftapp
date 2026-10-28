@@ -19,6 +19,7 @@ import com.paulfvt.liftapp.profile.navigation.ProfileEditRoute
 import com.paulfvt.liftapp.profile.navigation.profileScreens
 import com.paulfvt.liftapp.profile.ui.ProfileScreen
 import com.paulfvt.liftapp.progress.navigation.ExerciseProgressRoute
+import com.paulfvt.liftapp.progress.navigation.MonthlyRecapRoute
 import com.paulfvt.liftapp.progress.navigation.progressScreens
 import com.paulfvt.liftapp.progress.ui.ProgressScreen
 import com.paulfvt.liftapp.template.navigation.TemplateEditRoute
@@ -55,7 +56,10 @@ fun LiftNavHost(navController: NavHostController, modifier: Modifier = Modifier)
         }
         navigation<ProgressGraph>(startDestination = ProgressRoute) {
             composable<ProgressRoute> {
-                ProgressScreen(onOpenExercise = { id -> navController.navigate(ExerciseProgressRoute(id)) })
+                ProgressScreen(
+                    onOpenExercise = { id -> navController.navigate(ExerciseProgressRoute(id)) },
+                    onOpenRecap = { month -> navController.navigate(MonthlyRecapRoute(month.year, month.monthValue)) }
+                )
             }
             progressScreens(navController)
         }

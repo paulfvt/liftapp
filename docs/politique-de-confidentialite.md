@@ -24,6 +24,8 @@ pas accès, et tes photos de progression n'apparaissent pas dans la galerie.
 - L'application ne demande pas la permission d'accéder à internet : elle ne peut rien envoyer.
 - Aucune donnée n'est collectée par le développeur ni transmise à un tiers.
 - Pas de compte, pas de publicité, pas d'outil de mesure d'audience ni de suivi.
+- Le récap mensuel peut être partagé en image, seulement si tu appuies sur « Partager » : c'est toi qui choisis
+  l'application qui la reçoit, dans le menu de partage d'Android. Rien d'autre n'est envoyé.
 
 ## Photos et verrouillage
 

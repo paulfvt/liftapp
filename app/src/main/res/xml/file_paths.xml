@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Fichiers que l'app peut confier à une autre app par le menu de partage : seulement le dossier share/ du cache
+     (image du récap mensuel). -->
+<paths>
+    <cache-path name="share" path="share/" />
+</paths>
