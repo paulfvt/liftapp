@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Textes de la phase 8 (motivation), rangés à part pour garder strings.xml lisible. -->
+<resources>
+    <!-- Objectif hebdomadaire -->
+    <string name="weekly_goal_title">Ton objectif</string>
+    <string name="weekly_goal_question">Combien de séances par semaine ? Tu pourras le changer plus tard.</string>
+    <string name="weekly_goal_decrease">Une séance de moins</string>
+    <string name="weekly_goal_increase">Une séance de plus</string>
+    <plurals name="weekly_goal_per_week">
+        <item quantity="one">séance par semaine</item>
+        <item quantity="other">séances par semaine</item>
+    </plurals>
+</resources>

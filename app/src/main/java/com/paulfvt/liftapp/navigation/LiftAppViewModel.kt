@@ -3,6 +3,7 @@ package com.paulfvt.liftapp.navigation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.paulfvt.liftapp.onboarding.data.OnboardingRepository
+import com.paulfvt.liftapp.progress.data.WeeklyGoalRepository
 import com.paulfvt.liftapp.workout.data.WorkoutRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.time.Instant
@@ -21,7 +22,8 @@ data class LiveWorkout(val name: String, val startedAt: Instant)
 @HiltViewModel
 class LiftAppViewModel @Inject constructor(
     private val workouts: WorkoutRepository,
-    private val onboarding: OnboardingRepository
+    private val onboarding: OnboardingRepository,
+    private val weeklyGoals: WeeklyGoalRepository
 ) : ViewModel() {
     // null tant que la préférence n'est pas lue : rien n'est affiché pendant ces quelques millisecondes,
     // pour ne pas montrer l'app une fraction de seconde avant l'écran de bienvenue.
@@ -34,8 +36,12 @@ class LiftAppViewModel @Inject constructor(
         .distinctUntilChanged()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(STOP_TIMEOUT_MS), null)
 
-    fun finishWelcome() {
-        viewModelScope.launch { onboarding.markWelcomeDone() }
+    // L'objectif est enregistré avant de quitter l'écran de bienvenue : l'anneau l'affiche dès le premier écran.
+    fun finishWelcome(weeklyGoal: Int) {
+        viewModelScope.launch {
+            weeklyGoals.setInitialGoal(weeklyGoal)
+            onboarding.markWelcomeDone()
+        }
     }
 
     // Au lancement, une séance encore en cours (app tuée, téléphone redémarré) est rouverte directement.

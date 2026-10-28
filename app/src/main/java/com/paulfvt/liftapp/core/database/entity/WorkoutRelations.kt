@@ -33,6 +33,9 @@ data class PerformedSetRow(
     val distanceM: Double?
 )
 
+// La même série avec son exercice, pour les calculs qui portent sur plusieurs exercices à la fois.
+data class ExercisePerformedSetRow(val exerciseId: Long, @Embedded val set: PerformedSetRow)
+
 // Exercice fait au moins une fois : dernière date et nombre de séances (onglet Progrès).
 data class PerformedExerciseRow(val exerciseId: Long, val lastPerformedAt: Instant, val workoutCount: Int)
 

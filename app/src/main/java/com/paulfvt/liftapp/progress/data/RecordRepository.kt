@@ -67,7 +67,7 @@ class RecordRepository @Inject constructor(
         }
 }
 
-private fun PerformedSetRow.toPerformedSet() =
+internal fun PerformedSetRow.toPerformedSet() =
     PerformedSet(setId, workoutId, performedAt, type, SetValues(weightKg, reps, durationSec, distanceM))
 
 private fun PersonalRecord.toEntity(exerciseId: Long) = PersonalRecordEntity(

@@ -25,18 +25,25 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.text
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.paulfvt.liftapp.R
 import com.paulfvt.liftapp.core.designsystem.theme.LiftTheme
+import com.paulfvt.liftapp.progress.domain.DEFAULT_WEEKLY_GOAL
+import com.paulfvt.liftapp.progress.ui.WeeklyGoalStepper
 
 private class Feature(@param:DrawableRes val iconRes: Int, @param:StringRes val textRes: Int)
 
@@ -47,14 +54,16 @@ private val FEATURES = listOf(
     Feature(R.drawable.ic_lock, R.string.welcome_feature_privacy)
 )
 
-// Écran affiché une seule fois, au premier lancement. Les unités (phase 10) et l'objectif hebdomadaire (phase 8)
-// viendront s'y ajouter. Écran sans état : le ViewModel racine (LiftAppViewModel) mémorise qu'il a été vu.
+// Écran affiché une seule fois, au premier lancement, avec le choix de l'objectif hebdomadaire. Les unités
+// (phase 10) viendront s'y ajouter. Le ViewModel racine (LiftAppViewModel) enregistre l'objectif et mémorise que
+// l'écran a été vu ; le choix en cours survit à une rotation (rememberSaveable).
 @Composable
-fun WelcomeScreen(onStart: () -> Unit) {
+fun WelcomeScreen(onStart: (weeklyGoal: Int) -> Unit) {
+    var weeklyGoal by rememberSaveable { mutableIntStateOf(DEFAULT_WEEKLY_GOAL) }
     Scaffold(
         bottomBar = {
             Button(
-                onClick = onStart,
+                onClick = { onStart(weeklyGoal) },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     contentColor = MaterialTheme.colorScheme.onPrimaryContainer
@@ -81,6 +90,19 @@ fun WelcomeScreen(onStart: () -> Unit) {
             Header()
             Column(verticalArrangement = Arrangement.spacedBy(24.dp)) {
                 FEATURES.forEach { FeatureRow(it) }
+            }
+            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                Text(
+                    stringResource(R.string.weekly_goal_title),
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.semantics { heading() }
+                )
+                Text(
+                    stringResource(R.string.weekly_goal_question),
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                WeeklyGoalStepper(weeklyGoal, onGoalChange = { weeklyGoal = it })
             }
         }
     }
@@ -125,6 +147,6 @@ private fun FeatureRow(feature: Feature) {
 @Composable
 private fun WelcomeScreenPreview() {
     LiftTheme {
-        WelcomeScreen(onStart = {})
+        WelcomeScreen(onStart = { _ -> })
     }
 }

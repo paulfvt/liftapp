@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
+import com.paulfvt.liftapp.core.database.entity.ExercisePerformedSetRow
 import com.paulfvt.liftapp.core.database.entity.PerformedExerciseRow
 import com.paulfvt.liftapp.core.database.entity.PerformedSetRow
 import com.paulfvt.liftapp.core.database.entity.SetCompletionRow
@@ -66,6 +67,50 @@ interface WorkoutDao {
         """
     )
     fun observePerformedSets(exerciseId: Long, status: WorkoutStatus): Flow<List<PerformedSetRow>>
+
+    // Séries validées de tous les exercices, avec leur exercice : carte du corps, souvenirs, récap, records battus.
+    @Query(
+        """
+        SELECT we.exerciseId AS exerciseId, s.id AS setId, w.id AS workoutId, w.startedAt AS performedAt, s.type,
+               s.weightKg, s.reps, s.durationSec, s.distanceM
+        FROM workout_set s
+        INNER JOIN workout_exercise we ON we.id = s.workoutExerciseId
+        INNER JOIN workout w ON w.id = we.workoutId
+        WHERE w.status = :status AND s.isCompleted = 1
+        ORDER BY w.startedAt, we.sortOrder, s.sortOrder
+        """
+    )
+    fun observeAllPerformedSets(status: WorkoutStatus): Flow<List<ExercisePerformedSetRow>>
+
+    @Query(
+        """
+        SELECT we.exerciseId AS exerciseId, s.id AS setId, w.id AS workoutId, w.startedAt AS performedAt, s.type,
+               s.weightKg, s.reps, s.durationSec, s.distanceM
+        FROM workout_set s
+        INNER JOIN workout_exercise we ON we.id = s.workoutExerciseId
+        INNER JOIN workout w ON w.id = we.workoutId
+        WHERE w.status = :status AND s.isCompleted = 1 AND we.exerciseId IN (:exerciseIds)
+        ORDER BY w.startedAt, we.sortOrder, s.sortOrder
+        """
+    )
+    suspend fun performedSetsOf(exerciseIds: List<Long>, status: WorkoutStatus): List<ExercisePerformedSetRow>
+
+    // Débuts des séances d'un statut : objectif hebdomadaire, streak et badges de séances.
+    @Query("SELECT startedAt FROM workout WHERE status = :status ORDER BY startedAt")
+    fun observeStartTimes(status: WorkoutStatus): Flow<List<Instant>>
+
+    @Query("SELECT startedAt FROM workout WHERE status = :status ORDER BY startedAt")
+    suspend fun startTimes(status: WorkoutStatus): List<Instant>
+
+    // Dernière séance terminée du même template avant une date : comparaison du résumé de fin de séance.
+    @Query(
+        """
+        SELECT id FROM workout
+        WHERE templateId = :templateId AND status = :status AND startedAt < :before
+        ORDER BY startedAt DESC LIMIT 1
+        """
+    )
+    suspend fun previousIdOfTemplate(templateId: Long, before: Instant, status: WorkoutStatus): Long?
 
     @Query(
         """
