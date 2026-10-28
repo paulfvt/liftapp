@@ -102,6 +102,17 @@ interface WorkoutDao {
     @Query("SELECT startedAt FROM workout WHERE status = :status ORDER BY startedAt")
     suspend fun startTimes(status: WorkoutStatus): List<Instant>
 
+    // Templates des séances d'un statut, du plus récemment utilisé au plus ancien (prochaine séance de l'accueil).
+    @Query(
+        """
+        SELECT templateId FROM workout
+        WHERE status = :status AND templateId IS NOT NULL
+        GROUP BY templateId
+        ORDER BY MAX(startedAt) DESC
+        """
+    )
+    fun observeRecentTemplateIds(status: WorkoutStatus): Flow<List<Long>>
+
     // Dernière séance terminée du même template avant une date : comparaison du résumé de fin de séance.
     @Query(
         """
