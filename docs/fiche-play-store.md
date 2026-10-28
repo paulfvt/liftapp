@@ -29,6 +29,13 @@ Console au moment de la saisie.
   > • Records par exercice : 1RM estimé, charge max, meilleure série, reps max par charge.
   > • Courbes de progression sur 1 mois, 3 mois, 1 an ou depuis le début.
   >
+  > RESTE MOTIVÉ
+  > • Objectif de séances par semaine et streak en semaines : les jours de repos ne sont jamais pénalisés.
+  > • Célébration de tes records pendant la séance, résumé de fin de séance comparé à la dernière fois.
+  > • Carte du corps des muscles travaillés sur 7 jours.
+  > • Objectifs à paliers bronze, argent et or, badges et souvenirs d'il y a quelques mois.
+  > • Récap du mois à partager en image, et projection prudente de ton 1RM.
+  >
   > SUIS TON CORPS
   > • Poids, tours et masse grasse, avec la moyenne sur 7 jours pour lisser les variations du poids.
   > • Photos de progression avec la silhouette de la dernière photo pour garder le même cadrage.
@@ -39,8 +46,7 @@ Console au moment de la saisie.
   > • Pas de compte, pas de publicité, pas de suivi.
   > • L'app n'a pas accès à internet : tes données ne quittent pas ton téléphone.
   >
-  > LiftApp est en développement actif : objectif hebdomadaire, carte des muscles travaillés et widget arrivent
-  > bientôt.
+  > LiftApp est en développement actif : tableau de bord et widget arrivent bientôt.
 
 - **Icône** : 512 × 512 px, PNG 32 bits : [play-store/icon-512.png](play-store/icon-512.png) (piste « Néon »).
 - **Image de présentation** : 1 024 × 500 px, PNG 24 bits :

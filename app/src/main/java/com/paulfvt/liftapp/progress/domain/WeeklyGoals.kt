@@ -10,7 +10,8 @@ const val DEFAULT_WEEKLY_GOAL = 3
 val WEEKLY_GOAL_RANGE = 1..7
 
 // Objectif choisi au premier lancement : il vaut pour toutes les semaines, d'où une date de départ très ancienne.
-val GOAL_SINCE_ALWAYS: LocalDate = LocalDate.EPOCH
+// Écrite en clair : la constante LocalDate.EPOCH n'existe qu'à partir d'Android 14 (minSdk 26).
+val GOAL_SINCE_ALWAYS: LocalDate = LocalDate.of(1970, 1, 1)
 
 // Objectif de séances par semaine, valable à partir du lundi effectiveFrom. Il est historisé : un changement ajoute
 // une ligne, et les semaines passées gardent l'objectif de l'époque pour le calcul de la streak.

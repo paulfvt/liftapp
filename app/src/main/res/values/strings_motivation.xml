@@ -79,6 +79,8 @@
     <string name="goal_target">Objectif : %1$s de 1RM estimé</string>
     <string name="goal_current">1RM estimé actuel : %1$s</string>
     <string name="goal_delete">Supprimer l\'objectif</string>
+    <string name="goal_delete_title">Supprimer l\'objectif ?</string>
+    <string name="goal_delete_text">Ses paliers atteints seront perdus. Tes séances et tes records ne changent pas.</string>
     <string name="goal_tier_bronze">Bronze</string>
     <string name="goal_tier_silver">Argent</string>
     <string name="goal_tier_gold">Or</string>

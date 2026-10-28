@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -22,6 +23,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -70,6 +72,27 @@ fun ExerciseProgressScreen(onBack: () -> Unit, viewModel: ExerciseProgressViewMo
             onDismiss = { isGoalDialogOpen = false }
         )
     }
+    // Objectif à supprimer, en attente de confirmation : ses paliers atteints seraient perdus.
+    var goalToDelete by rememberSaveable { mutableStateOf<Long?>(null) }
+    goalToDelete?.let { goalId ->
+        AlertDialog(
+            onDismissRequest = { goalToDelete = null },
+            title = { Text(stringResource(R.string.goal_delete_title)) },
+            text = { Text(stringResource(R.string.goal_delete_text)) },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        viewModel.onDeleteGoal(goalId)
+                        goalToDelete = null
+                    },
+                    colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error)
+                ) { Text(stringResource(R.string.action_delete)) }
+            },
+            dismissButton = {
+                TextButton(onClick = { goalToDelete = null }) { Text(stringResource(R.string.action_cancel)) }
+            }
+        )
+    }
     Scaffold(
         topBar = {
             TopAppBar(
@@ -98,7 +121,7 @@ fun ExerciseProgressScreen(onBack: () -> Unit, viewModel: ExerciseProgressViewMo
                 item(key = "records") { RecordsSection(exercise, uiState.records, uiState.metrics) }
                 if (uiState.canHaveGoal) {
                     item(key = "goal") {
-                        GoalSection(uiState, onAdd = { isGoalDialogOpen = true }, onDelete = viewModel::onDeleteGoal)
+                        GoalSection(uiState, onAdd = { isGoalDialogOpen = true }, onDelete = { goalToDelete = it })
                     }
                 }
                 item(key = "chart") {

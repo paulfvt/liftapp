@@ -1,23 +1,32 @@
 # Avancement
 
-## En cours : phase 8 — Motivation
+## En cours : phase 8 — Motivation, code terminé le 28 octobre 2026, à tester sur le S25+
 
-Plan validé le 28 octobre 2026 (un commit par étape) :
-1. Objectif hebdo et streak : calculs purs testés, objectif historisé dans `weekly_goal`, choix sur l'écran de
-   bienvenue (1 à 7, 3 par défaut) et depuis la carte de la semaine.
-2. Anneau et streak : composant `WeeklyRing`, carte « Cette semaine » en haut de Progrès.
-3. Records battus : historique rejoué par une fonction pure ; célébration en séance (pastille, vibration, TalkBack).
-4. Résumé de fin de séance : records battus, tonnage comparé à la dernière fois du même template, badges et paliers.
-5. Carte du corps : tracés MuscleMap (MIT) convertis par un script de `tools/`, dessinés avec `PathParser`.
-6. Objectifs à paliers sur le 1RM estimé, depuis la progression d'un exercice.
-7. Badges : séances, semaines d'affilée, clubs ; l'historique existant débloque les badges déjà mérités.
-8. Souvenirs : comparaison avec il y a 12, 6, 3 ou 1 mois.
-9. Récap mensuel partageable en image (menu de partage d'Android, `FileProvider`).
-10. Projection en fourchette sur la progression d'un exercice (modèle logarithmique).
-11. Tests, émulateur, `PROGRESS.md`, test sur le S25+.
+Plan validé le 28 octobre 2026, fait en une traite à la demande du développeur (un commit par étape).
+Règles métier tranchées le même jour : voir `CLAUDE.md`. Pas de nouvelle dépendance ni de changement de schéma :
+`goal`, `weekly_goal` et `badge` existent depuis la v1 (seuls un DAO et des requêtes ont été ajoutés).
 
-Pas de nouvelle dépendance ni de changement de schéma : `goal`, `weekly_goal` et `badge` existent depuis la v1.
-Règles métier tranchées le 28 octobre 2026 : voir `CLAUDE.md`.
+Fait :
+- Objectif hebdomadaire historisé (choix sur l'écran de bienvenue, puis depuis la carte de la semaine, valable dès la
+  semaine en cours) et streak en semaines ; anneau `WeeklyRing` du guide de style.
+- Records battus calculés en rejouant l'historique (`recordBreaks`, `liveRecords`) : célébration pendant la séance
+  (bandeau ambre avec rebond, vibration, annonce TalkBack), jamais à la première séance sur un exercice.
+- Résumé de fin de séance : records battus avec l'ancienne valeur, volume comparé à la dernière séance du même
+  template, paliers et badges débloqués.
+- Carte du corps (7 jours glissants, cardio exclu) avec les tracés MuscleMap, silhouette de femme si le profil
+  l'indique, liste des muscles en texte. Crédit et licence MIT dans « À propos ».
+- Objectifs à paliers sur le 1RM estimé (bronze et argent proposés, modifiables), badges (séances, semaines
+  d'affilée, clubs), souvenir (12, 6, 3 ou 1 mois), récap mensuel partageable en image, projection en fourchette.
+- Tout s'affiche en haut de l'onglet Progrès en attendant l'accueil (phase 9) ; objectif et projection aussi sur la
+  progression d'un exercice.
+- Politique de confidentialité (partage volontaire du récap) et fiche Play Store mises à jour.
+- Vérifié sur l'émulateur avec les données de démonstration : anneau, souvenir, carte du corps, badges rattrapés à
+  leur date d'origine, célébration d'un record, résumé, objectif, récap et menu de partage, projection, thème clair.
+- 213 tests JVM et 39 tests instrumentés verts (dont `MotivationDataTest`). Lint sans nouvel avertissement.
+- Corrigé avant commit : `LocalDate.EPOCH` (Android 14 et plus seulement) aurait planté sur Android 8 à 13, repéré
+  par lint ; suppression d'un objectif désormais confirmée (ses paliers atteints seraient perdus).
+
+Reste : test du développeur sur le S25+ (vibration de la célébration, partage vers une vraie app, thème clair).
 
 Le test fermé reste en pause (compte Google Play plus tard) : un build issu de la phase 7 peut lui servir.
 
@@ -244,12 +253,42 @@ Reportés en phase 10 (Réglages, cahier § 4.11) : unités lb et in, masquage d
 - **Clés du SavedStateHandle** : jamais le nom d'un argument de la route (bug rencontré : la clé « pose » lisait
   l'argument vide de `PhotoCaptureRoute`).
 
+- **Motivation dans le package `progress`** (pas de nouveau package) : calculs purs dans `progress/domain`
+  (`WeeklyGoals`, `RecordBreaks`, `BodyMap`, `Goals`, `Badges`, `Flashback`, `MonthlyRecap`, `Projection`), un DAO
+  `MotivationDao` pour `weekly_goal`, `goal` et `badge`. Textes dans `values/strings_motivation.xml`.
+- **Objectif hebdomadaire** : le choix de la bienvenue est enregistré au 1er janvier 1970 (il vaut pour toutes les
+  semaines) ; un changement ajoute une ligne au lundi de la semaine en cours, qui remplace un changement fait plus tôt
+  dans la même semaine (index unique). Sans ligne (installations d'avant la phase 8), 3 séances par défaut.
+- **Records battus** : le cache `personal_record` ne garde que le meilleur actuel. `recordBreaks` rejoue l'historique
+  séance par séance (résumé, récap) ; `liveRecords` compare la séance en cours au cache et aux séries déjà validées.
+  Les couples « série, mesure » déjà célébrés sont gardés (`rememberSaveable`) : pas de nouvelle célébration après une
+  rotation ; une série validée depuis la notification est célébrée au retour dans l'app.
+- **Paliers et badges** : `AchievementRepository.refresh()` après une fin de séance (dans sa transaction, résultat
+  montré dans le résumé), une séance modifiée ou supprimée, et au lancement (rattrapage silencieux de l'historique,
+  badges datés au moment où ils ont été mérités). Il n'ajoute jamais que ce qui manque.
+- **Clubs** : liste des clés free-exercise-db dans `CLUBS` (`Badges.kt`) ; un exercice personnalisé ne compte pas.
+- **Carte du corps** : `app/src/main/assets/body-map/body_map.json` (230 Ko) produit par
+  `tools/body-map/build_body_map.py` (commit MuscleMap figé, option `--source` pour une copie locale). Tracés convertis
+  une fois en `Path` Compose par le ViewModel, hors du fil principal ; face et dos dans un cadre commun.
+- **Image du récap** : la carte est dessinée dans un `GraphicsLayer` puis convertie en image (ni capture d'écran ni
+  permission), PNG dans `cache/share/`, partagé via le `FileProvider` `${applicationId}.fileprovider`.
+- **Projection** : régression de y = a + b × ln(1 + jours / 30) sur les 6 derniers mois, horizon 90 jours affiché en
+  période (début, mi, fin de mois). Fourchette d'environ 80 % (±1,28 écart-type des résidus, au moins ±1,25 kg),
+  borne basse jamais sous le meilleur déjà atteint ; pas de projection au-delà de ±10 % d'incertitude.
+- **Ressources texte** : une apostrophe doit être écrite `\'`. Un script Python ou un heredoc du shell peut perdre la
+  barre oblique : aapt refuse alors le fichier (« Invalid unicode escape »).
+
 ## Questions ouvertes
 - Code des photos oublié sur un téléphone sans verrouillage d'écran : l'app explique qu'il faut d'abord en activer un
   dans Android (aucune autre issue inventée). À confirmer par le développeur.
 - Politique de confidentialité : nom affiché et adresse de contact (publics), nom du dépôt public qui l'hébergera.
 
 ## Problèmes connus
+- Anneau et streak sont recalculés quand les données changent : si l'app reste ouverte au passage du dimanche au
+  lundi, la nouvelle semaine n'apparaît qu'à la prochaine séance ou à la réouverture de l'onglet.
+- Lint signale des versions plus récentes (Gradle 9.8.2, DataStore 1.3.0, Kotlin 2.4.21, kotlinx.serialization
+  1.12.0, kotlinx-coroutines-test 1.11.0). Mises à jour à décider à part ; coroutines-test doit rester alignée sur
+  1.10.2 (voir plus bas).
 - `connectedDebugAndroidTest` désinstalle l'app de l'émulateur, données comprises. Sauvegarder avant :
   `adb exec-out run-as com.paulfvt.liftapp tar -cf - databases files > sauvegarde.tar`, puis restaurer avec la version
   debug installée (`run-as … tar -xf` depuis `/data/local/tmp`) avant de remettre une release par-dessus.

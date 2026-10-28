@@ -49,14 +49,14 @@ private const val VISIBLE_MS = 3_500L
 @Composable
 fun RecordCelebration(records: List<SessionRecord>, modifier: Modifier = Modifier) {
     val haptics = LocalHapticFeedback.current
-    var seenKeys by rememberSaveable { mutableStateOf<ArrayList<String>?>(null) }
+    var seenKeys by rememberSaveable { mutableStateOf<List<String>?>(null) }
     // shown garde le dernier bandeau : il reste lisible pendant l'animation de disparition.
     var shown by remember { mutableStateOf<List<SessionRecord>>(emptyList()) }
     var isVisible by remember { mutableStateOf(false) }
     LaunchedEffect(records) {
         val known = seenKeys
         val fresh = if (known == null) emptyList() else records.filter { it.key !in known }
-        seenKeys = ArrayList((known.orEmpty() + records.map { it.key }).distinct())
+        seenKeys = (known.orEmpty() + records.map { it.key }).distinct()
         if (fresh.isNotEmpty()) {
             shown = fresh
             isVisible = true
