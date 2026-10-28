@@ -13,10 +13,12 @@ import com.paulfvt.liftapp.progress.data.RecordRepository
 import com.paulfvt.liftapp.progress.data.WeeklyGoalRepository
 import com.paulfvt.liftapp.progress.domain.Badge
 import com.paulfvt.liftapp.progress.domain.ExerciseHistory
+import com.paulfvt.liftapp.progress.domain.Flashback
 import com.paulfvt.liftapp.progress.domain.GoalStatus
 import com.paulfvt.liftapp.progress.domain.PerformedExercise
 import com.paulfvt.liftapp.progress.domain.TieredGoal
 import com.paulfvt.liftapp.progress.domain.WeeklyStreak
+import com.paulfvt.liftapp.progress.domain.flashback
 import com.paulfvt.liftapp.progress.domain.goalStatus
 import com.paulfvt.liftapp.progress.domain.muscleSets
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -39,6 +41,7 @@ data class ProgressUiState(
     val isLoading: Boolean = true,
     val streak: WeeklyStreak? = null,
     val muscleSets: Map<Muscle, Double> = emptyMap(),
+    val flashback: Flashback? = null,
     val goals: List<ExerciseGoal> = emptyList(),
     val badges: Map<Badge, Instant> = emptyMap(),
     val bodyFigures: List<BodyFigure> = emptyList(),
@@ -49,7 +52,11 @@ data class ProgressUiState(
 data class ExerciseGoal(val exercise: Exercise, val status: GoalStatus)
 
 // Ce qui se calcule à partir de l'historique de tous les exercices.
-private data class HistoryState(val muscleSets: Map<Muscle, Double>, val goals: List<ExerciseGoal>)
+private data class HistoryState(
+    val muscleSets: Map<Muscle, Double>,
+    val flashback: Flashback?,
+    val goals: List<ExerciseGoal>
+)
 
 // Onglet Progrès : la semaine en cours et la motivation en haut (l'accueil est masqué jusqu'à la phase 9), puis
 // les exercices déjà faits, le plus récent d'abord.
@@ -90,6 +97,7 @@ class ProgressViewModel @Inject constructor(
             isLoading = false,
             streak = streak,
             muscleSets = history.muscleSets,
+            flashback = history.flashback,
             goals = history.goals,
             badges = unlocked,
             bodyFigures = figures,
@@ -103,7 +111,11 @@ class ProgressViewModel @Inject constructor(
         val goals = allGoals.sortedBy { it.isCompleted }.mapNotNull { goal ->
             byExercise[goal.exerciseId]?.let { ExerciseGoal(it.exercise, goalStatus(goal, it.sets)) }
         }
-        return HistoryState(muscleSets = muscleSets(histories, today, zone), goals = goals)
+        return HistoryState(
+            muscleSets = muscleSets(histories, today, zone),
+            flashback = flashback(histories, today, zone),
+            goals = goals
+        )
     }
 
     fun onWeeklyGoalChange(goal: Int) {

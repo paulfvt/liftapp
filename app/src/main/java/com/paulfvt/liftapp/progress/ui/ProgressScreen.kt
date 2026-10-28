@@ -60,6 +60,13 @@ fun ProgressScreen(onOpenExercise: (Long) -> Unit, viewModel: ProgressViewModel 
                     }
                 }
             }
+            uiState.flashback?.let { flashback ->
+                item(key = "flashback") {
+                    SectionBlock(stringResource(R.string.flashback_title)) {
+                        FlashbackCard(flashback, onClick = { onOpenExercise(flashback.exercise.id) })
+                    }
+                }
+            }
             if (uiState.bodyFigures.isNotEmpty()) {
                 item(key = "body-map") {
                     SectionBlock(stringResource(R.string.body_map_title)) {

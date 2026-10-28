@@ -127,4 +127,15 @@
     <string name="badge_locked_description">Badge %1$s, à débloquer. %2$s</string>
     <string name="badge_unlocked_on">Débloqué le %1$s.</string>
     <string name="badge_not_yet">Pas encore débloqué.</string>
+
+    <!-- Souvenirs -->
+    <string name="flashback_title">Souvenir</string>
+    <plurals name="flashback_ago">
+        <item quantity="one">Il y a %d mois</item>
+        <item quantity="other">Il y a %d mois</item>
+    </plurals>
+    <string name="flashback_values">%1$s : %2$s, puis %3$s à ta dernière séance</string>
+    <string name="flashback_gain">+%1$s depuis</string>
+    <string name="flashback_lower">%1$s de moins qu\'à l\'époque</string>
+    <string name="flashback_same">Le même niveau qu\'à l\'époque</string>
 </resources>
