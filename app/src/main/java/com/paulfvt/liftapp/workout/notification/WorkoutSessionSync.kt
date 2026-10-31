@@ -1,6 +1,8 @@
 package com.paulfvt.liftapp.workout.notification
 
 import com.paulfvt.liftapp.core.di.ApplicationScope
+import com.paulfvt.liftapp.core.domain.Units
+import com.paulfvt.liftapp.settings.data.AppSettingsRepository
 import com.paulfvt.liftapp.widget.WidgetUpdater
 import com.paulfvt.liftapp.workout.data.WorkoutRepository
 import com.paulfvt.liftapp.workout.domain.WorkoutNotice
@@ -12,6 +14,7 @@ import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
@@ -27,6 +30,7 @@ class WorkoutSessionSync @Inject constructor(
     private val notifier: WorkoutNotifier,
     private val alarms: RestAlarmScheduler,
     private val widgets: WidgetUpdater,
+    private val appSettings: AppSettingsRepository,
     private val clock: Clock,
     @param:ApplicationScope private val scope: CoroutineScope
 ) {
@@ -38,7 +42,11 @@ class WorkoutSessionSync @Inject constructor(
     fun start() {
         notifier.createChannels()
         scope.launch {
-            workouts.observeInProgress().map { it?.toNotice() }.distinctUntilChanged().collect { apply(it) }
+            // Les unités font partie de ce qu'affiche la notification : un changement dans les réglages la reconstruit.
+            combine(
+                workouts.observeInProgress().map { it?.toNotice() }.distinctUntilChanged(),
+                appSettings.settings.map { it.units }.distinctUntilChanged()
+            ) { notice, units -> notice to units }.collect { (notice, units) -> apply(notice, units) }
         }
     }
 
@@ -46,7 +54,7 @@ class WorkoutSessionSync @Inject constructor(
     // permission qui vient d'être accordée. Le widget est redessiné même si la séance n'a pas changé : à la fin d'un
     // repos, son compte à rebours doit laisser place à la durée de la séance.
     suspend fun refresh() {
-        apply(workouts.observeInProgress().first()?.toNotice())
+        apply(workouts.observeInProgress().first()?.toNotice(), appSettings.current().units)
         widgets.update()
     }
 
@@ -56,7 +64,7 @@ class WorkoutSessionSync @Inject constructor(
         if (!alarms.canScheduleExact()) add(AlertPermission.EXACT_ALARMS)
     }
 
-    private suspend fun apply(notice: WorkoutNotice?) = mutex.withLock {
+    private suspend fun apply(notice: WorkoutNotice?, units: Units) = mutex.withLock {
         restEndJob?.cancel()
         restEndJob = null
         if (notice == null) {
@@ -65,7 +73,7 @@ class WorkoutSessionSync @Inject constructor(
             return@withLock
         }
         val now = clock.instant()
-        notifier.show(notice, now)
+        notifier.show(notice, now, units)
         val rest = notice.rest?.takeIf { it.isRunning(now) }
         if (rest == null) {
             alarms.cancel()
@@ -76,7 +84,7 @@ class WorkoutSessionSync @Inject constructor(
         // l'alarme (elle afficherait sinon un temps négatif si l'alarme est retardée).
         restEndJob = scope.launch {
             delay(Duration.between(now, rest.endsAt).toMillis())
-            mutex.withLock { notifier.show(notice, clock.instant()) }
+            mutex.withLock { notifier.show(notice, clock.instant(), units) }
             widgets.update()
         }
     }

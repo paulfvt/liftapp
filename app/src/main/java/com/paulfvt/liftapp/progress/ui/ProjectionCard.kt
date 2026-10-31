@@ -13,7 +13,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.paulfvt.liftapp.R
-import com.paulfvt.liftapp.core.ui.kgText
+import com.paulfvt.liftapp.core.ui.weightText
 import com.paulfvt.liftapp.progress.domain.MonthPart
 import com.paulfvt.liftapp.progress.domain.ProjectionResult
 import com.paulfvt.liftapp.progress.domain.monthPart
@@ -39,8 +39,8 @@ fun ProjectionCard(result: ProjectionResult, today: LocalDate, modifier: Modifie
                     Text(
                         stringResource(
                             R.string.projection_available,
-                            kgText(projection.lowKg),
-                            kgText(projection.highKg),
+                            weightText(projection.lowKg),
+                            weightText(projection.highKg),
                             periodText(projection.horizon, today)
                         ),
                         style = MaterialTheme.typography.titleMedium

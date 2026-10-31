@@ -1,5 +1,6 @@
 package com.paulfvt.liftapp.profile.domain
 
+import com.paulfvt.liftapp.core.domain.LengthUnit
 import java.time.LocalDate
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
@@ -59,5 +60,17 @@ class UserProfileTest {
     fun `a profile survives the round trip through the draft`() {
         val profile = UserProfile("Paul", 181.0, LocalDate.of(1998, 5, 3), Sex.MALE)
         assertEquals(profile, profile.toDraft().toProfile())
+    }
+
+    @Test
+    fun `the height can be typed in inches and is stored in centimeters`() {
+        val inches = LengthUnit.IN
+        val draft = ProfileDraft(height = "71")
+        assertEquals(180.34, draft.toProfile(inches).heightCm!!, 1e-9)
+        assertEquals("71", UserProfile(heightCm = 180.34).toDraft(inches).height)
+        assertEquals(
+            setOf(ProfileError.HEIGHT_INVALID),
+            ProfileDraft(height = "150").errors(LocalDate.MAX, inches)
+        )
     }
 }

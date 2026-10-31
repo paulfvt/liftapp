@@ -34,10 +34,11 @@ import com.paulfvt.liftapp.R
 import com.paulfvt.liftapp.core.designsystem.component.SectionTitle
 import com.paulfvt.liftapp.core.designsystem.component.StatTile
 import com.paulfvt.liftapp.core.designsystem.theme.LocalExtendedColors
+import com.paulfvt.liftapp.core.ui.LocalUnits
 import com.paulfvt.liftapp.core.ui.durationText
-import com.paulfvt.liftapp.core.ui.kgText
 import com.paulfvt.liftapp.core.ui.shortDay
-import com.paulfvt.liftapp.core.ui.wholeNumber
+import com.paulfvt.liftapp.core.ui.volumeText
+import com.paulfvt.liftapp.core.ui.weightText
 import com.paulfvt.liftapp.progress.data.ReachedTier
 import com.paulfvt.liftapp.progress.domain.Badge
 import com.paulfvt.liftapp.progress.ui.formatMetric
@@ -109,7 +110,7 @@ fun WorkoutSummaryContent(
                 )
                 StatTile(
                     stringResource(R.string.workout_summary_tonnage),
-                    stringResource(R.string.weight_kg, wholeNumber(summary.tonnageKg)),
+                    volumeText(summary.tonnageKg),
                     Modifier.weight(1f)
                 )
             }
@@ -164,6 +165,7 @@ private fun TonnageComparison(change: Double, previousStartedAt: Instant?) {
 @Composable
 private fun BrokenRecords(records: List<FinishedRecord>) {
     val resources = LocalResources.current
+    val unit = LocalUnits.current.weight
     Column(verticalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.padding(top = 4.dp)) {
         SectionTitle(stringResource(R.string.summary_records_title))
         Card(
@@ -190,8 +192,8 @@ private fun BrokenRecords(records: List<FinishedRecord>) {
                                 stringResource(
                                     R.string.summary_record_line,
                                     stringResource(metric.recordLabelRes(exercise.trackingType)),
-                                    formatMetric(resources, metric, recordBreak.value, exercise),
-                                    formatMetric(resources, metric, recordBreak.previous, exercise)
+                                    formatMetric(resources, metric, recordBreak.value, exercise, unit),
+                                    formatMetric(resources, metric, recordBreak.previous, exercise, unit)
                                 ),
                                 style = MaterialTheme.typography.bodyMedium,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
@@ -232,7 +234,7 @@ private fun ReachedTiers(tiers: List<ReachedTier>) {
                                 stringResource(
                                     R.string.summary_tier_line,
                                     stringResource(tier.labelRes),
-                                    kgText(goal.valueOf(tier))
+                                    weightText(goal.valueOf(tier))
                                 ),
                                 style = MaterialTheme.typography.bodyMedium,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant

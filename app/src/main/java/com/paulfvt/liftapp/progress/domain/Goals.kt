@@ -1,6 +1,8 @@
 package com.paulfvt.liftapp.progress.domain
 
+import com.paulfvt.liftapp.core.domain.WeightUnit
 import com.paulfvt.liftapp.core.domain.roundForDisplay
+import com.paulfvt.liftapp.core.domain.toKg
 import com.paulfvt.liftapp.core.model.TrackingType
 import com.paulfvt.liftapp.workout.domain.parseDecimal
 import java.time.Instant
@@ -51,20 +53,21 @@ enum class GoalError {
 
 data class GoalTiers(val bronzeKg: Double, val silverKg: Double, val goldKg: Double)
 
-// Paliers saisis, en texte tant qu'ils ne sont pas validés.
+// Paliers saisis, en texte tant qu'ils ne sont pas validés, dans l'unité choisie (kilos ou livres).
 data class GoalDraft(val bronze: String = "", val silver: String = "", val gold: String = "") {
-    fun parsed(): GoalTiers? {
-        val bronzeKg = parseDecimal(bronze) ?: return null
-        val silverKg = parseDecimal(silver) ?: return null
-        val goldKg = parseDecimal(gold) ?: return null
+    // Paliers en kilos, l'unité de stockage.
+    fun parsed(unit: WeightUnit = WeightUnit.KG): GoalTiers? {
+        val bronzeKg = parseDecimal(bronze)?.let(unit::toKg) ?: return null
+        val silverKg = parseDecimal(silver)?.let(unit::toKg) ?: return null
+        val goldKg = parseDecimal(gold)?.let(unit::toKg) ?: return null
         return GoalTiers(bronzeKg, silverKg, goldKg)
     }
 }
 
 // Un objectif doit viser plus haut que le 1RM estimé actuel, avec des paliers croissants : sinon un palier serait
 // atteint à la création, sans effort.
-fun GoalDraft.problem(currentKg: Double): GoalError? {
-    val tiers = parsed() ?: return GoalError.INVALID_NUMBER
+fun GoalDraft.problem(currentKg: Double, unit: WeightUnit = WeightUnit.KG): GoalError? {
+    val tiers = parsed(unit) ?: return GoalError.INVALID_NUMBER
     if (listOf(tiers.bronzeKg, tiers.silverKg, tiers.goldKg).any { it <= 0 || it > MAX_GOAL_KG }) {
         return GoalError.INVALID_NUMBER
     }

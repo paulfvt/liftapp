@@ -1,7 +1,9 @@
 package com.paulfvt.liftapp.widget
 
+import com.paulfvt.liftapp.core.domain.Units
 import com.paulfvt.liftapp.home.data.Dashboard
 import com.paulfvt.liftapp.home.data.DashboardRepository
+import com.paulfvt.liftapp.settings.data.AppSettingsRepository
 import com.paulfvt.liftapp.workout.data.WorkoutRepository
 import com.paulfvt.liftapp.workout.domain.WorkoutNotice
 import com.paulfvt.liftapp.workout.domain.toNotice
@@ -12,6 +14,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
@@ -19,24 +22,32 @@ import kotlinx.coroutines.flow.map
 
 // Les deux états du widget : hors séance (le tableau de bord) ou en séance (ce que montre la notification).
 sealed interface WidgetState {
-    data class Idle(val dashboard: Dashboard) : WidgetState
+    val units: Units
 
-    data class Live(val notice: WorkoutNotice) : WidgetState
+    data class Idle(val dashboard: Dashboard, override val units: Units) : WidgetState
+
+    data class Live(val notice: WorkoutNotice, override val units: Units) : WidgetState
 }
 
 @Singleton
 class WidgetDataSource @Inject constructor(
     private val workouts: WorkoutRepository,
-    private val dashboard: DashboardRepository
+    private val dashboard: DashboardRepository,
+    private val appSettings: AppSettingsRepository
 ) {
     // Pendant une séance, le tableau de bord n'est pas calculé : chaque saisie toucherait les séries et relancerait
     // ce calcul pour rien. flatMapLatest passe d'une source à l'autre quand une séance commence ou se termine.
     @OptIn(ExperimentalCoroutinesApi::class)
-    fun observe(): Flow<WidgetState> = workouts.observeInProgress()
-        .map { it?.toNotice() }
-        .distinctUntilChanged()
-        .flatMapLatest { notice ->
-            if (notice != null) flowOf(WidgetState.Live(notice)) else dashboard.observe().map { WidgetState.Idle(it) }
+    fun observe(): Flow<WidgetState> = combine(
+        workouts.observeInProgress().map { it?.toNotice() }.distinctUntilChanged(),
+        appSettings.settings.map { it.units }.distinctUntilChanged()
+    ) { notice, units -> notice to units }
+        .flatMapLatest { (notice, units) ->
+            if (notice != null) {
+                flowOf(WidgetState.Live(notice, units))
+            } else {
+                dashboard.observe().map { WidgetState.Idle(it, units) }
+            }
         }
         .distinctUntilChanged()
 }

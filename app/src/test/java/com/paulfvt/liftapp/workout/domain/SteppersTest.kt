@@ -1,5 +1,8 @@
 package com.paulfvt.liftapp.workout.domain
 
+import com.paulfvt.liftapp.core.domain.WeightUnit
+import com.paulfvt.liftapp.core.domain.inputValue
+import com.paulfvt.liftapp.core.domain.toKg
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -47,5 +50,17 @@ class SteppersTest {
         assertEquals(5_100.0, stepDistance(5_000.0, 1, DistanceUnit.KILOMETER), 0.0)
         assertEquals(25.0, stepDistance(20.0, 1, DistanceUnit.METER), 0.0)
         assertEquals(0.0, stepDistance(null, -1, DistanceUnit.METER), 0.0)
+    }
+
+    @Test
+    fun `in pounds the step is five pounds and lands on round values`() {
+        val start = WeightUnit.LB.toKg(225.0)
+        val next = stepWeight(start, 1, allowNegative = false, unit = WeightUnit.LB)
+        assertEquals(230.0, WeightUnit.LB.inputValue(next), 0.0)
+        assertEquals(
+            WeightUnit.LB.toKg(220.0),
+            stepWeight(start, -1, allowNegative = false, unit = WeightUnit.LB),
+            1e-9
+        )
     }
 }

@@ -40,7 +40,11 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.paulfvt.liftapp.R
 import com.paulfvt.liftapp.core.designsystem.component.ScreenTitle
 import com.paulfvt.liftapp.core.designsystem.component.SectionBlock
+import com.paulfvt.liftapp.core.domain.LengthUnit
+import com.paulfvt.liftapp.core.domain.Units
+import com.paulfvt.liftapp.core.domain.WeightUnit
 import com.paulfvt.liftapp.core.ui.durationLabel
+import com.paulfvt.liftapp.core.ui.labelRes
 import com.paulfvt.liftapp.progress.ui.WeeklyGoalStepper
 import com.paulfvt.liftapp.settings.data.ThemeMode
 import com.paulfvt.liftapp.template.domain.REST_CHOICES_SECONDS
@@ -81,6 +85,11 @@ fun SettingsScreen(onBack: () -> Unit, viewModel: SettingsViewModel = hiltViewMo
                         selected = uiState.app.themeMode,
                         optionLabel = { stringResource(it.labelRes()) },
                         onSelect = viewModel::onThemeModeChange
+                    )
+                    UnitChoices(
+                        units = uiState.app.units,
+                        onWeightUnitChange = viewModel::onWeightUnitChange,
+                        onLengthUnitChange = viewModel::onLengthUnitChange
                     )
                 }
             }
@@ -128,6 +137,25 @@ fun SettingsScreen(onBack: () -> Unit, viewModel: SettingsViewModel = hiltViewMo
             onDismiss = { isRestDialogOpen = false }
         )
     }
+}
+
+// Poids en kilos ou en livres, longueurs en centimètres ou en pouces : aussi sur l'écran de bienvenue.
+@Composable
+fun UnitChoices(units: Units, onWeightUnitChange: (WeightUnit) -> Unit, onLengthUnitChange: (LengthUnit) -> Unit) {
+    ChoiceRow(
+        label = stringResource(R.string.settings_weight_unit),
+        options = WeightUnit.entries,
+        selected = units.weight,
+        optionLabel = { stringResource(it.labelRes) },
+        onSelect = onWeightUnitChange
+    )
+    ChoiceRow(
+        label = stringResource(R.string.settings_length_unit),
+        options = LengthUnit.entries,
+        selected = units.length,
+        optionLabel = { stringResource(it.labelRes) },
+        onSelect = onLengthUnitChange
+    )
 }
 
 @Composable

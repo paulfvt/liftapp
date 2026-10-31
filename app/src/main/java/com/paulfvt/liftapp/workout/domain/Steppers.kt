@@ -1,10 +1,12 @@
 package com.paulfvt.liftapp.workout.domain
 
+import com.paulfvt.liftapp.core.domain.WeightUnit
+import com.paulfvt.liftapp.core.domain.inputValue
+import com.paulfvt.liftapp.core.domain.toKg
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-// Pas des boutons − et + du mode salle. 2,5 kg : la plus petite paire de disques courante (2 × 1,25 kg).
-const val WEIGHT_STEP_KG = 2.5
+// Pas des boutons − et + du mode salle. Poids : WeightUnit.stepperStep (2,5 kg ou 5 lb).
 const val REPS_STEP = 1
 const val DURATION_STEP_SECONDS = 15
 const val KILOMETER_STEP_METERS = 100.0
@@ -12,11 +14,13 @@ const val METER_STEP_METERS = 5.0
 private const val MAX_REPS = 999
 private const val DECIMALS = 2
 
-// Poids après un appui. Un champ vide part de 0. Le lest d'un exercice au poids du corps peut devenir négatif
+// Poids après un appui, en kilos. Le calcul se fait dans l'unité affichée (225 lb + 5 lb = 230 lb tout rond), puis
+// revient en kilos. Un champ vide part de 0. Le lest d'un exercice au poids du corps peut devenir négatif
 // (assistance) ; une charge, jamais. Arrondi à 2 décimales pour éviter les 82,49999 des nombres à virgule.
-fun stepWeight(current: Double?, steps: Int, allowNegative: Boolean): Double {
-    val next = round((current ?: 0.0) + steps * WEIGHT_STEP_KG)
-    return if (allowNegative) next else next.coerceAtLeast(0.0)
+fun stepWeight(currentKg: Double?, steps: Int, allowNegative: Boolean, unit: WeightUnit = WeightUnit.KG): Double {
+    val next = round(unit.inputValue(currentKg ?: 0.0) + steps * unit.stepperStep)
+    val kg = if (unit == WeightUnit.KG) next else unit.toKg(next)
+    return if (allowNegative) kg else kg.coerceAtLeast(0.0)
 }
 
 fun stepReps(current: Int?, steps: Int): Int = ((current ?: 0) + steps * REPS_STEP).coerceIn(0, MAX_REPS)

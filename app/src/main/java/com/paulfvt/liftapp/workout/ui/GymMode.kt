@@ -35,12 +35,15 @@ import com.paulfvt.liftapp.R
 import com.paulfvt.liftapp.core.model.Exercise
 import com.paulfvt.liftapp.core.model.SetType
 import com.paulfvt.liftapp.core.model.TrackingType
+import com.paulfvt.liftapp.core.ui.LocalUnits
+import com.paulfvt.liftapp.core.ui.labelRes
+import com.paulfvt.liftapp.core.ui.parseWeightInput
+import com.paulfvt.liftapp.core.ui.weightInput
 import com.paulfvt.liftapp.workout.domain.DURATION_STEP_SECONDS
 import com.paulfvt.liftapp.workout.domain.NextSet
 import com.paulfvt.liftapp.workout.domain.PreviousSet
 import com.paulfvt.liftapp.workout.domain.REPS_STEP
 import com.paulfvt.liftapp.workout.domain.SetValues
-import com.paulfvt.liftapp.workout.domain.WEIGHT_STEP_KG
 import com.paulfvt.liftapp.workout.domain.distanceStepMeters
 import com.paulfvt.liftapp.workout.domain.distanceUnitFor
 import com.paulfvt.liftapp.workout.domain.filterDecimalInput
@@ -50,7 +53,6 @@ import com.paulfvt.liftapp.workout.domain.formatDecimal
 import com.paulfvt.liftapp.workout.domain.formatDistance
 import com.paulfvt.liftapp.workout.domain.formatDuration
 import com.paulfvt.liftapp.workout.domain.matchPrevious
-import com.paulfvt.liftapp.workout.domain.parseDecimal
 import com.paulfvt.liftapp.workout.domain.parseDistance
 import com.paulfvt.liftapp.workout.domain.parseDuration
 import com.paulfvt.liftapp.workout.domain.parseReps
@@ -158,18 +160,23 @@ private fun ValueSteppers(setId: Long, values: SetValues, exercise: Exercise, ac
     when (exercise.trackingType) {
         TrackingType.WEIGHT_REPS, TrackingType.REPS -> {
             val allowNegative = exercise.trackingType == TrackingType.REPS
+            val unit = LocalUnits.current.weight
             Stepper(
                 title = firstTitle.orEmpty(),
-                step = stringResource(R.string.weight_kg, formatDecimal(WEIGHT_STEP_KG)),
+                step = stringResource(
+                    R.string.value_with_unit,
+                    formatDecimal(unit.stepperStep),
+                    stringResource(unit.labelRes)
+                ),
                 onStep = { steps ->
-                    actions.onStep(setId) { it.copy(weightKg = stepWeight(it.weightKg, steps, allowNegative)) }
+                    actions.onStep(setId) { it.copy(weightKg = stepWeight(it.weightKg, steps, allowNegative, unit)) }
                 }
             ) {
                 SetValueField(
                     value = values.weightKg,
-                    format = ::formatDecimal,
+                    format = { weightInput(it, unit) },
                     filter = { filterDecimalInput(it, allowNegative) },
-                    parse = ::parseDecimal,
+                    parse = { parseWeightInput(it, unit) },
                     onValueChange = { actions.onWeightChange(setId, it) },
                     description = firstTitle.orEmpty(),
                     keyboardType = if (allowNegative) KeyboardType.Text else KeyboardType.Decimal,

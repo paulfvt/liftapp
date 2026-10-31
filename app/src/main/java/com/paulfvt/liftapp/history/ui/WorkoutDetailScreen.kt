@@ -43,10 +43,13 @@ import com.paulfvt.liftapp.core.designsystem.component.StatTile
 import com.paulfvt.liftapp.core.domain.workSetNumbers
 import com.paulfvt.liftapp.core.model.Exercise
 import com.paulfvt.liftapp.core.model.TrackingType
+import com.paulfvt.liftapp.core.ui.LocalUnits
 import com.paulfvt.liftapp.core.ui.dayAndTime
 import com.paulfvt.liftapp.core.ui.durationText
+import com.paulfvt.liftapp.core.ui.labelRes
 import com.paulfvt.liftapp.core.ui.setName
-import com.paulfvt.liftapp.core.ui.wholeNumber
+import com.paulfvt.liftapp.core.ui.volumeText
+import com.paulfvt.liftapp.core.ui.weightInput
 import com.paulfvt.liftapp.exercise.ui.ExerciseThumbnail
 import com.paulfvt.liftapp.history.domain.toHistoryItem
 import com.paulfvt.liftapp.workout.domain.DistanceUnit
@@ -139,7 +142,7 @@ private fun WorkoutDetailContent(workout: Workout, onOpenProgress: (Long) -> Uni
                     )
                     StatTile(
                         stringResource(R.string.workout_summary_tonnage),
-                        stringResource(R.string.weight_kg, wholeNumber(item.tonnageKg)),
+                        volumeText(item.tonnageKg),
                         Modifier.weight(1f)
                     )
                 }
@@ -215,6 +218,13 @@ private fun ExerciseDetailCard(item: WorkoutExercise, onOpenProgress: () -> Unit
     }
 }
 
+// Poids d'une série faite dans l'unité choisie : « 80 kg », « 176,4 lb ».
+@Composable
+private fun weightWithUnit(kg: Double): String {
+    val unit = LocalUnits.current.weight
+    return stringResource(R.string.value_with_unit, weightInput(kg, unit), stringResource(unit.labelRes))
+}
+
 // « 80 kg × 8 », « +10 kg × 8 » (lest), « 12 reps », « 1:30 », « 5,2 km · 25:00 ».
 @Composable
 private fun performedSetText(values: SetValues, exercise: Exercise): String {
@@ -226,8 +236,8 @@ private fun performedSetText(values: SetValues, exercise: Exercise): String {
             weight == null || (exercise.trackingType == TrackingType.REPS && weight == 0.0) ->
                 pluralStringResource(R.plurals.workout_previous_reps, reps, reps)
             exercise.trackingType == TrackingType.REPS && weight > 0 ->
-                stringResource(R.string.notification_weight_reps, "+" + formatDecimal(weight), reps)
-            else -> stringResource(R.string.notification_weight_reps, formatDecimal(weight), reps)
+                stringResource(R.string.weight_reps, "+" + weightWithUnit(weight), reps)
+            else -> stringResource(R.string.weight_reps, weightWithUnit(weight), reps)
         }
         TrackingType.DURATION -> formatDuration(values.durationSec)
         TrackingType.DISTANCE -> {

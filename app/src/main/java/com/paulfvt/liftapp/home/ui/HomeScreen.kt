@@ -38,6 +38,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.paulfvt.liftapp.R
 import com.paulfvt.liftapp.core.designsystem.component.ScreenTitle
 import com.paulfvt.liftapp.core.designsystem.component.SectionBlock
+import com.paulfvt.liftapp.core.ui.LocalUnits
 import com.paulfvt.liftapp.core.ui.shortDay
 import com.paulfvt.liftapp.home.domain.LatestRecord
 import com.paulfvt.liftapp.progress.ui.FlashbackCard
@@ -183,7 +184,7 @@ private fun LatestRecordCard(latest: LatestRecord, onClick: () -> Unit) {
                 Text(exercise.name, style = MaterialTheme.typography.titleMedium)
                 Text(
                     stringResource(metric.recordLabelRes(exercise.trackingType)) + " : " +
-                        formatMetric(resources, metric, recordBreak.value, exercise),
+                        formatMetric(resources, metric, recordBreak.value, exercise, LocalUnits.current.weight),
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.tertiary
                 )

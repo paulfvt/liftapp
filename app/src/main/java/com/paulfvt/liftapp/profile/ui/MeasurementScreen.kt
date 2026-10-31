@@ -41,9 +41,11 @@ import com.paulfvt.liftapp.R
 import com.paulfvt.liftapp.core.designsystem.component.ScreenTitle
 import com.paulfvt.liftapp.core.designsystem.component.SectionTitle
 import com.paulfvt.liftapp.core.model.MeasurementType
+import com.paulfvt.liftapp.core.ui.LocalUnits
 import com.paulfvt.liftapp.core.ui.labelRes
 import com.paulfvt.liftapp.core.ui.shortDay
 import com.paulfvt.liftapp.profile.domain.BodyMeasurement
+import com.paulfvt.liftapp.profile.domain.toDisplay
 import com.paulfvt.liftapp.progress.domain.ChartPeriod
 import com.paulfvt.liftapp.progress.ui.ProgressChart
 import com.paulfvt.liftapp.progress.ui.labelRes
@@ -180,15 +182,20 @@ private fun ChartSection(uiState: MeasurementUiState, onPeriodSelected: (ChartPe
             )
             return@Column
         }
+        val units = LocalUnits.current
         val format = rememberMeasureFormatter(type)
         val summary = pluralStringResource(R.plurals.measurement_days, days.size, days.size) + " · " +
-            stringResource(R.string.progress_chart_range, format(days.first().value), format(days.last().value))
+            stringResource(
+                R.string.progress_chart_range,
+                measureText(type, days.first().value),
+                measureText(type, days.last().value)
+            )
         ProgressChart(
-            values = days,
+            values = days.map { it.copy(value = type.toDisplay(it.value, units)) },
             valueText = format,
             description = stringResource(type.labelRes) + ". " + summary,
             color = MaterialTheme.colorScheme.primary,
-            trend = uiState.trend,
+            trend = uiState.trend.map { it.copy(value = type.toDisplay(it.value, units)) },
             trendLabel = stringResource(R.string.measurement_trend_short)
         )
         Text(summary, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)

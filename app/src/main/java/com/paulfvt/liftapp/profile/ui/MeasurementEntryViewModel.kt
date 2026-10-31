@@ -7,6 +7,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
+import com.paulfvt.liftapp.core.domain.Units
 import com.paulfvt.liftapp.core.model.BodyFatMethod
 import com.paulfvt.liftapp.core.model.MeasurementType
 import com.paulfvt.liftapp.profile.data.MeasurementRepository
@@ -16,6 +17,7 @@ import com.paulfvt.liftapp.profile.domain.MeasurementError
 import com.paulfvt.liftapp.profile.domain.errors
 import com.paulfvt.liftapp.profile.domain.toMeasurement
 import com.paulfvt.liftapp.profile.navigation.MeasurementEntryRoute
+import com.paulfvt.liftapp.settings.data.AppSettingsRepository
 import com.paulfvt.liftapp.workout.domain.filterDecimalInput
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.time.Clock
@@ -30,6 +32,7 @@ import kotlinx.coroutines.launch
 class MeasurementEntryViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val measurements: MeasurementRepository,
+    private val appSettings: AppSettingsRepository,
     private val clock: Clock
 ) : ViewModel() {
     private val zone: ZoneId get() = ZoneId.systemDefault()
@@ -58,8 +61,12 @@ class MeasurementEntryViewModel @Inject constructor(
     private var hasTriedToSave = false
     private var isSaving = false
 
+    // Unités des réglages : la valeur tapée est dans l'unité choisie.
+    private var units = Units()
+
     init {
         viewModelScope.launch {
+            units = appSettings.current().units
             latest = measurements.observeAll().first().groupBy { it.type }.mapValues { (_, list) -> list.first() }
             update { withDefaultMethod() }
         }
@@ -75,11 +82,11 @@ class MeasurementEntryViewModel @Inject constructor(
 
     fun save() {
         hasTriedToSave = true
-        errors = draft.errors(today)
+        errors = draft.errors(today, units)
         if (errors.isNotEmpty() || isSaving) return
         isSaving = true
         viewModelScope.launch {
-            measurements.add(draft.toMeasurement(clock.instant(), zone))
+            measurements.add(draft.toMeasurement(clock.instant(), zone, units))
             isSaved = true
         }
     }
@@ -94,6 +101,6 @@ class MeasurementEntryViewModel @Inject constructor(
 
     private fun update(transform: MeasurementDraft.() -> MeasurementDraft) {
         draft = draft.transform()
-        if (hasTriedToSave) errors = draft.errors(today)
+        if (hasTriedToSave) errors = draft.errors(today, units)
     }
 }

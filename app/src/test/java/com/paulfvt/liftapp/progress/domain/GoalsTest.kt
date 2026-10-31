@@ -1,5 +1,6 @@
 package com.paulfvt.liftapp.progress.domain
 
+import com.paulfvt.liftapp.core.domain.WeightUnit
 import com.paulfvt.liftapp.core.model.SetType
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -73,5 +74,15 @@ class GoalsTest {
         assertEquals(0.5f, status.progress, 1e-6f)
         assertEquals(1f, status.fractionOf(110.0), 0f)
         assertFalse(goal.isCompleted)
+    }
+
+    @Test
+    fun `tiers typed in pounds are checked and stored in kilos`() {
+        val draft = GoalDraft("220", "230", "240")
+        val tiers = draft.parsed(WeightUnit.LB)!!
+        assertEquals(99.79, tiers.bronzeKg, 0.01)
+        assertEquals(108.86, tiers.goldKg, 0.01)
+        // 1RM actuel de 100 kg (220,5 lb) : un bronze à 220 lb est en dessous.
+        assertEquals(GoalError.NOT_ABOVE_CURRENT, draft.problem(100.0, WeightUnit.LB))
     }
 }

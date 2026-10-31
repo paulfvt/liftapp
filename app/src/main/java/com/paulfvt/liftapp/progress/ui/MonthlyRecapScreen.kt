@@ -41,8 +41,10 @@ import com.paulfvt.liftapp.R
 import com.paulfvt.liftapp.core.designsystem.component.ScreenTitle
 import com.paulfvt.liftapp.core.designsystem.component.SectionTitle
 import com.paulfvt.liftapp.core.designsystem.component.StatTile
+import com.paulfvt.liftapp.core.domain.WeightUnit
+import com.paulfvt.liftapp.core.ui.LocalUnits
 import com.paulfvt.liftapp.core.ui.monthTitle
-import com.paulfvt.liftapp.core.ui.wholeNumber
+import com.paulfvt.liftapp.core.ui.volumeText
 import com.paulfvt.liftapp.progress.domain.MonthlyRecap
 import com.paulfvt.liftapp.progress.domain.TonnageObject
 import com.paulfvt.liftapp.workout.domain.formatDecimal
@@ -134,6 +136,7 @@ private fun MonthSwitcher(month: YearMonth, previous: YearMonth?, next: YearMont
 @Composable
 private fun RecapCard(recap: MonthlyRecap) {
     val resources = LocalResources.current
+    val unit = LocalUnits.current.weight
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp),
         modifier = Modifier
@@ -199,7 +202,7 @@ private fun RecapCard(recap: MonthlyRecap) {
                                 R.string.record_new_detail,
                                 record.exercise.name,
                                 stringResource(record.metric.recordLabelRes(record.exercise.trackingType)),
-                                formatMetric(resources, record.metric, record.value, record.exercise)
+                                formatMetric(resources, record.metric, record.value, record.exercise, unit)
                             ),
                             style = MaterialTheme.typography.bodyMedium
                         )
@@ -228,12 +231,12 @@ private fun RecapCard(recap: MonthlyRecap) {
     }
 }
 
-// « 850 kg » ou, à partir d'une tonne, « 48,2 t ».
+// En kilos : « 850 kg » ou, à partir d'une tonne, « 48,2 t ». En livres : « 106 263 lb ».
 @Composable
-fun tonnageText(kg: Double): String = if (kg >= KG_PER_TON) {
+fun tonnageText(kg: Double): String = if (LocalUnits.current.weight == WeightUnit.KG && kg >= KG_PER_TON) {
     stringResource(R.string.recap_tons, formatDecimal((kg / KG_PER_TON * 10).roundToLong() / 10.0))
 } else {
-    stringResource(R.string.weight_kg, wholeNumber(kg))
+    volumeText(kg)
 }
 
 @PluralsRes

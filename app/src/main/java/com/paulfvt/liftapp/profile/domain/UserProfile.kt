@@ -1,5 +1,8 @@
 package com.paulfvt.liftapp.profile.domain
 
+import com.paulfvt.liftapp.core.domain.LengthUnit
+import com.paulfvt.liftapp.core.domain.displayValue
+import com.paulfvt.liftapp.core.domain.toCm
 import com.paulfvt.liftapp.workout.domain.formatDecimal
 import com.paulfvt.liftapp.workout.domain.parseDecimal
 import java.time.LocalDate
@@ -41,26 +44,27 @@ enum class ProfileError {
     BIRTH_DATE_IN_FUTURE
 }
 
-fun UserProfile.toDraft() = ProfileDraft(
+// La taille se saisit en centimètres ou en pouces selon les réglages ; elle est enregistrée en centimètres.
+fun UserProfile.toDraft(unit: LengthUnit = LengthUnit.CM) = ProfileDraft(
     firstName = firstName.orEmpty(),
-    height = formatDecimal(heightCm),
+    height = heightCm?.let { formatDecimal(unit.displayValue(it)) }.orEmpty(),
     birthDate = birthDate,
     sex = sex
 )
 
-fun ProfileDraft.errors(today: LocalDate): Set<ProfileError> = buildSet {
+fun ProfileDraft.errors(today: LocalDate, unit: LengthUnit = LengthUnit.CM): Set<ProfileError> = buildSet {
     if (firstName.trim().length > FIRST_NAME_MAX_LENGTH) add(ProfileError.FIRST_NAME_TOO_LONG)
     if (height.isNotBlank()) {
-        val cm = parseDecimal(height)
+        val cm = parseDecimal(height)?.let { unit.toCm(it) }
         if (cm == null || cm < MIN_HEIGHT_CM || cm > MAX_HEIGHT_CM) add(ProfileError.HEIGHT_INVALID)
     }
     if (birthDate != null && birthDate.isAfter(today)) add(ProfileError.BIRTH_DATE_IN_FUTURE)
 }
 
 // À n'appeler que sur un brouillon sans erreur. Un champ vide redevient « non renseigné ».
-fun ProfileDraft.toProfile() = UserProfile(
+fun ProfileDraft.toProfile(unit: LengthUnit = LengthUnit.CM) = UserProfile(
     firstName = firstName.trim().ifEmpty { null },
-    heightCm = height.takeIf { it.isNotBlank() }?.let(::parseDecimal),
+    heightCm = height.takeIf { it.isNotBlank() }?.let(::parseDecimal)?.let { unit.toCm(it) },
     birthDate = birthDate,
     sex = sex
 )

@@ -38,8 +38,12 @@ import androidx.compose.ui.unit.dp
 import com.paulfvt.liftapp.R
 import com.paulfvt.liftapp.core.designsystem.component.MenuEntry
 import com.paulfvt.liftapp.core.designsystem.component.OverflowMenu
-import com.paulfvt.liftapp.core.ui.kgText
+import com.paulfvt.liftapp.core.domain.displayValue
+import com.paulfvt.liftapp.core.domain.toKg
+import com.paulfvt.liftapp.core.ui.LocalUnits
+import com.paulfvt.liftapp.core.ui.labelRes
 import com.paulfvt.liftapp.core.ui.shortDay
+import com.paulfvt.liftapp.core.ui.weightText
 import com.paulfvt.liftapp.progress.domain.GoalDraft
 import com.paulfvt.liftapp.progress.domain.GoalError
 import com.paulfvt.liftapp.progress.domain.GoalStatus
@@ -89,7 +93,7 @@ fun GoalCard(
                 Column(modifier = Modifier.weight(1f).padding(horizontal = 12.dp)) {
                     title?.let { Text(it, style = MaterialTheme.typography.titleMedium) }
                     Text(
-                        stringResource(R.string.goal_target, kgText(goal.goldKg)),
+                        stringResource(R.string.goal_target, weightText(goal.goldKg)),
                         style = if (title ==
                             null
                         ) {
@@ -109,7 +113,7 @@ fun GoalCard(
             }
             GoalBar(status)
             Text(
-                stringResource(R.string.goal_current, kgText(status.bestKg)),
+                stringResource(R.string.goal_current, weightText(status.bestKg)),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -157,7 +161,7 @@ private fun GoalBar(status: GoalStatus) {
 private fun TierLabel(status: GoalStatus, tier: GoalTier, modifier: Modifier = Modifier) {
     val reachedAt = status.goal.reachedAt[tier]
     val name = stringResource(tier.labelRes)
-    val value = kgText(status.goal.valueOf(tier))
+    val value = weightText(status.goal.valueOf(tier))
     val date = reachedAt?.let { shortDay(it) }
     val description = if (date != null) {
         stringResource(R.string.goal_tier_reached_description, name, value, date)
@@ -193,24 +197,26 @@ fun GoalDialog(currentKg: Double, onCreate: (GoalTiers) -> Unit, onDismiss: () -
     var bronze by rememberSaveable { mutableStateOf("") }
     var silver by rememberSaveable { mutableStateOf("") }
     var tiersEdited by rememberSaveable { mutableStateOf(false) }
+    // Paliers saisis dans l'unité choisie ; le domaine les ramène en kilos pour les vérifier et les enregistrer.
+    val unit = LocalUnits.current.weight
     val draft = GoalDraft(bronze, silver, gold)
-    val problem = draft.problem(currentKg)
+    val problem = draft.problem(currentKg, unit)
     AlertDialog(
         onDismissRequest = onDismiss,
         title = { Text(stringResource(R.string.goal_dialog_title)) },
         text = {
             Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 Text(
-                    stringResource(R.string.goal_dialog_text, kgText(currentKg)),
+                    stringResource(R.string.goal_dialog_text, weightText(currentKg)),
                     style = MaterialTheme.typography.bodyMedium
                 )
                 KgField(R.string.goal_tier_gold, gold) { text ->
                     gold = text
-                    val goldKg = parseDecimal(text)
+                    val goldKg = parseDecimal(text)?.let(unit::toKg)
                     if (!tiersEdited && goldKg != null && goldKg > currentKg) {
                         val (proposedBronze, proposedSilver) = suggestedTiers(currentKg, goldKg)
-                        bronze = formatDecimal(proposedBronze)
-                        silver = formatDecimal(proposedSilver)
+                        bronze = formatDecimal(unit.displayValue(proposedBronze))
+                        silver = formatDecimal(unit.displayValue(proposedSilver))
                     }
                 }
                 KgField(R.string.goal_tier_silver, silver) {
@@ -231,7 +237,7 @@ fun GoalDialog(currentKg: Double, onCreate: (GoalTiers) -> Unit, onDismiss: () -
             }
         },
         confirmButton = {
-            TextButton(enabled = problem == null, onClick = { draft.parsed()?.let(onCreate) }) {
+            TextButton(enabled = problem == null, onClick = { draft.parsed(unit)?.let(onCreate) }) {
                 Text(stringResource(R.string.action_create))
             }
         },
@@ -245,7 +251,7 @@ private fun KgField(@StringRes labelRes: Int, value: String, onValueChange: (Str
         value = value,
         onValueChange = onValueChange,
         label = { Text(stringResource(labelRes)) },
-        suffix = { Text(stringResource(R.string.unit_kg)) },
+        suffix = { Text(stringResource(LocalUnits.current.weight.labelRes)) },
         singleLine = true,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
         modifier = Modifier.fillMaxWidth()

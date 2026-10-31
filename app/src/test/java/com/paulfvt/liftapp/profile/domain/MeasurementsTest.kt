@@ -1,6 +1,9 @@
 package com.paulfvt.liftapp.profile.domain
 
 import com.paulfvt.liftapp.core.domain.DailyValue
+import com.paulfvt.liftapp.core.domain.LengthUnit
+import com.paulfvt.liftapp.core.domain.Units
+import com.paulfvt.liftapp.core.domain.WeightUnit
 import com.paulfvt.liftapp.core.model.BodyFatMethod
 import com.paulfvt.liftapp.core.model.MeasurementType
 import java.time.Instant
@@ -122,5 +125,17 @@ class MeasurementsTest {
             Instant.parse("2026-10-18T10:00:00Z"),
             measuredAtFor(LocalDate.parse("2026-10-18"), now, paris)
         )
+    }
+
+    @Test
+    fun `measurements are typed and shown in the chosen units and stored in metric`() {
+        val imperial = Units(
+            WeightUnit.LB,
+            LengthUnit.IN
+        )
+        assertEquals(80.0, MeasurementType.BODY_WEIGHT.toStorage(176.37, imperial), 0.01)
+        assertEquals(38.1, MeasurementType.ARM.toStorage(15.0, imperial), 1e-9)
+        assertEquals(15.0, MeasurementType.BODY_FAT.toStorage(15.0, imperial), 0.0)
+        assertEquals(15.0, MeasurementType.ARM.toDisplay(38.1, imperial), 1e-9)
     }
 }

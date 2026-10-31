@@ -1,6 +1,11 @@
 package com.paulfvt.liftapp.profile.domain
 
 import com.paulfvt.liftapp.core.domain.DailyValue
+import com.paulfvt.liftapp.core.domain.Units
+import com.paulfvt.liftapp.core.domain.fromCm
+import com.paulfvt.liftapp.core.domain.fromKg
+import com.paulfvt.liftapp.core.domain.toCm
+import com.paulfvt.liftapp.core.domain.toKg
 import com.paulfvt.liftapp.core.model.BodyFatMethod
 import com.paulfvt.liftapp.core.model.MeasurementType
 import com.paulfvt.liftapp.workout.domain.parseDecimal
@@ -75,8 +80,24 @@ enum class MeasurementError {
     DATE_IN_FUTURE
 }
 
-fun MeasurementDraft.errors(today: LocalDate): Set<MeasurementError> = buildSet {
-    val number = parseDecimal(value)
+// Une mesure se saisit et s'affiche dans l'unité choisie : kilos ou livres pour le poids, centimètres ou pouces pour
+// les tours ; la masse grasse reste en pourcentage. Conversions proportionnelles : elles valent aussi pour un écart
+// entre deux mesures.
+fun MeasurementType.toDisplay(stored: Double, units: Units): Double = when (this) {
+    MeasurementType.BODY_WEIGHT -> units.weight.fromKg(stored)
+    MeasurementType.BODY_FAT -> stored
+    else -> units.length.fromCm(stored)
+}
+
+fun MeasurementType.toStorage(value: Double, units: Units): Double = when (this) {
+    MeasurementType.BODY_WEIGHT -> units.weight.toKg(value)
+    MeasurementType.BODY_FAT -> value
+    else -> units.length.toCm(value)
+}
+
+// La valeur saisie est dans l'unité choisie ; la plage valide, elle, est en kilos ou en centimètres.
+fun MeasurementDraft.errors(today: LocalDate, units: Units = Units()): Set<MeasurementError> = buildSet {
+    val number = parseDecimal(value)?.let { type.toStorage(it, units) }
     when {
         number == null -> add(MeasurementError.VALUE_MISSING)
         number !in type.validRange() -> add(MeasurementError.VALUE_OUT_OF_RANGE)
@@ -91,10 +112,10 @@ fun measuredAtFor(date: LocalDate, now: Instant, zone: ZoneId): Instant =
     if (date == now.atZone(zone).toLocalDate()) now else date.atTime(LocalTime.NOON).atZone(zone).toInstant()
 
 // À n'appeler que sur un brouillon sans erreur.
-fun MeasurementDraft.toMeasurement(now: Instant, zone: ZoneId) = BodyMeasurement(
+fun MeasurementDraft.toMeasurement(now: Instant, zone: ZoneId, units: Units = Units()) = BodyMeasurement(
     id = 0,
     type = type,
-    value = parseDecimal(value)!!,
+    value = type.toStorage(parseDecimal(value)!!, units),
     method = method.takeIf { type == MeasurementType.BODY_FAT },
     measuredAt = measuredAtFor(date, now, zone)
 )

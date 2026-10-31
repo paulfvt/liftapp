@@ -3,6 +3,8 @@ package com.paulfvt.liftapp.settings.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.paulfvt.liftapp.core.di.ApplicationScope
+import com.paulfvt.liftapp.core.domain.LengthUnit
+import com.paulfvt.liftapp.core.domain.WeightUnit
 import com.paulfvt.liftapp.progress.data.WeeklyGoalRepository
 import com.paulfvt.liftapp.settings.data.AppSettings
 import com.paulfvt.liftapp.settings.data.AppSettingsRepository
@@ -46,6 +48,10 @@ class SettingsViewModel @Inject constructor(
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(STOP_TIMEOUT_MS), SettingsUiState())
 
     fun onThemeModeChange(mode: ThemeMode) = write { appSettings.setThemeMode(mode) }
+
+    fun onWeightUnitChange(unit: WeightUnit) = write { appSettings.setWeightUnit(unit) }
+
+    fun onLengthUnitChange(unit: LengthUnit) = write { appSettings.setLengthUnit(unit) }
 
     // Comme depuis l'accueil : le nouvel objectif compte dès la semaine en cours.
     fun onWeeklyGoalChange(goal: Int) = write { weeklyGoals.changeGoal(goal) }

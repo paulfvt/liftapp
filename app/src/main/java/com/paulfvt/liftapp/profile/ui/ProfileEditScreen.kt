@@ -39,7 +39,12 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.paulfvt.liftapp.R
 import com.paulfvt.liftapp.core.designsystem.component.PastDateField
 import com.paulfvt.liftapp.core.designsystem.component.ScreenTitle
+import com.paulfvt.liftapp.core.ui.LocalUnits
+import com.paulfvt.liftapp.core.ui.labelRes
+import com.paulfvt.liftapp.core.ui.lengthText
 import com.paulfvt.liftapp.profile.domain.FIRST_NAME_MAX_LENGTH
+import com.paulfvt.liftapp.profile.domain.MAX_HEIGHT_CM
+import com.paulfvt.liftapp.profile.domain.MIN_HEIGHT_CM
 import com.paulfvt.liftapp.profile.domain.ProfileError
 import com.paulfvt.liftapp.profile.domain.Sex
 
@@ -116,10 +121,18 @@ fun ProfileEditScreen(onClose: () -> Unit, viewModel: ProfileEditViewModel = hil
                 value = draft.height,
                 onValueChange = viewModel::onHeightChange,
                 label = { Text(stringResource(R.string.profile_height)) },
-                suffix = { Text(stringResource(R.string.unit_cm)) },
+                suffix = { Text(stringResource(LocalUnits.current.length.labelRes)) },
                 isError = heightError,
                 supportingText = if (heightError) {
-                    { Text(stringResource(R.string.profile_error_height)) }
+                    {
+                        Text(
+                            stringResource(
+                                R.string.profile_error_height,
+                                lengthText(MIN_HEIGHT_CM),
+                                lengthText(MAX_HEIGHT_CM)
+                            )
+                        )
+                    }
                 } else {
                     null
                 },

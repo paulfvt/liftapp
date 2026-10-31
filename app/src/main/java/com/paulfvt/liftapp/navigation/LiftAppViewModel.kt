@@ -2,9 +2,11 @@ package com.paulfvt.liftapp.navigation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.paulfvt.liftapp.core.domain.Units
 import com.paulfvt.liftapp.onboarding.data.OnboardingRepository
 import com.paulfvt.liftapp.progress.data.AchievementRepository
 import com.paulfvt.liftapp.progress.data.WeeklyGoalRepository
+import com.paulfvt.liftapp.settings.data.AppSettingsRepository
 import com.paulfvt.liftapp.workout.data.WorkoutRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.time.Instant
@@ -25,6 +27,7 @@ class LiftAppViewModel @Inject constructor(
     private val workouts: WorkoutRepository,
     private val onboarding: OnboardingRepository,
     private val weeklyGoals: WeeklyGoalRepository,
+    private val appSettings: AppSettingsRepository,
     achievements: AchievementRepository
 ) : ViewModel() {
     // Au lancement, l'historique déjà présent débloque sans célébration ce qu'il mérite (mise à jour de l'app,
@@ -44,10 +47,11 @@ class LiftAppViewModel @Inject constructor(
         .distinctUntilChanged()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(STOP_TIMEOUT_MS), null)
 
-    // L'objectif est enregistré avant de quitter l'écran de bienvenue : l'anneau l'affiche dès le premier écran.
-    fun finishWelcome(weeklyGoal: Int) {
+    // Objectif et unités sont enregistrés avant de quitter l'écran de bienvenue : ils valent dès le premier écran.
+    fun finishWelcome(weeklyGoal: Int, units: Units) {
         viewModelScope.launch {
             weeklyGoals.setInitialGoal(weeklyGoal)
+            appSettings.setUnits(units)
             onboarding.markWelcomeDone()
         }
     }

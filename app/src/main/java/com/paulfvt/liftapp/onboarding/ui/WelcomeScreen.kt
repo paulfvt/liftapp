@@ -27,6 +27,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -42,8 +43,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.paulfvt.liftapp.R
 import com.paulfvt.liftapp.core.designsystem.theme.LiftTheme
+import com.paulfvt.liftapp.core.domain.LengthUnit
+import com.paulfvt.liftapp.core.domain.Units
+import com.paulfvt.liftapp.core.domain.WeightUnit
 import com.paulfvt.liftapp.progress.domain.DEFAULT_WEEKLY_GOAL
 import com.paulfvt.liftapp.progress.ui.WeeklyGoalStepper
+import com.paulfvt.liftapp.settings.ui.UnitChoices
 
 private class Feature(@param:DrawableRes val iconRes: Int, @param:StringRes val textRes: Int)
 
@@ -54,16 +59,18 @@ private val FEATURES = listOf(
     Feature(R.drawable.ic_lock, R.string.welcome_feature_privacy)
 )
 
-// Écran affiché une seule fois, au premier lancement, avec le choix de l'objectif hebdomadaire. Les unités
-// (phase 10) viendront s'y ajouter. Le ViewModel racine (LiftAppViewModel) enregistre l'objectif et mémorise que
-// l'écran a été vu ; le choix en cours survit à une rotation (rememberSaveable).
+// Écran affiché une seule fois, au premier lancement, avec le choix de l'objectif hebdomadaire et des unités. Le
+// ViewModel racine (LiftAppViewModel) les enregistre et mémorise que l'écran a été vu ; les choix en cours survivent
+// à une rotation (rememberSaveable).
 @Composable
-fun WelcomeScreen(onStart: (weeklyGoal: Int) -> Unit) {
+fun WelcomeScreen(onStart: (weeklyGoal: Int, units: Units) -> Unit) {
     var weeklyGoal by rememberSaveable { mutableIntStateOf(DEFAULT_WEEKLY_GOAL) }
+    var weightUnit by rememberSaveable { mutableStateOf(WeightUnit.KG) }
+    var lengthUnit by rememberSaveable { mutableStateOf(LengthUnit.CM) }
     Scaffold(
         bottomBar = {
             Button(
-                onClick = { onStart(weeklyGoal) },
+                onClick = { onStart(weeklyGoal, Units(weightUnit, lengthUnit)) },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     contentColor = MaterialTheme.colorScheme.onPrimaryContainer
@@ -103,6 +110,18 @@ fun WelcomeScreen(onStart: (weeklyGoal: Int) -> Unit) {
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 WeeklyGoalStepper(weeklyGoal, onGoalChange = { weeklyGoal = it })
+            }
+            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                Text(
+                    stringResource(R.string.welcome_units_title),
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.semantics { heading() }
+                )
+                UnitChoices(
+                    units = Units(weightUnit, lengthUnit),
+                    onWeightUnitChange = { weightUnit = it },
+                    onLengthUnitChange = { lengthUnit = it }
+                )
             }
         }
     }
@@ -147,6 +166,6 @@ private fun FeatureRow(feature: Feature) {
 @Composable
 private fun WelcomeScreenPreview() {
     LiftTheme {
-        WelcomeScreen(onStart = { _ -> })
+        WelcomeScreen(onStart = { _, _ -> })
     }
 }

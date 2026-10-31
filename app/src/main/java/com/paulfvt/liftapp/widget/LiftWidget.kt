@@ -51,6 +51,7 @@ import com.paulfvt.liftapp.MainActivity
 import com.paulfvt.liftapp.R
 import com.paulfvt.liftapp.core.designsystem.theme.DarkColors
 import com.paulfvt.liftapp.core.designsystem.theme.LightColors
+import com.paulfvt.liftapp.core.domain.Units
 import com.paulfvt.liftapp.home.data.Dashboard
 import com.paulfvt.liftapp.progress.ui.formatMetric
 import com.paulfvt.liftapp.workout.domain.RestPeriod
@@ -79,8 +80,8 @@ class LiftWidget : GlanceAppWidget() {
             val state by states.collectAsState(initial)
             GlanceTheme(colors = WidgetColors) {
                 when (val current = state) {
-                    is WidgetState.Idle -> IdleContent(current.dashboard)
-                    is WidgetState.Live -> LiveContent(current.notice)
+                    is WidgetState.Idle -> IdleContent(current.dashboard, current.units)
+                    is WidgetState.Live -> LiveContent(current.notice, current.units)
                 }
             }
         }
@@ -119,7 +120,7 @@ private fun WidgetFrame(onClick: Action, content: @Composable () -> Unit) {
 }
 
 @Composable
-private fun IdleContent(dashboard: Dashboard) {
+private fun IdleContent(dashboard: Dashboard, units: Units) {
     val context = LocalContext.current
     val medium = isMedium(LocalSize.current)
     val template = dashboard.nextTemplate
@@ -139,7 +140,7 @@ private fun IdleContent(dashboard: Dashboard) {
                         ),
                         maxLines = 1
                     )
-                    RecordLine(dashboard)
+                    RecordLine(dashboard, units)
                     Spacer(GlanceModifier.height(6.dp))
                     StartButton(context, template?.id, context.getString(R.string.template_preview_start))
                 }
@@ -227,11 +228,11 @@ private fun CompactStreak(dashboard: Dashboard) {
 
 // « Record : Squat à la barre, 135 kg », sur une ligne.
 @Composable
-private fun RecordLine(dashboard: Dashboard) {
+private fun RecordLine(dashboard: Dashboard, units: Units) {
     val latest = dashboard.latestRecord ?: return
     val context = LocalContext.current
     val metric = latest.recordBreak.metric
-    val value = formatMetric(context.resources, metric, latest.recordBreak.value, latest.exercise)
+    val value = formatMetric(context.resources, metric, latest.recordBreak.value, latest.exercise, units.weight)
     Text(
         context.getString(R.string.widget_record, latest.exercise.name, value),
         style = TextStyle(color = GlanceTheme.colors.tertiary, fontSize = 12.sp),
@@ -255,7 +256,7 @@ private fun StartButton(context: Context, templateId: Long?, text: String) {
 }
 
 @Composable
-private fun LiveContent(notice: WorkoutNotice) {
+private fun LiveContent(notice: WorkoutNotice, units: Units) {
     val context = LocalContext.current
     val medium = isMedium(LocalSize.current)
     val now = Instant.now()
@@ -275,7 +276,8 @@ private fun LiveContent(notice: WorkoutNotice) {
                 maxLines = 1
             )
             Text(
-                next?.let { describeNextSet(context, it) } ?: context.getString(R.string.notification_all_done),
+                next?.let { describeNextSet(context, it, units.weight) }
+                    ?: context.getString(R.string.notification_all_done),
                 style = TextStyle(color = GlanceTheme.colors.onSurfaceVariant, fontSize = 12.sp),
                 maxLines = 1
             )

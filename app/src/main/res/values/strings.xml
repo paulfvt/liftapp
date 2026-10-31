@@ -40,7 +40,7 @@
         <item quantity="one">%d caractère maximum.</item>
         <item quantity="other">%d caractères maximum.</item>
     </plurals>
-    <string name="profile_error_height">Entre une taille entre 50 et 260 cm.</string>
+    <string name="profile_error_height">Entre une taille entre %1$s et %2$s.</string>
     <!-- Photos de progression -->
     <string name="profile_photos">Photos</string>
     <string name="photos_none_short">Aucune photo pour l\'instant.</string>
@@ -302,8 +302,7 @@
     <string name="workout_remove_exercise">Retirer de la séance</string>
     <string name="workout_exercise_note">Note de l\'exercice</string>
     <string name="workout_col_previous">Précédent</string>
-    <string name="workout_col_kg">kg</string>
-    <string name="workout_col_added_kg">+kg</string>
+    <string name="workout_col_added">+%1$s</string>
     <string name="workout_col_reps">Reps</string>
     <string name="workout_col_time">Durée</string>
     <string name="workout_col_km">km</string>
@@ -411,14 +410,15 @@
     <string name="notification_all_done">Toutes les séries sont validées</string>
     <!-- « sur » n'est pas une unité : pas de pluriel ici. -->
     <string name="notification_set_position" tools:ignore="PluralsCandidate">Série %1$d sur %2$d</string>
-    <string name="notification_weight_reps">%1$s kg × %2$d</string>
+    <string name="weight_reps">%1$s × %2$d</string>
     <string name="notification_action_complete">Série validée</string>
     <string name="duration_hours_minutes">%1$d h %2$02d</string>
-    <string name="weight_kg">%1$s kg</string>
     <string name="unit_cm">cm</string>
     <string name="unit_kg">kg</string>
+    <string name="unit_lb">lb</string>
+    <string name="unit_in">in</string>
+    <string name="value_with_unit">%1$s %2$s</string>
     <string name="unit_percent" formatted="false">%</string>
-    <string name="value_cm">%1$s cm</string>
     <string name="value_percent">%1$s %%</string>
     <string name="error_date_in_future">Choisis une date passée.</string>
 

@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import com.paulfvt.liftapp.core.di.ApplicationScope
+import com.paulfvt.liftapp.settings.data.AppSettingsRepository
 import com.paulfvt.liftapp.workout.data.WorkoutRepository
 import com.paulfvt.liftapp.workout.data.WorkoutSettingsRepository
 import com.paulfvt.liftapp.workout.domain.RestPeriod
@@ -32,6 +33,8 @@ class RestEndReceiver : BroadcastReceiver() {
 
     @Inject lateinit var clock: Clock
 
+    @Inject lateinit var appSettings: AppSettingsRepository
+
     @Inject @ApplicationScope
     lateinit var scope: CoroutineScope
 
@@ -45,7 +48,7 @@ class RestEndReceiver : BroadcastReceiver() {
                 if (rest != null && shouldAlert(rest, clock.instant())) {
                     val current = settings.current()
                     if (current.restVibration) alerter.vibrate()
-                    if (current.restSound) notifier.showRestEnd(workout.toNotice())
+                    if (current.restSound) notifier.showRestEnd(workout.toNotice(), appSettings.current().units)
                 }
                 sync.refresh()
             } finally {

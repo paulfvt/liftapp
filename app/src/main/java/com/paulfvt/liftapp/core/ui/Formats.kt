@@ -3,8 +3,6 @@ package com.paulfvt.liftapp.core.ui
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import com.paulfvt.liftapp.R
-import com.paulfvt.liftapp.core.domain.roundForDisplay
-import com.paulfvt.liftapp.workout.domain.formatDecimal
 import java.text.NumberFormat
 import java.time.Duration
 import java.time.Instant
@@ -49,7 +47,3 @@ fun shortDate(date: LocalDate): String = SHORT_DAY.format(date)
 
 // « Octobre 2026 ».
 fun monthTitle(month: YearMonth): String = MONTH.format(month).replaceFirstChar { it.uppercase(Locale.FRENCH) }
-
-// Poids calculé (1RM estimé, record) arrondi au demi-kilo pour l'affichage : « 116,5 kg ».
-@Composable
-fun kgText(kg: Double): String = stringResource(R.string.weight_kg, formatDecimal(roundForDisplay(kg)))

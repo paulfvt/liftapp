@@ -33,7 +33,7 @@ import com.paulfvt.liftapp.core.designsystem.component.ScreenTitle
 import com.paulfvt.liftapp.core.ui.dayAndTime
 import com.paulfvt.liftapp.core.ui.durationText
 import com.paulfvt.liftapp.core.ui.monthTitle
-import com.paulfvt.liftapp.core.ui.wholeNumber
+import com.paulfvt.liftapp.core.ui.volumeText
 import com.paulfvt.liftapp.history.domain.HistoryItem
 
 // Onglet Historique : séances terminées par mois, la plus récente en haut.
@@ -96,7 +96,7 @@ private fun HistoryCard(item: HistoryItem, onClick: () -> Unit) {
             Text(
                 listOf(
                     durationText(item.duration),
-                    stringResource(R.string.weight_kg, wholeNumber(item.tonnageKg)),
+                    volumeText(item.tonnageKg),
                     pluralStringResource(R.plurals.history_sets, item.setCount, item.setCount)
                 ).joinToString(" · "),
                 style = MaterialTheme.typography.labelLarge,

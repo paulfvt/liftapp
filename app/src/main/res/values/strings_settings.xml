@@ -10,4 +10,7 @@
     <string name="settings_theme_light">Clair</string>
     <string name="settings_theme_dark">Sombre</string>
     <string name="settings_default_rest">Repos par défaut</string>
+    <string name="settings_weight_unit">Poids</string>
+    <string name="settings_length_unit">Longueurs</string>
+    <string name="welcome_units_title">Tes unités</string>
 </resources>

@@ -14,6 +14,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.paulfvt.liftapp.MainActivity
 import com.paulfvt.liftapp.R
+import com.paulfvt.liftapp.core.domain.Units
 import com.paulfvt.liftapp.workout.domain.REST_ADD_SECONDS
 import com.paulfvt.liftapp.workout.domain.WorkoutNotice
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -59,14 +60,18 @@ class WorkoutNotifier @Inject constructor(@ApplicationContext private val contex
     }
 
     // Son de fin de repos : notification brève qui disparaît d'elle-même après quelques secondes.
-    fun showRestEnd(notice: WorkoutNotice) {
+    fun showRestEnd(notice: WorkoutNotice, units: Units) {
         val next = notice.next
         val notification = NotificationCompat.Builder(context, REST_END_CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_timer)
             .setContentTitle(context.getString(R.string.notification_rest_end))
             .setContentText(
                 next?.let {
-                    context.getString(R.string.notification_next, it.exercise.name, describeNextSet(context, it))
+                    context.getString(
+                        R.string.notification_next,
+                        it.exercise.name,
+                        describeNextSet(context, it, units.weight)
+                    )
                 }
             )
             .setCategory(NotificationCompat.CATEGORY_REMINDER)
@@ -81,7 +86,7 @@ class WorkoutNotifier @Inject constructor(@ApplicationContext private val contex
     // Android 13+ : rien ne s'affiche sans la permission POST_NOTIFICATIONS.
     fun canNotify(): Boolean = manager.areNotificationsEnabled() && hasPermission()
 
-    fun show(notice: WorkoutNotice, now: Instant) = post(NOTIFICATION_ID, build(notice, now))
+    fun show(notice: WorkoutNotice, now: Instant, units: Units) = post(NOTIFICATION_ID, build(notice, now, units))
 
     fun cancel() {
         manager.cancel(NOTIFICATION_ID)
@@ -105,7 +110,7 @@ class WorkoutNotifier @Inject constructor(@ApplicationContext private val contex
         manager.notify(id, notification)
     }
 
-    private fun build(notice: WorkoutNotice, now: Instant): Notification {
+    private fun build(notice: WorkoutNotice, now: Instant, units: Units): Notification {
         val rest = notice.rest?.takeIf { it.isRunning(now) }
         val next = notice.next
         val title = when {
@@ -118,9 +123,9 @@ class WorkoutNotifier @Inject constructor(@ApplicationContext private val contex
             rest != null -> context.getString(
                 R.string.notification_next,
                 next.exercise.name,
-                describeNextSet(context, next)
+                describeNextSet(context, next, units.weight)
             )
-            else -> describeNextSet(context, next)
+            else -> describeNextSet(context, next, units.weight)
         }
         val builder = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_timer)

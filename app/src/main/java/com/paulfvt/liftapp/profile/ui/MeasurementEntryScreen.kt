@@ -42,6 +42,7 @@ import com.paulfvt.liftapp.core.designsystem.component.PastDateField
 import com.paulfvt.liftapp.core.designsystem.component.ScreenTitle
 import com.paulfvt.liftapp.core.model.BodyFatMethod
 import com.paulfvt.liftapp.core.model.MeasurementType
+import com.paulfvt.liftapp.core.ui.LocalUnits
 import com.paulfvt.liftapp.core.ui.labelRes
 import com.paulfvt.liftapp.core.ui.shortDay
 import com.paulfvt.liftapp.profile.domain.MeasurementError
@@ -111,7 +112,7 @@ fun MeasurementEntryScreen(onClose: () -> Unit, viewModel: MeasurementEntryViewM
                 value = draft.value,
                 onValueChange = viewModel::onValueChange,
                 label = { Text(stringResource(draft.type.labelRes)) },
-                suffix = { Text(stringResource(draft.type.unitRes)) },
+                suffix = { Text(stringResource(draft.type.unitRes(LocalUnits.current))) },
                 isError = valueError != null,
                 supportingText = (valueError ?: hint)?.let { text -> { Text(text) } },
                 singleLine = true,

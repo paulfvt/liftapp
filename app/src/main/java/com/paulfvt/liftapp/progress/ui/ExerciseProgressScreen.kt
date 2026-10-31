@@ -46,14 +46,14 @@ import com.paulfvt.liftapp.core.designsystem.component.ScreenTitle
 import com.paulfvt.liftapp.core.designsystem.component.SectionTitle
 import com.paulfvt.liftapp.core.model.Exercise
 import com.paulfvt.liftapp.core.model.PersonalRecordType
-import com.paulfvt.liftapp.core.ui.kgText
+import com.paulfvt.liftapp.core.ui.LocalUnits
 import com.paulfvt.liftapp.core.ui.shortDay
+import com.paulfvt.liftapp.core.ui.weightText
 import com.paulfvt.liftapp.progress.domain.ChartPeriod
 import com.paulfvt.liftapp.progress.domain.ExerciseMetric
 import com.paulfvt.liftapp.progress.domain.GoalTier
 import com.paulfvt.liftapp.progress.domain.PersonalRecord
 import com.paulfvt.liftapp.progress.domain.recordType
-import com.paulfvt.liftapp.workout.domain.formatDecimal
 
 // Progression d'un exercice : records datés, puis la courbe de la mesure et de la période choisies.
 @OptIn(ExperimentalMaterial3Api::class)
@@ -161,7 +161,7 @@ private fun GoalSection(uiState: ExerciseProgressUiState, onAdd: () -> Unit, onD
             uiState.completedGoals.firstOrNull()?.let { done ->
                 val date = done.reachedAt[GoalTier.GOLD]?.let { shortDay(it) }.orEmpty()
                 Text(
-                    stringResource(R.string.goal_target, kgText(done.goldKg)) + " · " +
+                    stringResource(R.string.goal_target, weightText(done.goldKg)) + " · " +
                         stringResource(R.string.goal_completed_on, date),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
@@ -273,7 +273,12 @@ private fun ChartSection(
                     format(points.last().value)
                 )
             val metricName = stringResource(metric.chartLabelRes(exercise.trackingType))
-            ProgressChart(values = uiState.chartDays, valueText = format, description = "$metricName. $summary")
+            val unit = LocalUnits.current.weight
+            ProgressChart(
+                values = uiState.chartDays.map { it.copy(value = metric.inDisplayUnit(it.value, unit)) },
+                valueText = rememberChartFormatter(metric, exercise),
+                description = "$metricName. $summary"
+            )
             // Résumé visible, utile à tous : d'où l'on part et où l'on en est sur la période.
             Text(
                 summary,
@@ -309,7 +314,7 @@ private fun RepsAtWeightSection(records: List<PersonalRecord>) {
                 records.sortedByDescending { it.weightKg }.forEach { record ->
                     val reps = record.value.toInt()
                     RecordRow(
-                        label = stringResource(R.string.weight_kg, formatDecimal(record.weightKg)),
+                        label = record.weightKg?.let { weightText(it) }.orEmpty(),
                         value = pluralStringResource(R.plurals.workout_previous_reps, reps, reps),
                         date = shortDay(record.achievedAt)
                     )

@@ -49,8 +49,12 @@ import com.paulfvt.liftapp.core.designsystem.theme.LocalExtendedColors
 import com.paulfvt.liftapp.core.model.Exercise
 import com.paulfvt.liftapp.core.model.SetType
 import com.paulfvt.liftapp.core.model.TrackingType
+import com.paulfvt.liftapp.core.ui.LocalUnits
 import com.paulfvt.liftapp.core.ui.SetTypeButton
+import com.paulfvt.liftapp.core.ui.labelRes
+import com.paulfvt.liftapp.core.ui.parseWeightInput
 import com.paulfvt.liftapp.core.ui.setName
+import com.paulfvt.liftapp.core.ui.weightInput
 import com.paulfvt.liftapp.workout.domain.PreviousSet
 import com.paulfvt.liftapp.workout.domain.SetValues
 import com.paulfvt.liftapp.workout.domain.WorkoutSet
@@ -61,7 +65,6 @@ import com.paulfvt.liftapp.workout.domain.filterRepsInput
 import com.paulfvt.liftapp.workout.domain.formatDecimal
 import com.paulfvt.liftapp.workout.domain.formatDistance
 import com.paulfvt.liftapp.workout.domain.formatDuration
-import com.paulfvt.liftapp.workout.domain.parseDecimal
 import com.paulfvt.liftapp.workout.domain.parseDistance
 import com.paulfvt.liftapp.workout.domain.parseDuration
 import com.paulfvt.liftapp.workout.domain.parseReps
@@ -122,8 +125,13 @@ fun SetHeaderRow(exercise: Exercise, mode: SetRowMode = SetRowMode.LIVE) {
 // Titres des colonnes de saisie selon le type de suivi. Null : pas de première colonne (durée seule).
 @Composable
 internal fun columnTitles(exercise: Exercise): Pair<String?, String> = when (exercise.trackingType) {
-    TrackingType.WEIGHT_REPS -> stringResource(R.string.workout_col_kg) to stringResource(R.string.workout_col_reps)
-    TrackingType.REPS -> stringResource(R.string.workout_col_added_kg) to stringResource(R.string.workout_col_reps)
+    TrackingType.WEIGHT_REPS ->
+        stringResource(LocalUnits.current.weight.labelRes) to stringResource(R.string.workout_col_reps)
+    TrackingType.REPS -> stringResource(
+        R.string.workout_col_added,
+        stringResource(LocalUnits.current.weight.labelRes)
+    ) to
+        stringResource(R.string.workout_col_reps)
     TrackingType.DURATION -> null to stringResource(R.string.workout_col_time)
     TrackingType.DISTANCE -> {
         val unit = if (distanceUnitFor(exercise.category).meters >
@@ -228,16 +236,18 @@ fun WorkoutSetRow(
 @Composable
 private fun ValueFields(set: WorkoutSet, exercise: Exercise, name: String, actions: SetActions) {
     val values = set.values
+    val unit = LocalUnits.current.weight
     val (firstTitle, secondTitle) = columnTitles(exercise)
     when (exercise.trackingType) {
         TrackingType.WEIGHT_REPS, TrackingType.REPS -> {
             // Pour le poids du corps, le premier champ est le lest : négatif pour une assistance.
             val allowNegative = exercise.trackingType == TrackingType.REPS
+            // Poids saisi dans l'unité choisie, enregistré en kilos.
             SetValueField(
                 value = values.weightKg,
-                format = ::formatDecimal,
+                format = { weightInput(it, unit) },
                 filter = { filterDecimalInput(it, allowNegative) },
-                parse = ::parseDecimal,
+                parse = { parseWeightInput(it, unit) },
                 onValueChange = { actions.onWeightChange(set.id, it) },
                 description = stringResource(R.string.workout_field, name, firstTitle.orEmpty()),
                 keyboardType = if (allowNegative) KeyboardType.Text else KeyboardType.Decimal,
@@ -382,6 +392,7 @@ private fun CompleteButton(completed: Boolean, name: String, onToggle: () -> Uni
 @Composable
 internal fun previousLabel(previous: PreviousSet?, exercise: Exercise): String {
     val none = stringResource(R.string.workout_previous_none)
+    val unit = LocalUnits.current.weight
     val values = previous?.values ?: return none
     return when (exercise.trackingType) {
         TrackingType.WEIGHT_REPS, TrackingType.REPS -> {
@@ -390,8 +401,8 @@ internal fun previousLabel(previous: PreviousSet?, exercise: Exercise): String {
             when {
                 weight == null -> pluralStringResource(R.plurals.workout_previous_reps, reps, reps)
                 exercise.trackingType == TrackingType.REPS && weight > 0 ->
-                    stringResource(R.string.workout_previous_weight_reps, "+" + formatDecimal(weight), reps)
-                else -> stringResource(R.string.workout_previous_weight_reps, formatDecimal(weight), reps)
+                    stringResource(R.string.workout_previous_weight_reps, "+" + weightInput(weight, unit), reps)
+                else -> stringResource(R.string.workout_previous_weight_reps, weightInput(weight, unit), reps)
             }
         }
         TrackingType.DURATION -> formatDuration(values.durationSec).ifEmpty { none }

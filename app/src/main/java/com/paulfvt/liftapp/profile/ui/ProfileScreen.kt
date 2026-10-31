@@ -41,10 +41,10 @@ import com.paulfvt.liftapp.core.designsystem.component.ScreenTitle
 import com.paulfvt.liftapp.core.designsystem.component.SectionTitle
 import com.paulfvt.liftapp.core.model.MeasurementType
 import com.paulfvt.liftapp.core.ui.labelRes
+import com.paulfvt.liftapp.core.ui.lengthText
 import com.paulfvt.liftapp.core.ui.shortDay
 import com.paulfvt.liftapp.profile.domain.MeasurementSummary
 import com.paulfvt.liftapp.profile.domain.ProgressPhoto
-import com.paulfvt.liftapp.workout.domain.formatDecimal
 import java.io.File
 import java.util.Locale
 
@@ -107,7 +107,7 @@ fun ProfileScreen(
 private fun ProfileCard(uiState: ProfileUiState, onEdit: () -> Unit, modifier: Modifier = Modifier) {
     val profile = uiState.profile
     val details = buildList {
-        profile.heightCm?.let { add(stringResource(R.string.value_cm, formatDecimal(it))) }
+        profile.heightCm?.let { add(lengthText(it)) }
         uiState.age?.let { add(pluralStringResource(R.plurals.profile_age, it, it)) }
         profile.sex?.let { add(stringResource(sexLabel(it))) }
     }

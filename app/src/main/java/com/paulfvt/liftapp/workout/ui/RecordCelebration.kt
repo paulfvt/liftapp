@@ -36,6 +36,7 @@ import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.paulfvt.liftapp.R
+import com.paulfvt.liftapp.core.ui.LocalUnits
 import com.paulfvt.liftapp.progress.ui.formatMetric
 import com.paulfvt.liftapp.progress.ui.recordLabelRes
 import kotlinx.coroutines.delay
@@ -84,7 +85,8 @@ private fun RecordBanner(records: List<SessionRecord>) {
     val first = records.firstOrNull() ?: return
     val resources = LocalResources.current
     val label = stringResource(first.record.metric.recordLabelRes(first.exercise.trackingType))
-    val value = formatMetric(resources, first.record.metric, first.record.value, first.exercise)
+    val value =
+        formatMetric(resources, first.record.metric, first.record.value, first.exercise, LocalUnits.current.weight)
     val tertiary = MaterialTheme.colorScheme.tertiary
     Surface(
         shape = MaterialTheme.shapes.large,

@@ -7,6 +7,7 @@ import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -15,6 +16,8 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.paulfvt.liftapp.core.designsystem.theme.LiftTheme
+import com.paulfvt.liftapp.core.domain.Units
+import com.paulfvt.liftapp.core.ui.LocalUnits
 import com.paulfvt.liftapp.navigation.LiftApp
 import com.paulfvt.liftapp.profile.data.PhotoLockSession
 import com.paulfvt.liftapp.settings.data.AppSettingsRepository
@@ -65,7 +68,9 @@ class MainActivity : FragmentActivity() {
                 onDispose {}
             }
             LiftTheme(darkTheme = darkTheme) {
-                LiftApp(openWorkoutRequest)
+                CompositionLocalProvider(LocalUnits provides (settings?.units ?: Units())) {
+                    LiftApp(openWorkoutRequest)
+                }
             }
         }
         // Pas après une rotation : l'activité recréée garde l'intention d'origine, déjà traitée.

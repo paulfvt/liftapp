@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.paulfvt.liftapp.core.domain.LengthUnit
 import com.paulfvt.liftapp.profile.data.ProfileRepository
 import com.paulfvt.liftapp.profile.domain.ProfileDraft
 import com.paulfvt.liftapp.profile.domain.ProfileError
@@ -12,6 +13,7 @@ import com.paulfvt.liftapp.profile.domain.Sex
 import com.paulfvt.liftapp.profile.domain.errors
 import com.paulfvt.liftapp.profile.domain.toDraft
 import com.paulfvt.liftapp.profile.domain.toProfile
+import com.paulfvt.liftapp.settings.data.AppSettingsRepository
 import com.paulfvt.liftapp.workout.domain.filterDecimalInput
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.time.Clock
@@ -22,8 +24,11 @@ import kotlinx.coroutines.launch
 
 // Modification du profil fixe : les changements restent en mémoire jusqu'à « Enregistrer », comme les templates.
 @HiltViewModel
-class ProfileEditViewModel @Inject constructor(private val profiles: ProfileRepository, private val clock: Clock) :
-    ViewModel() {
+class ProfileEditViewModel @Inject constructor(
+    private val profiles: ProfileRepository,
+    private val appSettings: AppSettingsRepository,
+    private val clock: Clock
+) : ViewModel() {
     var draft by mutableStateOf(ProfileDraft())
         private set
 
@@ -45,9 +50,13 @@ class ProfileEditViewModel @Inject constructor(private val profiles: ProfileRepo
 
     val today: LocalDate get() = clock.instant().atZone(ZoneId.systemDefault()).toLocalDate()
 
+    // Unité de la taille, d'après les réglages.
+    private var lengthUnit = LengthUnit.CM
+
     init {
         viewModelScope.launch {
-            val loaded = profiles.current().toDraft()
+            lengthUnit = appSettings.current().units.length
+            val loaded = profiles.current().toDraft(lengthUnit)
             draft = loaded
             savedDraft = loaded
             isLoaded = true
@@ -64,17 +73,17 @@ class ProfileEditViewModel @Inject constructor(private val profiles: ProfileRepo
 
     fun save() {
         hasTriedToSave = true
-        errors = draft.errors(today)
+        errors = draft.errors(today, lengthUnit)
         if (errors.isNotEmpty() || isSaving) return
         isSaving = true
         viewModelScope.launch {
-            profiles.save(draft.toProfile())
+            profiles.save(draft.toProfile(lengthUnit))
             isSaved = true
         }
     }
 
     private fun update(transform: ProfileDraft.() -> ProfileDraft) {
         draft = draft.transform()
-        if (hasTriedToSave) errors = draft.errors(today)
+        if (hasTriedToSave) errors = draft.errors(today, lengthUnit)
     }
 }
