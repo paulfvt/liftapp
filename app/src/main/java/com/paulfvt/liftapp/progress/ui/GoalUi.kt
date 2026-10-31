@@ -16,7 +16,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -36,6 +35,7 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.paulfvt.liftapp.R
+import com.paulfvt.liftapp.core.designsystem.component.LiftTextButton
 import com.paulfvt.liftapp.core.designsystem.component.MenuEntry
 import com.paulfvt.liftapp.core.designsystem.component.OverflowMenu
 import com.paulfvt.liftapp.core.domain.displayValue
@@ -237,11 +237,13 @@ fun GoalDialog(currentKg: Double, onCreate: (GoalTiers) -> Unit, onDismiss: () -
             }
         },
         confirmButton = {
-            TextButton(enabled = problem == null, onClick = { draft.parsed(unit)?.let(onCreate) }) {
-                Text(stringResource(R.string.action_create))
-            }
+            LiftTextButton(
+                text = stringResource(R.string.action_create),
+                enabled = problem == null,
+                onClick = { draft.parsed(unit)?.let(onCreate) }
+            )
         },
-        dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.action_cancel)) } }
+        dismissButton = { LiftTextButton(stringResource(R.string.action_cancel), onClick = onDismiss) }
     )
 }
 

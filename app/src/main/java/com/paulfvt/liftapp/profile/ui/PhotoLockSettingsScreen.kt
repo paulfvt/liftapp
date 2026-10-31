@@ -16,7 +16,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -32,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.paulfvt.liftapp.R
+import com.paulfvt.liftapp.core.designsystem.component.LiftTextButton
 import com.paulfvt.liftapp.core.designsystem.component.ScreenTitle
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -81,7 +81,7 @@ fun PhotoLockSettingsScreen(onBack: () -> Unit, viewModel: PhotoLockSettingsView
                 onConfirm = viewModel::onConfirm,
                 modifier = Modifier.padding(padding)
             ) {
-                TextButton(onClick = viewModel::cancelSetup) { Text(stringResource(R.string.action_cancel)) }
+                LiftTextButton(stringResource(R.string.action_cancel), onClick = viewModel::cancelSetup)
             }
             else -> SettingsList(
                 uiState = uiState,
@@ -99,13 +99,16 @@ fun PhotoLockSettingsScreen(onBack: () -> Unit, viewModel: PhotoLockSettingsView
             title = { Text(stringResource(R.string.lock_disable_title)) },
             text = { Text(stringResource(R.string.lock_disable_text)) },
             confirmButton = {
-                TextButton(onClick = {
-                    confirmDisable = false
-                    viewModel.disable()
-                }) { Text(stringResource(R.string.lock_disable_confirm)) }
+                LiftTextButton(
+                    text = stringResource(R.string.lock_disable_confirm),
+                    onClick = {
+                        confirmDisable = false
+                        viewModel.disable()
+                    }
+                )
             },
             dismissButton = {
-                TextButton(onClick = { confirmDisable = false }) { Text(stringResource(R.string.action_cancel)) }
+                LiftTextButton(stringResource(R.string.action_cancel), onClick = { confirmDisable = false })
             }
         )
     }

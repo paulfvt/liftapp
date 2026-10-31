@@ -11,7 +11,6 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -22,6 +21,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.core.net.toUri
 import com.paulfvt.liftapp.R
+import com.paulfvt.liftapp.core.designsystem.component.LiftTextButton
 import com.paulfvt.liftapp.workout.notification.AlertPermission
 
 // Première séance : explique puis demande les notifications (Android 13+), puis l'accès « Alarmes et rappels ».
@@ -82,8 +82,8 @@ private fun PermissionDialog(title: String, text: String, onAllow: () -> Unit, o
         onDismissRequest = onLater,
         title = { Text(title) },
         text = { Text(text) },
-        confirmButton = { TextButton(onClick = onAllow) { Text(stringResource(R.string.permission_allow)) } },
-        dismissButton = { TextButton(onClick = onLater) { Text(stringResource(R.string.permission_later)) } }
+        confirmButton = { LiftTextButton(stringResource(R.string.permission_allow), onClick = onAllow) },
+        dismissButton = { LiftTextButton(stringResource(R.string.permission_later), onClick = onLater) }
     )
 }
 

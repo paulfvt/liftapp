@@ -15,7 +15,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.SelectableDates
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -30,6 +29,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import com.paulfvt.liftapp.R
+import com.paulfvt.liftapp.core.designsystem.component.LiftTextButton
 import com.paulfvt.liftapp.core.ui.shortDate
 import java.time.Instant
 import java.time.LocalDate
@@ -110,15 +110,16 @@ fun PastDateField(
         DatePickerDialog(
             onDismissRequest = { showPicker = false },
             confirmButton = {
-                TextButton(
+                LiftTextButton(
+                    text = stringResource(R.string.action_ok),
                     onClick = {
                         state.selectedDateMillis?.let { onChange(it.toUtcDate()) }
                         showPicker = false
                     }
-                ) { Text(stringResource(R.string.action_ok)) }
+                )
             },
             dismissButton = {
-                TextButton(onClick = { showPicker = false }) { Text(stringResource(R.string.action_cancel)) }
+                LiftTextButton(stringResource(R.string.action_cancel), onClick = { showPicker = false })
             }
         ) {
             DatePicker(state = state)

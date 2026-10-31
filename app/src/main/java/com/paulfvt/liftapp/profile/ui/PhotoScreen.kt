@@ -8,7 +8,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -24,6 +23,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
 import com.paulfvt.liftapp.R
+import com.paulfvt.liftapp.core.designsystem.component.LiftTextButton
 import com.paulfvt.liftapp.core.designsystem.component.ScreenTitle
 import com.paulfvt.liftapp.core.ui.labelRes
 import com.paulfvt.liftapp.core.ui.shortDay
@@ -71,13 +71,16 @@ fun PhotoScreen(onBack: () -> Unit, viewModel: PhotoViewModel = hiltViewModel())
             title = { Text(stringResource(R.string.photo_delete_title)) },
             text = { Text(stringResource(R.string.photo_delete_text)) },
             confirmButton = {
-                TextButton(onClick = {
-                    confirmDelete = false
-                    viewModel.delete()
-                }) { Text(stringResource(R.string.action_delete)) }
+                LiftTextButton(
+                    text = stringResource(R.string.action_delete),
+                    onClick = {
+                        confirmDelete = false
+                        viewModel.delete()
+                    }
+                )
             },
             dismissButton = {
-                TextButton(onClick = { confirmDelete = false }) { Text(stringResource(R.string.action_cancel)) }
+                LiftTextButton(stringResource(R.string.action_cancel), onClick = { confirmDelete = false })
             }
         )
     }

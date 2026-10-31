@@ -21,7 +21,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -38,6 +37,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.paulfvt.liftapp.R
+import com.paulfvt.liftapp.core.designsystem.component.ButtonLabel
+import com.paulfvt.liftapp.core.designsystem.component.LiftTextButton
 import com.paulfvt.liftapp.core.designsystem.component.ScreenTitle
 import com.paulfvt.liftapp.core.designsystem.component.SectionTitle
 import com.paulfvt.liftapp.core.model.MeasurementType
@@ -74,7 +75,7 @@ fun MeasurementScreen(
             ExtendedFloatingActionButton(
                 onClick = { onAdd(uiState.type) },
                 icon = { Icon(painterResource(R.drawable.ic_add), contentDescription = null) },
-                text = { Text(stringResource(R.string.measurement_add)) }
+                text = { ButtonLabel(stringResource(R.string.measurement_add)) }
             )
         }
     ) { padding ->
@@ -111,13 +112,16 @@ fun MeasurementScreen(
                 )
             },
             confirmButton = {
-                TextButton(onClick = {
-                    viewModel.delete(toDelete.id)
-                    pendingDelete = null
-                }) { Text(stringResource(R.string.action_delete)) }
+                LiftTextButton(
+                    text = stringResource(R.string.action_delete),
+                    onClick = {
+                        viewModel.delete(toDelete.id)
+                        pendingDelete = null
+                    }
+                )
             },
             dismissButton = {
-                TextButton(onClick = { pendingDelete = null }) { Text(stringResource(R.string.action_cancel)) }
+                LiftTextButton(stringResource(R.string.action_cancel), onClick = { pendingDelete = null })
             }
         )
     }

@@ -23,7 +23,6 @@ import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -38,6 +37,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.paulfvt.liftapp.R
+import com.paulfvt.liftapp.core.designsystem.component.LiftTextButton
 import com.paulfvt.liftapp.core.designsystem.component.PastDateField
 import com.paulfvt.liftapp.core.designsystem.component.ScreenTitle
 import com.paulfvt.liftapp.core.model.BodyFatMethod
@@ -68,7 +68,7 @@ fun MeasurementEntryScreen(onClose: () -> Unit, viewModel: MeasurementEntryViewM
                 },
                 title = { ScreenTitle(stringResource(R.string.measurement_new_title)) },
                 actions = {
-                    TextButton(onClick = viewModel::save) { Text(stringResource(R.string.action_save)) }
+                    LiftTextButton(stringResource(R.string.action_save), onClick = viewModel::save)
                 }
             )
         }
@@ -148,15 +148,16 @@ fun MeasurementEntryScreen(onClose: () -> Unit, viewModel: MeasurementEntryViewM
             title = { Text(stringResource(R.string.template_discard_title)) },
             text = { Text(stringResource(R.string.measurement_discard_text)) },
             confirmButton = {
-                TextButton(onClick = {
-                    showDiscardDialog = false
-                    onClose()
-                }) { Text(stringResource(R.string.template_discard_confirm)) }
+                LiftTextButton(
+                    text = stringResource(R.string.template_discard_confirm),
+                    onClick = {
+                        showDiscardDialog = false
+                        onClose()
+                    }
+                )
             },
             dismissButton = {
-                TextButton(onClick = { showDiscardDialog = false }) {
-                    Text(stringResource(R.string.template_discard_keep))
-                }
+                LiftTextButton(stringResource(R.string.template_discard_keep), onClick = { showDiscardDialog = false })
             }
         )
     }

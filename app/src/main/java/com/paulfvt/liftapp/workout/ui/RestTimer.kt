@@ -8,10 +8,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.produceState
@@ -28,6 +26,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import com.paulfvt.liftapp.R
+import com.paulfvt.liftapp.core.designsystem.component.LiftButtonSize
+import com.paulfvt.liftapp.core.designsystem.component.LiftTextButton
+import com.paulfvt.liftapp.core.designsystem.component.LiftTonalButton
 import com.paulfvt.liftapp.core.ui.durationLabel
 import com.paulfvt.liftapp.workout.domain.REST_ADD_SECONDS
 import com.paulfvt.liftapp.workout.domain.REST_REMOVE_SECONDS
@@ -103,15 +104,15 @@ fun RestTimer(
                 modifier = Modifier.weight(1f)
             )
             val skipDescription = stringResource(R.string.rest_skip_description)
-            TextButton(
+            LiftTextButton(
+                text = stringResource(R.string.rest_skip),
                 onClick = onSkip,
+                size = if (large) LiftButtonSize.Gym else LiftButtonSize.Regular,
                 modifier = Modifier
                     .weight(1f)
                     .heightIn(min = buttonHeight)
                     .semantics { contentDescription = skipDescription }
-            ) {
-                Text(stringResource(R.string.rest_skip), style = buttonText(large))
-            }
+            )
         }
         footer()
     }
@@ -119,17 +120,13 @@ fun RestTimer(
 
 @Composable
 private fun RestButton(text: String, description: String, height: Dp, onClick: () -> Unit, modifier: Modifier) {
-    FilledTonalButton(
+    LiftTonalButton(
+        text = text,
         onClick = onClick,
+        size = if (height > 48.dp) LiftButtonSize.Gym else LiftButtonSize.Regular,
         modifier = modifier.heightIn(min = height).semantics { contentDescription = description }
-    ) {
-        Text(text, style = buttonText(height > 48.dp))
-    }
+    )
 }
-
-@Composable
-private fun buttonText(large: Boolean) =
-    if (large) MaterialTheme.typography.titleLarge else MaterialTheme.typography.labelLarge
 
 // Secondes restantes, recalculées à partir de l'heure de fin à chaque changement de seconde affichée.
 @Composable

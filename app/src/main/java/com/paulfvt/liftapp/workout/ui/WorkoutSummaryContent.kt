@@ -6,13 +6,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -20,7 +17,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,7 +27,10 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.paulfvt.liftapp.R
+import com.paulfvt.liftapp.core.designsystem.component.LiftButtonSize
+import com.paulfvt.liftapp.core.designsystem.component.LiftTextButton
 import com.paulfvt.liftapp.core.designsystem.component.SectionTitle
+import com.paulfvt.liftapp.core.designsystem.component.SignalButton
 import com.paulfvt.liftapp.core.designsystem.component.StatTile
 import com.paulfvt.liftapp.core.designsystem.theme.LocalExtendedColors
 import com.paulfvt.liftapp.core.ui.LocalUnits
@@ -67,20 +66,15 @@ fun WorkoutSummaryContent(
     Scaffold(
         bottomBar = {
             Surface(tonalElevation = 3.dp) {
-                Button(
+                SignalButton(
+                    text = stringResource(R.string.workout_summary_close),
                     onClick = onClose,
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer,
-                        contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                    ),
                     modifier = Modifier
                         .fillMaxWidth()
                         .navigationBarsPadding()
-                        .padding(horizontal = 16.dp, vertical = 12.dp)
-                        .heightIn(min = 56.dp)
-                ) {
-                    Text(stringResource(R.string.workout_summary_close), style = MaterialTheme.typography.titleMedium)
-                }
+                        .padding(horizontal = 16.dp, vertical = 12.dp),
+                    size = LiftButtonSize.Large
+                )
             }
         }
     ) { padding ->
@@ -293,8 +287,8 @@ private fun TemplateUpdateCard(templateName: String, onUpdate: () -> Unit, onKee
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                TextButton(onClick = onKeep) { Text(stringResource(R.string.workout_update_template_dismiss)) }
-                Button(onClick = onUpdate) { Text(stringResource(R.string.workout_update_template_confirm)) }
+                LiftTextButton(stringResource(R.string.workout_update_template_dismiss), onClick = onKeep)
+                SignalButton(stringResource(R.string.workout_update_template_confirm), onClick = onUpdate)
             }
         }
     }

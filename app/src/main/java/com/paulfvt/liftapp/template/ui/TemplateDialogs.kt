@@ -13,13 +13,11 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -40,6 +38,7 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.paulfvt.liftapp.R
+import com.paulfvt.liftapp.core.designsystem.component.LiftTextButton
 import com.paulfvt.liftapp.template.domain.NameError
 import com.paulfvt.liftapp.template.domain.validateName
 
@@ -94,8 +93,8 @@ fun NameDialog(
                 modifier = Modifier.focusRequester(focusRequester)
             )
         },
-        confirmButton = { TextButton(onClick = ::submit) { Text(confirmLabel) } },
-        dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.action_cancel)) } }
+        confirmButton = { LiftTextButton(confirmLabel, onClick = ::submit) },
+        dismissButton = { LiftTextButton(stringResource(R.string.action_cancel), onClick = onDismiss) }
     )
     // Ouvre le clavier directement sur le champ.
     LaunchedEffect(Unit) { focusRequester.requestFocus() }
@@ -109,12 +108,13 @@ fun ConfirmDeleteDialog(title: String, text: String, onConfirm: () -> Unit, onDi
         title = { Text(title) },
         text = { Text(text) },
         confirmButton = {
-            TextButton(
+            LiftTextButton(
+                text = stringResource(R.string.action_delete),
                 onClick = onConfirm,
-                colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error)
-            ) { Text(stringResource(R.string.action_delete)) }
+                color = MaterialTheme.colorScheme.error
+            )
         },
-        dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.action_cancel)) } }
+        dismissButton = { LiftTextButton(stringResource(R.string.action_cancel), onClick = onDismiss) }
     )
 }
 
@@ -156,6 +156,6 @@ fun <T> ChoiceDialog(
             }
         },
         confirmButton = {},
-        dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.action_cancel)) } }
+        dismissButton = { LiftTextButton(stringResource(R.string.action_cancel), onClick = onDismiss) }
     )
 }

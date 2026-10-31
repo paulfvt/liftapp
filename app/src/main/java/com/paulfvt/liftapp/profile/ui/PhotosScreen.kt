@@ -5,14 +5,12 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -22,9 +20,6 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FilterChip
@@ -32,7 +27,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
@@ -53,9 +47,13 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
 import com.paulfvt.liftapp.R
+import com.paulfvt.liftapp.core.designsystem.component.ButtonLabel
 import com.paulfvt.liftapp.core.designsystem.component.EmptyState
+import com.paulfvt.liftapp.core.designsystem.component.LiftButtonSize
+import com.paulfvt.liftapp.core.designsystem.component.LiftOutlinedButton
 import com.paulfvt.liftapp.core.designsystem.component.PastDateField
 import com.paulfvt.liftapp.core.designsystem.component.ScreenTitle
+import com.paulfvt.liftapp.core.designsystem.component.SignalButton
 import com.paulfvt.liftapp.core.model.PhotoPose
 import com.paulfvt.liftapp.core.ui.labelRes
 import com.paulfvt.liftapp.core.ui.monthTitle
@@ -113,7 +111,7 @@ fun PhotosScreen(
                 ExtendedFloatingActionButton(
                     onClick = { onTakePhoto(uiState.pose) },
                     icon = { Icon(painterResource(R.drawable.ic_photo_camera), contentDescription = null) },
-                    text = { Text(stringResource(R.string.photo_take)) }
+                    text = { ButtonLabel(stringResource(R.string.photo_take)) }
                 )
             }
         }
@@ -127,22 +125,18 @@ fun PhotosScreen(
                     text = stringResource(R.string.photos_empty_text),
                     modifier = Modifier.weight(1f)
                 )
-                Button(
+                SignalButton(
+                    text = stringResource(R.string.photo_take),
                     onClick = { onTakePhoto(null) },
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer,
-                        contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                    ),
-                    modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp).heightIn(min = 56.dp)
-                ) {
-                    Text(stringResource(R.string.photo_take))
-                }
-                OutlinedButton(
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
+                    size = LiftButtonSize.Large
+                )
+                LiftOutlinedButton(
+                    text = stringResource(R.string.photos_import),
                     onClick = pickImage,
-                    modifier = Modifier.fillMaxWidth().padding(16.dp).heightIn(min = 56.dp)
-                ) {
-                    Text(stringResource(R.string.photos_import))
-                }
+                    modifier = Modifier.fillMaxWidth().padding(16.dp),
+                    size = LiftButtonSize.Large
+                )
             }
             else -> Column(modifier = Modifier.fillMaxSize().padding(padding)) {
                 PoseFilter(uiState.pose, viewModel::onPoseSelected)
@@ -257,26 +251,20 @@ private fun ImportSheet(
                 )
             }
             Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                OutlinedButton(onClick = onCancel, modifier = Modifier.weight(1f).heightIn(min = 56.dp)) {
-                    Text(stringResource(R.string.action_cancel))
-                }
-                Button(
+                LiftOutlinedButton(
+                    text = stringResource(R.string.action_cancel),
+                    onClick = onCancel,
+                    modifier = Modifier.weight(1f),
+                    size = LiftButtonSize.Large
+                )
+                SignalButton(
+                    text = stringResource(R.string.photo_import_confirm),
                     onClick = onConfirm,
                     enabled = !isImporting,
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer,
-                        contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                    ),
-                    modifier = Modifier.weight(1f).heightIn(min = 56.dp)
-                ) {
-                    Box {
-                        if (isImporting) {
-                            CircularProgressIndicator(modifier = Modifier.size(24.dp), strokeWidth = 2.dp)
-                        } else {
-                            Text(stringResource(R.string.photo_import_confirm))
-                        }
-                    }
-                }
+                    isLoading = isImporting,
+                    size = LiftButtonSize.Large,
+                    modifier = Modifier.weight(1f)
+                )
             }
         }
     }

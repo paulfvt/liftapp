@@ -12,7 +12,6 @@ import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -26,6 +25,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.paulfvt.liftapp.R
+import com.paulfvt.liftapp.core.designsystem.component.LiftTextButton
 import com.paulfvt.liftapp.core.designsystem.component.WeeklyRing
 import com.paulfvt.liftapp.progress.domain.WeeklyStreak
 import com.paulfvt.liftapp.progress.ui.WeeklyGoalStepper
@@ -50,9 +50,11 @@ fun WeekCard(streak: WeeklyStreak, onEditGoal: () -> Unit, modifier: Modifier = 
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
-            TextButton(onClick = onEditGoal, modifier = Modifier.heightIn(min = 48.dp)) {
-                Text(stringResource(R.string.weekly_goal_edit))
-            }
+            LiftTextButton(
+                text = stringResource(R.string.weekly_goal_edit),
+                onClick = onEditGoal,
+                modifier = Modifier.heightIn(min = 48.dp)
+            )
         }
     }
 }
@@ -104,7 +106,7 @@ fun WeeklyGoalDialog(currentGoal: Int, onConfirm: (Int) -> Unit, onDismiss: () -
                 WeeklyGoalStepper(goal, onGoalChange = { goal = it })
             }
         },
-        confirmButton = { TextButton(onClick = { onConfirm(goal) }) { Text(stringResource(R.string.action_save)) } },
-        dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.action_cancel)) } }
+        confirmButton = { LiftTextButton(stringResource(R.string.action_save), onClick = { onConfirm(goal) }) },
+        dismissButton = { LiftTextButton(stringResource(R.string.action_cancel), onClick = onDismiss) }
     )
 }

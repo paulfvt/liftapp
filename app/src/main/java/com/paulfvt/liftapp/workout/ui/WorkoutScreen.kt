@@ -18,21 +18,17 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -43,6 +39,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalHapticFeedback
@@ -59,10 +56,14 @@ import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.paulfvt.liftapp.R
 import com.paulfvt.liftapp.core.designsystem.component.DragHandle
+import com.paulfvt.liftapp.core.designsystem.component.LiftButtonSize
+import com.paulfvt.liftapp.core.designsystem.component.LiftOutlinedButton
+import com.paulfvt.liftapp.core.designsystem.component.LiftTextButton
 import com.paulfvt.liftapp.core.designsystem.component.MenuEntry
 import com.paulfvt.liftapp.core.designsystem.component.NoteDialog
 import com.paulfvt.liftapp.core.designsystem.component.OnAirBadge
 import com.paulfvt.liftapp.core.designsystem.component.OverflowMenu
+import com.paulfvt.liftapp.core.designsystem.component.SignalButton
 import com.paulfvt.liftapp.core.domain.moved
 import com.paulfvt.liftapp.core.domain.workSetNumbers
 import com.paulfvt.liftapp.core.ui.rememberElapsedSeconds
@@ -256,19 +257,14 @@ private fun ActiveWorkoutContent(
 
 @Composable
 private fun FinishButton(onClick: () -> Unit) {
-    Button(
+    SignalButton(
+        text = stringResource(R.string.workout_finish),
         onClick = onClick,
-        colors = ButtonDefaults.buttonColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer,
-            contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-        ),
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 12.dp)
-            .heightIn(min = 56.dp)
-    ) {
-        Text(stringResource(R.string.workout_finish), style = MaterialTheme.typography.titleMedium)
-    }
+            .padding(horizontal = 16.dp, vertical = 12.dp),
+        size = LiftButtonSize.Large
+    )
 }
 
 // Sous le minuteur, tant que l'alerte de fin de repos n'est pas garantie écran verrouillé.
@@ -281,9 +277,11 @@ private fun LateAlertWarning(onEnable: () -> Unit) {
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.weight(1f)
         )
-        TextButton(onClick = onEnable, modifier = Modifier.heightIn(min = 48.dp)) {
-            Text(stringResource(R.string.rest_alert_enable))
-        }
+        LiftTextButton(
+            text = stringResource(R.string.rest_alert_enable),
+            onClick = onEnable,
+            modifier = Modifier.heightIn(min = 48.dp)
+        )
     }
 }
 
@@ -388,21 +386,12 @@ private fun WorkoutContent(
             }
         }
         item(key = "add") {
-            OutlinedButton(
+            LiftOutlinedButton(
+                text = stringResource(R.string.workout_add_exercises),
                 onClick = { onPickExercises(workout.exercises.map { it.exercise.id }, false) },
-                contentPadding = ButtonDefaults.ButtonWithIconContentPadding,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Icon(
-                    painterResource(R.drawable.ic_add),
-                    contentDescription = null,
-                    modifier = Modifier.size(ButtonDefaults.IconSize)
-                )
-                Text(
-                    stringResource(R.string.workout_add_exercises),
-                    modifier = Modifier.padding(start = ButtonDefaults.IconSpacing)
-                )
-            }
+                modifier = Modifier.fillMaxWidth(),
+                icon = R.drawable.ic_add
+            )
         }
     }
 }
@@ -497,17 +486,12 @@ private fun WorkoutExerciseCard(
                 }
             }
         }
-        TextButton(onClick = onAddSet, modifier = Modifier.padding(start = 4.dp, bottom = 4.dp)) {
-            Icon(
-                painterResource(R.drawable.ic_add),
-                contentDescription = null,
-                modifier = Modifier.size(ButtonDefaults.IconSize)
-            )
-            Text(
-                stringResource(R.string.template_set_add),
-                modifier = Modifier.padding(start = ButtonDefaults.IconSpacing)
-            )
-        }
+        LiftTextButton(
+            text = stringResource(R.string.template_set_add),
+            onClick = onAddSet,
+            modifier = Modifier.padding(start = 4.dp, bottom = 4.dp),
+            icon = R.drawable.ic_add
+        )
     }
 }
 
@@ -592,15 +576,12 @@ private fun ConfirmDialog(
         title = { Text(title) },
         text = { Text(text) },
         confirmButton = {
-            TextButton(
+            LiftTextButton(
+                text = confirmLabel,
                 onClick = onConfirm,
-                colors = if (isDestructive) {
-                    ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error)
-                } else {
-                    ButtonDefaults.textButtonColors()
-                }
-            ) { Text(confirmLabel) }
+                color = if (isDestructive) MaterialTheme.colorScheme.error else Color.Unspecified
+            )
         },
-        dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.workout_keep)) } }
+        dismissButton = { LiftTextButton(stringResource(R.string.workout_keep), onClick = onDismiss) }
     )
 }

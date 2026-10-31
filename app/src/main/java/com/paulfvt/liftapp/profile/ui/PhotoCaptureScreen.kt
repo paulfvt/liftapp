@@ -29,19 +29,16 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconToggleButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -72,6 +69,9 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
 import com.paulfvt.liftapp.R
+import com.paulfvt.liftapp.core.designsystem.component.LiftButtonSize
+import com.paulfvt.liftapp.core.designsystem.component.LiftOutlinedButton
+import com.paulfvt.liftapp.core.designsystem.component.SignalButton
 import java.io.File
 
 private const val PORTRAIT_RATIO = 3f / 4f
@@ -242,24 +242,20 @@ private fun PermissionRequest(onAllow: () -> Unit, onOpenSettings: () -> Unit) {
             style = MaterialTheme.typography.bodyLarge,
             textAlign = TextAlign.Center
         )
-        Button(
+        SignalButton(
+            text = stringResource(R.string.camera_permission_allow),
             onClick = onAllow,
-            colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.primaryContainer,
-                contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-            ),
-            modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp)
-        ) {
-            Text(stringResource(R.string.camera_permission_allow))
-        }
+            modifier = Modifier.fillMaxWidth(),
+            size = LiftButtonSize.Large
+        )
         // Après deux refus, Android ne montre plus la demande : il faut passer par les réglages de l'app.
-        OutlinedButton(
+        LiftOutlinedButton(
+            text = stringResource(R.string.camera_permission_settings),
             onClick = onOpenSettings,
-            border = BorderStroke(1.dp, Color.White.copy(alpha = 0.5f)),
-            modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp)
-        ) {
-            Text(stringResource(R.string.camera_permission_settings), color = Color.White)
-        }
+            modifier = Modifier.fillMaxWidth(),
+            size = LiftButtonSize.Large,
+            color = Color.White
+        )
     }
 }
 

@@ -15,7 +15,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -25,6 +24,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.paulfvt.liftapp.BuildConfig
 import com.paulfvt.liftapp.R
+import com.paulfvt.liftapp.core.designsystem.component.LiftTextButton
 import com.paulfvt.liftapp.core.designsystem.component.ScreenTitle
 import com.paulfvt.liftapp.core.designsystem.component.SectionTitle
 import com.paulfvt.liftapp.profile.data.OpenLicense
@@ -129,9 +129,10 @@ private fun CreditCard(group: CreditGroup, onOpenLicense: (OpenLicense) -> Unit)
                     }
                 }
                 group.license?.let { license ->
-                    TextButton(onClick = { onOpenLicense(license) }) {
-                        Text(stringResource(R.string.about_read_license, stringResource(license.titleRes)))
-                    }
+                    LiftTextButton(
+                        text = stringResource(R.string.about_read_license, stringResource(license.titleRes)),
+                        onClick = { onOpenLicense(license) }
+                    )
                 }
             }
         }

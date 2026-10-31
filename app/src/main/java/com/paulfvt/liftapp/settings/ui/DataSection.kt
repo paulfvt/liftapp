@@ -12,14 +12,12 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -34,6 +32,7 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.paulfvt.liftapp.R
+import com.paulfvt.liftapp.core.designsystem.component.LiftTextButton
 import com.paulfvt.liftapp.core.designsystem.component.SectionBlock
 import com.paulfvt.liftapp.core.ui.dayAndTime
 import com.paulfvt.liftapp.settings.domain.BackupInfo
@@ -174,8 +173,8 @@ private fun BackupDialog(
                 }
             }
         },
-        confirmButton = { TextButton(onClick = onConfirm) { Text(stringResource(R.string.backup_choose_file)) } },
-        dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.action_cancel)) } }
+        confirmButton = { LiftTextButton(stringResource(R.string.backup_choose_file), onClick = onConfirm) },
+        dismissButton = { LiftTextButton(stringResource(R.string.action_cancel), onClick = onDismiss) }
     )
 }
 
@@ -204,12 +203,13 @@ private fun RestoreDialog(info: BackupInfo, onConfirm: () -> Unit, onDismiss: ()
             }
         },
         confirmButton = {
-            TextButton(
+            LiftTextButton(
+                text = stringResource(R.string.restore_confirm),
                 onClick = onConfirm,
-                colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error)
-            ) { Text(stringResource(R.string.restore_confirm)) }
+                color = MaterialTheme.colorScheme.error
+            )
         },
-        dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.action_cancel)) } }
+        dismissButton = { LiftTextButton(stringResource(R.string.action_cancel), onClick = onDismiss) }
     )
 }
 

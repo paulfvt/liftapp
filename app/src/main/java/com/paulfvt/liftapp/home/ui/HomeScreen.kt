@@ -6,12 +6,9 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -36,8 +33,10 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.paulfvt.liftapp.R
+import com.paulfvt.liftapp.core.designsystem.component.LiftButtonSize
 import com.paulfvt.liftapp.core.designsystem.component.ScreenTitle
 import com.paulfvt.liftapp.core.designsystem.component.SectionBlock
+import com.paulfvt.liftapp.core.designsystem.component.SignalButton
 import com.paulfvt.liftapp.core.ui.LocalUnits
 import com.paulfvt.liftapp.core.ui.shortDay
 import com.paulfvt.liftapp.home.domain.LatestRecord
@@ -150,17 +149,13 @@ private fun NextSessionCard(liveWorkoutName: String?, template: TemplateSummary?
 // Action principale de l'écran, en rouge signal (guide de style ON AIR).
 @Composable
 private fun PrimaryButton(text: String, onClick: () -> Unit) {
-    Button(
+    SignalButton(
+        text = text,
         onClick = onClick,
-        colors = ButtonDefaults.buttonColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer,
-            contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-        ),
-        modifier = Modifier.fillMaxWidth().padding(top = 4.dp).heightIn(min = 56.dp)
-    ) {
-        Icon(painterResource(R.drawable.ic_play_arrow), contentDescription = null, modifier = Modifier.size(20.dp))
-        Text(text, style = MaterialTheme.typography.titleMedium, modifier = Modifier.padding(start = 8.dp))
-    }
+        modifier = Modifier.fillMaxWidth().padding(top = 4.dp),
+        icon = R.drawable.ic_play_arrow,
+        size = LiftButtonSize.Large
+    )
 }
 
 // « Squat à la barre · 1RM estimé : 135 kg, le 28 oct. 2026 ». Un appui ouvre la progression de l'exercice.

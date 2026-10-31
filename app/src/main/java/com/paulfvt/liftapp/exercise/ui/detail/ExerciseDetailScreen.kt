@@ -23,7 +23,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -39,6 +38,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.paulfvt.liftapp.R
+import com.paulfvt.liftapp.core.designsystem.component.LiftTextButton
 import com.paulfvt.liftapp.core.designsystem.component.NoteDialog
 import com.paulfvt.liftapp.core.designsystem.component.ScreenTitle
 import com.paulfvt.liftapp.core.model.Exercise
@@ -184,9 +184,7 @@ private fun ExerciseDetailBody(exercise: Exercise, onSaveNote: (String) -> Unit,
                         style = MaterialTheme.typography.bodyMedium,
                         modifier = Modifier.weight(1f)
                     )
-                    TextButton(onClick = { onSetHidden(false) }) {
-                        Text(stringResource(R.string.exercise_unhide))
-                    }
+                    LiftTextButton(stringResource(R.string.exercise_unhide), onClick = { onSetHidden(false) })
                 }
             }
         }
@@ -248,9 +246,7 @@ private fun NoteSection(note: String?, onEdit: () -> Unit) {
                     modifier = Modifier.weight(1f)
                 )
                 val buttonLabel = if (note == null) R.string.exercise_note_add else R.string.action_edit
-                TextButton(onClick = onEdit) {
-                    Text(stringResource(buttonLabel))
-                }
+                LiftTextButton(stringResource(buttonLabel), onClick = onEdit)
             }
             if (note != null) {
                 Text(

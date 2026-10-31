@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -18,8 +17,6 @@ import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -42,6 +39,8 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.paulfvt.liftapp.R
+import com.paulfvt.liftapp.core.designsystem.component.LiftButtonSize
+import com.paulfvt.liftapp.core.designsystem.component.SignalButton
 import com.paulfvt.liftapp.core.designsystem.theme.LiftTheme
 import com.paulfvt.liftapp.core.domain.LengthUnit
 import com.paulfvt.liftapp.core.domain.Units
@@ -69,20 +68,15 @@ fun WelcomeScreen(onStart: (weeklyGoal: Int, units: Units) -> Unit) {
     var lengthUnit by rememberSaveable { mutableStateOf(LengthUnit.CM) }
     Scaffold(
         bottomBar = {
-            Button(
+            SignalButton(
+                text = stringResource(R.string.welcome_start),
                 onClick = { onStart(weeklyGoal, Units(weightUnit, lengthUnit)) },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                ),
                 modifier = Modifier
                     .fillMaxWidth()
                     .windowInsetsPadding(WindowInsets.navigationBars)
-                    .padding(horizontal = 24.dp, vertical = 16.dp)
-                    .heightIn(min = 56.dp)
-            ) {
-                Text(stringResource(R.string.welcome_start), style = MaterialTheme.typography.titleMedium)
-            }
+                    .padding(horizontal = 24.dp, vertical = 16.dp),
+                size = LiftButtonSize.Large
+            )
         }
     ) { padding ->
         // Défilement pour les petits écrans et les grandes tailles de police.

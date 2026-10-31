@@ -42,6 +42,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.paulfvt.liftapp.R
+import com.paulfvt.liftapp.core.designsystem.component.ButtonLabel
 import com.paulfvt.liftapp.core.designsystem.component.ScreenTitle
 import com.paulfvt.liftapp.core.model.Equipment
 import com.paulfvt.liftapp.core.model.Exercise
@@ -110,7 +111,7 @@ private fun ExerciseListContent(
             ExtendedFloatingActionButton(
                 onClick = onCreateClick,
                 icon = { Icon(painterResource(R.drawable.ic_add), contentDescription = null) },
-                text = { Text(stringResource(R.string.exercises_create)) }
+                text = { ButtonLabel(stringResource(R.string.exercises_create)) }
             )
         }
     ) { padding ->

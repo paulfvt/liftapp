@@ -13,7 +13,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,6 +23,8 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.unit.dp
 import com.paulfvt.liftapp.R
+import com.paulfvt.liftapp.core.designsystem.component.LiftButtonSize
+import com.paulfvt.liftapp.core.designsystem.component.LiftTextButton
 import com.paulfvt.liftapp.profile.domain.PIN_MAX_LENGTH
 import com.paulfvt.liftapp.profile.domain.PIN_MIN_LENGTH
 
@@ -82,9 +83,12 @@ fun PinPad(
             }
             DigitKey('0', enabled && length < PIN_MAX_LENGTH, onDigit)
             Box(Modifier.size(KEY_SIZE), contentAlignment = Alignment.Center) {
-                TextButton(onClick = onConfirm, enabled = enabled && length >= PIN_MIN_LENGTH) {
-                    Text(stringResource(R.string.action_ok), style = MaterialTheme.typography.titleMedium)
-                }
+                LiftTextButton(
+                    text = stringResource(R.string.action_ok),
+                    onClick = onConfirm,
+                    enabled = enabled && length >= PIN_MIN_LENGTH,
+                    size = LiftButtonSize.Large
+                )
             }
         }
     }

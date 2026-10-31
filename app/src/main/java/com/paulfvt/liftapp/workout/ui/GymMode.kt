@@ -11,14 +11,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.FilledTonalIconButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.key
@@ -32,6 +28,10 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.paulfvt.liftapp.R
+import com.paulfvt.liftapp.core.designsystem.component.LiftButtonSize
+import com.paulfvt.liftapp.core.designsystem.component.LiftOutlinedButton
+import com.paulfvt.liftapp.core.designsystem.component.LiftTextButton
+import com.paulfvt.liftapp.core.designsystem.component.SignalButton
 import com.paulfvt.liftapp.core.model.Exercise
 import com.paulfvt.liftapp.core.model.SetType
 import com.paulfvt.liftapp.core.model.TrackingType
@@ -107,9 +107,11 @@ fun GymModeContent(
             // key : en passant à la série suivante, les champs repartent de ses valeurs.
             key(next.set.id) { NextSetPanel(next, previous[next.exercise.exercise.id].orEmpty(), actions) }
         }
-        TextButton(onClick = onShowAll, modifier = Modifier.heightIn(min = 48.dp)) {
-            Text(stringResource(R.string.gym_show_all))
-        }
+        LiftTextButton(
+            text = stringResource(R.string.gym_show_all),
+            onClick = onShowAll,
+            modifier = Modifier.heightIn(min = 48.dp)
+        )
     }
 }
 
@@ -284,33 +286,30 @@ private fun StepButton(icon: Int, description: String, onClick: () -> Unit) {
 // Quand tout est validé, il ne reste que « Terminer la séance ».
 @Composable
 fun GymBottomBar(hasNextSet: Boolean, onComplete: () -> Unit, onFinish: () -> Unit) {
-    val signal = ButtonDefaults.buttonColors(
-        containerColor = MaterialTheme.colorScheme.primaryContainer,
-        contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-    )
     Row(
         horizontalArrangement = Arrangement.spacedBy(12.dp),
         modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 12.dp)
     ) {
         if (hasNextSet) {
-            OutlinedButton(onClick = onFinish, modifier = Modifier.weight(1f).heightIn(min = BigButtonHeight)) {
-                Text(stringResource(R.string.gym_finish), style = MaterialTheme.typography.titleMedium)
-            }
-            Button(
-                onClick = onComplete,
-                colors = signal,
-                modifier = Modifier.weight(2f).heightIn(min = BigButtonHeight)
-            ) {
-                Text(stringResource(R.string.gym_complete), style = MaterialTheme.typography.titleLarge)
-            }
-        } else {
-            Button(
+            LiftOutlinedButton(
+                text = stringResource(R.string.gym_finish),
                 onClick = onFinish,
-                colors = signal,
-                modifier = Modifier.fillMaxWidth().heightIn(min = BigButtonHeight)
-            ) {
-                Text(stringResource(R.string.workout_finish), style = MaterialTheme.typography.titleLarge)
-            }
+                modifier = Modifier.weight(1f).heightIn(min = BigButtonHeight),
+                size = LiftButtonSize.Large
+            )
+            SignalButton(
+                text = stringResource(R.string.gym_complete),
+                onClick = onComplete,
+                modifier = Modifier.weight(2f),
+                size = LiftButtonSize.Gym
+            )
+        } else {
+            SignalButton(
+                text = stringResource(R.string.workout_finish),
+                onClick = onFinish,
+                modifier = Modifier.fillMaxWidth(),
+                size = LiftButtonSize.Gym
+            )
         }
     }
 }

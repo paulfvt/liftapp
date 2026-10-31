@@ -19,7 +19,6 @@ import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,6 +32,7 @@ import androidx.compose.ui.semantics.role
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.paulfvt.liftapp.R
+import com.paulfvt.liftapp.core.designsystem.component.LiftTextButton
 import com.paulfvt.liftapp.core.ui.shortDay
 import com.paulfvt.liftapp.progress.domain.Badge
 import java.time.Instant
@@ -179,6 +179,6 @@ fun BadgeDialog(badge: Badge, unlockedAt: Instant?, onDismiss: () -> Unit) {
                 )
             }
         },
-        confirmButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.action_ok)) } }
+        confirmButton = { LiftTextButton(stringResource(R.string.action_ok), onClick = onDismiss) }
     )
 }

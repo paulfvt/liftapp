@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -13,6 +12,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.paulfvt.liftapp.R
+import com.paulfvt.liftapp.core.designsystem.component.LiftTextButton
 
 // Saisie d'une note libre sur plusieurs lignes (note d'exercice, note de séance).
 @Composable
@@ -31,10 +31,10 @@ fun NoteDialog(title: String, hint: String, initialNote: String, onDismiss: () -
             )
         },
         confirmButton = {
-            TextButton(onClick = { onSave(text) }) { Text(stringResource(R.string.action_save)) }
+            LiftTextButton(stringResource(R.string.action_save), onClick = { onSave(text) })
         },
         dismissButton = {
-            TextButton(onClick = onDismiss) { Text(stringResource(R.string.action_cancel)) }
+            LiftTextButton(stringResource(R.string.action_cancel), onClick = onDismiss)
         }
     )
 }

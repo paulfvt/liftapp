@@ -16,17 +16,14 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -54,7 +51,10 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.paulfvt.liftapp.R
+import com.paulfvt.liftapp.core.designsystem.component.ButtonLabel
 import com.paulfvt.liftapp.core.designsystem.component.DragHandle
+import com.paulfvt.liftapp.core.designsystem.component.LiftOutlinedButton
+import com.paulfvt.liftapp.core.designsystem.component.LiftTextButton
 import com.paulfvt.liftapp.core.designsystem.component.MenuEntry
 import com.paulfvt.liftapp.core.designsystem.component.OverflowMenu
 import com.paulfvt.liftapp.core.designsystem.component.ScreenTitle
@@ -112,7 +112,7 @@ fun TemplatesScreen(
             ExtendedFloatingActionButton(
                 onClick = { onCreateTemplate(null) },
                 icon = { Icon(painterResource(R.drawable.ic_add), contentDescription = null) },
-                text = { Text(stringResource(R.string.templates_new_template)) }
+                text = { ButtonLabel(stringResource(R.string.templates_new_template)) }
             )
         }
     ) { padding ->
@@ -365,21 +365,12 @@ private fun FolderHeader(
 
 @Composable
 private fun StartEmptyButton(onClick: () -> Unit, modifier: Modifier = Modifier) {
-    OutlinedButton(
+    LiftOutlinedButton(
+        text = stringResource(R.string.workout_start_empty),
         onClick = onClick,
-        contentPadding = ButtonDefaults.ButtonWithIconContentPadding,
-        modifier = modifier
-    ) {
-        Icon(
-            painterResource(R.drawable.ic_play_arrow),
-            contentDescription = null,
-            modifier = Modifier.size(ButtonDefaults.IconSize)
-        )
-        Text(
-            stringResource(R.string.workout_start_empty),
-            modifier = Modifier.padding(start = ButtonDefaults.IconSpacing)
-        )
-    }
+        modifier = modifier,
+        icon = R.drawable.ic_play_arrow
+    )
 }
 
 @Composable
@@ -459,15 +450,16 @@ private fun TemplatesDialogs(viewModel: TemplatesViewModel, folders: List<Templa
             title = { Text(stringResource(R.string.workout_already_running_title)) },
             text = { Text(stringResource(R.string.workout_already_running_text)) },
             confirmButton = {
-                TextButton(
+                LiftTextButton(
+                    text = stringResource(R.string.workout_resume),
                     onClick = {
                         viewModel.dismissDialog()
                         onOpenWorkout()
                     }
-                ) { Text(stringResource(R.string.workout_resume)) }
+                )
             },
             dismissButton = {
-                TextButton(onClick = viewModel::dismissDialog) { Text(stringResource(R.string.action_cancel)) }
+                LiftTextButton(stringResource(R.string.action_cancel), onClick = viewModel::dismissDialog)
             }
         )
         is TemplatesDialog.DeleteTemplate -> ConfirmDeleteDialog(

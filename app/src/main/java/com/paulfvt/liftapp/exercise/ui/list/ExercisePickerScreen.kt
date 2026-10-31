@@ -25,6 +25,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.paulfvt.liftapp.R
+import com.paulfvt.liftapp.core.designsystem.component.ButtonLabel
 import com.paulfvt.liftapp.core.designsystem.component.ScreenTitle
 
 // Catalogue en mode sélection, ouvert depuis l'éditeur de template ou la séance en cours.
@@ -63,7 +64,9 @@ fun ExercisePickerScreen(
                 ExtendedFloatingActionButton(
                     onClick = { onConfirm(selectedIds) },
                     icon = { Icon(painterResource(R.drawable.ic_add), contentDescription = null) },
-                    text = { Text(pluralStringResource(R.plurals.picker_confirm, selectedIds.size, selectedIds.size)) }
+                    text = {
+                        ButtonLabel(pluralStringResource(R.plurals.picker_confirm, selectedIds.size, selectedIds.size))
+                    }
                 )
             }
         }
