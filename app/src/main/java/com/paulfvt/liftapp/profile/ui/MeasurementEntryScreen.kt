@@ -73,6 +73,8 @@ fun MeasurementEntryScreen(onClose: () -> Unit, viewModel: MeasurementEntryViewM
             )
         }
     ) { padding ->
+        // Rien tant que les réglages ne sont pas lus : le poids ne doit pas apparaître s'il est masqué.
+        if (viewModel.types.isEmpty()) return@Scaffold
         val draft = viewModel.draft
         val errors = viewModel.errors
         Column(
@@ -85,7 +87,7 @@ fun MeasurementEntryScreen(onClose: () -> Unit, viewModel: MeasurementEntryViewM
         ) {
             FieldLabel(stringResource(R.string.measurement_type))
             FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                MeasurementType.entries.forEach { type ->
+                viewModel.types.forEach { type ->
                     FilterChip(
                         selected = type == draft.type,
                         onClick = { viewModel.onTypeChange(type) },

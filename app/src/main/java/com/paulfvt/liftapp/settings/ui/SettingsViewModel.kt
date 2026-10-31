@@ -62,6 +62,10 @@ class SettingsViewModel @Inject constructor(
 
     fun onRestVibrationChange(enabled: Boolean) = write { workoutSettings.setRestVibration(enabled) }
 
+    fun onHideBodyWeightChange(hide: Boolean) = write { appSettings.setHideBodyWeight(hide) }
+
+    fun onHidePhotosChange(hide: Boolean) = write { appSettings.setHidePhotos(hide) }
+
     private fun write(block: suspend () -> Unit) {
         appScope.launch { block() }
     }

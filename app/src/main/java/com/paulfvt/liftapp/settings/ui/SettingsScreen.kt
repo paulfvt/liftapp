@@ -122,6 +122,22 @@ fun SettingsScreen(onBack: () -> Unit, viewModel: SettingsViewModel = hiltViewMo
                     )
                 }
             }
+            SectionBlock(stringResource(R.string.settings_privacy)) {
+                SettingsCard {
+                    SwitchRow(
+                        label = stringResource(R.string.settings_hide_body_weight),
+                        supporting = stringResource(R.string.settings_hide_body_weight_summary),
+                        checked = uiState.app.hideBodyWeight,
+                        onCheckedChange = viewModel::onHideBodyWeightChange
+                    )
+                    SwitchRow(
+                        label = stringResource(R.string.settings_hide_photos),
+                        supporting = stringResource(R.string.settings_hide_photos_summary),
+                        checked = uiState.app.hidePhotos,
+                        onCheckedChange = viewModel::onHidePhotosChange
+                    )
+                }
+            }
         }
     }
     if (isRestDialogOpen) {

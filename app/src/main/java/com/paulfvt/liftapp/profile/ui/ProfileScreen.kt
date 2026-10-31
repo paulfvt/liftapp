@@ -78,12 +78,14 @@ fun ProfileScreen(
                 onAdd = onAddMeasurement,
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
-            PhotosSection(
-                uiState = uiState,
-                fileOf = viewModel::file,
-                onOpen = onOpenPhotos,
-                modifier = Modifier.padding(horizontal = 16.dp)
-            )
+            if (uiState.showPhotos) {
+                PhotosSection(
+                    uiState = uiState,
+                    fileOf = viewModel::file,
+                    onOpen = onOpenPhotos,
+                    modifier = Modifier.padding(horizontal = 16.dp)
+                )
+            }
             ListItem(
                 headlineContent = { Text(stringResource(R.string.settings_title)) },
                 supportingContent = { Text(stringResource(R.string.settings_summary)) },

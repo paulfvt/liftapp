@@ -10,6 +10,7 @@ import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -84,6 +85,18 @@ class MeasurementsTest {
         assertEquals(2L, result[0].latest.id)
         assertEquals(-1.5, result[0].change!!, 1e-9)
         assertNull(result[1].change)
+    }
+
+    @Test
+    fun `hiding the body weight removes it from the types and the summary, other measures stay`() {
+        val waist = BodyMeasurement(9, MeasurementType.WAIST, 82.0, null, Instant.parse("2026-10-01T08:00:00Z"))
+        val entries = listOf(weight("2026-10-15T06:00:00Z", 79.5, id = 2), waist)
+        val types = visibleMeasurementTypes(hideBodyWeight = true)
+
+        assertFalse(MeasurementType.BODY_WEIGHT in types)
+        assertEquals(MeasurementType.entries.size - 1, types.size)
+        assertEquals(listOf(MeasurementType.WAIST), summaries(entries, types).map { it.latest.type })
+        assertEquals(MeasurementType.entries, visibleMeasurementTypes(hideBodyWeight = false))
     }
 
     @Test

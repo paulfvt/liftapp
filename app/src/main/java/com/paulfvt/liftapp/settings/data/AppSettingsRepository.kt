@@ -2,6 +2,7 @@ package com.paulfvt.liftapp.settings.data
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
@@ -28,7 +29,10 @@ data class AppSettings(
     val themeMode: ThemeMode = ThemeMode.SYSTEM,
     val units: Units = Units(),
     // Repos donné aux exercices ajoutés à un template ou à une séance.
-    val defaultRestSeconds: Int = DEFAULT_REST_SECONDS
+    val defaultRestSeconds: Int = DEFAULT_REST_SECONDS,
+    // Masquage (cahier § 4.8 et 4.9) : rien n'est effacé, seul l'affichage change.
+    val hideBodyWeight: Boolean = false,
+    val hidePhotos: Boolean = false
 )
 
 // Des préférences, donc dans le DataStore et pas dans Room.
@@ -41,7 +45,9 @@ class AppSettingsRepository @Inject constructor(private val preferences: DataSto
                 weight = enumOrDefault(prefs[WEIGHT_UNIT], WeightUnit.KG),
                 length = enumOrDefault(prefs[LENGTH_UNIT], LengthUnit.CM)
             ),
-            defaultRestSeconds = prefs[DEFAULT_REST] ?: DEFAULT_REST_SECONDS
+            defaultRestSeconds = prefs[DEFAULT_REST] ?: DEFAULT_REST_SECONDS,
+            hideBodyWeight = prefs[HIDE_BODY_WEIGHT] ?: false,
+            hidePhotos = prefs[HIDE_PHOTOS] ?: false
         )
     }.distinctUntilChanged()
 
@@ -55,6 +61,10 @@ class AppSettingsRepository @Inject constructor(private val preferences: DataSto
 
     suspend fun setLengthUnit(unit: LengthUnit) = preferences.edit { it[LENGTH_UNIT] = unit.name }
 
+    suspend fun setHideBodyWeight(hide: Boolean) = preferences.edit { it[HIDE_BODY_WEIGHT] = hide }
+
+    suspend fun setHidePhotos(hide: Boolean) = preferences.edit { it[HIDE_PHOTOS] = hide }
+
     // Choix de l'écran de bienvenue.
     suspend fun setUnits(units: Units) = preferences.edit {
         it[WEIGHT_UNIT] = units.weight.name
@@ -66,6 +76,8 @@ class AppSettingsRepository @Inject constructor(private val preferences: DataSto
         val DEFAULT_REST = intPreferencesKey("settings_default_rest_seconds")
         val WEIGHT_UNIT = stringPreferencesKey("settings_weight_unit")
         val LENGTH_UNIT = stringPreferencesKey("settings_length_unit")
+        val HIDE_BODY_WEIGHT = booleanPreferencesKey("settings_hide_body_weight")
+        val HIDE_PHOTOS = booleanPreferencesKey("settings_hide_photos")
 
         // Une valeur inconnue (enregistrée par une version future) retombe sur la valeur par défaut.
         inline fun <reified T : Enum<T>> enumOrDefault(name: String?, default: T): T =

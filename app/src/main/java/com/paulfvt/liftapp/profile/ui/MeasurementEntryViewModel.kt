@@ -16,6 +16,7 @@ import com.paulfvt.liftapp.profile.domain.MeasurementDraft
 import com.paulfvt.liftapp.profile.domain.MeasurementError
 import com.paulfvt.liftapp.profile.domain.errors
 import com.paulfvt.liftapp.profile.domain.toMeasurement
+import com.paulfvt.liftapp.profile.domain.visibleMeasurementTypes
 import com.paulfvt.liftapp.profile.navigation.MeasurementEntryRoute
 import com.paulfvt.liftapp.settings.data.AppSettingsRepository
 import com.paulfvt.liftapp.workout.domain.filterDecimalInput
@@ -27,7 +28,7 @@ import javax.inject.Inject
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
-// Saisie d'une nouvelle mesure. Le type vient de l'écran d'origine (le poids par défaut).
+// Saisie d'une nouvelle mesure. Le type vient de l'écran d'origine (le poids par défaut, sauf s'il est masqué).
 @HiltViewModel
 class MeasurementEntryViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
@@ -43,6 +44,10 @@ class MeasurementEntryViewModel @Inject constructor(
         ?: MeasurementType.BODY_WEIGHT
 
     var draft by mutableStateOf(MeasurementDraft(type = initialType, date = today))
+        private set
+
+    // Types proposés, sans le poids de corps s'il est masqué. Vide tant que les réglages ne sont pas lus.
+    var types by mutableStateOf(emptyList<MeasurementType>())
         private set
 
     val hasChanges: Boolean get() = draft.value.isNotBlank()
@@ -66,9 +71,11 @@ class MeasurementEntryViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            units = appSettings.current().units
+            val settings = appSettings.current()
+            units = settings.units
             latest = measurements.observeAll().first().groupBy { it.type }.mapValues { (_, list) -> list.first() }
-            update { withDefaultMethod() }
+            types = visibleMeasurementTypes(settings.hideBodyWeight)
+            update { (if (type in types) this else copy(type = types.first())).withDefaultMethod() }
         }
     }
 

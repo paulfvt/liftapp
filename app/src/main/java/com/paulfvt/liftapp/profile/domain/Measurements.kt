@@ -45,13 +45,20 @@ fun movingAverage(daily: List<DailyValue>, days: Int = MOVING_AVERAGE_DAYS): Lis
 // Dernière mesure d'un type et écart avec la précédente (null pour la toute première).
 data class MeasurementSummary(val latest: BodyMeasurement, val change: Double?)
 
-// Une ligne par type déjà mesuré, dans l'ordre du cahier (poids, tours, masse grasse).
-fun summaries(measurements: List<BodyMeasurement>): List<MeasurementSummary> =
-    MeasurementType.entries.mapNotNull { type ->
-        val ofType = measurements.filter { it.type == type }.sortedByDescending { it.measuredAt }
-        val latest = ofType.firstOrNull() ?: return@mapNotNull null
-        MeasurementSummary(latest, ofType.getOrNull(1)?.let { latest.value - it.value })
-    }
+// Types affichés et proposés à la saisie : sans le poids de corps quand il est masqué (cahier § 4.8). Les pesées
+// restent en base et réapparaissent si l'option est désactivée.
+fun visibleMeasurementTypes(hideBodyWeight: Boolean): List<MeasurementType> =
+    if (hideBodyWeight) MeasurementType.entries - MeasurementType.BODY_WEIGHT else MeasurementType.entries
+
+// Une ligne par type déjà mesuré parmi ceux affichés, dans l'ordre du cahier (poids, tours, masse grasse).
+fun summaries(
+    measurements: List<BodyMeasurement>,
+    types: List<MeasurementType> = MeasurementType.entries
+): List<MeasurementSummary> = types.mapNotNull { type ->
+    val ofType = measurements.filter { it.type == type }.sortedByDescending { it.measuredAt }
+    val latest = ofType.firstOrNull() ?: return@mapNotNull null
+    MeasurementSummary(latest, ofType.getOrNull(1)?.let { latest.value - it.value })
+}
 
 // Bornes larges : elles n'écartent que les fautes de frappe (« 805 » au lieu de « 80,5 »).
 fun MeasurementType.validRange(): ClosedFloatingPointRange<Double> = when (this) {
