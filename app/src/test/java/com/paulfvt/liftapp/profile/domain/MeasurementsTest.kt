@@ -88,13 +88,21 @@ class MeasurementsTest {
     }
 
     @Test
-    fun `hiding the body weight removes it from the types and the summary, other measures stay`() {
+    fun `hiding the body weight also hides the body fat, waist and other measures stay`() {
         val waist = BodyMeasurement(9, MeasurementType.WAIST, 82.0, null, Instant.parse("2026-10-01T08:00:00Z"))
-        val entries = listOf(weight("2026-10-15T06:00:00Z", 79.5, id = 2), waist)
+        val fat = BodyMeasurement(
+            10,
+            MeasurementType.BODY_FAT,
+            15.0,
+            BodyFatMethod.SCALE,
+            Instant.parse("2026-10-02T08:00:00Z")
+        )
+        val entries = listOf(weight("2026-10-15T06:00:00Z", 79.5, id = 2), waist, fat)
         val types = visibleMeasurementTypes(hideBodyWeight = true)
 
         assertFalse(MeasurementType.BODY_WEIGHT in types)
-        assertEquals(MeasurementType.entries.size - 1, types.size)
+        assertFalse(MeasurementType.BODY_FAT in types)
+        assertEquals(MeasurementType.entries.size - 2, types.size)
         assertEquals(listOf(MeasurementType.WAIST), summaries(entries, types).map { it.latest.type })
         assertEquals(MeasurementType.entries, visibleMeasurementTypes(hideBodyWeight = false))
     }

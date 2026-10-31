@@ -30,6 +30,8 @@ data class ProfileUiState(
     val age: Int? = null,
     // Dernière valeur de chaque mesure déjà saisie, sans le poids de corps s'il est masqué.
     val measurements: List<MeasurementSummary> = emptyList(),
+    // Poids et masse grasse masqués dans les réglages : le texte d'invitation ne parle alors que des tours.
+    val bodyWeightHidden: Boolean = false,
     // Section photos masquée dans les réglages.
     val showPhotos: Boolean = true,
     val photoCount: Int = 0,
@@ -63,6 +65,7 @@ class ProfileViewModel @Inject constructor(
             profile = profile,
             age = profile.birthDate?.let { ageOn(it, today) },
             measurements = summaries(entries, visibleMeasurementTypes(settings.hideBodyWeight)),
+            bodyWeightHidden = settings.hideBodyWeight,
             showPhotos = !settings.hidePhotos,
             photoCount = allPhotos.size,
             latestPhotos = if (photosLocked) emptyList() else allPhotos.take(LATEST_PHOTOS),

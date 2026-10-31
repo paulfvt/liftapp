@@ -108,7 +108,8 @@ En cas d'ambiguïté ou de point non couvert, pose la question au lieu d'invente
   Mesures : chaque saisie crée une entrée, suppression possible, pas de modification ; kg et cm jusqu'à la phase 10.
 - Verrou des photos (22 octobre 2026) : PIN de 4 à 8 chiffres jamais stocké en clair, attente croissante après
   5 erreurs, déverrouillage par visage ou empreinte en option. Le sélecteur de photos et les réglages d'Android ouverts
-  depuis l'app ne reverrouillent pas. Code oublié sans verrouillage d'écran : explication seulement (à confirmer).
+  depuis l'app ne reverrouillent pas. Code oublié sans verrouillage d'écran : explication seulement (confirmé le
+  31 octobre 2026).
 - Phase 8, motivation (28 octobre 2026) :
   - anneau, streak, carte du corps, souvenir, objectifs, badges et récap en haut de l'onglet Progrès tant que
     l'accueil est masqué ; ils rejoignent l'accueil en phase 9 ;
@@ -133,7 +134,12 @@ En cas d'ambiguïté ou de point non couvert, pose la question au lieu d'invente
   - export CSV au format Excel français : point-virgule, virgule décimale, en-têtes en français ;
   - photos dans la sauvegarde au choix, cochées par défaut, avec un avertissement (fichier non chiffré, photos
     lisibles sans le code) ;
-  - restauration par remplacement de toutes les données, après confirmation (pas de fusion).
+  - restauration par remplacement de toutes les données, après confirmation (pas de fusion) ;
+  - (31 octobre 2026) masquer le poids de corps cache aussi la masse grasse, les tours restent visibles ;
+  - exports CSV et sauvegarde complets, même ce qui est masqué (le masquage ne concerne que l'affichage) ;
+  - une sauvegarde sans photos efface les photos actuelles à la restauration (remplacement complet, signalé dans la
+    confirmation) ;
+  - restauration proposée seulement dans les Réglages, pas sur l'écran de bienvenue.
 - Pas de publication (31 octobre 2026, écart avec le cahier § 8 et la phase 11) : LiftApp reste une app personnelle,
   installée sur le S25+ sans passer par Google Play (ni compte développeur, ni test fermé). La phase 11 se réduit à
   la version release installée sur le téléphone ; son plan est à valider (voir `PROGRESS.md`).

@@ -26,8 +26,8 @@ Fait en une traite à la demande du développeur, un commit par étape :
 - Unités kg/lb et cm/in, choisies sur l'écran de bienvenue et dans les réglages. Valeurs calculées arrondies à
   0,5 kg ou 1,25 lb, saisie au dixième de livre, mode salle à ±5 lb. Partout : séance, historique, records, courbes,
   objectifs, projection, récap, mesures, taille, notification, widget. La base reste en métrique.
-- Masquage (section Confidentialité) : le poids de corps disparaît des mesures du Profil et de la saisie ; la section
-  Photos du Profil est cachée. Rien n'est effacé.
+- Masquage (section Confidentialité) : le poids de corps et la masse grasse disparaissent des mesures du Profil et
+  de la saisie ; la section Photos du Profil est cachée. Rien n'est effacé.
 - Export CSV de l'historique (une ligne par série validée) et des mesures (une ligne par saisie), dans un fichier
   choisi avec le sélecteur d'Android, au format Excel français.
 - Sauvegarde ZIP (base, préférences, photos au choix avec avertissement) et restauration qui remplace tout après
@@ -42,10 +42,10 @@ Fait en une traite à la demande du développeur, un commit par étape :
 - Émulateur : données de démonstration intactes (suite instrumentée lancée sans désinstaller), unités remises en kg
   et cm ; une sauvegarde `liftapp-sauvegarde-2026-10-31.zip` est dans Téléchargements.
 
-Choix faits pendant la phase, à confirmer par le développeur (voir « Questions ouvertes ») : masquage limité au
-poids de corps (la masse grasse reste visible) ; exports et sauvegarde complets même si le poids ou les photos sont
-masqués ; une sauvegarde sans photos efface les photos actuelles à la restauration (remplacement complet, signalé
-dans la confirmation).
+Choix tranchés par le développeur le 31 octobre 2026 (détail dans `CLAUDE.md`) : masquer le poids cache aussi la
+masse grasse (changé ensuite dans le code) ; exports et sauvegarde complets même si le poids ou les photos sont
+masqués ; une sauvegarde sans photos efface les photos actuelles à la restauration ; restauration seulement dans
+les Réglages.
 
 Plan validé le 28 octobre 2026 :
 1. Écran Réglages (depuis le Profil) : thème (système, clair, sombre), objectif hebdomadaire, temps de repos par
@@ -420,12 +420,7 @@ Reportés en phase 10 (Réglages, cahier § 4.11) : unités lb et in, masquage d
   minuscule.
 
 ## Questions ouvertes
-- Phase 10, à confirmer : le masquage du poids de corps laisse visible la masse grasse ; les exports CSV et la
-  sauvegarde contiennent tout, même ce qui est masqué ; restaurer une sauvegarde sans photos supprime les photos
-  actuelles (la confirmation le dit). La restauration n'est proposée que dans les réglages, pas sur l'écran de
-  bienvenue d'une nouvelle installation.
-- Code des photos oublié sur un téléphone sans verrouillage d'écran : l'app explique qu'il faut d'abord en activer un
-  dans Android (aucune autre issue inventée). À confirmer par le développeur.
+- Aucune pour l'instant (choix des phases 7 et 10 tranchés le 31 octobre 2026).
 
 ## Problèmes connus
 - Widget : juste après une mise à jour de l'app, il affiche l'écran de chargement de Glance jusqu'à ce que l'app

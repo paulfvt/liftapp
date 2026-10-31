@@ -45,10 +45,13 @@ fun movingAverage(daily: List<DailyValue>, days: Int = MOVING_AVERAGE_DAYS): Lis
 // Dernière mesure d'un type et écart avec la précédente (null pour la toute première).
 data class MeasurementSummary(val latest: BodyMeasurement, val change: Double?)
 
-// Types affichés et proposés à la saisie : sans le poids de corps quand il est masqué (cahier § 4.8). Les pesées
-// restent en base et réapparaissent si l'option est désactivée.
+// Types affichés et proposés à la saisie. Masquer le poids de corps (cahier § 4.8) cache aussi la masse grasse
+// (décision du 31 octobre 2026) ; les tours restent visibles. Les mesures restent en base et réapparaissent si
+// l'option est désactivée.
 fun visibleMeasurementTypes(hideBodyWeight: Boolean): List<MeasurementType> =
-    if (hideBodyWeight) MeasurementType.entries - MeasurementType.BODY_WEIGHT else MeasurementType.entries
+    if (hideBodyWeight) MeasurementType.entries - BODY_WEIGHT_TYPES else MeasurementType.entries
+
+private val BODY_WEIGHT_TYPES = setOf(MeasurementType.BODY_WEIGHT, MeasurementType.BODY_FAT)
 
 // Une ligne par type déjà mesuré parmi ceux affichés, dans l'ordre du cahier (poids, tours, masse grasse).
 fun summaries(

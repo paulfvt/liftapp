@@ -125,6 +125,7 @@
     <!-- Mesures du corps -->
     <string name="profile_measurements">Mesures</string>
     <string name="measurements_empty">Note ton poids et tes tours pour suivre leur évolution.</string>
+    <string name="measurements_empty_no_weight">Note tes tours pour suivre leur évolution.</string>
     <string name="measurement_add">Ajouter une mesure</string>
     <string name="measurement_new_title">Nouvelle mesure</string>
     <string name="measurement_type">Mesure</string>

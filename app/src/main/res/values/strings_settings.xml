@@ -14,8 +14,8 @@
     <string name="settings_length_unit">Longueurs</string>
     <string name="welcome_units_title">Tes unités</string>
     <string name="settings_privacy">Confidentialité</string>
-    <string name="settings_hide_body_weight">Masquer le poids de corps</string>
-    <string name="settings_hide_body_weight_summary">Tes pesées sont gardées et reviennent si tu désactives l\'option</string>
+    <string name="settings_hide_body_weight">Masquer le poids et la masse grasse</string>
+    <string name="settings_hide_body_weight_summary">Tes mesures sont gardées et reviennent si tu désactives l\'option</string>
     <string name="settings_hide_photos">Masquer les photos</string>
     <string name="settings_hide_photos_summary">La section disparaît du Profil, tes photos sont gardées</string>
     <string name="settings_data">Données</string>

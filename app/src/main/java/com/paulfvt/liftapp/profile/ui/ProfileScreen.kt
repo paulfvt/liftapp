@@ -74,6 +74,7 @@ fun ProfileScreen(
             ProfileCard(uiState, onEditProfile, modifier = Modifier.padding(horizontal = 16.dp))
             MeasurementsSection(
                 summaries = uiState.measurements,
+                bodyWeightHidden = uiState.bodyWeightHidden,
                 onOpen = onOpenMeasurement,
                 onAdd = onAddMeasurement,
                 modifier = Modifier.padding(horizontal = 16.dp)
@@ -164,6 +165,7 @@ private fun ProfileCard(uiState: ProfileUiState, onEdit: () -> Unit, modifier: M
 @Composable
 private fun MeasurementsSection(
     summaries: List<MeasurementSummary>,
+    bodyWeightHidden: Boolean,
     onOpen: (MeasurementType) -> Unit,
     onAdd: () -> Unit,
     modifier: Modifier = Modifier
@@ -173,7 +175,9 @@ private fun MeasurementsSection(
         ElevatedCard(modifier = Modifier.fillMaxWidth()) {
             if (summaries.isEmpty()) {
                 Text(
-                    stringResource(R.string.measurements_empty),
+                    stringResource(
+                        if (bodyWeightHidden) R.string.measurements_empty_no_weight else R.string.measurements_empty
+                    ),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.padding(start = 16.dp, top = 16.dp, end = 16.dp)
