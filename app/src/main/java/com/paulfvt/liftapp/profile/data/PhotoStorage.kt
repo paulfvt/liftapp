@@ -23,7 +23,8 @@ import javax.inject.Singleton
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-private const val DIRECTORY = "photos"
+// Dossier des photos dans files/, aussi utilisé par la sauvegarde et la restauration.
+const val PHOTO_DIRECTORY = "photos"
 private const val JPEG_QUALITY = 90
 private const val QUARTER_TURN = 90f
 private const val HALF_TURN = 180f
@@ -34,7 +35,7 @@ private const val THREE_QUARTER_TURN = 270f
 // pour ne plus dépendre de l'orientation notée dans l'original.
 @Singleton
 class PhotoStorage @Inject constructor(@param:ApplicationContext private val context: Context) {
-    private val directory: File get() = File(context.filesDir, DIRECTORY).apply { mkdirs() }
+    private val directory: File get() = File(context.filesDir, PHOTO_DIRECTORY).apply { mkdirs() }
 
     fun file(fileName: String): File = File(directory, fileName)
 

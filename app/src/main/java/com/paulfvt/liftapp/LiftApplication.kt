@@ -3,6 +3,7 @@ package com.paulfvt.liftapp
 import android.app.Application
 import com.paulfvt.liftapp.core.di.ApplicationScope
 import com.paulfvt.liftapp.exercise.data.CatalogImporter
+import com.paulfvt.liftapp.settings.data.PendingRestore
 import com.paulfvt.liftapp.widget.WidgetUpdater
 import com.paulfvt.liftapp.workout.notification.WorkoutSessionSync
 import dagger.hilt.android.HiltAndroidApp
@@ -23,6 +24,9 @@ class LiftApplication : Application() {
     @Inject lateinit var widgetUpdater: WidgetUpdater
 
     override fun onCreate() {
+        // Avant super.onCreate(), où Hilt crée les dépendances : ni la base ni les préférences ne sont encore
+        // ouvertes, une sauvegarde peut les remplacer sans risque.
+        PendingRestore.applyIfReady(this)
         super.onCreate()
         // En arrière-plan pour ne pas retarder l'ouverture de l'app. Les écrans observent la base
         // et se mettent à jour d'eux-mêmes quand l'import se termine.

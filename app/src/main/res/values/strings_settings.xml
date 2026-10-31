@@ -34,6 +34,30 @@
         <item quantity="one">%d mesure exportée</item>
         <item quantity="other">%d mesures exportées</item>
     </plurals>
+    <string name="settings_backup">Sauvegarder toutes les données</string>
+    <string name="settings_backup_summary">Fichier ZIP à garder hors du téléphone, pour tout retrouver sur un nouveau</string>
+    <string name="settings_restore">Restaurer une sauvegarde</string>
+    <string name="settings_restore_summary">Remplace toutes les données de l\'app</string>
+    <string name="data_working">Opération en cours</string>
+    <!-- %1$s : date du jour (2026-10-31). -->
+    <string name="backup_file_name">liftapp-sauvegarde-%1$s.zip</string>
+    <string name="backup_dialog_title">Sauvegarder toutes les données</string>
+    <string name="backup_dialog_text">Séances, templates, exercices, records, mesures, profil et réglages, dans un seul fichier ZIP. Garde-le ailleurs que sur le téléphone (ordinateur, cloud) pour pouvoir le restaurer sur un nouveau.</string>
+    <string name="backup_include_photos">Inclure les photos</string>
+    <string name="backup_photos_warning">Le fichier n\'est pas chiffré : qui l\'ouvre voit tes photos, sans avoir besoin du code de l\'app.</string>
+    <string name="backup_choose_file">Choisir l\'emplacement</string>
+    <string name="backup_created">Sauvegarde enregistrée</string>
+    <string name="backup_failed">Sauvegarde impossible, le fichier n\'a pas pu être écrit</string>
+    <string name="restore_not_a_backup">Ce fichier n\'est pas une sauvegarde LiftApp</string>
+    <string name="restore_newer_version">Sauvegarde faite avec une version plus récente de LiftApp : mets l\'app à jour pour la restaurer</string>
+    <string name="restore_damaged">Sauvegarde illisible ou abîmée, rien n\'a été remplacé</string>
+    <string name="restore_dialog_title">Remplacer toutes tes données ?</string>
+    <!-- %1$s : date et heure de la sauvegarde, %2$s : nombre de séances, %3$s : nombre de photos ou « sans photos ». -->
+    <string name="restore_dialog_content">Sauvegarde du %1$s : %2$s, %3$s.</string>
+    <string name="restore_no_photos">sans photos</string>
+    <string name="restore_dialog_warning">Tout ce que contient l\'app maintenant sera remplacé, sans retour possible. L\'app redémarrera ensuite.</string>
+    <string name="restore_dialog_photos_deleted">Cette sauvegarde ne contient pas de photos : tes photos actuelles seront supprimées.</string>
+    <string name="restore_confirm">Remplacer</string>
     <string name="csv_export_failed">Export impossible, le fichier n\'a pas pu être écrit</string>
     <!-- En-têtes des colonnes des fichiers CSV. -->
     <string name="csv_date">Date</string>

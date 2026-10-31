@@ -1,7 +1,5 @@
 package com.paulfvt.liftapp.settings.ui
 
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -54,6 +52,7 @@ import com.paulfvt.liftapp.core.ui.durationLabel
 import com.paulfvt.liftapp.core.ui.labelRes
 import com.paulfvt.liftapp.progress.ui.WeeklyGoalStepper
 import com.paulfvt.liftapp.settings.data.ThemeMode
+import com.paulfvt.liftapp.settings.domain.BackupProblem
 import com.paulfvt.liftapp.template.domain.REST_CHOICES_SECONDS
 import com.paulfvt.liftapp.template.ui.ChoiceDialog
 
@@ -72,15 +71,8 @@ fun SettingsScreen(onBack: () -> Unit, viewModel: SettingsViewModel = hiltViewMo
             viewModel.onMessageShown()
         }
     }
-    // Sélecteur de fichiers d'Android : l'utilisateur choisit où enregistrer, sans permission de stockage.
-    val historyExport = rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument(CSV_MIME_TYPE)) {
-        it?.let(viewModel::exportHistory)
-    }
-    val measurementExport = rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument(CSV_MIME_TYPE)) {
-        it?.let(viewModel::exportMeasurements)
-    }
-    val historyFileName = stringResource(R.string.csv_history_file_name, viewModel.today.toString())
-    val measurementFileName = stringResource(R.string.csv_measurements_file_name, viewModel.today.toString())
+    val isWorking by viewModel.isWorking.collectAsStateWithLifecycle()
+    val restoreCandidate by viewModel.restoreCandidate.collectAsStateWithLifecycle()
     Scaffold(
         snackbarHost = { SnackbarHost(snackbarHostState) },
         topBar = {
@@ -164,20 +156,17 @@ fun SettingsScreen(onBack: () -> Unit, viewModel: SettingsViewModel = hiltViewMo
                     )
                 }
             }
-            SectionBlock(stringResource(R.string.settings_data)) {
-                SettingsCard {
-                    ActionRow(
-                        label = stringResource(R.string.settings_export_history),
-                        supporting = stringResource(R.string.settings_export_history_summary),
-                        onClick = { historyExport.launch(historyFileName) }
-                    )
-                    ActionRow(
-                        label = stringResource(R.string.settings_export_measurements),
-                        supporting = stringResource(R.string.settings_export_measurements_summary),
-                        onClick = { measurementExport.launch(measurementFileName) }
-                    )
-                }
-            }
+            DataSection(
+                today = viewModel.today,
+                isWorking = isWorking,
+                restoreCandidate = restoreCandidate,
+                onExportHistory = viewModel::exportHistory,
+                onExportMeasurements = viewModel::exportMeasurements,
+                onCreateBackup = viewModel::createBackup,
+                onInspectBackup = viewModel::inspectBackup,
+                onConfirmRestore = viewModel::confirmRestore,
+                onCancelRestore = viewModel::cancelRestore
+            )
         }
     }
     if (isRestDialogOpen) {
@@ -231,17 +220,6 @@ fun SwitchRow(label: String, checked: Boolean, onCheckedChange: (Boolean) -> Uni
     )
 }
 
-// Ligne qui lance une action (export, sauvegarde) : toute la ligne est un bouton.
-@Composable
-private fun ActionRow(label: String, supporting: String, onClick: () -> Unit) {
-    ListItem(
-        headlineContent = { Text(label) },
-        supportingContent = { Text(supporting) },
-        colors = ListItemDefaults.colors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow),
-        modifier = Modifier.clickable(role = Role.Button, onClick = onClick)
-    )
-}
-
 @Composable
 private fun dataMessageText(message: DataMessage): String = when (message) {
     is DataMessage.HistoryExported ->
@@ -249,9 +227,16 @@ private fun dataMessageText(message: DataMessage): String = when (message) {
     is DataMessage.MeasurementsExported ->
         pluralStringResource(R.plurals.csv_measurements_exported, message.measurementCount, message.measurementCount)
     DataMessage.ExportFailed -> stringResource(R.string.csv_export_failed)
+    DataMessage.BackupCreated -> stringResource(R.string.backup_created)
+    DataMessage.BackupFailed -> stringResource(R.string.backup_failed)
+    is DataMessage.RestoreRefused -> stringResource(
+        when (message.problem) {
+            BackupProblem.NOT_A_BACKUP -> R.string.restore_not_a_backup
+            BackupProblem.NEWER_VERSION -> R.string.restore_newer_version
+            BackupProblem.DAMAGED -> R.string.restore_damaged
+        }
+    )
 }
-
-private const val CSV_MIME_TYPE = "text/csv"
 
 // Choix exclusif en boutons segmentés (thème, unités).
 @Composable

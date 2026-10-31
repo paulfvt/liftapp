@@ -5,12 +5,8 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStoreFile
-import androidx.room.Room
 import com.paulfvt.liftapp.core.database.LiftDatabase
 import com.paulfvt.liftapp.core.database.dao.ExerciseDao
-import com.paulfvt.liftapp.core.database.migration.MIGRATION_1_2
-import com.paulfvt.liftapp.core.database.migration.MIGRATION_2_3
-import com.paulfvt.liftapp.core.database.migration.MIGRATION_3_4
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,13 +18,12 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object DataModule {
-    // Pas de fallbackToDestructiveMigration() : il effacerait les données des utilisateurs.
+    // Nom du fichier des préférences (files/datastore/lift_preferences.preferences_pb), repris par la sauvegarde.
+    const val PREFERENCES_NAME = "lift_preferences"
+
     @Provides
     @Singleton
-    fun provideDatabase(@ApplicationContext context: Context): LiftDatabase =
-        Room.databaseBuilder(context, LiftDatabase::class.java, LiftDatabase.NAME)
-            .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
-            .build()
+    fun provideDatabase(@ApplicationContext context: Context): LiftDatabase = LiftDatabase.build(context)
 
     @Provides
     fun provideExerciseDao(database: LiftDatabase): ExerciseDao = database.exerciseDao()
@@ -36,5 +31,5 @@ object DataModule {
     @Provides
     @Singleton
     fun providePreferences(@ApplicationContext context: Context): DataStore<Preferences> =
-        PreferenceDataStoreFactory.create { context.preferencesDataStoreFile("lift_preferences") }
+        PreferenceDataStoreFactory.create { context.preferencesDataStoreFile(PREFERENCES_NAME) }
 }

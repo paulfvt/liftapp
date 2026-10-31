@@ -79,3 +79,7 @@ val MIGRATION_3_4 = object : Migration(3, 4) {
         db.execSQL("ALTER TABLE workout ADD COLUMN restEndsAt INTEGER")
     }
 }
+
+// Toutes les migrations, pour la base de l'app et pour la vérification d'une sauvegarde à restaurer. En fin de
+// fichier : les propriétés sont initialisées dans l'ordre, les migrations doivent déjà exister.
+val ALL_MIGRATIONS = arrayOf(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
