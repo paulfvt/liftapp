@@ -14,7 +14,7 @@ En cas d'ambiguïté ou de point non couvert, pose la question au lieu d'invente
 - Vico pour les courbes (`progress/ui/ProgressChart.kt`), reorderable pour le glisser-déposer.
 - Glance pour le widget, CameraX + Coil pour les photos, androidx.biometric pour le verrouillage.
 - AGP 9 avec Kotlin intégré : ne pas appliquer `org.jetbrains.kotlin.android`. Versions dans `gradle/libs.versions.toml`.
-- minSdk 26. targetSdk = niveau exigé par Google Play à la publication (36 en octobre 2026).
+- minSdk 26, targetSdk 36. Plus de publication : targetSdk n'a plus à suivre les exigences de Google Play.
 - Interface en français, tous les textes dans `strings.xml`. Unités kg/lb et cm/in au choix.
 - POST_NOTIFICATIONS demandée au moment où elle sert (première séance), jamais au lancement.
 - Minuteur : doit survivre à l'écran verrouillé, à la rotation et à l'arrière-plan. Vérifier la doc Android à jour
@@ -51,7 +51,8 @@ En cas d'ambiguïté ou de point non couvert, pose la question au lieu d'invente
 
 ## Décisions prises avec le développeur (6 octobre 2026)
 
-- Publication en test fermé après la phase 6 ; motivation, photos et widget ajoutés pendant le test.
+- Publication en test fermé après la phase 6 ; motivation, photos et widget ajoutés pendant le test (abandonné le
+  31 octobre 2026, voir « Pas de publication »).
 - Catalogue free-exercise-db (Unlicense), traduit en français, images incluses.
 - Exercices au poids du corps : `weightKg` = charge ajoutée (négative = assistance). Le poids du corps n'entre ni dans
   le tonnage ni dans le 1RM.
@@ -133,6 +134,9 @@ En cas d'ambiguïté ou de point non couvert, pose la question au lieu d'invente
   - photos dans la sauvegarde au choix, cochées par défaut, avec un avertissement (fichier non chiffré, photos
     lisibles sans le code) ;
   - restauration par remplacement de toutes les données, après confirmation (pas de fusion).
+- Pas de publication (31 octobre 2026, écart avec le cahier § 8 et la phase 11) : LiftApp reste une app personnelle,
+  installée sur le S25+ sans passer par Google Play (ni compte développeur, ni test fermé). La phase 11 se réduit à
+  la version release installée sur le téléphone ; son plan est à valider (voir `PROGRESS.md`).
 
 ## Méthode de travail (section 7)
 

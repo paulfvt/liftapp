@@ -1,5 +1,23 @@
 # Avancement
 
+## Ensuite : phase 11 réduite à un usage personnel (plan proposé le 31 octobre 2026, à valider)
+
+Décidé le 31 octobre 2026 : pas de publication sur Google Play (le compte développeur est payant), l'app reste pour
+le développeur. Écart avec le cahier des charges (§ 8 et phase 11), noté dans `CLAUDE.md`. À lancer une fois la
+phase 10 testée sur le téléphone.
+
+Plan proposé (un commit par étape) :
+1. Version release (optimisée par R8) vérifiée sur l'émulateur : catalogue et images, séance, minuteur et
+   notification, widget, photos et verrou, export, sauvegarde et restauration. R8 renomme et retire du code, ce qui
+   peut casser ce qui passe par réflexion.
+2. Installation sur le S25+ par-dessus la version de développement. Sans `keystore.properties`, la release est
+   signée avec la clé de debug de ce PC : même signature, donc mise à jour sans perte de données. Sauvegarde ZIP
+   avant, par précaution.
+3. README : « Installer sur son téléphone » à la place de « Version release pour Google Play », avancement à jour.
+   Rappel : sur un autre PC (autre clé de debug), il faut désinstaller avant d'installer, donc sauvegarder d'abord.
+4. Documents qui ne servaient qu'à la publication (politique de confidentialité, fiche et captures Play Store,
+   `tools/play-store/`) : à garder sans les tenir à jour, ou à supprimer. À trancher par le développeur.
+
 ## Phase 10 — Réglages et données : code terminé le 31 octobre 2026, test sur le téléphone attendu
 
 Fait en une traite à la demande du développeur, un commit par étape :
@@ -117,7 +135,10 @@ Fait :
 
 Le test fermé reste en pause (compte Google Play plus tard) : un build issu de la phase 7 peut lui servir.
 
-## En pause : préparation du test fermé (une partie de la phase 11)
+## Abandonné : préparation du test fermé (une partie de la phase 11)
+
+Abandonné le 31 octobre 2026 : pas de publication. Le travail fait reste utile (release signée, icône, écran de
+bienvenue, « À propos » et licences).
 
 Le 21 octobre 2026, le développeur a choisi de passer à la phase 7 et de créer le compte Google Play plus tard.
 Envoyer sur le Play Store un build issu d'une phase terminée.
@@ -405,7 +426,6 @@ Reportés en phase 10 (Réglages, cahier § 4.11) : unités lb et in, masquage d
   bienvenue d'une nouvelle installation.
 - Code des photos oublié sur un téléphone sans verrouillage d'écran : l'app explique qu'il faut d'abord en activer un
   dans Android (aucune autre issue inventée). À confirmer par le développeur.
-- Politique de confidentialité : nom affiché et adresse de contact (publics), nom du dépôt public qui l'hébergera.
 
 ## Problèmes connus
 - Widget : juste après une mise à jour de l'app, il affiche l'écran de chargement de Glance jusqu'à ce que l'app
@@ -423,11 +443,10 @@ Reportés en phase 10 (Réglages, cahier § 4.11) : unités lb et in, masquage d
   `adb shell am instrument -w com.paulfvt.liftapp.test/androidx.test.runner.AndroidJUnitRunner` (toute la suite, sans
   désinstaller). Sinon, sauvegarder avant depuis l'app (Réglages, « Sauvegarder toutes les données ») et restaurer
   après.
-- Captures du Play Store : elles ne montrent ni les mesures ni les photos, à refaire avant la production.
 - `kotlinx-coroutines-test` doit rester à la même version que `kotlinx-coroutines-core` utilisé par l'app
   (1.10.2, imposé par AndroidX), sinon les tests instrumentés échouent avec un `NoSuchMethodError`.
-- Avertissement lint `OldTargetApi` (targetSdk 36 alors que l'API 37 existe) : volontaire, c'est le niveau exigé
-  par Google Play. À revoir avant la publication.
+- Avertissement lint `OldTargetApi` (targetSdk 36 alors que l'API 37 existe) : volontaire. Sans publication, rien
+  n'oblige à monter ; à faire quand une nouvelle version d'Android le justifie, en retestant l'app.
 - Tests instrumentés : Gradle peut afficher `BUILD SUCCESSFUL` alors que l'APK de test ne s'est pas installé
   (émulateur pas encore prêt). Toujours vérifier le nombre de tests passés dans
   `app/build/outputs/androidTest-results/connected/debug/*.xml` (31 au 21 octobre 2026).

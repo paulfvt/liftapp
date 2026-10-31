@@ -3,9 +3,9 @@
 App Android de suivi de musculation, gratuite et hors-ligne. Elle s'inspire de Strong et Hevy et mise sur une
 progression visible et motivante : records, courbes, streak hebdomadaire, carte des muscles travaillés.
 
-> Projet en cours de développement : phases 1 à 7 sur 11 terminées (catalogue, templates, séance en cours, minuteur
-> et notification, historique, records et courbes, profil, mesures et photos), test fermé sur Google Play en
-> préparation. Le détail est dans [PROGRESS.md](PROGRESS.md).
+> Projet personnel, sans publication sur Google Play : phases 1 à 9 sur 11 terminées, phase 10 (réglages, unités,
+> export CSV, sauvegarde et restauration) codée et en test sur le téléphone. Le détail est dans
+> [PROGRESS.md](PROGRESS.md).
 
 ## Stack
 
