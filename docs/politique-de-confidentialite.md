@@ -1,6 +1,6 @@
 # Politique de confidentialité de LiftApp
 
-Dernière mise à jour : 22 octobre 2026
+Dernière mise à jour : 31 octobre 2026
 
 LiftApp est une application Android gratuite de suivi de musculation, éditée par [NOM DU DÉVELOPPEUR].
 Elle fonctionne entièrement sur ton téléphone, sans compte et sans serveur.
@@ -14,7 +14,8 @@ L'application enregistre uniquement ce que tu y saisis :
 - ton profil, entièrement facultatif : prénom, taille, date de naissance, sexe ;
 - tes mesures : poids, tours (bras, poitrine, taille, hanches, cuisse, mollet), taux de masse grasse ;
 - tes photos de progression, prises dans l'application ou importées depuis ta galerie ;
-- tes réglages (son et vibration du minuteur, mode salle, verrouillage des photos).
+- tes réglages (thème, unités, repos par défaut, son et vibration du minuteur, mode salle, masquage du poids et
+  des photos, verrouillage des photos).
 
 Ces données sont stockées dans l'espace privé de l'application sur ton téléphone. Les autres applications n'y ont
 pas accès, et tes photos de progression n'apparaissent pas dans la galerie.
@@ -38,6 +39,20 @@ pas accès, et tes photos de progression n'apparaissent pas dans la galerie.
   l'application n'en garde qu'une empreinte chiffrée, qui ne permet pas de le retrouver.
 - Si tu déverrouilles avec ton visage, ton empreinte ou le verrouillage de ton téléphone, c'est Android qui fait la
   vérification : l'application reçoit seulement la réponse « c'est bien toi », jamais tes données biométriques.
+
+## Export et sauvegarde
+
+Depuis les réglages, tu peux exporter ton historique et tes mesures en fichiers CSV (lisibles dans Excel), et
+sauvegarder toutes tes données dans un fichier ZIP pour les restaurer plus tard, par exemple sur un nouveau téléphone.
+
+- C'est toi qui choisis où chaque fichier est enregistré, avec le sélecteur de fichiers d'Android (mémoire du
+  téléphone, carte SD, service de stockage en ligne installé sur le téléphone). L'application n'a besoin d'aucune
+  autorisation pour cela et n'envoie rien elle-même.
+- Pour une restauration, l'application lit seulement le fichier que tu choisis. Elle vérifie qu'il s'agit bien d'une
+  sauvegarde LiftApp, puis remplace toutes les données actuelles, après ta confirmation.
+- **Le fichier de sauvegarde n'est pas chiffré.** Si tu y inclus tes photos (option cochée par défaut, que tu peux
+  décocher), toute personne qui ouvre le fichier peut les voir, même si elles sont verrouillées dans l'application.
+  Garde-le en lieu sûr. S'il est enregistré dans un service en ligne, ce service le conserve selon ses propres règles.
 
 ## Sauvegarde Android
 
@@ -65,7 +80,8 @@ avec un minuteur moins précis écran verrouillé et sans prise de photo (l'impo
 
 Désinstaller l'application supprime toutes ses données du téléphone, photos comprises. Tu peux aussi les effacer
 depuis les paramètres Android (Applications, LiftApp, Stockage, Effacer les données), ou supprimer une mesure ou une
-photo depuis l'application. La sauvegarde Android éventuelle se gère depuis ton compte Google.
+photo depuis l'application. La sauvegarde Android éventuelle se gère depuis ton compte Google. Les fichiers
+d'export et de sauvegarde que tu as enregistrés ne sont pas supprimés avec l'application : à toi de les effacer.
 
 ## Enfants
 

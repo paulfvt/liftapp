@@ -47,8 +47,10 @@ Console au moment de la saisie.
   > TES DONNÉES T'APPARTIENNENT
   > • Pas de compte, pas de publicité, pas de suivi.
   > • L'app n'a pas accès à internet : tes données ne quittent pas ton téléphone.
-  >
-  > LiftApp est en développement actif : réglages, export et sauvegarde arrivent bientôt.
+  > • Export de ton historique et de tes mesures en CSV, prêt pour Excel.
+  > • Sauvegarde complète dans un fichier, pour tout retrouver sur un nouveau téléphone.
+  > • Kilos ou livres, centimètres ou pouces, thème clair ou sombre.
+  > • Option pour masquer ton poids de corps ou tes photos.
 
 - **Icône** : 512 × 512 px, PNG 32 bits : [play-store/icon-512.png](play-store/icon-512.png) (piste « Néon »).
 - **Image de présentation** : 1 024 × 500 px, PNG 24 bits :
@@ -83,6 +85,8 @@ Console au moment de la saisie.
   - L'application collecte-t-elle ou partage-t-elle des données utilisateur ? **Non** (aucune donnée ne quitte
     l'appareil, aucune permission internet).
   - La sauvegarde Android (Google) relève du système, pas de l'app : elle n'est pas déclarée comme collecte.
+  - Export CSV et sauvegarde ZIP (phase 10) : fichiers écrits là où l'utilisateur le choisit, par le sélecteur de
+    fichiers d'Android ; l'app ne transmet rien elle-même. La réponse « aucune donnée collectée » reste valable.
 - **Applications gouvernementales, fonctionnalités financières** : non.
 - **Applications de santé** : si la Play Console demande la déclaration, cocher le suivi d'activité physique,
   sans connexion à Santé Connect.

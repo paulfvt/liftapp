@@ -1,8 +1,35 @@
 # Avancement
 
-## Prochaine étape : phase 10 — Réglages et données (plan proposé le 28 octobre 2026, feu vert attendu)
+## Phase 10 — Réglages et données : code terminé le 31 octobre 2026, test sur le téléphone attendu
 
-Plan proposé (un commit par étape) :
+Fait en une traite à la demande du développeur, un commit par étape :
+- Écran Réglages (Profil, « Réglages ») : thème système, clair ou sombre ; objectif hebdomadaire ; repos par défaut
+  des exercices ajoutés ; son et vibration de fin de repos (aussi dans le menu de la séance).
+- Unités kg/lb et cm/in, choisies sur l'écran de bienvenue et dans les réglages. Valeurs calculées arrondies à
+  0,5 kg ou 1,25 lb, saisie au dixième de livre, mode salle à ±5 lb. Partout : séance, historique, records, courbes,
+  objectifs, projection, récap, mesures, taille, notification, widget. La base reste en métrique.
+- Masquage (section Confidentialité) : le poids de corps disparaît des mesures du Profil et de la saisie ; la section
+  Photos du Profil est cachée. Rien n'est effacé.
+- Export CSV de l'historique (une ligne par série validée) et des mesures (une ligne par saisie), dans un fichier
+  choisi avec le sélecteur d'Android, au format Excel français.
+- Sauvegarde ZIP (base, préférences, photos au choix avec avertissement) et restauration qui remplace tout après
+  confirmation, avec redémarrage de l'app.
+- Politique de confidentialité (export et sauvegarde, fichier non chiffré) et fiche Play Store à jour.
+- Vérifié sur l'émulateur : réglages, thème, unités en lb et in (Profil, Accueil, Historique, détail d'une séance),
+  exports relus sur le PC (BOM, en-têtes, séparateurs), sauvegarde relue sur le PC (base intègre, 23 séances,
+  4 photos, préférences sans les clés propres au téléphone), restauration complète (réglage modifié après la
+  sauvegarde revenu, historique et photos intacts), faux ZIP refusé.
+- 243 tests JVM et 44 tests instrumentés verts (dont la sauvegarde : avec et sans photos, ZIP étranger, version
+  plus récente). Lint sans nouvel avertissement. Aucune nouvelle dépendance, pas de changement de schéma.
+- Émulateur : données de démonstration intactes (suite instrumentée lancée sans désinstaller), unités remises en kg
+  et cm ; une sauvegarde `liftapp-sauvegarde-2026-10-31.zip` est dans Téléchargements.
+
+Choix faits pendant la phase, à confirmer par le développeur (voir « Questions ouvertes ») : masquage limité au
+poids de corps (la masse grasse reste visible) ; exports et sauvegarde complets même si le poids ou les photos sont
+masqués ; une sauvegarde sans photos efface les photos actuelles à la restauration (remplacement complet, signalé
+dans la confirmation).
+
+Plan validé le 28 octobre 2026 :
 1. Écran Réglages (depuis le Profil) : thème (système, clair, sombre), objectif hebdomadaire, temps de repos par
    défaut, son et vibration (gardés aussi dans le menu de la séance), masquage du poids de corps et des photos.
 2. Unités kg/lb et cm/in : conversions et arrondis testés (0,5 kg, 1,25 lb), affichage et saisie partout (séance,
@@ -352,10 +379,30 @@ Reportés en phase 10 (Réglages, cahier § 4.11) : unités lb et in, masquage d
 - **Chronomètre du widget** : `AndroidRemoteViews` avec un `Chronometer` (layouts `widget_*_chronometer.xml`), base
   exprimée en `elapsedRealtime`. Il décompte seul ; l'app redessine le widget à la fin du repos
   (`WorkoutSessionSync`) pour passer à la durée de la séance.
+- **Package `settings`** (phase 10) : `data` (réglages DataStore, export CSV, sauvegarde), `domain` (CSV,
+  manifeste et contrôles de la sauvegarde, testés), `ui` (écran Réglages, section Données).
+- **Unités** : `core/domain/Units.kt` (conversions et arrondis, testés), `core/ui/UnitFormats.kt` (textes). Les
+  unités choisies sont fournies aux écrans par un `CompositionLocal` (`LocalUnits`) depuis `MainActivity`.
+- **CSV** : point-virgule, virgule décimale, dates jj/mm/aaaa, fin de ligne CRLF, BOM UTF-8 (sans lui, Excel abîme
+  les accents). Un nom saisi qui commence par `=`, `+`, `-` ou `@` reçoit une apostrophe devant, pour qu'un tableur
+  ne l'exécute pas comme une formule.
+- **Format de sauvegarde** : ZIP avec `manifest.properties` (format, version du schéma Room, date, photos),
+  `database/lift.db`, `preferences/lift_preferences.preferences_pb`, `photos/…`. La base est copiée pendant une
+  transaction Room (fichier et journal WAL cohérents), puis le journal est reporté dans la copie. Les préférences
+  propres au téléphone (`workout_permissions_asked`, erreurs du code des photos) ne sont pas sauvegardées.
+- **Restauration en deux temps** : le ZIP est extrait dans `no_backup/restore/` (entrées connues seulement, taille
+  bornée à 4 Go) et la base y est ouverte par Room, qui applique les migrations et vérifie le schéma ; rien n'est
+  remplacé si elle échoue. Après confirmation, l'app redémarre (`Intent.makeRestartActivityTask` puis arrêt du
+  processus) et `PendingRestore` remplace base, préférences et photos dans `LiftApplication.onCreate()`, avant que
+  Hilt n'ouvre quoi que ce soit.
 - **Bouton rond du widget** : fait main (Box et Image teintée) ; le `CircleIconButton` de Glance affichait une coche
   minuscule.
 
 ## Questions ouvertes
+- Phase 10, à confirmer : le masquage du poids de corps laisse visible la masse grasse ; les exports CSV et la
+  sauvegarde contiennent tout, même ce qui est masqué ; restaurer une sauvegarde sans photos supprime les photos
+  actuelles (la confirmation le dit). La restauration n'est proposée que dans les réglages, pas sur l'écran de
+  bienvenue d'une nouvelle installation.
 - Code des photos oublié sur un téléphone sans verrouillage d'écran : l'app explique qu'il faut d'abord en activer un
   dans Android (aucune autre issue inventée). À confirmer par le développeur.
 - Politique de confidentialité : nom affiché et adresse de contact (publics), nom du dépôt public qui l'hébergera.
@@ -371,9 +418,11 @@ Reportés en phase 10 (Réglages, cahier § 4.11) : unités lb et in, masquage d
 - Lint signale des versions plus récentes (Gradle 9.8.2, DataStore 1.3.0, Kotlin 2.4.21, kotlinx.serialization
   1.12.0, kotlinx-coroutines-test 1.11.0). Mises à jour à décider à part ; coroutines-test doit rester alignée sur
   1.10.2 (voir plus bas).
-- `connectedDebugAndroidTest` désinstalle l'app de l'émulateur, données comprises. Sauvegarder avant :
-  `adb exec-out run-as com.paulfvt.liftapp tar -cf - databases files > sauvegarde.tar`, puis restaurer avec la version
-  debug installée (`run-as … tar -xf` depuis `/data/local/tmp`) avant de remettre une release par-dessus.
+- `connectedDebugAndroidTest` désinstalle l'app de l'émulateur, données comprises. Pour garder les données :
+  `./gradlew installDebug installDebugAndroidTest` puis
+  `adb shell am instrument -w com.paulfvt.liftapp.test/androidx.test.runner.AndroidJUnitRunner` (toute la suite, sans
+  désinstaller). Sinon, sauvegarder avant depuis l'app (Réglages, « Sauvegarder toutes les données ») et restaurer
+  après.
 - Captures du Play Store : elles ne montrent ni les mesures ni les photos, à refaire avant la production.
 - `kotlinx-coroutines-test` doit rester à la même version que `kotlinx-coroutines-core` utilisé par l'app
   (1.10.2, imposé par AndroidX), sinon les tests instrumentés échouent avec un `NoSuchMethodError`.
