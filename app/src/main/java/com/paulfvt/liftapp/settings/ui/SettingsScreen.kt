@@ -1,5 +1,7 @@
 package com.paulfvt.liftapp.settings.ui
 
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -22,16 +24,21 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
@@ -56,7 +63,26 @@ import com.paulfvt.liftapp.template.ui.ChoiceDialog
 fun SettingsScreen(onBack: () -> Unit, viewModel: SettingsViewModel = hiltViewModel()) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     var isRestDialogOpen by rememberSaveable { mutableStateOf(false) }
+    val snackbarHostState = remember { SnackbarHostState() }
+    val message by viewModel.message.collectAsStateWithLifecycle()
+    val messageText = message?.let { dataMessageText(it) }
+    LaunchedEffect(message) {
+        if (messageText != null) {
+            snackbarHostState.showSnackbar(messageText)
+            viewModel.onMessageShown()
+        }
+    }
+    // Sélecteur de fichiers d'Android : l'utilisateur choisit où enregistrer, sans permission de stockage.
+    val historyExport = rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument(CSV_MIME_TYPE)) {
+        it?.let(viewModel::exportHistory)
+    }
+    val measurementExport = rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument(CSV_MIME_TYPE)) {
+        it?.let(viewModel::exportMeasurements)
+    }
+    val historyFileName = stringResource(R.string.csv_history_file_name, viewModel.today.toString())
+    val measurementFileName = stringResource(R.string.csv_measurements_file_name, viewModel.today.toString())
     Scaffold(
+        snackbarHost = { SnackbarHost(snackbarHostState) },
         topBar = {
             TopAppBar(
                 navigationIcon = {
@@ -138,6 +164,20 @@ fun SettingsScreen(onBack: () -> Unit, viewModel: SettingsViewModel = hiltViewMo
                     )
                 }
             }
+            SectionBlock(stringResource(R.string.settings_data)) {
+                SettingsCard {
+                    ActionRow(
+                        label = stringResource(R.string.settings_export_history),
+                        supporting = stringResource(R.string.settings_export_history_summary),
+                        onClick = { historyExport.launch(historyFileName) }
+                    )
+                    ActionRow(
+                        label = stringResource(R.string.settings_export_measurements),
+                        supporting = stringResource(R.string.settings_export_measurements_summary),
+                        onClick = { measurementExport.launch(measurementFileName) }
+                    )
+                }
+            }
         }
     }
     if (isRestDialogOpen) {
@@ -190,6 +230,28 @@ fun SwitchRow(label: String, checked: Boolean, onCheckedChange: (Boolean) -> Uni
         modifier = Modifier.toggleable(value = checked, role = Role.Switch, onValueChange = onCheckedChange)
     )
 }
+
+// Ligne qui lance une action (export, sauvegarde) : toute la ligne est un bouton.
+@Composable
+private fun ActionRow(label: String, supporting: String, onClick: () -> Unit) {
+    ListItem(
+        headlineContent = { Text(label) },
+        supportingContent = { Text(supporting) },
+        colors = ListItemDefaults.colors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow),
+        modifier = Modifier.clickable(role = Role.Button, onClick = onClick)
+    )
+}
+
+@Composable
+private fun dataMessageText(message: DataMessage): String = when (message) {
+    is DataMessage.HistoryExported ->
+        pluralStringResource(R.plurals.csv_history_exported, message.workoutCount, message.workoutCount)
+    is DataMessage.MeasurementsExported ->
+        pluralStringResource(R.plurals.csv_measurements_exported, message.measurementCount, message.measurementCount)
+    DataMessage.ExportFailed -> stringResource(R.string.csv_export_failed)
+}
+
+private const val CSV_MIME_TYPE = "text/csv"
 
 // Choix exclusif en boutons segmentés (thème, unités).
 @Composable
