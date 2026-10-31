@@ -1,10 +1,44 @@
 # Avancement
 
+## Prochaine étape : retouche visuelle ON AIR (plan proposé le 1er novembre 2026, feu vert attendu)
+
+Demande du développeur : rapprocher l'Accueil et la séance en cours de la maquette `design-system/concept.html`.
+Tranché le 1er novembre 2026 : style des boutons appliqué partout, tuiles « Cette semaine » ajoutées, durée de la
+prochaine séance = durée réelle de la dernière séance avec ce template (rien si jamais faite).
+
+Plan proposé (un commit par étape) :
+1. Boutons du guide de style partout : composants communs (`core/designsystem/component/Buttons.kt` : plein, tonal,
+   contour, texte) avec coins de 8 dp (12 dp pour les grands) et libellés en majuscules, puis remplacement des
+   boutons Material par défaut dans les écrans (environ 170 appels, sans changer leur rôle).
+2. Accueil, en-tête et semaine : date du jour et « SEMAINE 44 » (numéro ISO, semaine du lundi au dimanche) à la place
+   de « ACCUEIL », badge « HORS ANTENNE » ou « EN DIRECT » (séance en cours, un appui l'ouvre) ; anneau avec lueur ;
+   rangée L M M J V S D (jour avec une séance terminée en rouge, aujourd'hui entouré). « Encore n séances » et
+   « Modifier l'objectif » gardés.
+3. Accueil, prochaine séance et record : dossier du template, nom en majuscules, « 5 exercices · 18 séries · ~1 h 05 »
+   (durée de la dernière fois), puces des premiers exercices puis « +n », bouton « DÉMARRER » ; dernier record entouré
+   de la lueur ambre. Souvenir gardé. Calculs dans `home/domain`, testés.
+4. Tuiles « Cette semaine » : tonnage (séries validées hors échauffements) et durée totale avec le nombre de séances ;
+   écart en % avec la semaine précédente prise au même moment (du lundi jusqu'au même jour et à la même heure), rien
+   si elle était vide ; « Tout voir » ouvre l'Historique. Calculs testés (semaine à cheval sur deux mois, semaine vide,
+   échauffements exclus).
+5. Séance en cours, haut : barre de progression « 7 / 16 séries · 4 120 kg » sous le titre ; sous chaque exercice,
+   muscles · matériel, puces « Repos 2 min » (un appui change le repos) et dernière fois « Lundi : 80 × 8 » (jour si
+   moins d'une semaine, sinon date ; meilleure série de travail). Photo de l'exercice gardée.
+6. Séance en cours, tableau et minuteur : en-têtes en petites capitales, prochaine série à valider entourée de rouge,
+   « + AJOUTER UNE SÉRIE » ; minuteur de repos compact sur une ligne (REPOS 01:47, −15 S, +30 S, passer), l'avertissement
+   d'alerte en retard en petit dessous ; « TERMINER LA SÉANCE » en bouton à contour.
+7. Vérifications : thèmes clair et sombre, TalkBack et zones de 48 dp, mode salle, captures avant et après sur
+   l'émulateur, `PROGRESS.md`.
+
+Ni nouvelle dépendance, ni changement de schéma. Fichiers principaux : `home/ui/HomeScreen.kt`, `WeekCard.kt`,
+`HomeViewModel.kt`, `home/domain/Dashboard.kt`, `home/data/DashboardRepository.kt`, `workout/ui/WorkoutScreen.kt`,
+`WorkoutSetRow.kt`, `RestTimer.kt`, `core/designsystem/component/`, `strings.xml`.
+
 ## Ensuite : phase 11 réduite à un usage personnel (plan proposé le 31 octobre 2026, à valider)
 
 Décidé le 31 octobre 2026 : pas de publication sur Google Play (le compte développeur est payant), l'app reste pour
-le développeur. Écart avec le cahier des charges (§ 8 et phase 11), noté dans `CLAUDE.md`. À lancer une fois la
-phase 10 testée sur le téléphone.
+le développeur. Écart avec le cahier des charges (§ 8 et phase 11), noté dans `CLAUDE.md`. À lancer après la
+retouche visuelle.
 
 Plan proposé (un commit par étape) :
 1. Version release (optimisée par R8) vérifiée sur l'émulateur : catalogue et images, séance, minuteur et
@@ -18,7 +52,11 @@ Plan proposé (un commit par étape) :
 4. Documents qui ne servaient qu'à la publication (politique de confidentialité, fiche et captures Play Store,
    `tools/play-store/`) : à garder sans les tenir à jour, ou à supprimer. À trancher par le développeur.
 
-## Phase 10 — Réglages et données : code terminé le 31 octobre 2026, test sur le téléphone attendu
+## Phase 10 — Réglages et données : terminée le 1er novembre 2026
+
+Testée et validée par le développeur sur le S25+ le 1er novembre 2026 (sauvegarde, restauration, export).
+Installation sur le téléphone : il a fallu désactiver le Blocage automatique de Samsung (Paramètres, Sécurité et
+confidentialité) pour activer le débogage USB.
 
 Fait en une traite à la demande du développeur, un commit par étape :
 - Écran Réglages (Profil, « Réglages ») : thème système, clair ou sombre ; objectif hebdomadaire ; repos par défaut
