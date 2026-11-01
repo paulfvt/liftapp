@@ -60,7 +60,7 @@ class DashboardTest {
 
     @Test
     fun `the duration shown is the one of the last finished session with this template`() {
-        fun session(templateId: Long, start: String, minutes: Long?) = TemplateSession(
+        fun session(templateId: Long, start: String, minutes: Long?) = FinishedSession(
             templateId,
             Instant.parse(start),
             minutes?.let { Instant.parse(start).plusSeconds(it * 60) }

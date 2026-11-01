@@ -39,8 +39,8 @@ data class ExercisePerformedSetRow(val exerciseId: Long, @Embedded val set: Perf
 // Exercice fait au moins une fois : dernière date et nombre de séances (onglet Progrès).
 data class PerformedExerciseRow(val exerciseId: Long, val lastPerformedAt: Instant, val workoutCount: Int)
 
-// Séance terminée issue d'un template, pour la durée de la dernière fois.
-data class TemplateSessionRow(val templateId: Long, val startedAt: Instant, val endedAt: Instant?)
+// Séance terminée : son template (null pour une séance libre), son début et sa fin.
+data class FinishedSessionRow(val templateId: Long?, val startedAt: Instant, val endedAt: Instant?)
 
 // Heure de validation d'une série, gardée quand une séance passée est réécrite.
 data class SetCompletionRow(val id: Long, val completedAt: Instant?)

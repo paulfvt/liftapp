@@ -7,10 +7,13 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -53,15 +56,22 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.paulfvt.liftapp.R
 import com.paulfvt.liftapp.core.designsystem.component.LiftButtonSize
+import com.paulfvt.liftapp.core.designsystem.component.LiftTextButton
 import com.paulfvt.liftapp.core.designsystem.component.OnAirBadge
 import com.paulfvt.liftapp.core.designsystem.component.SectionBlock
+import com.paulfvt.liftapp.core.designsystem.component.SectionTitle
 import com.paulfvt.liftapp.core.designsystem.component.SignalButton
+import com.paulfvt.liftapp.core.designsystem.component.StatTile
 import com.paulfvt.liftapp.core.designsystem.theme.LocalExtendedColors
+import com.paulfvt.liftapp.core.domain.fromKg
 import com.paulfvt.liftapp.core.ui.LocalUnits
 import com.paulfvt.liftapp.core.ui.dayTitle
 import com.paulfvt.liftapp.core.ui.durationText
+import com.paulfvt.liftapp.core.ui.labelRes
 import com.paulfvt.liftapp.core.ui.shortDay
+import com.paulfvt.liftapp.core.ui.wholeNumber
 import com.paulfvt.liftapp.home.domain.LatestRecord
+import com.paulfvt.liftapp.home.domain.WeekStats
 import com.paulfvt.liftapp.home.domain.weekNumber
 import com.paulfvt.liftapp.progress.ui.FlashbackCard
 import com.paulfvt.liftapp.progress.ui.formatMetric
@@ -70,11 +80,17 @@ import com.paulfvt.liftapp.template.domain.TemplateSummary
 import java.time.Duration
 import java.time.LocalDate
 import java.util.Locale
+import kotlin.math.roundToInt
 
 // Accueil (tableau de bord) : la semaine, la prochaine séance avec « Démarrer », le dernier record et le souvenir.
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(onOpenWorkout: () -> Unit, onOpenExercise: (Long) -> Unit, viewModel: HomeViewModel = hiltViewModel()) {
+fun HomeScreen(
+    onOpenWorkout: () -> Unit,
+    onOpenExercise: (Long) -> Unit,
+    onOpenHistory: () -> Unit,
+    viewModel: HomeViewModel = hiltViewModel()
+) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     var isGoalDialogOpen by rememberSaveable { mutableStateOf(false) }
     LaunchedEffect(viewModel.isWorkoutReady) {
@@ -116,6 +132,9 @@ fun HomeScreen(onOpenWorkout: () -> Unit, onOpenExercise: (Long) -> Unit, viewMo
                     lastDuration = dashboard.nextLastDuration,
                     onStart = { templateId -> viewModel.start(templateId, emptyName) }
                 )
+            }
+            item(key = "weekStats") {
+                WeekStatsSection(dashboard.weekStats, onSeeAll = onOpenHistory)
             }
             dashboard.latestRecord?.let { latest ->
                 item(key = "record") {
@@ -343,6 +362,54 @@ private fun InfoChip(text: String) {
             .padding(horizontal = 12.dp, vertical = 6.dp)
     )
 }
+
+// « CETTE SEMAINE · TOUT VOIR » puis deux tuiles : tonnage avec l'écart sur la semaine précédente au même moment,
+// durée cumulée avec le nombre de séances. « Tout voir » ouvre l'Historique.
+@Composable
+private fun WeekStatsSection(stats: WeekStats, onSeeAll: () -> Unit) {
+    val units = LocalUnits.current
+    val change = stats.tonnageChange
+    Column(modifier = Modifier.padding(top = 8.dp)) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            SectionTitle(stringResource(R.string.week_title), modifier = Modifier.weight(1f))
+            LiftTextButton(text = stringResource(R.string.home_see_all), onClick = onSeeAll)
+        }
+        Row(horizontalArrangement = Arrangement.spacedBy(10.dp), modifier = Modifier.height(IntrinsicSize.Min)) {
+            StatTile(
+                label = stringResource(R.string.home_week_tonnage),
+                value = wholeNumber(units.weight.fromKg(stats.current.tonnageKg)),
+                unit = stringResource(units.weight.labelRes),
+                detail = change?.let {
+                    stringResource(R.string.home_week_change, signedPercent(it), stats.previousWeekNumber)
+                },
+                detailColor = if ((change ?: 0.0) > 0) LocalExtendedColors.current.success else Color.Unspecified,
+                modifier = Modifier.weight(1f).fillMaxHeight()
+            )
+            StatTile(
+                label = stringResource(R.string.home_week_duration),
+                value = durationText(stats.current.duration),
+                detail = pluralStringResource(
+                    R.plurals.progress_sessions,
+                    stats.current.sessions,
+                    stats.current.sessions
+                ),
+                modifier = Modifier.weight(1f).fillMaxHeight()
+            )
+        }
+    }
+}
+
+// +0,06 → « +6 », −0,04 → « −4 » (signe moins typographique).
+private fun signedPercent(change: Double): String {
+    val percent = (change * PERCENT).roundToInt()
+    return when {
+        percent > 0 -> "+$percent"
+        percent < 0 -> "\u2212${-percent}"
+        else -> "0"
+    }
+}
+
+private const val PERCENT = 100
 
 // Action principale de l'écran, en rouge signal (guide de style ON AIR).
 @Composable

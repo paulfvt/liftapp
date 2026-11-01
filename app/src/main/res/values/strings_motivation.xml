@@ -197,6 +197,11 @@
     <!-- En-tête de l'accueil, %1$d : numéro de la semaine (ISO). -->
     <string name="home_week_number">Semaine %1$d</string>
     <string name="home_off_air">Hors antenne</string>
+    <string name="home_see_all">Tout voir</string>
+    <string name="home_week_tonnage">Tonnage</string>
+    <string name="home_week_duration">Durée</string>
+    <!-- Écart de tonnage avec la semaine précédente au même moment. %1$s : « +6 », %2$d : numéro de cette semaine. -->
+    <string name="home_week_change">%1$s %% vs S%2$d</string>
     <plurals name="home_next_exercises">
         <item quantity="one">%d exercice</item>
         <item quantity="many">%d exercices</item>

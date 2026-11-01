@@ -2,12 +2,14 @@ package com.paulfvt.liftapp.home.data
 
 import com.paulfvt.liftapp.core.database.LiftDatabase
 import com.paulfvt.liftapp.core.model.WorkoutStatus
+import com.paulfvt.liftapp.home.domain.FinishedSession
 import com.paulfvt.liftapp.home.domain.LatestRecord
-import com.paulfvt.liftapp.home.domain.TemplateSession
+import com.paulfvt.liftapp.home.domain.WeekStats
 import com.paulfvt.liftapp.home.domain.lastDuration
 import com.paulfvt.liftapp.home.domain.latestRecord
 import com.paulfvt.liftapp.home.domain.nextTemplate
 import com.paulfvt.liftapp.home.domain.trainedDays
+import com.paulfvt.liftapp.home.domain.weekStats
 import com.paulfvt.liftapp.progress.data.MotivationRepository
 import com.paulfvt.liftapp.progress.data.WeeklyGoalRepository
 import com.paulfvt.liftapp.progress.domain.Flashback
@@ -32,6 +34,8 @@ data class Dashboard(
     val streak: WeeklyStreak,
     // Jours de la semaine en cours avec au moins une séance terminée.
     val trainedDays: Set<LocalDate>,
+    // Tuiles « Cette semaine » : tonnage, durée et écart avec la semaine précédente.
+    val weekStats: WeekStats,
     val nextTemplate: TemplateSummary?,
     // Dossier de la prochaine séance et durée de la dernière fois avec ce template, quand ils existent.
     val nextFolderName: String?,
@@ -56,19 +60,19 @@ class DashboardRepository @Inject constructor(
         templates.observeLibrary(),
         workoutDao.observeRecentTemplateIds(WorkoutStatus.FINISHED),
         motivation.observeHistories(),
-        combine(
-            workoutDao.observeStartTimes(WorkoutStatus.FINISHED),
-            workoutDao.observeTemplateSessions(WorkoutStatus.FINISHED)
-        ) { starts, sessions -> starts to sessions }
-    ) { streak, library, recentTemplateIds, histories, (starts, sessionRows) ->
+        workoutDao.observeSessions(WorkoutStatus.FINISHED)
+    ) { streak, library, recentTemplateIds, histories, sessionRows ->
         val zone = ZoneId.systemDefault()
-        val today = clock.instant().atZone(zone).toLocalDate()
+        val now = clock.instant()
+        val today = now.atZone(zone).toLocalDate()
         val next = nextTemplate(library, recentTemplateIds)
-        val sessions = sessionRows.map { TemplateSession(it.templateId, it.startedAt, it.endedAt) }
+        val sessions = sessionRows.map { FinishedSession(it.templateId, it.startedAt, it.endedAt) }
+        val monday = streak.currentWeek.monday
         Dashboard(
             today = today,
             streak = streak,
-            trainedDays = trainedDays(starts, streak.currentWeek.monday, zone),
+            trainedDays = trainedDays(sessions.map { it.startedAt }, monday, zone),
+            weekStats = weekStats(sessions, histories, monday, now, zone),
             nextTemplate = next,
             nextFolderName = next?.folderId?.let { id -> library.folders.firstOrNull { it.folder.id == id } }
                 ?.folder?.name,

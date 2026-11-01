@@ -40,12 +40,9 @@ fun trainedDays(sessionStarts: List<Instant>, monday: LocalDate, zone: ZoneId): 
         .filterTo(mutableSetOf()) { !it.isBefore(monday) && !it.isAfter(sunday) }
 }
 
-// Séance terminée d'un template : son début et sa fin.
-data class TemplateSession(val templateId: Long, val startedAt: Instant, val endedAt: Instant?)
-
 // Durée affichée sous la prochaine séance (décision du 1er novembre 2026) : celle de la dernière séance terminée avec
 // ce template, null s'il n'a jamais été fait.
-fun lastDuration(templateId: Long, sessions: List<TemplateSession>): Duration? = sessions
+fun lastDuration(templateId: Long, sessions: List<FinishedSession>): Duration? = sessions
     .filter { it.templateId == templateId && it.endedAt != null }
     .maxByOrNull { it.startedAt }
     ?.let { Duration.between(it.startedAt, it.endedAt) }

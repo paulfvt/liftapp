@@ -127,7 +127,7 @@ private fun NavDestination?.isInHierarchyOf(destination: TopLevelDestination): B
 
 // Navigation entre onglets : on revient à la racine du graphe pour ne pas empiler les onglets,
 // et on sauvegarde puis restaure l'état de chaque onglet (position de défilement, sous-écran ouvert).
-private fun NavHostController.navigateToTopLevel(destination: TopLevelDestination) {
+internal fun NavHostController.navigateToTopLevel(destination: TopLevelDestination) {
     navigate(destination.route) {
         popUpTo(graph.findStartDestination().id) { saveState = true }
         launchSingleTop = true

@@ -42,7 +42,8 @@ fun LiftNavHost(navController: NavHostController, modifier: Modifier = Modifier)
             composable<HomeRoute> {
                 HomeScreen(
                     onOpenWorkout = { navController.navigate(WorkoutRoute) { launchSingleTop = true } },
-                    onOpenExercise = { id -> navController.navigate(ExerciseProgressRoute(id)) }
+                    onOpenExercise = { id -> navController.navigate(ExerciseProgressRoute(id)) },
+                    onOpenHistory = { navController.navigateToTopLevel(TopLevelDestination.HISTORY) }
                 )
             }
         }
