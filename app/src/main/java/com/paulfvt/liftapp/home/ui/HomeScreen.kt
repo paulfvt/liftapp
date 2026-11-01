@@ -69,6 +69,7 @@ import com.paulfvt.liftapp.core.ui.dayTitle
 import com.paulfvt.liftapp.core.ui.durationText
 import com.paulfvt.liftapp.core.ui.labelRes
 import com.paulfvt.liftapp.core.ui.shortDay
+import com.paulfvt.liftapp.core.ui.signedPercent
 import com.paulfvt.liftapp.core.ui.wholeNumber
 import com.paulfvt.liftapp.home.domain.LatestRecord
 import com.paulfvt.liftapp.home.domain.WeekStats
@@ -80,7 +81,6 @@ import com.paulfvt.liftapp.template.domain.TemplateSummary
 import java.time.Duration
 import java.time.LocalDate
 import java.util.Locale
-import kotlin.math.roundToInt
 
 // Accueil (tableau de bord) : la semaine, la prochaine séance avec « Démarrer », le dernier record et le souvenir.
 @OptIn(ExperimentalMaterial3Api::class)
@@ -398,18 +398,6 @@ private fun WeekStatsSection(stats: WeekStats, onSeeAll: () -> Unit) {
         }
     }
 }
-
-// +0,06 → « +6 », −0,04 → « −4 » (signe moins typographique).
-private fun signedPercent(change: Double): String {
-    val percent = (change * PERCENT).roundToInt()
-    return when {
-        percent > 0 -> "+$percent"
-        percent < 0 -> "\u2212${-percent}"
-        else -> "0"
-    }
-}
-
-private const val PERCENT = 100
 
 // Action principale de l'écran, en rouge signal (guide de style ON AIR).
 @Composable

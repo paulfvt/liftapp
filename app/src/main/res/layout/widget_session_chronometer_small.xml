@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Durée de la séance en tête du grand widget, à côté de « EN DIRECT » : animée par Android. -->
+<Chronometer xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_chronometer"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:fontFamily="sans-serif-condensed"
+    android:textColor="@color/widget_text"
+    android:textSize="14sp"
+    android:textStyle="bold" />

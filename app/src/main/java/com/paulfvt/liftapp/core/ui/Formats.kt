@@ -1,7 +1,8 @@
 package com.paulfvt.liftapp.core.ui
 
+import android.content.res.Resources
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.platform.LocalResources
 import com.paulfvt.liftapp.R
 import java.text.NumberFormat
 import java.time.Duration
@@ -13,6 +14,7 @@ import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
 import java.time.temporal.ChronoUnit
 import java.util.Locale
+import kotlin.math.roundToInt
 import kotlin.math.roundToLong
 
 // Mises en forme partagées par la séance, l'historique et la progression. Les dates sont affichées dans le fuseau
@@ -25,17 +27,31 @@ private val DAY_TITLE = DateTimeFormatter.ofPattern("EEEE d MMMM", Locale.FRENCH
 private val DAY_MONTH = DateTimeFormatter.ofPattern("d MMM", Locale.FRENCH)
 private const val DAYS_IN_WEEK = 7L
 
-// « 58 min » ou « 1 h 05 ».
-@Composable
-fun durationText(duration: Duration): String {
+// « 58 min » ou « 1 h 05 ». La version avec Resources sert au widget, qui n'a pas les ressources de Compose.
+fun durationText(resources: Resources, duration: Duration): String {
     val hours = duration.toHours().toInt()
     val minutes = (duration.toMinutes() % 60).toInt()
     return if (hours > 0) {
-        stringResource(R.string.duration_hours_minutes, hours, minutes)
+        resources.getString(R.string.duration_hours_minutes, hours, minutes)
     } else {
-        stringResource(R.string.duration_minutes, minutes)
+        resources.getString(R.string.duration_minutes, minutes)
     }
 }
+
+@Composable
+fun durationText(duration: Duration): String = durationText(LocalResources.current, duration)
+
+// +0,06 → « +6 », −0,04 → « −4 » (signe moins typographique), pour « +6 % vs S43 ».
+fun signedPercent(change: Double): String {
+    val percent = (change * PERCENT).roundToInt()
+    return when {
+        percent > 0 -> "+$percent"
+        percent < 0 -> "\u2212${-percent}"
+        else -> "0"
+    }
+}
+
+private const val PERCENT = 100
 
 // Nombre entier avec séparateur de milliers français : « 9 840 ».
 fun wholeNumber(value: Double): String = NumberFormat.getIntegerInstance(Locale.FRENCH).format(value.roundToLong())

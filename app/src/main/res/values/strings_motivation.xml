@@ -226,6 +226,8 @@
     <string name="widget_weeks_short">sem.</string>
     <string name="widget_record">Record : %1$s, %2$s</string>
     <string name="widget_session_time">Séance</string>
+    <!-- Grand widget en séance, %1$s : « 80 kg × 8 ». -->
+    <string name="widget_last_time">Dernière fois : %1$s</string>
     <string name="widget_preview_ring">2/3</string>
     <string name="widget_preview_streak">Streak : 4 semaines</string>
     <string name="widget_preview_template">Push</string>
