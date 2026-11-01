@@ -42,5 +42,8 @@ data class PerformedExerciseRow(val exerciseId: Long, val lastPerformedAt: Insta
 // Séance terminée : son template (null pour une séance libre), son début et sa fin.
 data class FinishedSessionRow(val templateId: Long?, val startedAt: Instant, val endedAt: Instant?)
 
+// Exercice de la dernière séance terminée qui le contient, avec le début de cette séance.
+data class LastPerformanceRow(val workoutExerciseId: Long, val startedAt: Instant)
+
 // Heure de validation d'une série, gardée quand une séance passée est réécrite.
 data class SetCompletionRow(val id: Long, val completedAt: Instant?)

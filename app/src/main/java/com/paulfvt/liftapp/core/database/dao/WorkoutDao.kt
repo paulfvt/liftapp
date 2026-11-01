@@ -6,6 +6,7 @@ import androidx.room.Query
 import androidx.room.Transaction
 import com.paulfvt.liftapp.core.database.entity.ExercisePerformedSetRow
 import com.paulfvt.liftapp.core.database.entity.FinishedSessionRow
+import com.paulfvt.liftapp.core.database.entity.LastPerformanceRow
 import com.paulfvt.liftapp.core.database.entity.PerformedExerciseRow
 import com.paulfvt.liftapp.core.database.entity.PerformedSetRow
 import com.paulfvt.liftapp.core.database.entity.SetCompletionRow
@@ -164,6 +165,18 @@ interface WorkoutDao {
     )
     suspend fun lastWorkoutExerciseId(exerciseId: Long, templateId: Long?, status: WorkoutStatus): Long?
 
+    // Comme lastWorkoutExerciseId, avec le début de la séance (« Lundi : 80 × 8 »).
+    @Query(
+        """
+        SELECT we.id AS workoutExerciseId, w.startedAt AS startedAt
+        FROM workout_exercise we INNER JOIN workout w ON w.id = we.workoutId
+        WHERE we.exerciseId = :exerciseId AND w.status = :status
+          AND (:templateId IS NULL OR w.templateId = :templateId)
+        ORDER BY w.startedAt DESC, we.sortOrder LIMIT 1
+        """
+    )
+    suspend fun lastPerformance(exerciseId: Long, templateId: Long?, status: WorkoutStatus): LastPerformanceRow?
+
     @Query("SELECT * FROM workout_set WHERE id = :id")
     suspend fun getSet(id: Long): WorkoutSetEntity?
 
@@ -196,6 +209,9 @@ interface WorkoutDao {
 
     @Query("UPDATE workout SET status = :status, endedAt = :endedAt WHERE id = :id")
     suspend fun updateStatus(id: Long, status: WorkoutStatus, endedAt: Instant?)
+
+    @Query("UPDATE workout_exercise SET restSeconds = :restSeconds WHERE id = :id")
+    suspend fun updateExerciseRest(id: Long, restSeconds: Int)
 
     @Query("UPDATE workout_exercise SET sortOrder = :sortOrder WHERE id = :id")
     suspend fun updateExerciseOrder(id: Long, sortOrder: Int)

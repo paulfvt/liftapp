@@ -292,6 +292,14 @@
     <!-- Séance en cours -->
     <string name="workout_live">En direct</string>
     <string name="workout_live_with_time">En direct · %1$s</string>
+    <!-- Progression de la séance, %1$d : séries validées, %2$d : séries prévues. -->
+    <plurals name="workout_progress_sets">
+        <item quantity="one">%1$d / %2$d série</item>
+        <item quantity="many">%1$d / %2$d séries</item>
+        <item quantity="other">%1$d / %2$d séries</item>
+    </plurals>
+    <!-- Dernière fois sur l'exercice, %1$s : « Lundi » ou « 12 oct. », %2$s : « 80 × 8 ». -->
+    <string name="workout_last_time">%1$s : %2$s</string>
     <string name="workout_live_bar">Séance en cours : %1$s, %2$s. Revenir à la séance</string>
     <string name="workout_minimize">Réduire la séance</string>
     <string name="workout_rename">Renommer la séance</string>

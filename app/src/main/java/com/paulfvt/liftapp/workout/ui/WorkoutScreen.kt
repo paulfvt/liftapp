@@ -1,14 +1,20 @@
 package com.paulfvt.liftapp.workout.ui
 
 import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
@@ -17,7 +23,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.AssistChip
+import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -47,7 +56,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.CustomAccessibilityAction
+import androidx.compose.ui.semantics.ProgressBarRangeInfo
 import androidx.compose.ui.semantics.customActions
+import androidx.compose.ui.semantics.progressBarRangeInfo
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextOverflow
@@ -66,8 +77,15 @@ import com.paulfvt.liftapp.core.designsystem.component.OverflowMenu
 import com.paulfvt.liftapp.core.designsystem.component.SignalButton
 import com.paulfvt.liftapp.core.domain.moved
 import com.paulfvt.liftapp.core.domain.workSetNumbers
+import com.paulfvt.liftapp.core.model.Exercise
+import com.paulfvt.liftapp.core.ui.durationLabel
+import com.paulfvt.liftapp.core.ui.labelRes
+import com.paulfvt.liftapp.core.ui.recentDay
 import com.paulfvt.liftapp.core.ui.rememberElapsedSeconds
+import com.paulfvt.liftapp.core.ui.volumeText
 import com.paulfvt.liftapp.exercise.ui.ExerciseThumbnail
+import com.paulfvt.liftapp.template.domain.DEFAULT_REST_SECONDS
+import com.paulfvt.liftapp.template.domain.REST_CHOICES_SECONDS
 import com.paulfvt.liftapp.template.ui.ChoiceDialog
 import com.paulfvt.liftapp.template.ui.NameDialog
 import com.paulfvt.liftapp.workout.domain.NextSet
@@ -75,10 +93,14 @@ import com.paulfvt.liftapp.workout.domain.PreviousSet
 import com.paulfvt.liftapp.workout.domain.RPE_CHOICES
 import com.paulfvt.liftapp.workout.domain.Workout
 import com.paulfvt.liftapp.workout.domain.WorkoutExercise
+import com.paulfvt.liftapp.workout.domain.bestWorkSet
+import com.paulfvt.liftapp.workout.domain.completedSetCount
 import com.paulfvt.liftapp.workout.domain.formatDecimal
 import com.paulfvt.liftapp.workout.domain.formatDuration
 import com.paulfvt.liftapp.workout.domain.matchPrevious
 import com.paulfvt.liftapp.workout.domain.nextSet
+import com.paulfvt.liftapp.workout.domain.summarize
+import java.time.Instant
 import sh.calvin.reorderable.ReorderableItem
 import sh.calvin.reorderable.rememberReorderableLazyListState
 
@@ -105,7 +127,15 @@ fun WorkoutScreen(
         uiState.isLoading || viewModel.isFinishing -> Unit
         // Plus de séance en cours (terminée ou abandonnée ailleurs) : rien à afficher.
         workout == null -> LaunchedEffect(Unit) { onClose() }
-        else -> ActiveWorkout(workout, uiState.previous, uiState.records, viewModel, onClose, onPickExercises)
+        else -> ActiveWorkout(
+            workout,
+            uiState.previous,
+            uiState.previousDates,
+            uiState.records,
+            viewModel,
+            onClose,
+            onPickExercises
+        )
     }
 }
 
@@ -114,6 +144,7 @@ fun WorkoutScreen(
 private fun ActiveWorkout(
     workout: Workout,
     previous: Map<Long, List<PreviousSet>>,
+    previousDates: Map<Long, Instant>,
     records: List<SessionRecord>,
     viewModel: WorkoutViewModel,
     onMinimize: () -> Unit,
@@ -213,7 +244,16 @@ private fun ActiveWorkout(
         snackbarHost = { SnackbarHost(snackbarHostState) }
     ) { padding ->
         Box(Modifier.padding(padding)) {
-            ActiveWorkoutContent(workout, previous, settings.gymMode, next, viewModel, onPickExercises, restTimer)
+            ActiveWorkoutContent(
+                workout,
+                previous,
+                previousDates,
+                settings.gymMode,
+                next,
+                viewModel,
+                onPickExercises,
+                restTimer
+            )
             RecordCelebration(
                 records = records,
                 modifier = Modifier.align(Alignment.TopCenter).padding(horizontal = 16.dp, vertical = 8.dp)
@@ -227,6 +267,7 @@ private fun ActiveWorkout(
 private fun ActiveWorkoutContent(
     workout: Workout,
     previous: Map<Long, List<PreviousSet>>,
+    previousDates: Map<Long, Instant>,
     isGymMode: Boolean,
     next: NextSet?,
     viewModel: WorkoutViewModel,
@@ -251,7 +292,7 @@ private fun ActiveWorkoutContent(
             restTimer = { restTimer(true, Modifier) }
         )
     } else {
-        WorkoutContent(workout, previous, viewModel, onPickExercises)
+        WorkoutContent(workout, previous, previousDates, viewModel, onPickExercises)
     }
 }
 
@@ -289,6 +330,7 @@ private fun LateAlertWarning(onEnable: () -> Unit) {
 private fun WorkoutContent(
     workout: Workout,
     previous: Map<Long, List<PreviousSet>>,
+    previousDates: Map<Long, Instant>,
     viewModel: WorkoutViewModel,
     onPickExercises: (excludedIds: List<Long>, replace: Boolean) -> Unit,
     modifier: Modifier = Modifier
@@ -326,6 +368,7 @@ private fun WorkoutContent(
         item(key = "header") {
             Column {
                 Text(workout.name.uppercase(), style = MaterialTheme.typography.headlineLarge)
+                WorkoutProgress(workout)
                 workout.note?.let {
                     Text(
                         it,
@@ -350,6 +393,7 @@ private fun WorkoutContent(
                 WorkoutExerciseCard(
                     item = item,
                     previous = previous[item.exercise.id].orEmpty(),
+                    lastTime = previousDates[item.exercise.id],
                     isDragging = isDragging,
                     canMoveUp = index > 0,
                     canMoveDown = index < order.lastIndex,
@@ -380,6 +424,9 @@ private fun WorkoutContent(
                     },
                     onRemove = { viewModel.onRemoveExercise(item.id) },
                     onEditNote = { viewModel.openDialog(WorkoutDialog.ExerciseNote(item.exercise)) },
+                    onRestClick = {
+                        viewModel.openDialog(WorkoutDialog.Rest(item.id, item.restSeconds ?: DEFAULT_REST_SECONDS))
+                    },
                     onAddSet = { viewModel.onAddSet(item.id) },
                     setActions = setActions
                 )
@@ -400,6 +447,7 @@ private fun WorkoutContent(
 private fun WorkoutExerciseCard(
     item: WorkoutExercise,
     previous: List<PreviousSet>,
+    lastTime: Instant?,
     isDragging: Boolean,
     canMoveUp: Boolean,
     canMoveDown: Boolean,
@@ -408,6 +456,7 @@ private fun WorkoutExerciseCard(
     onReplace: () -> Unit,
     onRemove: () -> Unit,
     onEditNote: () -> Unit,
+    onRestClick: () -> Unit,
     onAddSet: () -> Unit,
     setActions: SetActions
 ) {
@@ -439,6 +488,13 @@ private fun WorkoutExerciseCard(
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis
                 )
+                Text(
+                    exerciseSubtitle(item.exercise),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
                 // Note permanente de l'exercice (réglage de machine, placement…), rappelée à chaque séance.
                 item.exercise.note?.let { note ->
                     Text(
@@ -464,6 +520,7 @@ private fun WorkoutExerciseCard(
             )
             dragHandle()
         }
+        ExerciseChips(item, previous, lastTime, onRestClick)
         Column(
             verticalArrangement = Arrangement.spacedBy(4.dp),
             modifier = Modifier.padding(start = 8.dp, end = 8.dp, top = 8.dp)
@@ -495,6 +552,117 @@ private fun WorkoutExerciseCard(
     }
 }
 
+// « 7 / 16 séries » et le tonnage validé, au-dessus d'une barre de progression (.lin du guide de style).
+@Composable
+private fun WorkoutProgress(workout: Workout) {
+    val total = workout.exercises.sumOf { it.sets.size }
+    if (total == 0) return
+    val done = workout.completedSetCount()
+    val fraction = done.toFloat() / total
+    Column(
+        modifier = Modifier.padding(top = 8.dp).semantics(mergeDescendants = true) {
+            progressBarRangeInfo = ProgressBarRangeInfo(fraction, 0f..1f)
+        }
+    ) {
+        Row {
+            Text(
+                pluralStringResource(R.plurals.workout_progress_sets, total, done, total),
+                style = MaterialTheme.typography.labelMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.weight(1f)
+            )
+            Text(
+                volumeText(summarize(workout, workout.startedAt).tonnageKg),
+                style = MaterialTheme.typography.labelMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        }
+        Box(
+            Modifier
+                .padding(top = 6.dp)
+                .fillMaxWidth()
+                .height(4.dp)
+                .background(MaterialTheme.colorScheme.secondaryContainer, CircleShape)
+        ) {
+            Box(
+                Modifier
+                    .fillMaxWidth(fraction)
+                    .fillMaxHeight()
+                    .background(MaterialTheme.colorScheme.primary, CircleShape)
+            )
+        }
+    }
+}
+
+// « Pectoraux · Barre » : muscles principaux et matériel.
+@Composable
+private fun exerciseSubtitle(exercise: Exercise): String {
+    val muscles = exercise.primaryMuscles.map { stringResource(it.labelRes) }.joinToString(", ")
+    return listOf(muscles, stringResource(exercise.equipment.labelRes)).filter { it.isNotEmpty() }.joinToString(" · ")
+}
+
+// Puces sous l'exercice : son repos (un appui le change) et sa meilleure série de travail la dernière fois.
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+private fun ExerciseChips(
+    item: WorkoutExercise,
+    previous: List<PreviousSet>,
+    lastTime: Instant?,
+    onRestClick: () -> Unit
+) {
+    val best = bestWorkSet(previous, item.exercise.trackingType)
+    FlowRow(
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        modifier = Modifier.padding(horizontal = 12.dp)
+    ) {
+        AssistChip(
+            onClick = onRestClick,
+            label = {
+                Text(stringResource(R.string.template_rest, durationLabel(item.restSeconds ?: DEFAULT_REST_SECONDS)))
+            },
+            leadingIcon = {
+                Icon(
+                    painterResource(R.drawable.ic_timer),
+                    contentDescription = null,
+                    modifier = Modifier.size(AssistChipDefaults.IconSize)
+                )
+            }
+        )
+        if (best != null && lastTime != null) {
+            InfoChip(
+                icon = R.drawable.ic_history,
+                text = stringResource(
+                    R.string.workout_last_time,
+                    recentDay(lastTime),
+                    previousLabel(best, item.exercise)
+                ),
+                modifier = Modifier.padding(vertical = 8.dp)
+            )
+        }
+    }
+}
+
+// Puce d'information, non cliquable, du même dessin qu'une puce d'assistance.
+@Composable
+private fun InfoChip(icon: Int, text: String, modifier: Modifier = Modifier) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        modifier = modifier
+            .heightIn(min = 32.dp)
+            .border(1.dp, MaterialTheme.colorScheme.outlineVariant, MaterialTheme.shapes.small)
+            .padding(horizontal = 8.dp)
+    ) {
+        Icon(
+            painterResource(icon),
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.primary,
+            modifier = Modifier.size(AssistChipDefaults.IconSize)
+        )
+        Text(text, style = MaterialTheme.typography.labelLarge, maxLines = 1, overflow = TextOverflow.Ellipsis)
+    }
+}
+
 @Composable
 private fun WorkoutDialogs(workout: Workout, viewModel: WorkoutViewModel) {
     when (val dialog = viewModel.dialog) {
@@ -519,6 +687,14 @@ private fun WorkoutDialogs(workout: Workout, viewModel: WorkoutViewModel) {
             initialNote = dialog.exercise.note.orEmpty(),
             onDismiss = viewModel::dismissDialog,
             onSave = { viewModel.onExerciseNoteSave(dialog.exercise.id, it) }
+        )
+        is WorkoutDialog.Rest -> ChoiceDialog(
+            title = stringResource(R.string.template_rest_title),
+            options = REST_CHOICES_SECONDS,
+            selected = dialog.current,
+            label = { durationLabel(it) },
+            onSelect = { viewModel.onRestSelected(dialog.workoutExerciseId, it) },
+            onDismiss = viewModel::dismissDialog
         )
         is WorkoutDialog.Rpe -> {
             val none = stringResource(R.string.workout_rpe_none)

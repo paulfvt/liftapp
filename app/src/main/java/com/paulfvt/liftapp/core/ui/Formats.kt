@@ -10,6 +10,8 @@ import java.time.LocalDate
 import java.time.YearMonth
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
+import java.time.format.TextStyle
+import java.time.temporal.ChronoUnit
 import java.util.Locale
 import kotlin.math.roundToLong
 
@@ -20,6 +22,8 @@ private val DAY_AND_TIME = DateTimeFormatter.ofPattern("EEE d MMM yyyy · HH:mm"
 private val SHORT_DAY = DateTimeFormatter.ofPattern("d MMM yyyy", Locale.FRENCH)
 private val MONTH = DateTimeFormatter.ofPattern("MMMM yyyy", Locale.FRENCH)
 private val DAY_TITLE = DateTimeFormatter.ofPattern("EEEE d MMMM", Locale.FRENCH)
+private val DAY_MONTH = DateTimeFormatter.ofPattern("d MMM", Locale.FRENCH)
+private const val DAYS_IN_WEEK = 7L
 
 // « 58 min » ou « 1 h 05 ».
 @Composable
@@ -39,6 +43,16 @@ fun wholeNumber(value: Double): String = NumberFormat.getIntegerInstance(Locale.
 // « mar. 21 oct. 2026 · 18:04 ».
 fun dayAndTime(instant: Instant, zone: ZoneId = ZoneId.systemDefault()): String =
     DAY_AND_TIME.format(instant.atZone(zone))
+
+// « Lundi » pour une date de moins d'une semaine, « 12 oct. » au-delà (puce « Lundi : 80 × 8 » de la séance).
+fun recentDay(instant: Instant, zone: ZoneId = ZoneId.systemDefault(), today: LocalDate = LocalDate.now(zone)): String {
+    val date = instant.atZone(zone).toLocalDate()
+    return if (ChronoUnit.DAYS.between(date, today) in 0 until DAYS_IN_WEEK) {
+        date.dayOfWeek.getDisplayName(TextStyle.FULL, Locale.FRENCH).replaceFirstChar { it.uppercase(Locale.FRENCH) }
+    } else {
+        DAY_MONTH.format(date)
+    }
+}
 
 // « dimanche 1 novembre », en tête de l'accueil.
 fun dayTitle(date: LocalDate): String = DAY_TITLE.format(date)

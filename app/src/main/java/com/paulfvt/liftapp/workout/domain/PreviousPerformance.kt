@@ -1,7 +1,25 @@
 package com.paulfvt.liftapp.workout.domain
 
 import com.paulfvt.liftapp.core.model.SetType
+import com.paulfvt.liftapp.core.model.TrackingType
 import com.paulfvt.liftapp.template.domain.DEFAULT_SET_COUNT
+import java.time.Instant
+
+// Dernière fois sur un exercice : le début de cette séance et ses séries validées.
+data class PreviousPerformance(val performedAt: Instant, val sets: List<PreviousSet>)
+
+// Meilleure série de travail de la dernière fois, rappelée en tête de l'exercice (« Lundi : 80 × 8 ») : la plus
+// lourde puis celle qui a le plus de reps pour un exercice à charge ; sinon la plus longue (reps, durée, distance).
+// Les échauffements ne comptent pas.
+fun bestWorkSet(sets: List<PreviousSet>, trackingType: TrackingType): PreviousSet? {
+    val comparator: Comparator<PreviousSet> = when (trackingType) {
+        TrackingType.WEIGHT_REPS -> compareBy({ it.values.weightKg ?: 0.0 }, { it.values.reps ?: 0 })
+        TrackingType.REPS -> compareBy({ it.values.reps ?: 0 }, { it.values.weightKg ?: 0.0 })
+        TrackingType.DURATION -> compareBy { it.values.durationSec ?: 0 }
+        TrackingType.DISTANCE -> compareBy({ it.values.distanceM ?: 0.0 }, { -(it.values.durationSec ?: 0) })
+    }
+    return sets.filter { it.type != SetType.WARMUP }.maxWithOrNull(comparator)
+}
 
 // Associe à chaque série prévue une série de la dernière fois, par type : la n-ième série d'un type reprend
 // la n-ième série de ce type, sinon la dernière série de ce type. Null si ce type n'a pas été fait la dernière fois.

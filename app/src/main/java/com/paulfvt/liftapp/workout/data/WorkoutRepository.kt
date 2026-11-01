@@ -16,6 +16,7 @@ import com.paulfvt.liftapp.template.data.TemplateRepository
 import com.paulfvt.liftapp.template.domain.DEFAULT_REST_SECONDS
 import com.paulfvt.liftapp.template.domain.TemplateDraft
 import com.paulfvt.liftapp.workout.domain.PlannedSet
+import com.paulfvt.liftapp.workout.domain.PreviousPerformance
 import com.paulfvt.liftapp.workout.domain.PreviousSet
 import com.paulfvt.liftapp.workout.domain.SetValues
 import com.paulfvt.liftapp.workout.domain.Workout
@@ -67,12 +68,23 @@ class WorkoutRepository @Inject constructor(
     suspend fun inProgressId(): Long? = dao.firstIdWithStatus(WorkoutStatus.IN_PROGRESS)
 
     // Dernière fois sur cet exercice : dans le même template d'abord, sinon tous templates confondus.
-    suspend fun previousSets(exerciseId: Long, templateId: Long?): List<PreviousSet> {
-        val workoutExerciseId = templateId?.let { dao.lastWorkoutExerciseId(exerciseId, it, WorkoutStatus.FINISHED) }
-            ?: dao.lastWorkoutExerciseId(exerciseId, null, WorkoutStatus.FINISHED)
-            ?: return emptyList()
-        return dao.getSets(workoutExerciseId).filter { it.isCompleted }.map { PreviousSet(it.type, it.toValues()) }
+    suspend fun previousSets(exerciseId: Long, templateId: Long?): List<PreviousSet> =
+        previousPerformance(exerciseId, templateId)?.sets.orEmpty()
+
+    // La même dernière fois, avec sa date ; null si l'exercice n'a jamais été fait.
+    suspend fun previousPerformance(exerciseId: Long, templateId: Long?): PreviousPerformance? {
+        val last = templateId?.let { dao.lastPerformance(exerciseId, it, WorkoutStatus.FINISHED) }
+            ?: dao.lastPerformance(exerciseId, null, WorkoutStatus.FINISHED)
+            ?: return null
+        val sets = dao.getSets(last.workoutExerciseId).filter {
+            it.isCompleted
+        }.map { PreviousSet(it.type, it.toValues()) }
+        return PreviousPerformance(last.startedAt, sets)
     }
+
+    // Repos d'un exercice changé pendant la séance (puce « Repos 2 min »).
+    suspend fun updateExerciseRest(workoutExerciseId: Long, seconds: Int) =
+        dao.updateExerciseRest(workoutExerciseId, seconds)
 
     // Accueil et widget : rouvre la séance en cours s'il y en a une (une seule à la fois), sinon démarre celle demandée
     // (templateId null : séance vide). Faux si le template a été supprimé entre-temps : rien à ouvrir.

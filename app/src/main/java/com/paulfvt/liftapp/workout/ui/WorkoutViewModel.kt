@@ -23,6 +23,7 @@ import com.paulfvt.liftapp.workout.data.FinishedWorkout
 import com.paulfvt.liftapp.workout.data.WorkoutRepository
 import com.paulfvt.liftapp.workout.data.WorkoutSettings
 import com.paulfvt.liftapp.workout.data.WorkoutSettingsRepository
+import com.paulfvt.liftapp.workout.domain.PreviousPerformance
 import com.paulfvt.liftapp.workout.domain.PreviousSet
 import com.paulfvt.liftapp.workout.domain.REST_ADD_SECONDS
 import com.paulfvt.liftapp.workout.domain.REST_REMOVE_SECONDS
@@ -33,6 +34,7 @@ import com.paulfvt.liftapp.workout.domain.incompleteSetCount
 import com.paulfvt.liftapp.workout.notification.AlertPermission
 import com.paulfvt.liftapp.workout.notification.WorkoutSessionSync
 import dagger.hilt.android.lifecycle.HiltViewModel
+import java.time.Instant
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -49,6 +51,8 @@ data class WorkoutUiState(
     val workout: Workout? = null,
     // Séries de la dernière fois, par identifiant d'exercice (colonne « Précédent »).
     val previous: Map<Long, List<PreviousSet>> = emptyMap(),
+    // Date de cette dernière fois, par identifiant d'exercice (puce « Lundi : 80 × 8 »).
+    val previousDates: Map<Long, Instant> = emptyMap(),
     // Records battus par les séries validées de la séance, pour la célébration.
     val records: List<SessionRecord> = emptyList()
 )
@@ -74,6 +78,8 @@ sealed interface WorkoutDialog {
     data class Rpe(val setId: Long, val current: Double?) : WorkoutDialog
 
     data class ExerciseNote(val exercise: Exercise) : WorkoutDialog
+
+    data class Rest(val workoutExerciseId: Long, val current: Int) : WorkoutDialog
 }
 
 @HiltViewModel
@@ -87,21 +93,31 @@ class WorkoutViewModel @Inject constructor(
     @param:ApplicationScope private val appScope: CoroutineScope,
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
-    // La dernière fois ne change pas pendant la séance : chaque exercice n'est lu qu'une fois.
-    private val previousCache = mutableMapOf<Long, List<PreviousSet>>()
+    // La dernière fois ne change pas pendant la séance : chaque exercice n'est lu qu'une fois (null : jamais fait).
+    private val previousCache = mutableMapOf<Long, PreviousPerformance?>()
+
+    private suspend fun previousOf(exerciseId: Long, templateId: Long?): PreviousPerformance? {
+        if (exerciseId !in
+            previousCache
+        ) {
+            previousCache[exerciseId] = workouts.previousPerformance(exerciseId, templateId)
+        }
+        return previousCache[exerciseId]
+    }
 
     // Records d'avant la séance (séances terminées) : ils ne changent pas non plus pendant la séance.
     private val bestCache = mutableMapOf<Long, Map<ExerciseMetric, Double>>()
 
     val uiState: StateFlow<WorkoutUiState> = workouts.observeInProgress().map { workout ->
+        val performances = workout?.exercises.orEmpty().associate { item ->
+            item.exercise.id to previousOf(item.exercise.id, workout?.templateId)
+        }
         WorkoutUiState(
             isLoading = false,
             workout = workout,
-            previous = workout?.exercises.orEmpty().associate { item ->
-                item.exercise.id to previousCache.getOrPut(item.exercise.id) {
-                    workouts.previousSets(item.exercise.id, workout?.templateId)
-                }
-            },
+            previous = performances.mapValues { (_, performance) -> performance?.sets.orEmpty() },
+            previousDates = performances.mapNotNull { (id, performance) -> performance?.let { id to it.performedAt } }
+                .toMap(),
             records = workout?.let { sessionRecords(it) }.orEmpty()
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(STOP_TIMEOUT_MS), WorkoutUiState())
@@ -266,6 +282,9 @@ class WorkoutViewModel @Inject constructor(
     fun onExerciseNoteSave(exerciseId: Long, note: String) = closeDialogThen { exercises.updateNote(exerciseId, note) }
 
     fun onRpeSelected(setId: Long, rpe: Double?) = closeDialogThen { workouts.updateSetRpe(setId, rpe) }
+
+    fun onRestSelected(workoutExerciseId: Long, seconds: Int) =
+        closeDialogThen { workouts.updateExerciseRest(workoutExerciseId, seconds) }
 
     // Avant de terminer : confirmation s'il reste des séries non validées, ou si aucune ne l'est.
     fun onFinishClick() {
