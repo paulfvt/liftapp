@@ -7,18 +7,20 @@ import com.paulfvt.liftapp.core.di.ApplicationScope
 import com.paulfvt.liftapp.settings.data.AppSettingsRepository
 import com.paulfvt.liftapp.workout.data.WorkoutRepository
 import com.paulfvt.liftapp.workout.data.WorkoutSettingsRepository
-import com.paulfvt.liftapp.workout.domain.RestPeriod
+import com.paulfvt.liftapp.workout.domain.REST_ALERT_LEAD_SECONDS
+import com.paulfvt.liftapp.workout.domain.restEndVibration
 import com.paulfvt.liftapp.workout.domain.toNotice
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.Clock
 import java.time.Duration
-import java.time.Instant
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
-// Reçoit l'alarme de fin de repos, alerte, puis remet la notification sur la séance.
+// Reçoit l'alarme 3 s avant la fin du repos : vibration pendant le décompte, son à la fin, puis remet la notification
+// sur la séance.
 @AndroidEntryPoint
 class RestEndReceiver : BroadcastReceiver() {
     @Inject lateinit var workouts: WorkoutRepository
@@ -39,17 +41,11 @@ class RestEndReceiver : BroadcastReceiver() {
     lateinit var scope: CoroutineScope
 
     override fun onReceive(context: Context, intent: Intent) {
-        // goAsync : le récepteur reste en vie le temps de lire la base (quelques secondes au plus).
+        // goAsync : le récepteur reste en vie le temps du décompte (3 s) et de la lecture de la base.
         val pending = goAsync()
         scope.launch {
             try {
-                val workout = workouts.observeInProgress().first()
-                val rest = workout?.rest
-                if (rest != null && shouldAlert(rest, clock.instant())) {
-                    val current = settings.current()
-                    if (current.restVibration) alerter.vibrate()
-                    if (current.restSound) notifier.showRestEnd(workout.toNotice(), appSettings.current().units)
-                }
+                alertIfDue()
                 sync.refresh()
             } finally {
                 pending.finish()
@@ -57,12 +53,30 @@ class RestEndReceiver : BroadcastReceiver() {
         }
     }
 
-    // Repos bien terminé, et pas depuis trop longtemps : une alarme retardée de plusieurs minutes (sans permission
-    // d'alarme exacte) ne doit pas vibrer au milieu de la série suivante.
-    private fun shouldAlert(rest: RestPeriod, now: Instant): Boolean =
-        !rest.isRunning(now) && Duration.between(rest.endsAt, now) <= MAX_ALERT_DELAY
+    private suspend fun alertIfDue() {
+        val rest = workouts.observeInProgress().first()?.rest ?: return
+        val untilEnd = Duration.between(clock.instant(), rest.endsAt)
+        if (!shouldAlert(untilEnd)) return
+        val current = settings.current()
+        if (current.restVibration) alerter.vibrate(restEndVibration(untilEnd.toMillis()))
+        if (!untilEnd.isNegative) delay(untilEnd.toMillis())
+        // Repos passé ou prolongé pendant le décompte : pas de son, la vibration s'arrête.
+        val workout = workouts.observeInProgress().first()
+        if (workout?.rest?.endsAt != rest.endsAt) {
+            alerter.cancel()
+            return
+        }
+        if (current.restSound) notifier.showRestEnd(workout.toNotice(), appSettings.current().units)
+    }
+
+    // Décompte des 3 dernières secondes (avec une marge pour une alarme en avance), et fin pas trop ancienne : une
+    // alarme retardée de plusieurs minutes (sans permission d'alarme exacte) ne doit pas sonner au milieu de la série
+    // suivante.
+    private fun shouldAlert(untilEnd: Duration): Boolean =
+        untilEnd <= LEAD_WITH_MARGIN && untilEnd >= MAX_ALERT_DELAY.negated()
 
     private companion object {
+        val LEAD_WITH_MARGIN: Duration = Duration.ofSeconds(REST_ALERT_LEAD_SECONDS + 1)
         val MAX_ALERT_DELAY: Duration = Duration.ofMinutes(1)
     }
 }

@@ -10,6 +10,18 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class RestTimerTest {
+    @Test
+    fun `the vibration pulses during the last three seconds then lasts during the sound`() {
+        assertEquals(listOf(0L, 200L, 800L, 200L, 800L, 200L, 800L, 1_000L), restEndVibration(3_000).toList())
+    }
+
+    @Test
+    fun `a late alarm keeps only the pulses still to come`() {
+        assertEquals(listOf(500L, 200L, 800L, 1_000L), restEndVibration(1_500).toList())
+        // Fin déjà passée : seule la vibration finale, tout de suite.
+        assertEquals(listOf(0L, 1_000L), restEndVibration(-400).toList())
+    }
+
     private val now = Instant.parse("2026-10-21T18:00:00Z")
 
     private fun workout(vararg exercises: WorkoutExercise) =

@@ -5,9 +5,12 @@ import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.media.AudioAttributes
+import android.net.Uri
 import android.os.Build
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
@@ -31,8 +34,10 @@ class WorkoutNotifier @Inject constructor(@ApplicationContext private val contex
     private val manager = NotificationManagerCompat.from(context)
 
     // Deux canaux. « Séance en cours », sans son ni vibration : la notification change à chaque série.
-    // « Fin du repos », avec le son de notification du téléphone mais sans vibration (jouée par RestAlerter, pour
-    // pouvoir la couper depuis l'app). Android y applique lui-même vibreur, silencieux et « Ne pas déranger ».
+    // « Fin du repos » : le ding ding d'1 s (res/raw/rest_end_chime.wav, synthétisé pour l'app) joué avec l'usage
+    // « alarme », donc entendu même téléphone en vibreur ou en silencieux (décision du 1er novembre 2026), sans
+    // vibration (jouée par RestAlerter, pour pouvoir la couper depuis l'app). Le son d'un canal ne peut plus changer
+    // après sa création : l'ancien canal, au son de notification du téléphone, est supprimé.
     fun createChannels() {
         val workout = NotificationChannel(
             CHANNEL_ID,
@@ -51,12 +56,22 @@ class WorkoutNotifier @Inject constructor(@ApplicationContext private val contex
             NotificationManager.IMPORTANCE_DEFAULT
         ).apply {
             description = context.getString(R.string.notification_channel_rest_end_description)
+            setSound(
+                Uri.parse(
+                    "${ContentResolver.SCHEME_ANDROID_RESOURCE}://${context.packageName}/${R.raw.rest_end_chime}"
+                ),
+                AudioAttributes.Builder()
+                    .setUsage(AudioAttributes.USAGE_ALARM)
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                    .build()
+            )
             enableVibration(false)
             setShowBadge(false)
             lockscreenVisibility = Notification.VISIBILITY_PUBLIC
         }
-        context.getSystemService(NotificationManager::class.java)
-            .createNotificationChannels(listOf(workout, restEnd))
+        val system = context.getSystemService(NotificationManager::class.java)
+        system.deleteNotificationChannel(LEGACY_REST_END_CHANNEL_ID)
+        system.createNotificationChannels(listOf(workout, restEnd))
     }
 
     // Son de fin de repos : notification brève qui disparaît d'elle-même après quelques secondes.
@@ -188,7 +203,8 @@ class WorkoutNotifier @Inject constructor(@ApplicationContext private val contex
 
     private companion object {
         const val CHANNEL_ID = "workout"
-        const val REST_END_CHANNEL_ID = "rest_end"
+        const val REST_END_CHANNEL_ID = "rest_end_chime"
+        const val LEGACY_REST_END_CHANNEL_ID = "rest_end"
         const val NOTIFICATION_ID = 1
         const val REST_END_NOTIFICATION_ID = 2
         const val REST_END_TIMEOUT_MS = 10_000L

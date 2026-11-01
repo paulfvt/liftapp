@@ -8,6 +8,30 @@ const val REST_ADD_SECONDS = 30
 const val REST_REMOVE_SECONDS = 15
 private const val MILLIS_PER_SECOND = 1_000L
 
+// Fin de repos (décision du 1er novembre 2026) : la vibration commence 3 s avant la fin, une brève impulsion par
+// seconde, puis une vibration longue pendant le son de fin d'1 s.
+const val REST_ALERT_LEAD_SECONDS = 3L
+private const val PULSE_MS = 200L
+private const val FINAL_VIBRATION_MS = 1_000L
+
+// Minutages de la vibration à partir de maintenant, à la manière d'Android : pause, vibration, pause, vibration…
+// untilEndMs : temps restant avant la fin du repos. Une alarme en retard ne garde que les impulsions encore à venir ;
+// la vibration finale part tout de suite si la fin est déjà passée.
+fun restEndVibration(untilEndMs: Long): LongArray {
+    val timings = mutableListOf<Long>()
+    var cursor = 0L
+    (REST_ALERT_LEAD_SECONDS downTo 1L).map {
+        untilEndMs - it * MILLIS_PER_SECOND
+    }.filter { it >= 0 }.forEach { start ->
+        timings += start - cursor
+        timings += PULSE_MS
+        cursor = start + PULSE_MS
+    }
+    timings += maxOf(untilEndMs, cursor) - cursor
+    timings += FINAL_VIBRATION_MS
+    return timings.toLongArray()
+}
+
 // Repos en cours. Seules les deux bornes sont enregistrées : le temps restant se recalcule toujours à partir de
 // l'heure de fin, il ne dérive donc pas, même si l'app est arrêtée pendant le repos.
 data class RestPeriod(val startedAt: Instant, val endsAt: Instant) {

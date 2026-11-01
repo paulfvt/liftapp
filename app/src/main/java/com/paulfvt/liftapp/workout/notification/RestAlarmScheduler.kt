@@ -6,12 +6,14 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.util.Log
+import com.paulfvt.liftapp.workout.domain.REST_ALERT_LEAD_SECONDS
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.time.Instant
 import javax.inject.Inject
 import javax.inject.Singleton
 
-// Alarme de fin de repos : réveille l'app pour l'alerte (vibration, son), même écran verrouillé et en veille.
+// Alarme de fin de repos : réveille l'app pour l'alerte (vibration, son), même écran verrouillé et en veille. Elle
+// sonne 3 s avant la fin : la vibration commence là, le son part à la fin (RestEndReceiver).
 // Exacte si l'utilisateur a autorisé « Alarmes et rappels » (pas accordé d'office depuis Android 14) ;
 // sinon inexacte, et Android peut alors la retarder.
 @Singleton
@@ -22,7 +24,7 @@ class RestAlarmScheduler @Inject constructor(@ApplicationContext private val con
 
     // Même PendingIntent à chaque fois : programmer une nouvelle fin remplace l'alarme précédente.
     fun schedule(endsAt: Instant) {
-        val trigger = endsAt.toEpochMilli()
+        val trigger = endsAt.minusSeconds(REST_ALERT_LEAD_SECONDS).toEpochMilli()
         try {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S || alarms.canScheduleExactAlarms()) {
                 alarms.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, trigger, pendingIntent())
