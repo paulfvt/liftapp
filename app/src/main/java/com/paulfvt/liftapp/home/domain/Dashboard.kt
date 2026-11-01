@@ -7,6 +7,10 @@ import com.paulfvt.liftapp.progress.domain.celebratedMetrics
 import com.paulfvt.liftapp.progress.domain.recordBreaks
 import com.paulfvt.liftapp.template.domain.TemplateLibrary
 import com.paulfvt.liftapp.template.domain.TemplateSummary
+import java.time.Instant
+import java.time.LocalDate
+import java.time.ZoneId
+import java.time.temporal.WeekFields
 
 // Prochaine séance proposée (décision du 6 octobre 2026) : le template qui suit le dernier utilisé dans son dossier
 // (après le dernier du dossier, on repart du premier), ou le dernier utilisé lui-même s'il est hors dossier.
@@ -20,6 +24,19 @@ fun nextTemplate(library: TemplateLibrary, recentTemplateIds: List<Long>): Templ
         ?: return lastUsed
     val index = folder.templates.indexOfFirst { it.id == lastUsed.id }
     return folder.templates[(index + 1) % folder.templates.size]
+}
+
+// Numéro affiché sur l'accueil (« Semaine 44 ») : numérotation ISO, semaine du lundi au dimanche.
+fun weekNumber(date: LocalDate): Int = date.get(WeekFields.ISO.weekOfWeekBasedYear())
+
+private const val LAST_DAY_OFFSET = 6L
+
+// Jours de la semaine commençant au lundi donné où une séance terminée a commencé, dans le fuseau du téléphone :
+// une séance compte pour sa date de début (décision du 6 octobre 2026).
+fun trainedDays(sessionStarts: List<Instant>, monday: LocalDate, zone: ZoneId): Set<LocalDate> {
+    val sunday = monday.plusDays(LAST_DAY_OFFSET)
+    return sessionStarts.map { it.atZone(zone).toLocalDate() }
+        .filterTo(mutableSetOf()) { !it.isBefore(monday) && !it.isAfter(sunday) }
 }
 
 data class LatestRecord(val exercise: Exercise, val recordBreak: RecordBreak)

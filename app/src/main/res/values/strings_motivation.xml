@@ -194,6 +194,14 @@
 
     <!-- Accueil (phase 9) -->
     <string name="home_next_session">Prochaine séance</string>
+    <!-- En-tête de l'accueil, %1$d : numéro de la semaine (ISO). -->
+    <string name="home_week_number">Semaine %1$d</string>
+    <string name="home_off_air">Hors antenne</string>
+    <string name="home_off_air_description">Aucune séance en cours</string>
+    <string name="home_live_description">Séance en cours, ouvrir</string>
+    <!-- Rangée des jours de la semaine, lue d'un bloc. %1$s : jours entraînés (« lundi, mercredi »). -->
+    <string name="home_trained_days">Séances cette semaine : %1$s</string>
+    <string name="home_no_trained_day">Aucune séance cette semaine</string>
     <string name="home_live_workout">Séance en cours</string>
     <string name="home_latest_record">Dernier record</string>
     <string name="home_no_template">Crée ton premier template dans l\'onglet Séances, ou lance une séance vide.</string>

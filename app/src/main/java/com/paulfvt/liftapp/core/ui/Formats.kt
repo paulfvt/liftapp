@@ -19,6 +19,7 @@ import kotlin.math.roundToLong
 private val DAY_AND_TIME = DateTimeFormatter.ofPattern("EEE d MMM yyyy · HH:mm", Locale.FRENCH)
 private val SHORT_DAY = DateTimeFormatter.ofPattern("d MMM yyyy", Locale.FRENCH)
 private val MONTH = DateTimeFormatter.ofPattern("MMMM yyyy", Locale.FRENCH)
+private val DAY_TITLE = DateTimeFormatter.ofPattern("EEEE d MMMM", Locale.FRENCH)
 
 // « 58 min » ou « 1 h 05 ».
 @Composable
@@ -38,6 +39,9 @@ fun wholeNumber(value: Double): String = NumberFormat.getIntegerInstance(Locale.
 // « mar. 21 oct. 2026 · 18:04 ».
 fun dayAndTime(instant: Instant, zone: ZoneId = ZoneId.systemDefault()): String =
     DAY_AND_TIME.format(instant.atZone(zone))
+
+// « dimanche 1 novembre », en tête de l'accueil.
+fun dayTitle(date: LocalDate): String = DAY_TITLE.format(date)
 
 // « 21 oct. 2026 ».
 fun shortDay(instant: Instant, zone: ZoneId = ZoneId.systemDefault()): String = SHORT_DAY.format(instant.atZone(zone))

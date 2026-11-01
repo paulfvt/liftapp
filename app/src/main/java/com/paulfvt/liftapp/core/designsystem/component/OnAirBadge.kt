@@ -6,6 +6,7 @@ import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -29,35 +30,47 @@ import androidx.compose.ui.unit.sp
 
 private const val PULSE_MILLIS = 800
 
-// Signature « ON AIR » : enseigne rouge signal allumée, avec un point qui pulse et une lueur néon.
-// Réservée à la séance en cours (guide de style : la lueur ne sert qu'aux moments forts).
+// Signature « ON AIR » : enseigne rouge signal allumée, avec un point qui pulse et une lueur néon, réservée à la
+// séance en cours (la lueur ne sert qu'aux moments forts). isLive = false : enseigne éteinte (« Hors antenne »),
+// contour discret et point fixe (.onair.is-off). description : texte lu par le lecteur d'écran, le texte affiché
+// par défaut.
 @Composable
-fun OnAirBadge(text: String, modifier: Modifier = Modifier) {
+fun OnAirBadge(text: String, modifier: Modifier = Modifier, isLive: Boolean = true, description: String = text) {
     val pulse = rememberInfiniteTransition(label = "onAir")
-    val dotAlpha by pulse.animateFloat(
+    val pulsingAlpha by pulse.animateFloat(
         initialValue = 1f,
         targetValue = 0.35f,
         animationSpec = infiniteRepeatable(tween(PULSE_MILLIS), RepeatMode.Reverse),
         label = "dot"
     )
+    val dotAlpha = if (isLive) pulsingAlpha else OFF_DOT_ALPHA
     val red = MaterialTheme.colorScheme.primaryContainer
-    val onRed = MaterialTheme.colorScheme.onPrimaryContainer
+    val colors = MaterialTheme.colorScheme
+    val content = if (isLive) colors.onPrimaryContainer else colors.onSurfaceVariant
     val shape = MaterialTheme.shapes.extraSmall
+    val look = if (isLive) {
+        Modifier
+            .shadow(elevation = 10.dp, shape = shape, ambientColor = red, spotColor = red)
+            .background(red, shape)
+    } else {
+        Modifier.border(1.dp, MaterialTheme.colorScheme.outlineVariant, shape)
+    }
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         modifier = modifier
-            .shadow(elevation = 10.dp, shape = shape, ambientColor = red, spotColor = red)
-            .background(red, shape)
+            .then(look)
             .heightIn(min = 28.dp)
             .padding(horizontal = 12.dp)
-            .clearAndSetSemantics { contentDescription = text }
+            .clearAndSetSemantics { contentDescription = description }
     ) {
-        Box(Modifier.size(8.dp).graphicsLayer { alpha = dotAlpha }.background(onRed, CircleShape))
+        Box(Modifier.size(8.dp).graphicsLayer { alpha = dotAlpha }.background(content, CircleShape))
         Text(
             text.uppercase(),
-            color = onRed,
+            color = content,
             style = MaterialTheme.typography.headlineSmall.copy(fontSize = 14.sp, letterSpacing = 0.14.em)
         )
     }
 }
+
+private const val OFF_DOT_ALPHA = 0.5f

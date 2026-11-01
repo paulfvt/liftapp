@@ -9,6 +9,9 @@ import com.paulfvt.liftapp.template.domain.FolderSection
 import com.paulfvt.liftapp.template.domain.TemplateFolder
 import com.paulfvt.liftapp.template.domain.TemplateLibrary
 import com.paulfvt.liftapp.template.domain.TemplateSummary
+import java.time.Instant
+import java.time.LocalDate
+import java.time.ZoneId
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test
@@ -24,6 +27,36 @@ class DashboardTest {
             FolderSection(TemplateFolder(11, "Solo"), listOf(template(5, 11)))
         )
     )
+
+    @Test
+    fun `the week number follows the ISO numbering, a week spanning two months has one number`() {
+        assertEquals(44, weekNumber(LocalDate.parse("2026-10-26")))
+        assertEquals(44, weekNumber(LocalDate.parse("2026-11-01")))
+        assertEquals(53, weekNumber(LocalDate.parse("2026-12-31")))
+        assertEquals(1, weekNumber(LocalDate.parse("2027-01-04")))
+    }
+
+    @Test
+    fun `a session counts for the local day it started, other weeks are ignored`() {
+        val paris = ZoneId.of("Europe/Paris")
+        val monday = LocalDate.parse("2026-10-26")
+        val starts = listOf(
+            // Dimanche 25 à 23 h 30 à Paris : semaine précédente.
+            Instant.parse("2026-10-25T22:30:00Z"),
+            Instant.parse("2026-10-26T17:00:00Z"),
+            // Deux séances le même jour : un seul jour entraîné.
+            Instant.parse("2026-10-28T06:00:00Z"),
+            Instant.parse("2026-10-28T18:00:00Z"),
+            // Samedi 31 octobre à 23 h 30 UTC, déjà dimanche 1er novembre à Paris : même semaine.
+            Instant.parse("2026-10-31T23:30:00Z"),
+            Instant.parse("2026-11-02T17:00:00Z")
+        )
+
+        assertEquals(
+            setOf(LocalDate.parse("2026-10-26"), LocalDate.parse("2026-10-28"), LocalDate.parse("2026-11-01")),
+            trainedDays(starts, monday, paris)
+        )
+    }
 
     @Test
     fun `the next session follows the last one used in its folder`() {
