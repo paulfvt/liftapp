@@ -10,11 +10,11 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.AudioAttributes
-import android.net.Uri
 import android.os.Build
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.net.toUri
 import com.paulfvt.liftapp.MainActivity
 import com.paulfvt.liftapp.R
 import com.paulfvt.liftapp.core.domain.Units
@@ -57,9 +57,7 @@ class WorkoutNotifier @Inject constructor(@ApplicationContext private val contex
         ).apply {
             description = context.getString(R.string.notification_channel_rest_end_description)
             setSound(
-                Uri.parse(
-                    "${ContentResolver.SCHEME_ANDROID_RESOURCE}://${context.packageName}/${R.raw.rest_end_chime}"
-                ),
+                "${ContentResolver.SCHEME_ANDROID_RESOURCE}://${context.packageName}/${R.raw.rest_end_chime}".toUri(),
                 AudioAttributes.Builder()
                     .setUsage(AudioAttributes.USAGE_ALARM)
                     .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)

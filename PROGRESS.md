@@ -1,6 +1,26 @@
 # Avancement
 
-## Retouche visuelle ON AIR : code terminé le 1er novembre 2026, test sur le téléphone attendu
+## Retours du test sur le téléphone (1er novembre 2026) : corrigés, nouveau test attendu
+
+Retours du développeur après la retouche visuelle, traités un commit par point :
+- Bloc noir au-dessus du clavier pendant la saisie d'une série : la liste ajoutait toute la hauteur du clavier en
+  plus de la barre du bas déjà décomptée. `consumeWindowInsets` sur la séance, la modification d'une séance passée et
+  l'édition d'un template. Vérifié sur l'émulateur.
+- Prochaine séance : « Pull » était reproposé après une séance Pull, car ses templates ne sont pas dans un dossier
+  (règle du 6 octobre). Les templates hors dossier tournent désormais dans l'ordre de la liste (décision notée dans
+  `CLAUDE.md`, testée).
+- Fin de repos : vibration dès 3 s avant la fin (une impulsion par seconde, puis pendant le son) et « ding ding »
+  d'1 s synthétisé pour l'app (`res/raw/rest_end_chime.wav`), joué par une notification à l'usage « alarme » : il
+  s'entend en vibreur et en silencieux. Depuis Android 15, il faut la catégorie « alarme » sur la notification, sinon
+  Android repasse le son en usage « notification » (coupé en vibreur). Vérifié sur l'émulateur en vibreur, app en
+  arrière-plan (journal du lecteur de sons et de la vibration).
+- Image d'un exercice agrandie d'un appui (séance, template, aperçu, séance passée).
+- Widget : grande taille (250 × 200 dp et plus, 4 × 2 sur la plupart des téléphones). En séance : durée, série et
+  dernière fois, série à faire en grand, progression avec barre, repos et « Série validée ». Hors séance : jours de
+  la semaine et tuiles tonnage et durée. Posé et vérifié sur l'émulateur dans les deux états.
+- 255 tests JVM et 44 tests instrumentés verts, lint sans nouvel avertissement.
+
+## Retouche visuelle ON AIR : code terminé le 1er novembre 2026
 
 Demande du développeur : rapprocher l'Accueil et la séance en cours de la maquette `design-system/concept.html`.
 Tranché le 1er novembre 2026 : style des boutons appliqué partout, tuiles « Cette semaine » ajoutées, durée de la
@@ -482,6 +502,10 @@ Reportés en phase 10 (Réglages, cahier § 4.11) : unités lb et in, masquage d
 - Aucune pour l'instant (choix des phases 7 et 10 tranchés le 31 octobre 2026).
 
 ## Problèmes connus
+- Widget : une rangée ou une colonne Glance n'accepte que 10 éléments (limite des RemoteViews) ; au-delà, la fin est
+  coupée sans erreur. Remplacer les `Spacer` par des marges quand une rangée est longue.
+- Émulateur : après un arrêt brutal, il peut redémarrer depuis une sauvegarde rapide cassée (« Can't find service:
+  input ») ; le relancer avec `-no-snapshot-load`.
 - Widget : juste après une mise à jour de l'app, il affiche l'écran de chargement de Glance jusqu'à ce que l'app
   tourne à nouveau (une minute environ sur l'émulateur). Changer de thème clair ou sombre ne redessine l'anneau qu'à
   la mise à jour suivante (c'est une image).

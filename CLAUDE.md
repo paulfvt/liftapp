@@ -151,6 +151,9 @@ En cas d'ambiguïté ou de point non couvert, pose la question au lieu d'invente
     moment (du lundi au même jour et à la même heure), rien si l'une des deux n'a pas de tonnage ;
   - séance : puce de repos qui change le repos de l'exercice, puce de la dernière fois avec sa meilleure série de
     travail (jour si moins d'une semaine, sinon date), minuteur compact sur une ligne (le mode salle garde le grand).
+- Widget, grande taille (1er novembre 2026) : en séance, série à faire (poids × reps) et dernière fois, progression
+  (séries, tonnage, barre) et durée de la séance ; hors séance, jours de la semaine et tuiles tonnage et durée.
+- Image d'un exercice : un appui l'agrandit, là où la vignette n'est pas déjà dans une ligne cliquable.
 - Pas de publication (31 octobre 2026, écart avec le cahier § 8 et la phase 11) : LiftApp reste une app personnelle,
   installée sur le S25+ sans passer par Google Play (ni compte développeur, ni test fermé). La phase 11 se réduit à
   la version release installée sur le téléphone ; son plan est à valider (voir `PROGRESS.md`).
