@@ -12,6 +12,8 @@ import kotlinx.coroutines.flow.Flow
 // Nom d'un exercice d'un template, pour le résumé affiché dans la liste.
 data class TemplateExerciseNameRow(val templateId: Long, val exerciseName: String)
 
+data class TemplateSetCountRow(val templateId: Long, val setCount: Int)
+
 @Dao
 interface TemplateDao {
     @Query("SELECT * FROM template_folder ORDER BY sortOrder, id")
@@ -28,6 +30,15 @@ interface TemplateDao {
         """
     )
     fun observeExerciseNames(): Flow<List<TemplateExerciseNameRow>>
+
+    @Query(
+        """
+        SELECT te.templateId AS templateId, COUNT(ts.id) AS setCount
+        FROM template_exercise te INNER JOIN template_set ts ON ts.templateExerciseId = te.id
+        GROUP BY te.templateId
+        """
+    )
+    fun observeSetCounts(): Flow<List<TemplateSetCountRow>>
 
     @Query("SELECT * FROM workout_template WHERE id = :id")
     suspend fun getTemplate(id: Long): WorkoutTemplateEntity?

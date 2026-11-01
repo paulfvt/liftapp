@@ -7,7 +7,14 @@ const val TEMPLATE_NAME_MAX_LENGTH = 60
 data class TemplateFolder(val id: Long, val name: String)
 
 // Résumé d'un template pour la liste de l'onglet Séances.
-data class TemplateSummary(val id: Long, val folderId: Long?, val name: String, val exerciseNames: List<String>)
+// setCount : séries prévues, tous exercices confondus (« 5 exercices · 18 séries » sur l'accueil).
+data class TemplateSummary(
+    val id: Long,
+    val folderId: Long?,
+    val name: String,
+    val exerciseNames: List<String>,
+    val setCount: Int = 0
+)
 
 data class FolderSection(val folder: TemplateFolder, val templates: List<TemplateSummary>)
 

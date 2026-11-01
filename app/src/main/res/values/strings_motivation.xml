@@ -197,6 +197,15 @@
     <!-- En-tête de l'accueil, %1$d : numéro de la semaine (ISO). -->
     <string name="home_week_number">Semaine %1$d</string>
     <string name="home_off_air">Hors antenne</string>
+    <plurals name="home_next_exercises">
+        <item quantity="one">%d exercice</item>
+        <item quantity="many">%d exercices</item>
+        <item quantity="other">%d exercices</item>
+    </plurals>
+    <!-- Durée de la dernière séance avec ce template, %1$s : « 1 h 05 ». -->
+    <string name="home_next_duration">~ %1$s</string>
+    <!-- Exercices au-delà des deux premiers, sur la carte de la prochaine séance. -->
+    <string name="home_next_more">+%1$d</string>
     <string name="home_off_air_description">Aucune séance en cours</string>
     <string name="home_live_description">Séance en cours, ouvrir</string>
     <!-- Rangée des jours de la semaine, lue d'un bloc. %1$s : jours entraînés (« lundi, mercredi »). -->

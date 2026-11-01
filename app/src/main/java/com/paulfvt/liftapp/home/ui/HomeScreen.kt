@@ -1,9 +1,12 @@
 package com.paulfvt.liftapp.home.ui
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -27,15 +30,18 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.scale
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.text
@@ -53,6 +59,7 @@ import com.paulfvt.liftapp.core.designsystem.component.SignalButton
 import com.paulfvt.liftapp.core.designsystem.theme.LocalExtendedColors
 import com.paulfvt.liftapp.core.ui.LocalUnits
 import com.paulfvt.liftapp.core.ui.dayTitle
+import com.paulfvt.liftapp.core.ui.durationText
 import com.paulfvt.liftapp.core.ui.shortDay
 import com.paulfvt.liftapp.home.domain.LatestRecord
 import com.paulfvt.liftapp.home.domain.weekNumber
@@ -60,6 +67,7 @@ import com.paulfvt.liftapp.progress.ui.FlashbackCard
 import com.paulfvt.liftapp.progress.ui.formatMetric
 import com.paulfvt.liftapp.progress.ui.recordLabelRes
 import com.paulfvt.liftapp.template.domain.TemplateSummary
+import java.time.Duration
 import java.time.LocalDate
 import java.util.Locale
 
@@ -101,13 +109,13 @@ fun HomeScreen(onOpenWorkout: () -> Unit, onOpenExercise: (Long) -> Unit, viewMo
                 )
             }
             item(key = "next") {
-                SectionBlock(stringResource(R.string.home_next_session)) {
-                    NextSessionCard(
-                        liveWorkoutName = uiState.liveWorkoutName,
-                        template = dashboard.nextTemplate,
-                        onStart = { templateId -> viewModel.start(templateId, emptyName) }
-                    )
-                }
+                NextSessionCard(
+                    liveWorkoutName = uiState.liveWorkoutName,
+                    template = dashboard.nextTemplate,
+                    folderName = dashboard.nextFolderName,
+                    lastDuration = dashboard.nextLastDuration,
+                    onStart = { templateId -> viewModel.start(templateId, emptyName) }
+                )
             }
             dashboard.latestRecord?.let { latest ->
                 item(key = "record") {
@@ -214,36 +222,43 @@ private const val WASH_HEIGHT = 0.7f
 private const val WASH_TOP_OFFSET = 0.1f
 private const val WASH_FADE = 0.6f
 
-// Séance en cours à reprendre, sinon la prochaine séance proposée, sinon une séance vide (aucun template).
-// onStart(null) lance une séance vide.
+// Carte de la prochaine séance (maquette ON AIR) : libellé rouge et dossier, nom en grand, « 5 exercices · 18 séries
+// · ~ 1 h 05 », puces des premiers exercices, puis « DÉMARRER ». Une séance en cours se reprend à la place ; sans
+// template, une séance vide est proposée. onStart(null) lance ou reprend une séance vide.
 @Composable
-private fun NextSessionCard(liveWorkoutName: String?, template: TemplateSummary?, onStart: (Long?) -> Unit) {
+private fun NextSessionCard(
+    liveWorkoutName: String?,
+    template: TemplateSummary?,
+    folderName: String?,
+    lastDuration: Duration?,
+    onStart: (Long?) -> Unit
+) {
     ElevatedCard(modifier = Modifier.fillMaxWidth()) {
-        Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Column(modifier = Modifier.padding(16.dp)) {
             when {
                 liveWorkoutName != null -> {
-                    Text(stringResource(R.string.home_live_workout), style = MaterialTheme.typography.labelLarge)
-                    Text(liveWorkoutName, style = MaterialTheme.typography.titleLarge)
+                    CardLabel(stringResource(R.string.home_live_workout))
+                    CardTitle(liveWorkoutName)
                     PrimaryButton(stringResource(R.string.workout_resume), onClick = { onStart(null) })
                 }
                 template != null -> {
-                    Text(template.name, style = MaterialTheme.typography.titleLarge)
-                    if (template.exerciseNames.isNotEmpty()) {
-                        Text(
-                            template.exerciseNames.joinToString(", "),
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            maxLines = 2,
-                            overflow = TextOverflow.Ellipsis
-                        )
-                    }
+                    CardLabel(stringResource(R.string.home_next_session), trailing = folderName)
+                    CardTitle(template.name)
+                    Text(
+                        nextSessionSummary(template, lastDuration),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    ExerciseChips(template.exerciseNames)
                     PrimaryButton(stringResource(R.string.template_preview_start), onClick = { onStart(template.id) })
                 }
                 else -> {
+                    CardLabel(stringResource(R.string.home_next_session))
                     Text(
                         stringResource(R.string.home_no_template),
                         style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.padding(top = 8.dp)
                     )
                     PrimaryButton(stringResource(R.string.workout_start_empty), onClick = { onStart(null) })
                 }
@@ -252,48 +267,146 @@ private fun NextSessionCard(liveWorkoutName: String?, template: TemplateSummary?
     }
 }
 
+// Libellé en petites capitales rouges, avec à droite une précision (le dossier du template).
+@Composable
+private fun CardLabel(text: String, trailing: String? = null) {
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Text(
+            text.uppercase(Locale.FRENCH),
+            style = MaterialTheme.typography.labelMedium.copy(letterSpacing = 0.08.em),
+            color = MaterialTheme.colorScheme.primary,
+            modifier = Modifier.weight(1f)
+        )
+        trailing?.let {
+            Text(
+                it,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.padding(start = 8.dp)
+            )
+        }
+    }
+}
+
+// Nom en capitales condensées, lu dans sa casse d'origine.
+@Composable
+private fun CardTitle(text: String) {
+    Text(
+        text.uppercase(Locale.FRENCH),
+        style = MaterialTheme.typography.headlineMedium,
+        maxLines = 2,
+        overflow = TextOverflow.Ellipsis,
+        modifier = Modifier.padding(top = 6.dp).semantics { contentDescription = text }
+    )
+}
+
+// « 5 exercices · 18 séries · ~ 1 h 05 », la durée seulement si le template a déjà été fait.
+@Composable
+private fun nextSessionSummary(template: TemplateSummary, lastDuration: Duration?): String = buildList {
+    val exercises = template.exerciseNames.size
+    add(pluralStringResource(R.plurals.home_next_exercises, exercises, exercises))
+    if (template.setCount > 0) add(pluralStringResource(R.plurals.history_sets, template.setCount, template.setCount))
+    lastDuration?.let { add(stringResource(R.string.home_next_duration, durationText(it))) }
+}.joinToString(" · ")
+
+// Les deux premiers exercices en puces, puis « +3 » pour les autres.
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+private fun ExerciseChips(names: List<String>) {
+    if (names.isEmpty()) return
+    val shown = names.take(SHOWN_EXERCISES)
+    FlowRow(
+        horizontalArrangement = Arrangement.spacedBy(6.dp),
+        verticalArrangement = Arrangement.spacedBy(6.dp),
+        modifier = Modifier.padding(top = 12.dp)
+    ) {
+        shown.forEach { InfoChip(it) }
+        if (names.size > shown.size) InfoChip(stringResource(R.string.home_next_more, names.size - shown.size))
+    }
+}
+
+private const val SHOWN_EXERCISES = 2
+
+// Puce d'information, non cliquable (.chip-suggest du guide de style).
+@Composable
+private fun InfoChip(text: String) {
+    Text(
+        text,
+        style = MaterialTheme.typography.labelMedium,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis,
+        modifier = Modifier
+            .border(1.dp, MaterialTheme.colorScheme.outlineVariant, MaterialTheme.shapes.small)
+            .padding(horizontal = 12.dp, vertical = 6.dp)
+    )
+}
+
 // Action principale de l'écran, en rouge signal (guide de style ON AIR).
 @Composable
 private fun PrimaryButton(text: String, onClick: () -> Unit) {
     SignalButton(
         text = text,
         onClick = onClick,
-        modifier = Modifier.fillMaxWidth().padding(top = 4.dp),
+        modifier = Modifier.fillMaxWidth().padding(top = 16.dp),
         icon = R.drawable.ic_play_arrow,
         size = LiftButtonSize.Large
     )
 }
 
-// « Squat à la barre · 1RM estimé : 135 kg, le 28 oct. 2026 ». Un appui ouvre la progression de l'exercice.
+// Dernier record battu, entouré de la lueur ambre (un moment fort, .card.is-signal) : l'exercice, « 1RM estimé ·
+// 28 oct. 2026 » et la valeur en grand. Un appui ouvre la progression de l'exercice.
 @Composable
 private fun LatestRecordCard(latest: LatestRecord, onClick: () -> Unit) {
     val resources = LocalResources.current
     val (exercise, recordBreak) = latest
     val metric = recordBreak.metric
-    ElevatedCard(onClick = onClick, modifier = Modifier.fillMaxWidth()) {
+    val amber = MaterialTheme.colorScheme.tertiary
+    val shape = MaterialTheme.shapes.medium
+    val value = formatMetric(resources, metric, recordBreak.value, exercise, LocalUnits.current.weight)
+    // « 120,5 kg » : le nombre en grand, l'unité à côté en petit.
+    val number = value.substringBeforeLast(' ')
+    val unit = if (' ' in value) value.substringAfterLast(' ') else ""
+    ElevatedCard(
+        onClick = onClick,
+        shape = shape,
+        modifier = Modifier
+            .fillMaxWidth()
+            .shadow(elevation = 12.dp, shape = shape, ambientColor = amber, spotColor = amber)
+            .border(1.dp, amber, shape)
+    ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            horizontalArrangement = Arrangement.spacedBy(14.dp),
             modifier = Modifier.padding(16.dp).semantics(mergeDescendants = true) {}
         ) {
             Icon(
                 painterResource(R.drawable.ic_emoji_events),
                 contentDescription = null,
-                tint = MaterialTheme.colorScheme.tertiary
+                tint = amber,
+                modifier = Modifier.size(32.dp)
             )
             Column(modifier = Modifier.weight(1f)) {
-                Text(exercise.name, style = MaterialTheme.typography.titleMedium)
+                Text(exercise.name, style = MaterialTheme.typography.titleSmall, maxLines = 2)
                 Text(
-                    stringResource(metric.recordLabelRes(exercise.trackingType)) + " : " +
-                        formatMetric(resources, metric, recordBreak.value, exercise, LocalUnits.current.weight),
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.tertiary
-                )
-                Text(
-                    stringResource(R.string.progress_record_date, shortDay(recordBreak.achievedAt)),
+                    stringResource(metric.recordLabelRes(exercise.trackingType)) + " · " +
+                        shortDay(recordBreak.achievedAt),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
+            }
+            Row(verticalAlignment = Alignment.Bottom) {
+                Text(number, style = MaterialTheme.typography.displaySmall)
+                if (unit.isNotEmpty()) {
+                    Text(
+                        " $unit",
+                        style = MaterialTheme.typography.titleSmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.padding(bottom = 4.dp)
+                    )
+                }
             }
         }
     }

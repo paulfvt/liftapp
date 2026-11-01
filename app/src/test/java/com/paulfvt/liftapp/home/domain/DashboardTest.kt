@@ -59,6 +59,24 @@ class DashboardTest {
     }
 
     @Test
+    fun `the duration shown is the one of the last finished session with this template`() {
+        fun session(templateId: Long, start: String, minutes: Long?) = TemplateSession(
+            templateId,
+            Instant.parse(start),
+            minutes?.let { Instant.parse(start).plusSeconds(it * 60) }
+        )
+        val sessions = listOf(
+            session(2, "2026-10-20T17:00:00Z", 58),
+            session(2, "2026-10-27T17:00:00Z", 65),
+            session(3, "2026-10-29T17:00:00Z", 40)
+        )
+
+        assertEquals(java.time.Duration.ofMinutes(65), lastDuration(2, sessions))
+        assertNull(lastDuration(4, sessions))
+        assertNull(lastDuration(5, listOf(session(5, "2026-10-29T17:00:00Z", null))))
+    }
+
+    @Test
     fun `the next session follows the last one used in its folder`() {
         assertEquals(3L, nextTemplate(library, listOf(2, 1))?.id)
         assertEquals(4L, nextTemplate(library, listOf(3))?.id)

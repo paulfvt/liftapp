@@ -27,16 +27,27 @@ class TemplateRepository @Inject constructor(private val database: LiftDatabase)
     private val dao = database.templateDao()
     private val exerciseDao = database.exerciseDao()
 
-    fun observeLibrary(): Flow<TemplateLibrary> =
-        combine(dao.observeFolders(), dao.observeTemplates(), dao.observeExerciseNames()) { folders, templates, names ->
-            val namesByTemplate = names.groupBy({ it.templateId }, { it.exerciseName })
-            buildLibrary(
-                folders = folders.map { TemplateFolder(it.id, it.name) },
-                templates = templates.map {
-                    TemplateSummary(it.id, it.folderId, it.name, namesByTemplate[it.id].orEmpty())
-                }
-            )
-        }
+    fun observeLibrary(): Flow<TemplateLibrary> = combine(
+        dao.observeFolders(),
+        dao.observeTemplates(),
+        dao.observeExerciseNames(),
+        dao.observeSetCounts()
+    ) { folders, templates, names, setCounts ->
+        val namesByTemplate = names.groupBy({ it.templateId }, { it.exerciseName })
+        val setsByTemplate = setCounts.associate { it.templateId to it.setCount }
+        buildLibrary(
+            folders = folders.map { TemplateFolder(it.id, it.name) },
+            templates = templates.map {
+                TemplateSummary(
+                    id = it.id,
+                    folderId = it.folderId,
+                    name = it.name,
+                    exerciseNames = namesByTemplate[it.id].orEmpty(),
+                    setCount = setsByTemplate[it.id] ?: 0
+                )
+            }
+        )
+    }
 
     suspend fun getDraft(templateId: Long): TemplateDraft? = database.withTransaction {
         val template = dao.getTemplate(templateId) ?: return@withTransaction null

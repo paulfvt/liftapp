@@ -8,6 +8,7 @@ import com.paulfvt.liftapp.core.database.entity.ExercisePerformedSetRow
 import com.paulfvt.liftapp.core.database.entity.PerformedExerciseRow
 import com.paulfvt.liftapp.core.database.entity.PerformedSetRow
 import com.paulfvt.liftapp.core.database.entity.SetCompletionRow
+import com.paulfvt.liftapp.core.database.entity.TemplateSessionRow
 import com.paulfvt.liftapp.core.database.entity.WorkoutDetails
 import com.paulfvt.liftapp.core.database.entity.WorkoutEntity
 import com.paulfvt.liftapp.core.database.entity.WorkoutExerciseEntity
@@ -98,6 +99,11 @@ interface WorkoutDao {
     // Débuts des séances d'un statut : objectif hebdomadaire, streak et badges de séances.
     @Query("SELECT startedAt FROM workout WHERE status = :status ORDER BY startedAt")
     fun observeStartTimes(status: WorkoutStatus): Flow<List<Instant>>
+
+    @Query(
+        "SELECT templateId, startedAt, endedAt FROM workout WHERE status = :status AND templateId IS NOT NULL"
+    )
+    fun observeTemplateSessions(status: WorkoutStatus): Flow<List<TemplateSessionRow>>
 
     @Query("SELECT startedAt FROM workout WHERE status = :status ORDER BY startedAt")
     suspend fun startTimes(status: WorkoutStatus): List<Instant>
