@@ -276,7 +276,7 @@ private fun TemplateExerciseCard(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.padding(start = 12.dp, top = 12.dp)
         ) {
-            ExerciseThumbnail(item.exercise)
+            ExerciseThumbnail(item.exercise, zoomable = true)
             Text(
                 item.exercise.name,
                 style = MaterialTheme.typography.titleMedium,

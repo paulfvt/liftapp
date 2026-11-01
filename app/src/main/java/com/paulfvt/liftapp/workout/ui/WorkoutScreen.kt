@@ -487,7 +487,7 @@ private fun WorkoutExerciseCard(
         }
     ) {
         Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(start = 12.dp, top = 12.dp)) {
-            ExerciseThumbnail(item.exercise)
+            ExerciseThumbnail(item.exercise, zoomable = true)
             Column(modifier = Modifier.weight(1f).padding(horizontal = 12.dp)) {
                 Text(
                     item.exercise.name,

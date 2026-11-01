@@ -506,6 +506,9 @@
     <string name="exercise_note_hint">Réglage de la machine, placement, consignes…</string>
     <string name="exercise_note_add">Ajouter une note</string>
     <string name="exercise_instructions">Exécution</string>
+    <!-- Vignette d'un exercice qui s'agrandit d'un appui, %1$s : son nom. -->
+    <string name="exercise_image_open">Agrandir l\'image de %1$s</string>
+    <string name="action_close">Fermer</string>
     <string name="exercise_images_description">Positions de départ et d\'arrivée de l\'exercice %1$s</string>
     <string name="exercise_hide">Masquer l\'exercice</string>
     <string name="exercise_unhide">Afficher l\'exercice</string>

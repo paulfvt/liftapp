@@ -98,7 +98,7 @@ private fun PreviewExerciseRow(item: TemplateExerciseDraft) {
         }
     }.joinToString(" · ")
     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-        ExerciseThumbnail(item.exercise)
+        ExerciseThumbnail(item.exercise, zoomable = true)
         Column(modifier = Modifier.weight(1f)) {
             Text(
                 item.exercise.name,

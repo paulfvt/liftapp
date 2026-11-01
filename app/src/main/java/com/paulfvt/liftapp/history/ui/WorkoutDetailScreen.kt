@@ -174,7 +174,7 @@ private fun ExerciseDetailCard(item: WorkoutExercise, onOpenProgress: () -> Unit
     val progressLabel = stringResource(R.string.history_open_progress, item.exercise.name)
     ElevatedCard(modifier = Modifier.fillMaxWidth()) {
         Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(start = 12.dp, top = 12.dp)) {
-            ExerciseThumbnail(item.exercise)
+            ExerciseThumbnail(item.exercise, zoomable = true)
             Text(
                 item.exercise.name,
                 style = MaterialTheme.typography.titleMedium,
