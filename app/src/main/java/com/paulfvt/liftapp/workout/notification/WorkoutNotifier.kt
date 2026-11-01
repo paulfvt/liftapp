@@ -74,7 +74,9 @@ class WorkoutNotifier @Inject constructor(@ApplicationContext private val contex
         system.createNotificationChannels(listOf(workout, restEnd))
     }
 
-    // Son de fin de repos : notification brève qui disparaît d'elle-même après quelques secondes.
+    // Son de fin de repos : notification brève qui disparaît d'elle-même après quelques secondes. Catégorie « alarme
+    // ou minuteur » : depuis Android 15, une notification d'une autre catégorie perd l'usage « alarme » de son canal
+    // et son son est coupé en vibreur (vérifié sur l'émulateur Android 16).
     fun showRestEnd(notice: WorkoutNotice, units: Units) {
         val next = notice.next
         val notification = NotificationCompat.Builder(context, REST_END_CHANNEL_ID)
@@ -89,7 +91,7 @@ class WorkoutNotifier @Inject constructor(@ApplicationContext private val contex
                     )
                 }
             )
-            .setCategory(NotificationCompat.CATEGORY_REMINDER)
+            .setCategory(NotificationCompat.CATEGORY_ALARM)
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
             .setContentIntent(openWorkoutIntent())
             .setAutoCancel(true)
