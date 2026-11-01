@@ -42,6 +42,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import com.paulfvt.liftapp.R
 import com.paulfvt.liftapp.core.designsystem.component.MenuEntry
@@ -68,6 +69,7 @@ import com.paulfvt.liftapp.workout.domain.formatDuration
 import com.paulfvt.liftapp.workout.domain.parseDistance
 import com.paulfvt.liftapp.workout.domain.parseDuration
 import com.paulfvt.liftapp.workout.domain.parseReps
+import java.util.Locale
 
 // Largeurs des colonnes d'une ligne de série, partagées avec l'en-tête pour que tout reste aligné.
 private val TypeColumn = 48.dp
@@ -146,10 +148,11 @@ internal fun columnTitles(exercise: Exercise): Pair<String?, String> = when (exe
 }
 
 @Composable
+// En-têtes du tableau en petites capitales (maquette ON AIR).
 private fun ColumnTitle(text: String, modifier: Modifier, textAlign: TextAlign = TextAlign.Center) {
     Text(
-        text,
-        style = MaterialTheme.typography.labelMedium,
+        text.uppercase(Locale.FRENCH),
+        style = MaterialTheme.typography.labelSmall.copy(letterSpacing = 0.08.em),
         color = MaterialTheme.colorScheme.onSurfaceVariant,
         textAlign = textAlign,
         modifier = modifier
@@ -164,7 +167,8 @@ fun WorkoutSetRow(
     exercise: Exercise,
     canRemove: Boolean,
     actions: SetActions,
-    mode: SetRowMode = SetRowMode.LIVE
+    mode: SetRowMode = SetRowMode.LIVE,
+    isCurrent: Boolean = false
 ) {
     val name = setName(set.type, workNumber)
     val isLive = mode == SetRowMode.LIVE
@@ -177,6 +181,12 @@ fun WorkoutSetRow(
             // Série validée : fond vert discret, comme dans le guide de style.
             .background(
                 if (isLive && set.isCompleted) successColors.success.copy(alpha = 0.14f) else Color.Transparent,
+                MaterialTheme.shapes.small
+            )
+            // Prochaine série à valider : entourée de rouge (.setrow.current).
+            .border(
+                1.dp,
+                if (isLive && isCurrent) MaterialTheme.colorScheme.primary else Color.Transparent,
                 MaterialTheme.shapes.small
             )
             .padding(horizontal = 4.dp, vertical = 2.dp)

@@ -21,6 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.graphics.takeOrElse
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -61,19 +62,31 @@ private fun LiftButtonSize.labelStyle(): TextStyle = MaterialTheme.typography.la
     letterSpacing = 0.06.em
 )
 
-// Libellé en capitales. Le lecteur d'écran lit le texte d'origine : certains épellent un mot tout en capitales.
+// Libellé en capitales. Le lecteur d'écran lit le texte d'origine (certains épellent un mot tout en capitales), ou
+// description quand le libellé seul ne suffit pas (« −15 s » : « Retirer 15 secondes »).
 @Composable
-fun ButtonLabel(text: String, size: LiftButtonSize = LiftButtonSize.Regular, color: Color = Color.Unspecified) {
+fun ButtonLabel(
+    text: String,
+    size: LiftButtonSize = LiftButtonSize.Regular,
+    color: Color = Color.Unspecified,
+    description: String = text
+) {
     Text(
         text.uppercase(Locale.FRENCH),
         style = size.labelStyle(),
         color = color,
-        modifier = Modifier.semantics { contentDescription = text }
+        modifier = Modifier.semantics { contentDescription = description }
     )
 }
 
 @Composable
-private fun RowScope.LabelWithIcon(text: String, @DrawableRes icon: Int?, size: LiftButtonSize, isLoading: Boolean) {
+private fun RowScope.LabelWithIcon(
+    text: String,
+    @DrawableRes icon: Int?,
+    size: LiftButtonSize,
+    isLoading: Boolean,
+    description: String = text
+) {
     if (isLoading) {
         CircularProgressIndicator(
             color = LocalContentColor.current,
@@ -91,10 +104,10 @@ private fun RowScope.LabelWithIcon(text: String, @DrawableRes icon: Int?, size: 
                 .size(if (size == LiftButtonSize.Regular) ButtonDefaults.IconSize else 20.dp)
         )
     }
-    ButtonLabel(text, size)
+    ButtonLabel(text, size, description = description)
 }
 
-private fun contentPadding(@DrawableRes icon: Int?): PaddingValues =
+private fun buttonPadding(@DrawableRes icon: Int?): PaddingValues =
     if (icon != null) ButtonDefaults.ButtonWithIconContentPadding else ButtonDefaults.ContentPadding
 
 // Plein rouge signal (.btn-filled) : l'action principale de l'écran. isLoading remplace le libellé par un indicateur.
@@ -116,7 +129,7 @@ fun SignalButton(
             containerColor = MaterialTheme.colorScheme.primaryContainer,
             contentColor = MaterialTheme.colorScheme.onPrimaryContainer
         ),
-        contentPadding = contentPadding(icon),
+        contentPadding = buttonPadding(icon),
         modifier = modifier.heightIn(min = size.minHeight)
     ) { LabelWithIcon(text, icon, size, isLoading) }
 }
@@ -131,7 +144,8 @@ fun LiftOutlinedButton(
     enabled: Boolean = true,
     @DrawableRes icon: Int? = null,
     size: LiftButtonSize = LiftButtonSize.Regular,
-    color: Color = Color.Unspecified
+    color: Color = Color.Unspecified,
+    contentPadding: PaddingValues = buttonPadding(icon)
 ) {
     val content = if (color == Color.Unspecified) MaterialTheme.colorScheme.primary else color
     val border = if (color == Color.Unspecified) MaterialTheme.colorScheme.outline else color.copy(alpha = 0.5f)
@@ -141,12 +155,13 @@ fun LiftOutlinedButton(
         shape = size.shape(),
         colors = ButtonDefaults.outlinedButtonColors(contentColor = content),
         border = if (enabled) BorderStroke(1.dp, border) else ButtonDefaults.outlinedButtonBorder(enabled = false),
-        contentPadding = contentPadding(icon),
+        contentPadding = contentPadding,
         modifier = modifier.heightIn(min = size.minHeight)
     ) { LabelWithIcon(text, icon, size, isLoading = false) }
 }
 
-// Tonal (.btn-tonal) : action d'appoint, comme −15 s et +30 s du minuteur.
+// Tonal (.btn-tonal) : action d'appoint, comme −15 s et +30 s du minuteur. description : texte lu par le lecteur
+// d'écran à la place du libellé ; contentPadding : marges intérieures plus serrées dans une rangée chargée.
 @Composable
 fun LiftTonalButton(
     text: String,
@@ -154,15 +169,17 @@ fun LiftTonalButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     @DrawableRes icon: Int? = null,
-    size: LiftButtonSize = LiftButtonSize.Regular
+    size: LiftButtonSize = LiftButtonSize.Regular,
+    description: String = text,
+    contentPadding: PaddingValues = buttonPadding(icon)
 ) {
     FilledTonalButton(
         onClick = onClick,
         enabled = enabled,
         shape = size.shape(),
-        contentPadding = contentPadding(icon),
+        contentPadding = contentPadding,
         modifier = modifier.heightIn(min = size.minHeight)
-    ) { LabelWithIcon(text, icon, size, isLoading = false) }
+    ) { LabelWithIcon(text, icon, size, isLoading = false, description = description) }
 }
 
 // Texte (.btn-text) : actions des dialogues et des cartes. color : rouge d'erreur pour une action destructrice.
@@ -174,24 +191,22 @@ fun LiftTextButton(
     enabled: Boolean = true,
     @DrawableRes icon: Int? = null,
     size: LiftButtonSize = LiftButtonSize.Regular,
-    color: Color = Color.Unspecified
+    color: Color = Color.Unspecified,
+    description: String = text
 ) {
+    val padding = if (icon !=
+        null
+    ) {
+        ButtonDefaults.TextButtonWithIconContentPadding
+    } else {
+        ButtonDefaults.TextButtonContentPadding
+    }
     TextButton(
         onClick = onClick,
         enabled = enabled,
         shape = size.shape(),
-        colors = if (color == Color.Unspecified) {
-            ButtonDefaults.textButtonColors()
-        } else {
-            ButtonDefaults.textButtonColors(contentColor = color)
-        },
-        contentPadding = if (icon !=
-            null
-        ) {
-            ButtonDefaults.TextButtonWithIconContentPadding
-        } else {
-            ButtonDefaults.TextButtonContentPadding
-        },
+        colors = ButtonDefaults.textButtonColors(contentColor = color.takeOrElse { MaterialTheme.colorScheme.primary }),
+        contentPadding = padding,
         modifier = modifier.heightIn(min = size.minHeight)
-    ) { LabelWithIcon(text, icon, size, isLoading = false) }
+    ) { LabelWithIcon(text, icon, size, isLoading = false, description = description) }
 }

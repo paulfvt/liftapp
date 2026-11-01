@@ -74,7 +74,6 @@ import com.paulfvt.liftapp.core.designsystem.component.MenuEntry
 import com.paulfvt.liftapp.core.designsystem.component.NoteDialog
 import com.paulfvt.liftapp.core.designsystem.component.OnAirBadge
 import com.paulfvt.liftapp.core.designsystem.component.OverflowMenu
-import com.paulfvt.liftapp.core.designsystem.component.SignalButton
 import com.paulfvt.liftapp.core.domain.moved
 import com.paulfvt.liftapp.core.domain.workSetNumbers
 import com.paulfvt.liftapp.core.model.Exercise
@@ -297,8 +296,9 @@ private fun ActiveWorkoutContent(
 }
 
 @Composable
+// À contour (maquette ON AIR) : pendant la séance, l'action principale reste la validation des séries.
 private fun FinishButton(onClick: () -> Unit) {
-    SignalButton(
+    LiftOutlinedButton(
         text = stringResource(R.string.workout_finish),
         onClick = onClick,
         modifier = Modifier
@@ -339,6 +339,7 @@ private fun WorkoutContent(
     // Copie locale de l'ordre des exercices pendant un glisser-déposer ; la base est écrite au lâcher.
     var order by remember(workout.exercises.map { it.id }) { mutableStateOf(workout.exercises.map { it.id }) }
     val byId = workout.exercises.associateBy { it.id }
+    val currentSetId = workout.nextSet()?.set?.id
     val listState = rememberLazyListState()
     val reorderState = rememberReorderableLazyListState(listState) { from, to ->
         val fromIndex = order.indexOf(from.key as Long)
@@ -394,6 +395,7 @@ private fun WorkoutContent(
                     item = item,
                     previous = previous[item.exercise.id].orEmpty(),
                     lastTime = previousDates[item.exercise.id],
+                    currentSetId = currentSetId,
                     isDragging = isDragging,
                     canMoveUp = index > 0,
                     canMoveDown = index < order.lastIndex,
@@ -448,6 +450,8 @@ private fun WorkoutExerciseCard(
     item: WorkoutExercise,
     previous: List<PreviousSet>,
     lastTime: Instant?,
+    // Prochaine série à valider de la séance, entourée de rouge.
+    currentSetId: Long?,
     isDragging: Boolean,
     canMoveUp: Boolean,
     canMoveDown: Boolean,
@@ -538,7 +542,8 @@ private fun WorkoutExerciseCard(
                         previous = matched[index],
                         exercise = item.exercise,
                         canRemove = item.sets.size > 1,
-                        actions = setActions
+                        actions = setActions,
+                        isCurrent = set.id == currentSetId
                     )
                 }
             }

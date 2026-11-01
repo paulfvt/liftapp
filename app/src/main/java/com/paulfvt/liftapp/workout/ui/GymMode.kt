@@ -2,6 +2,7 @@ package com.paulfvt.liftapp.workout.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -295,7 +296,9 @@ fun GymBottomBar(hasNextSet: Boolean, onComplete: () -> Unit, onFinish: () -> Un
                 text = stringResource(R.string.gym_finish),
                 onClick = onFinish,
                 modifier = Modifier.weight(1f).heightIn(min = BigButtonHeight),
-                size = LiftButtonSize.Large
+                size = LiftButtonSize.Large,
+                // Bouton étroit (un tiers de la largeur) : marges serrées pour que « TERMINER » tienne sur une ligne.
+                contentPadding = PaddingValues(horizontal = 8.dp)
             )
             SignalButton(
                 text = stringResource(R.string.gym_complete),
