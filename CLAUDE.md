@@ -140,6 +140,14 @@ En cas d'ambiguïté ou de point non couvert, pose la question au lieu d'invente
   - une sauvegarde sans photos efface les photos actuelles à la restauration (remplacement complet, signalé dans la
     confirmation) ;
   - restauration proposée seulement dans les Réglages, pas sur l'écran de bienvenue.
+- Retouche visuelle ON AIR (1er novembre 2026), d'après `design-system/concept.html` :
+  - boutons du guide de style partout : coins de 8 dp (12 dp en grand), libellés en capitales espacées ;
+  - accueil : date et « SEMAINE n » (numéro ISO), enseigne « HORS ANTENNE » ou « EN DIRECT », rangée des jours ;
+    prochaine séance avec la durée réelle de la dernière séance avec ce template (rien si jamais faite) ;
+  - tuiles « Cette semaine » : tonnage hors échauffements et durée, écart en % avec la semaine précédente prise au même
+    moment (du lundi au même jour et à la même heure), rien si l'une des deux n'a pas de tonnage ;
+  - séance : puce de repos qui change le repos de l'exercice, puce de la dernière fois avec sa meilleure série de
+    travail (jour si moins d'une semaine, sinon date), minuteur compact sur une ligne (le mode salle garde le grand).
 - Pas de publication (31 octobre 2026, écart avec le cahier § 8 et la phase 11) : LiftApp reste une app personnelle,
   installée sur le S25+ sans passer par Google Play (ni compte développeur, ni test fermé). La phase 11 se réduit à
   la version release installée sur le téléphone ; son plan est à valider (voir `PROGRESS.md`).

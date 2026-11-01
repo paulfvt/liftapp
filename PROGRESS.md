@@ -1,12 +1,27 @@
 # Avancement
 
-## Prochaine étape : retouche visuelle ON AIR (plan proposé le 1er novembre 2026, feu vert attendu)
+## Retouche visuelle ON AIR : code terminé le 1er novembre 2026, test sur le téléphone attendu
 
 Demande du développeur : rapprocher l'Accueil et la séance en cours de la maquette `design-system/concept.html`.
 Tranché le 1er novembre 2026 : style des boutons appliqué partout, tuiles « Cette semaine » ajoutées, durée de la
 prochaine séance = durée réelle de la dernière séance avec ce template (rien si jamais faite).
 
-Plan proposé (un commit par étape) :
+Fait en une traite à la demande du développeur, un commit par étape :
+- Boutons communs (`core/designsystem/component/Buttons.kt`) : 88 boutons des écrans et les boutons flottants
+  convertis ; le clavier du code et le sélecteur de type de série gardent leur forme.
+- Accueil : en-tête « DIMANCHE 1 NOVEMBRE / SEMAINE 44 » et enseigne « HORS ANTENNE » ou « EN DIRECT », halo rouge
+  en haut (`--wash`), semaine sans carte avec la rangée des jours, carte de la prochaine séance (dossier, « 5 exercices
+  · 17 séries · ~ 49 min », puces), tuiles « Cette semaine », dernier record en lueur ambre.
+- Séance en cours : progression « 3 / 17 séries · 660 kg », muscles et matériel, puces « Repos 2 min » (change le
+  repos de l'exercice) et « 14 oct. : 82,5 × 8 », prochaine série entourée de rouge, minuteur compact sur une ligne,
+  « TERMINER LA SÉANCE » à contour. Le mode salle garde son grand minuteur.
+- Vérifié sur l'émulateur : thèmes sombre et clair, accueil, « Tout voir » vers l'Historique, séance (validation,
+  changement de repos, mode salle). Libellés lus en casse normale par le lecteur d'écran.
+- 253 tests JVM (nouveaux : jours entraînés, numéro de semaine, dernière durée, tuiles de la semaine avec le
+  changement d'heure, meilleure série) et 44 tests instrumentés verts. Lint sans nouvel avertissement. Ni nouvelle
+  dépendance, ni changement de schéma.
+
+Plan validé le 1er novembre 2026 :
 1. Boutons du guide de style partout : composants communs (`core/designsystem/component/Buttons.kt` : plein, tonal,
    contour, texte) avec coins de 8 dp (12 dp pour les grands) et libellés en majuscules, puis remplacement des
    boutons Material par défaut dans les écrans (environ 170 appels, sans changer leur rôle).
@@ -449,6 +464,12 @@ Reportés en phase 10 (Réglages, cahier § 4.11) : unités lb et in, masquage d
   `database/lift.db`, `preferences/lift_preferences.preferences_pb`, `photos/…`. La base est copiée pendant une
   transaction Room (fichier et journal WAL cohérents), puis le journal est reporté dans la copie. Les préférences
   propres au téléphone (`workout_permissions_asked`, erreurs du code des photos) ne sont pas sauvegardées.
+- **Boutons du guide de style** : les boutons Material 3 sont en pilule et le thème ne permet pas de changer leur
+  forme ; `SignalButton`, `LiftOutlinedButton`, `LiftTonalButton` et `LiftTextButton` prennent le libellé en texte,
+  le mettent en capitales espacées et le font lire dans sa casse d'origine (description pour le lecteur d'écran).
+- **Accueil** : `Dashboard` porte aussi la date du jour, les jours entraînés, les tuiles de la semaine
+  (`home/domain/WeekStats.kt`), le dossier et la dernière durée de la prochaine séance ; le halo `--wash` est une
+  couleur `wash` d'`ExtendedColors`.
 - **Restauration en deux temps** : le ZIP est extrait dans `no_backup/restore/` (entrées connues seulement, taille
   bornée à 4 Go) et la base y est ouverte par Room, qui applique les migrations et vérifie le schéma ; rien n'est
   remplacé si elle échoue. Après confirmation, l'app redémarre (`Intent.makeRestartActivityTask` puis arrêt du
