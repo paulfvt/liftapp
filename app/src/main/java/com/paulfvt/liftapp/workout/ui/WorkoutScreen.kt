@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -242,7 +243,9 @@ private fun ActiveWorkout(
         },
         snackbarHost = { SnackbarHost(snackbarHostState) }
     ) { padding ->
-        Box(Modifier.padding(padding)) {
+        // consumeWindowInsets : la barre du bas (minuteur, bouton de fin) est déjà décomptée ; le imePadding de la
+        // liste n'ajoute que le reste du clavier, sans laisser de bloc vide au-dessus.
+        Box(Modifier.padding(padding).consumeWindowInsets(padding)) {
             ActiveWorkoutContent(
                 workout,
                 previous,

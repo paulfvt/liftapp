@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
@@ -97,7 +98,7 @@ fun WorkoutEditScreen(
         }
     ) { padding ->
         val draft = viewModel.draft ?: return@Scaffold
-        EditContent(draft, viewModel, onAddExercises, Modifier.padding(padding))
+        EditContent(draft, viewModel, onAddExercises, Modifier.padding(padding).consumeWindowInsets(padding))
     }
 
     if (showDiscardDialog) {
