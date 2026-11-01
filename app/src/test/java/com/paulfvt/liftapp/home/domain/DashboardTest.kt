@@ -88,8 +88,14 @@ class DashboardTest {
     }
 
     @Test
-    fun `a template outside any folder is proposed again`() {
+    fun `templates outside any folder follow each other in list order, the only one is proposed again`() {
+        // Le seul template hors dossier : reproposé.
         assertEquals(1L, nextTemplate(library, listOf(1, 4))?.id)
+
+        // Push, Pull, Jambes hors dossier : après Pull vient Jambes, après Jambes on repart de Push.
+        val unfiled = TemplateLibrary(unfiled = listOf(template(21), template(22), template(23)), folders = emptyList())
+        assertEquals(23L, nextTemplate(unfiled, listOf(22, 21))?.id)
+        assertEquals(21L, nextTemplate(unfiled, listOf(23))?.id)
     }
 
     @Test

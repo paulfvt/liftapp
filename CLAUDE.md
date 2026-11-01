@@ -66,7 +66,8 @@ En cas d'ambiguïté ou de point non couvert, pose la question au lieu d'invente
   instructions traduits en français (tutoiement). Toute modification passe par `tools/catalog/build_catalog.py`
   et une hausse de `CATALOG_VERSION`.
 - Onglet « Progrès » plutôt que « Progression » (libellé plus court, mieux centré).
-- Prochaine séance sur l'accueil : template suivant le dernier utilisé dans son dossier, sinon le dernier utilisé.
+- Prochaine séance sur l'accueil : template suivant le dernier utilisé dans son dossier ; hors dossier, le suivant des
+  templates sans dossier dans l'ordre de la liste (1er novembre 2026). Après le dernier, on repart du premier.
 - Semaine du lundi au dimanche, fuseau du téléphone. La semaine en cours ne casse jamais la streak.
   Une séance compte pour sa date de début.
 - Pas de célébration de record lors de la première séance sur un exercice.

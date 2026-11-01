@@ -13,18 +13,19 @@ import java.time.LocalDate
 import java.time.ZoneId
 import java.time.temporal.WeekFields
 
-// Prochaine séance proposée (décision du 6 octobre 2026) : le template qui suit le dernier utilisé dans son dossier
-// (après le dernier du dossier, on repart du premier), ou le dernier utilisé lui-même s'il est hors dossier.
+// Prochaine séance proposée : le template qui suit le dernier utilisé dans sa liste, en repartant du premier après le
+// dernier. La liste est son dossier (décision du 6 octobre 2026) ou, hors dossier, celle des templates sans dossier
+// dans l'ordre de l'onglet Séances (décision du 1er novembre 2026 : avant, le même template était reproposé).
 // recentTemplateIds : templates des séances terminées, du plus récemment utilisé au plus ancien. Un template supprimé
 // depuis est ignoré : on remonte au précédent. Sans historique, le premier template de la liste ; sans template, rien.
 fun nextTemplate(library: TemplateLibrary, recentTemplateIds: List<Long>): TemplateSummary? {
     val all = library.unfiled + library.folders.flatMap { it.templates }
     val lastUsed = recentTemplateIds.firstNotNullOfOrNull { id -> all.firstOrNull { it.id == id } }
         ?: return all.firstOrNull()
-    val folder = library.folders.firstOrNull { section -> section.templates.any { it.id == lastUsed.id } }
-        ?: return lastUsed
-    val index = folder.templates.indexOfFirst { it.id == lastUsed.id }
-    return folder.templates[(index + 1) % folder.templates.size]
+    val list = library.folders.firstOrNull { section -> section.templates.any { it.id == lastUsed.id } }?.templates
+        ?: library.unfiled
+    val index = list.indexOfFirst { it.id == lastUsed.id }
+    return list[(index + 1) % list.size]
 }
 
 // Numéro affiché sur l'accueil (« Semaine 44 ») : numérotation ISO, semaine du lundi au dimanche.
