@@ -158,6 +158,9 @@ En cas d'ambiguïté ou de point non couvert, pose la question au lieu d'invente
 - Widget, grande taille (1er novembre 2026) : en séance, série à faire (poids × reps) et dernière fois, progression
   (séries, tonnage, barre) et durée de la séance ; hors séance, jours de la semaine et tuiles tonnage et durée.
 - Image d'un exercice : un appui l'agrandit, là où la vignette n'est pas déjà dans une ligne cliquable.
+- Saisie des séries (2 novembre 2026) : pavé numérique façon Strong à la place du clavier d'Android. « Suivant »
+  passe à la case d'après ; sur la dernière case d'une série, il la valide aussi (séance en cours).
+- Contours fins blancs (2 novembre 2026) autour des cartes, tuiles, cases de saisie et images d'exercices.
 - Pas de publication (31 octobre 2026, écart avec le cahier § 8 et la phase 11) : LiftApp reste une app personnelle,
   installée sur le S25+ sans passer par Google Play (ni compte développeur, ni test fermé). La phase 11 se réduit à
   la version release installée sur le téléphone ; son plan est à valider (voir `PROGRESS.md`).

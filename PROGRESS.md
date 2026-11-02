@@ -1,6 +1,28 @@
 # Avancement
 
-## Retours du test sur le téléphone (1er novembre 2026) : corrigés, nouveau test attendu
+## Retours du test sur le téléphone (2 novembre 2026) : corrigés, nouveau test attendu
+
+Deuxième série de retours du développeur, avec une capture de Strong en modèle pour la saisie. Questions tranchées
+le 2 novembre 2026 (voir `CLAUDE.md`) ; un commit par point :
+- Fin de repos : sur le S25+, le son ne sortait jamais et la vibration s'arrêtait app quittée. L'alarme lance
+  désormais un service de premier plan de quelques secondes (`RestAlertService`, type `shortService`, permis depuis
+  une alarme exacte) : l'app vibre et joue elle-même le ding ding en usage « alarme », chargé pendant le décompte,
+  en baissant la musique. Écart avec la décision du 21 octobre (pas de service), validé. Vérifié sur l'émulateur,
+  app quittée et écran verrouillé, en vibreur : service autorisé (« ALARM_MANAGER_WHILE_IDLE »), vibration jouée,
+  son lu en entier (44 100 échantillons). L'alarme part 0,5 s plus tôt pour ne pas perdre la première impulsion.
+- Mode salle : PASSER tient en entier (−15 s et +30 s se partagent le reste) ; les gros − et + agissent enfin sur la
+  case ouverte (elle gardait le texte tapé et ignorait les appuis).
+- « Précédent » et pré-remplissage : seulement la dernière séance de ce template, rien s'il n'y a jamais été fait
+  (un exercice dans deux templates a deux historiques). Séance sans template : tous templates confondus.
+- Pavé numérique façon Strong à la place du clavier d'Android (séance, mode salle, séance passée) : chiffres, virgule
+  ou deux-points, effacer, fermer, − et + aux pas du mode salle, RPE, SUIVANT. La valeur est sélectionnée à
+  l'ouverture. « Suivant » passe à la case d'après et valide la série quittée en séance ; la liste suit, le minuteur
+  reste visible au-dessus. Logique de saisie testée (`KeypadInputTest`). Pas de touche de signe : sur le lest, −
+  descend sous zéro (assistance), pour garder des touches d'au moins 48 dp.
+- Contours fins : trait blanc à 22 % autour des cartes (`LiftCard`), tuiles, cases de saisie et vignettes ; gris en
+  thème clair. Les contours ambre (dernier record, récap) restent.
+
+## Retours du test sur le téléphone (1er novembre 2026) : corrigés
 
 Retours du développeur après la retouche visuelle, traités un commit par point :
 - Bloc noir au-dessus du clavier pendant la saisie d'une série : la liste ajoutait toute la hauteur du clavier en
