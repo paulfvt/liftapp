@@ -21,6 +21,8 @@ le 2 novembre 2026 (voir `CLAUDE.md`) ; un commit par point :
   descend sous zéro (assistance), pour garder des touches d'au moins 48 dp.
 - Contours fins : trait blanc à 22 % autour des cartes (`LiftCard`), tuiles, cases de saisie et vignettes ; gris en
   thème clair. Les contours ambre (dernier record, récap) restent.
+- 261 tests JVM et 44 tests instrumentés verts, lint sans nouvel avertissement. Vérifié sur l'émulateur : pavé
+  (frappe, Suivant qui valide et change d'exercice, mode salle), contours, alarme app ouverte et app quittée.
 
 ## Retours du test sur le téléphone (1er novembre 2026) : corrigés
 
@@ -524,6 +526,9 @@ Reportés en phase 10 (Réglages, cahier § 4.11) : unités lb et in, masquage d
 - Aucune pour l'instant (choix des phases 7 et 10 tranchés le 31 octobre 2026).
 
 ## Problèmes connus
+- `connectedDebugAndroidTest` sur l'émulateur API 37 se termine sans erreur mais rapporte 0 test (2 novembre 2026).
+  Les lancer à la main : `installDebug installDebugAndroidTest`, puis
+  `adb shell am instrument -w com.paulfvt.liftapp.test/androidx.test.runner.AndroidJUnitRunner` (44 tests OK).
 - Widget : une rangée ou une colonne Glance n'accepte que 10 éléments (limite des RemoteViews) ; au-delà, la fin est
   coupée sans erreur. Remplacer les `Spacer` par des marges quand une rangée est longue.
 - Émulateur : après un arrêt brutal, il peut redémarrer depuis une sauvegarde rapide cassée (« Can't find service:
