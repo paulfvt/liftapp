@@ -67,15 +67,15 @@ class WorkoutRepository @Inject constructor(
 
     suspend fun inProgressId(): Long? = dao.firstIdWithStatus(WorkoutStatus.IN_PROGRESS)
 
-    // Dernière fois sur cet exercice : dans le même template d'abord, sinon tous templates confondus.
+    // Dernière fois sur cet exercice dans le même template seulement (décision du 2 novembre 2026) : un exercice
+    // présent dans deux templates a deux « Précédent ». Jamais fait dans ce template : rien. Séance sans template :
+    // dernière fois tous templates confondus.
     suspend fun previousSets(exerciseId: Long, templateId: Long?): List<PreviousSet> =
         previousPerformance(exerciseId, templateId)?.sets.orEmpty()
 
     // La même dernière fois, avec sa date ; null si l'exercice n'a jamais été fait.
     suspend fun previousPerformance(exerciseId: Long, templateId: Long?): PreviousPerformance? {
-        val last = templateId?.let { dao.lastPerformance(exerciseId, it, WorkoutStatus.FINISHED) }
-            ?: dao.lastPerformance(exerciseId, null, WorkoutStatus.FINISHED)
-            ?: return null
+        val last = dao.lastPerformance(exerciseId, templateId, WorkoutStatus.FINISHED) ?: return null
         val sets = dao.getSets(last.workoutExerciseId).filter {
             it.isCompleted
         }.map { PreviousSet(it.type, it.toValues()) }

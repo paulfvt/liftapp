@@ -60,8 +60,9 @@ En cas d'ambiguïté ou de point non couvert, pose la question au lieu d'invente
 - Pas de superset en V1.
 - Types de série : échauffement, travail, dégressive (pas de type « échec »). Les échauffements sont affichés mais
   exclus des records et des statistiques.
-- Performance précédente : dernière séance de cet exercice **dans le même template**, sinon dernière fois tous
-  templates confondus.
+- Performance précédente (2 novembre 2026, remplace la règle du 6 octobre) : dernière séance de cet exercice **dans le
+  même template seulement**, rien s'il n'y a jamais été fait ; séance sans template : dernière fois tous templates
+  confondus. Le pré-remplissage suit la même règle.
 - Catalogue : sans étirements ni rouleau de massage (753 exercices), 2 images WebP 480 px par exercice, noms et
   instructions traduits en français (tutoiement). Toute modification passe par `tools/catalog/build_catalog.py`
   et une hausse de `CATALOG_VERSION`.

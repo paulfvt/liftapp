@@ -144,17 +144,24 @@ class WorkoutDataTest {
     }
 
     @Test
-    fun lastTimeComesFromTheSameTemplateFirstThenFromAnyTemplate() = runTest {
+    fun lastTimeComesOnlyFromTheSameTemplate() = runTest {
         val bench = newExercise("Développé couché")
         val push = template("Push A", bench)
         val heavy = template("Push lourd", bench)
+        val upper = template("Haut du corps", bench)
         doWorkout(push, 40.0 to 12, 80.0 to 8, 80.0 to 8)
         doWorkout(heavy, 50.0 to 10, 100.0 to 3, 100.0 to 3)
 
         assertEquals(80.0, workouts.previousSets(bench, push)[1].values.weightKg!!, 0.0)
+        // Jamais fait dans ce template : rien, même si l'exercice a été fait ailleurs.
+        assertTrue(workouts.previousSets(bench, upper).isEmpty())
+        // Séance sans template : la dernière fois, tous templates confondus.
         assertEquals(100.0, workouts.previousSets(bench, null)[1].values.weightKg!!, 0.0)
         val other = newExercise("Dips")
         assertTrue(workouts.previousSets(other, push).isEmpty())
+
+        workouts.startFromTemplate(upper)
+        assertTrue(inProgress().exercises.single().sets.all { it.values == SetValues() })
     }
 
     @Test
