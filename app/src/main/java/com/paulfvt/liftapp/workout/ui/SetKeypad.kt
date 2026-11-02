@@ -1,6 +1,7 @@
 package com.paulfvt.liftapp.workout.ui
 
 import androidx.annotation.DrawableRes
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -49,6 +50,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.paulfvt.liftapp.R
 import com.paulfvt.liftapp.core.designsystem.component.ButtonLabel
+import com.paulfvt.liftapp.core.designsystem.component.hairlineBorder
 import com.paulfvt.liftapp.core.ui.LocalUnits
 import com.paulfvt.liftapp.core.ui.labelRes
 import com.paulfvt.liftapp.core.ui.parseWeightInput
@@ -315,7 +317,8 @@ internal fun <T> SetValueField(
             .height(height)
             .bringIntoViewRequester(requester)
             .background(colors.surfaceContainerHighest, shape)
-            .border(2.dp, if (isOpen) colors.primary else Color.Transparent, shape)
+            // Ouverte : contour rouge épais ; sinon le trait fin blanc des cases (décision du 2 novembre 2026).
+            .border(if (isOpen) BorderStroke(2.dp, colors.primary) else hairlineBorder(), shape)
             .clickable(role = Role.Button) {
                 // Un champ de texte ouvert ailleurs (nom, note) rend la main : le clavier d'Android se ferme.
                 focusManager.clearFocus()

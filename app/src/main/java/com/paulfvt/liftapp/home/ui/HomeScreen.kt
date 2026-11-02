@@ -1,5 +1,6 @@
 package com.paulfvt.liftapp.home.ui
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -17,7 +18,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -56,6 +56,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.paulfvt.liftapp.R
 import com.paulfvt.liftapp.core.designsystem.component.LiftButtonSize
+import com.paulfvt.liftapp.core.designsystem.component.LiftCard
 import com.paulfvt.liftapp.core.designsystem.component.LiftTextButton
 import com.paulfvt.liftapp.core.designsystem.component.OnAirBadge
 import com.paulfvt.liftapp.core.designsystem.component.SectionBlock
@@ -252,7 +253,7 @@ private fun NextSessionCard(
     lastDuration: Duration?,
     onStart: (Long?) -> Unit
 ) {
-    ElevatedCard(modifier = Modifier.fillMaxWidth()) {
+    LiftCard(modifier = Modifier.fillMaxWidth()) {
         Column(modifier = Modifier.padding(16.dp)) {
             when {
                 liveWorkoutName != null -> {
@@ -424,13 +425,13 @@ private fun LatestRecordCard(latest: LatestRecord, onClick: () -> Unit) {
     // « 120,5 kg » : le nombre en grand, l'unité à côté en petit.
     val number = value.substringBeforeLast(' ')
     val unit = if (' ' in value) value.substringAfterLast(' ') else ""
-    ElevatedCard(
+    LiftCard(
         onClick = onClick,
         shape = shape,
+        border = BorderStroke(1.dp, amber),
         modifier = Modifier
             .fillMaxWidth()
             .shadow(elevation = 12.dp, shape = shape, ambientColor = amber, spotColor = amber)
-            .border(1.dp, amber, shape)
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,

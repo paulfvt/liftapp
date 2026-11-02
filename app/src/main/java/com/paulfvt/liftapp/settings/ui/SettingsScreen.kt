@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -43,6 +42,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.paulfvt.liftapp.R
+import com.paulfvt.liftapp.core.designsystem.component.LiftCard
 import com.paulfvt.liftapp.core.designsystem.component.ScreenTitle
 import com.paulfvt.liftapp.core.designsystem.component.SectionBlock
 import com.paulfvt.liftapp.core.domain.LengthUnit
@@ -205,7 +205,7 @@ fun UnitChoices(units: Units, onWeightUnitChange: (WeightUnit) -> Unit, onLength
 
 @Composable
 fun SettingsCard(content: @Composable ColumnScope.() -> Unit) {
-    ElevatedCard(modifier = Modifier.fillMaxWidth()) { Column(content = content) }
+    LiftCard(modifier = Modifier.fillMaxWidth()) { Column(content = content) }
 }
 
 // Ligne à interrupteur : toute la ligne est cliquable (48 dp au moins) et lue comme un seul interrupteur.

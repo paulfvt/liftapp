@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -34,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.paulfvt.liftapp.R
+import com.paulfvt.liftapp.core.designsystem.component.LiftCard
 import com.paulfvt.liftapp.core.designsystem.component.LiftTextButton
 import com.paulfvt.liftapp.core.designsystem.component.MenuEntry
 import com.paulfvt.liftapp.core.designsystem.component.OverflowMenu
@@ -172,7 +172,7 @@ private fun WorkoutDetailContent(workout: Workout, onOpenProgress: (Long) -> Uni
 @Composable
 private fun ExerciseDetailCard(item: WorkoutExercise, onOpenProgress: () -> Unit) {
     val progressLabel = stringResource(R.string.history_open_progress, item.exercise.name)
-    ElevatedCard(modifier = Modifier.fillMaxWidth()) {
+    LiftCard(modifier = Modifier.fillMaxWidth()) {
         Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(start = 12.dp, top = 12.dp)) {
             ExerciseThumbnail(item.exercise, zoomable = true)
             Text(

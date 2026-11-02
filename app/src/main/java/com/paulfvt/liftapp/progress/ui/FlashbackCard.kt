@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -18,6 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.paulfvt.liftapp.R
+import com.paulfvt.liftapp.core.designsystem.component.LiftCard
 import com.paulfvt.liftapp.core.designsystem.theme.LocalExtendedColors
 import com.paulfvt.liftapp.progress.domain.Flashback
 import kotlin.math.abs
@@ -29,7 +29,7 @@ fun FlashbackCard(flashback: Flashback, onClick: () -> Unit, modifier: Modifier 
     val exercise = flashback.exercise
     val format = rememberMetricFormatter(flashback.metric, exercise)
     val metricName = stringResource(flashback.metric.chartLabelRes(exercise.trackingType))
-    ElevatedCard(onClick = onClick, modifier = modifier.fillMaxWidth()) {
+    LiftCard(onClick = onClick, modifier = modifier.fillMaxWidth()) {
         Row(
             verticalAlignment = Alignment.Top,
             horizontalArrangement = Arrangement.spacedBy(12.dp),

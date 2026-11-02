@@ -1,6 +1,7 @@
 package com.paulfvt.liftapp.core.designsystem.component
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -32,6 +33,7 @@ fun StatTile(
         verticalArrangement = Arrangement.spacedBy(2.dp),
         modifier = modifier
             .background(MaterialTheme.colorScheme.surfaceContainer, MaterialTheme.shapes.medium)
+            .border(hairlineBorder(), MaterialTheme.shapes.medium)
             .padding(horizontal = 16.dp, vertical = 12.dp)
             .semantics(mergeDescendants = true) {}
     ) {

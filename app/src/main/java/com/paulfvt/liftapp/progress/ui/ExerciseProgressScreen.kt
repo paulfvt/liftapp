@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
@@ -39,6 +38,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.paulfvt.liftapp.R
 import com.paulfvt.liftapp.core.designsystem.component.EmptyState
+import com.paulfvt.liftapp.core.designsystem.component.LiftCard
 import com.paulfvt.liftapp.core.designsystem.component.LiftOutlinedButton
 import com.paulfvt.liftapp.core.designsystem.component.LiftTextButton
 import com.paulfvt.liftapp.core.designsystem.component.ScreenTitle
@@ -186,7 +186,7 @@ private fun GoalSection(uiState: ExerciseProgressUiState, onAdd: () -> Unit, onD
 private fun RecordsSection(exercise: Exercise, records: List<PersonalRecord>, metrics: List<ExerciseMetric>) {
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         SectionTitle(stringResource(R.string.progress_records))
-        ElevatedCard(modifier = Modifier.fillMaxWidth()) {
+        LiftCard(modifier = Modifier.fillMaxWidth()) {
             Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 metrics.forEach { metric ->
                     val record = records.firstOrNull { it.type == metric.recordType() }
@@ -307,7 +307,7 @@ fun ChartPeriod.labelRes(): Int = when (this) {
 private fun RepsAtWeightSection(records: List<PersonalRecord>) {
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         SectionTitle(stringResource(R.string.record_reps_at_weight))
-        ElevatedCard(modifier = Modifier.fillMaxWidth()) {
+        LiftCard(modifier = Modifier.fillMaxWidth()) {
             Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 records.sortedByDescending { it.weightKg }.forEach { record ->
                     val reps = record.value.toInt()

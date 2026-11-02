@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -35,6 +34,7 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.paulfvt.liftapp.R
+import com.paulfvt.liftapp.core.designsystem.component.LiftCard
 import com.paulfvt.liftapp.core.designsystem.component.LiftTextButton
 import com.paulfvt.liftapp.core.designsystem.component.MenuEntry
 import com.paulfvt.liftapp.core.designsystem.component.OverflowMenu
@@ -123,9 +123,9 @@ fun GoalCard(
         }
     }
     if (onClick != null) {
-        ElevatedCard(onClick = onClick, modifier = modifier.fillMaxWidth()) { content() }
+        LiftCard(onClick = onClick, modifier = modifier.fillMaxWidth()) { content() }
     } else {
-        ElevatedCard(modifier = modifier.fillMaxWidth()) { content() }
+        LiftCard(modifier = modifier.fillMaxWidth()) { content() }
     }
 }
 

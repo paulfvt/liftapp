@@ -32,6 +32,7 @@ import com.paulfvt.liftapp.core.designsystem.component.LiftTextButton
 import com.paulfvt.liftapp.core.designsystem.component.SectionTitle
 import com.paulfvt.liftapp.core.designsystem.component.SignalButton
 import com.paulfvt.liftapp.core.designsystem.component.StatTile
+import com.paulfvt.liftapp.core.designsystem.component.hairlineBorder
 import com.paulfvt.liftapp.core.designsystem.theme.LocalExtendedColors
 import com.paulfvt.liftapp.core.ui.LocalUnits
 import com.paulfvt.liftapp.core.ui.durationText
@@ -273,6 +274,7 @@ private fun UnlockedBadges(badges: List<Badge>) {
 @Composable
 private fun TemplateUpdateCard(templateName: String, onUpdate: () -> Unit, onKeep: () -> Unit) {
     Card(
+        border = hairlineBorder(),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerHigh),
         modifier = Modifier.fillMaxWidth()
     ) {

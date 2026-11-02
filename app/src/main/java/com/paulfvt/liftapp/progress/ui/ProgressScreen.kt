@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -32,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.paulfvt.liftapp.R
+import com.paulfvt.liftapp.core.designsystem.component.LiftCard
 import com.paulfvt.liftapp.core.designsystem.component.ScreenTitle
 import com.paulfvt.liftapp.core.designsystem.component.SectionBlock
 import com.paulfvt.liftapp.core.designsystem.component.SectionTitle
@@ -112,7 +112,7 @@ fun ProgressScreen(
 // Entrée du récap : le mois en cours en une ligne, l'écran complet au toucher.
 @Composable
 private fun RecapEntryCard(recap: MonthlyRecap, onClick: () -> Unit) {
-    ElevatedCard(onClick = onClick, modifier = Modifier.fillMaxWidth()) {
+    LiftCard(onClick = onClick, modifier = Modifier.fillMaxWidth()) {
         Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(16.dp)) {
             Column(modifier = Modifier.weight(1f)) {
                 Text(monthTitle(recap.month), style = MaterialTheme.typography.titleMedium)
@@ -130,7 +130,7 @@ private fun RecapEntryCard(recap: MonthlyRecap, onClick: () -> Unit) {
 
 @Composable
 private fun NoExerciseYet() {
-    ElevatedCard(modifier = Modifier.fillMaxWidth()) {
+    LiftCard(modifier = Modifier.fillMaxWidth()) {
         Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
             Text(stringResource(R.string.progress_empty_title), style = MaterialTheme.typography.titleMedium)
             Text(
@@ -145,7 +145,7 @@ private fun NoExerciseYet() {
 @Composable
 private fun PerformedExerciseCard(performed: PerformedExercise, onClick: () -> Unit) {
     val exercise = performed.exercise
-    ElevatedCard(onClick = onClick, modifier = Modifier.fillMaxWidth()) {
+    LiftCard(onClick = onClick, modifier = Modifier.fillMaxWidth()) {
         Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(12.dp)) {
             ExerciseThumbnail(exercise)
             Column(modifier = Modifier.weight(1f).padding(horizontal = 12.dp)) {

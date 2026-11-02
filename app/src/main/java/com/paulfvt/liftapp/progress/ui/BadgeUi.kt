@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -32,6 +31,7 @@ import androidx.compose.ui.semantics.role
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.paulfvt.liftapp.R
+import com.paulfvt.liftapp.core.designsystem.component.LiftCard
 import com.paulfvt.liftapp.core.designsystem.component.LiftTextButton
 import com.paulfvt.liftapp.core.ui.shortDay
 import com.paulfvt.liftapp.progress.domain.Badge
@@ -92,7 +92,7 @@ val Badge.iconRes: Int
 // Grille des badges, trois par ligne : débloqués en ambre avec leur date, les autres en gris avec un indice.
 @Composable
 fun BadgeGrid(unlocked: Map<Badge, Instant>, onBadgeClick: (Badge) -> Unit, modifier: Modifier = Modifier) {
-    ElevatedCard(modifier = modifier.fillMaxWidth()) {
+    LiftCard(modifier = modifier.fillMaxWidth()) {
         Column(modifier = Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
             Badge.entries.chunked(BADGES_PER_ROW).forEach { row ->
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {

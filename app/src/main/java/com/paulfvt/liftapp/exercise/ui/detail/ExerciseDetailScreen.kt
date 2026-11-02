@@ -41,6 +41,7 @@ import com.paulfvt.liftapp.R
 import com.paulfvt.liftapp.core.designsystem.component.LiftTextButton
 import com.paulfvt.liftapp.core.designsystem.component.NoteDialog
 import com.paulfvt.liftapp.core.designsystem.component.ScreenTitle
+import com.paulfvt.liftapp.core.designsystem.component.hairlineBorder
 import com.paulfvt.liftapp.core.model.Exercise
 import com.paulfvt.liftapp.core.model.Muscle
 import com.paulfvt.liftapp.core.ui.labelRes
@@ -166,6 +167,7 @@ private fun ExerciseDetailBody(exercise: Exercise, onSaveNote: (String) -> Unit,
     ) {
         if (exercise.isHidden) {
             Card(
+                border = hairlineBorder(),
                 colors = CardDefaults.cardColors(
                     containerColor = MaterialTheme.colorScheme.surfaceContainerHighest
                 )
@@ -237,7 +239,7 @@ private fun ExerciseDetailBody(exercise: Exercise, onSaveNote: (String) -> Unit,
 // La note est mise en avant : c'est elle qui sera rappelée à chaque séance (réglage de machine, consignes).
 @Composable
 private fun NoteSection(note: String?, onEdit: () -> Unit) {
-    Card(modifier = Modifier.fillMaxWidth()) {
+    Card(border = hairlineBorder(), modifier = Modifier.fillMaxWidth()) {
         Column(modifier = Modifier.padding(start = 16.dp, end = 8.dp, top = 12.dp, bottom = 4.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(

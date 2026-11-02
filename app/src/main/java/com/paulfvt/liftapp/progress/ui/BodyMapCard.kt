@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -32,6 +31,7 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.unit.dp
 import com.paulfvt.liftapp.R
+import com.paulfvt.liftapp.core.designsystem.component.LiftCard
 import com.paulfvt.liftapp.core.model.Muscle
 import com.paulfvt.liftapp.core.ui.labelRes
 import com.paulfvt.liftapp.progress.domain.BodyDiagram
@@ -73,7 +73,7 @@ fun BodyMapCard(muscleSets: Map<Muscle, Double>, figures: List<BodyFigure>, modi
     val colors = heatColors()
     val worked = muscleSets.filterValues { it > 0 }.entries.sortedByDescending { it.value }
     val summary = pluralStringResource(R.plurals.body_map_description, worked.size, worked.size)
-    ElevatedCard(modifier = modifier.fillMaxWidth()) {
+    LiftCard(modifier = modifier.fillMaxWidth()) {
         Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
             Row(
                 horizontalArrangement = Arrangement.spacedBy(16.dp),

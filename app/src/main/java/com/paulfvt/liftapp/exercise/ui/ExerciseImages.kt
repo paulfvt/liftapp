@@ -3,6 +3,7 @@ package com.paulfvt.liftapp.exercise.ui
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -39,6 +40,7 @@ import androidx.compose.ui.window.DialogProperties
 import coil3.compose.AsyncImage
 import com.paulfvt.liftapp.R
 import com.paulfvt.liftapp.core.designsystem.component.LiftTextButton
+import com.paulfvt.liftapp.core.designsystem.component.hairlineBorder
 import com.paulfvt.liftapp.core.model.Exercise
 import kotlinx.coroutines.delay
 
@@ -64,6 +66,7 @@ fun ExerciseThumbnail(exercise: Exercise, modifier: Modifier = Modifier, zoomabl
             modifier = modifier
                 .size(56.dp)
                 .clip(shape)
+                .border(hairlineBorder(), shape)
                 .then(
                     if (zoomable) {
                         Modifier
@@ -80,7 +83,8 @@ fun ExerciseThumbnail(exercise: Exercise, modifier: Modifier = Modifier, zoomabl
             modifier = modifier
                 .size(56.dp)
                 .clip(shape)
-                .background(MaterialTheme.colorScheme.surfaceContainerHighest),
+                .background(MaterialTheme.colorScheme.surfaceContainerHighest)
+                .border(hairlineBorder(), shape),
             contentAlignment = Alignment.Center
         ) {
             Icon(

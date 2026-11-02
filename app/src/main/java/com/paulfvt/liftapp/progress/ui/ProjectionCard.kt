@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -13,6 +12,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.paulfvt.liftapp.R
+import com.paulfvt.liftapp.core.designsystem.component.LiftCard
 import com.paulfvt.liftapp.core.ui.weightText
 import com.paulfvt.liftapp.progress.domain.MonthPart
 import com.paulfvt.liftapp.progress.domain.ProjectionResult
@@ -28,7 +28,7 @@ private val MONTH_AND_YEAR = DateTimeFormatter.ofPattern("MMMM yyyy", Locale.FRE
 // la carte explique pourquoi.
 @Composable
 fun ProjectionCard(result: ProjectionResult, today: LocalDate, modifier: Modifier = Modifier) {
-    ElevatedCard(modifier = modifier.fillMaxWidth()) {
+    LiftCard(modifier = modifier.fillMaxWidth()) {
         Column(
             verticalArrangement = Arrangement.spacedBy(4.dp),
             modifier = Modifier.padding(16.dp).semantics(mergeDescendants = true) {}
