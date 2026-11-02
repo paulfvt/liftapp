@@ -9,10 +9,12 @@ import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ElevatedCard
@@ -22,6 +24,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -34,6 +37,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.LiveRegionMode
@@ -56,11 +60,16 @@ import com.paulfvt.liftapp.template.ui.ChoiceDialog
 import com.paulfvt.liftapp.workout.domain.RPE_CHOICES
 import com.paulfvt.liftapp.workout.domain.Workout
 import com.paulfvt.liftapp.workout.domain.WorkoutExercise
+import com.paulfvt.liftapp.workout.domain.findSet
 import com.paulfvt.liftapp.workout.domain.formatDecimal
+import com.paulfvt.liftapp.workout.ui.FollowOpenField
 import com.paulfvt.liftapp.workout.ui.SetActions
 import com.paulfvt.liftapp.workout.ui.SetHeaderRow
+import com.paulfvt.liftapp.workout.ui.SetKeypad
+import com.paulfvt.liftapp.workout.ui.SetKeypadState
 import com.paulfvt.liftapp.workout.ui.SetRowMode
 import com.paulfvt.liftapp.workout.ui.WorkoutSetRow
+import com.paulfvt.liftapp.workout.ui.moveNext
 
 // Modification d'une séance passée : mêmes lignes de série que pendant la séance, sans case de validation.
 @OptIn(ExperimentalMaterial3Api::class)
@@ -77,6 +86,9 @@ fun WorkoutEditScreen(
     val close = { if (viewModel.hasChanges) showDiscardDialog = true else onClose() }
     // Le bouton retour du téléphone passe aussi par la confirmation quand il y a des modifications.
     BackHandler(enabled = viewModel.hasChanges) { showDiscardDialog = true }
+    val keypad = remember { SetKeypadState() }
+    // Déclaré après : il passe en premier, le retour ferme d'abord le pavé.
+    BackHandler(enabled = keypad.isOpen, onBack = keypad::close)
 
     Scaffold(
         topBar = {
@@ -95,10 +107,26 @@ fun WorkoutEditScreen(
                     )
                 }
             )
+        },
+        bottomBar = {
+            val draft = viewModel.draft
+            if (keypad.isOpen && draft != null) {
+                Surface(tonalElevation = 3.dp) {
+                    SetKeypad(
+                        state = keypad,
+                        // Séance terminée : toutes ses séries sont déjà validées, « Suivant » ne fait que passer.
+                        onNext = { keypad.moveNext(draft.exercises) },
+                        onRpe = {
+                            keypad.openField?.let { draft.findSet(it.setId) }?.let { viewModel.openRpe(it.id, it.rpe) }
+                        },
+                        modifier = Modifier.navigationBarsPadding()
+                    )
+                }
+            }
         }
     ) { padding ->
         val draft = viewModel.draft ?: return@Scaffold
-        EditContent(draft, viewModel, onAddExercises, Modifier.padding(padding).consumeWindowInsets(padding))
+        EditContent(draft, viewModel, onAddExercises, keypad, Modifier.padding(padding).consumeWindowInsets(padding))
     }
 
     if (showDiscardDialog) {
@@ -139,8 +167,12 @@ private fun EditContent(
     draft: Workout,
     viewModel: WorkoutEditViewModel,
     onAddExercises: (excludedIds: List<Long>) -> Unit,
+    keypad: SetKeypadState,
     modifier: Modifier
 ) {
+    val listState = rememberLazyListState()
+    // Avant les exercices : le message d'erreur s'il y en a un, puis le nom et la note.
+    FollowOpenField(keypad, draft.exercises, listState, firstIndex = if (viewModel.problem != null) 2 else 1)
     val setActions = remember(viewModel) {
         SetActions(
             onTypeChange = viewModel::onSetTypeChange,
@@ -155,7 +187,8 @@ private fun EditContent(
         )
     }
     LazyColumn(
-        // imePadding : le clavier ne cache pas la série en cours de saisie.
+        state = listState,
+        // imePadding : le clavier d'Android ne cache pas le nom ou la note en cours de saisie.
         modifier = modifier.fillMaxSize().imePadding(),
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
@@ -180,7 +213,7 @@ private fun EditContent(
                     singleLine = true,
                     isError = viewModel.problem == EditProblem.BLANK_NAME,
                     keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences),
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth().closesKeypad(keypad)
                 )
                 OutlinedTextField(
                     value = draft.note.orEmpty(),
@@ -188,7 +221,7 @@ private fun EditContent(
                     label = { Text(stringResource(R.string.history_edit_note)) },
                     minLines = 2,
                     keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences),
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth().closesKeypad(keypad)
                 )
             }
         }
@@ -196,6 +229,7 @@ private fun EditContent(
             EditExerciseCard(
                 item = item,
                 setActions = setActions,
+                keypad = keypad,
                 onAddSet = { viewModel.onAddSet(item.id) },
                 onRemove = { viewModel.onRemoveExercise(item.id) }
             )
@@ -215,6 +249,7 @@ private fun EditContent(
 private fun EditExerciseCard(
     item: WorkoutExercise,
     setActions: SetActions,
+    keypad: SetKeypadState,
     onAddSet: () -> Unit,
     onRemove: () -> Unit
 ) {
@@ -255,6 +290,7 @@ private fun EditExerciseCard(
                         exercise = item.exercise,
                         canRemove = item.sets.size > 1,
                         actions = setActions,
+                        keypad = keypad,
                         mode = SetRowMode.EDIT
                     )
                 }
@@ -267,6 +303,11 @@ private fun EditExerciseCard(
             icon = R.drawable.ic_add
         )
     }
+}
+
+// Le nom ou la note prend la main : le pavé se ferme pour laisser place au clavier d'Android.
+private fun Modifier.closesKeypad(keypad: SetKeypadState): Modifier = onFocusChanged {
+    if (it.isFocused) keypad.close()
 }
 
 private fun EditProblem.messageRes(): Int = when (this) {

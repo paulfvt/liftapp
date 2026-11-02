@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -25,7 +24,6 @@ import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.paulfvt.liftapp.R
@@ -37,26 +35,13 @@ import com.paulfvt.liftapp.core.model.Exercise
 import com.paulfvt.liftapp.core.model.SetType
 import com.paulfvt.liftapp.core.model.TrackingType
 import com.paulfvt.liftapp.core.ui.LocalUnits
-import com.paulfvt.liftapp.core.ui.labelRes
-import com.paulfvt.liftapp.core.ui.parseWeightInput
-import com.paulfvt.liftapp.core.ui.weightInput
-import com.paulfvt.liftapp.workout.domain.DURATION_STEP_SECONDS
+import com.paulfvt.liftapp.workout.domain.FieldSlot
 import com.paulfvt.liftapp.workout.domain.NextSet
 import com.paulfvt.liftapp.workout.domain.PreviousSet
-import com.paulfvt.liftapp.workout.domain.REPS_STEP
+import com.paulfvt.liftapp.workout.domain.SetField
 import com.paulfvt.liftapp.workout.domain.SetValues
-import com.paulfvt.liftapp.workout.domain.distanceStepMeters
 import com.paulfvt.liftapp.workout.domain.distanceUnitFor
-import com.paulfvt.liftapp.workout.domain.filterDecimalInput
-import com.paulfvt.liftapp.workout.domain.filterDurationInput
-import com.paulfvt.liftapp.workout.domain.filterRepsInput
-import com.paulfvt.liftapp.workout.domain.formatDecimal
-import com.paulfvt.liftapp.workout.domain.formatDistance
-import com.paulfvt.liftapp.workout.domain.formatDuration
 import com.paulfvt.liftapp.workout.domain.matchPrevious
-import com.paulfvt.liftapp.workout.domain.parseDistance
-import com.paulfvt.liftapp.workout.domain.parseDuration
-import com.paulfvt.liftapp.workout.domain.parseReps
 import com.paulfvt.liftapp.workout.domain.stepDistance
 import com.paulfvt.liftapp.workout.domain.stepDuration
 import com.paulfvt.liftapp.workout.domain.stepReps
@@ -77,12 +62,13 @@ class GymActions(
 )
 
 // Mode salle : seule la série à faire est affichée, en grand, avec des boutons − et + de 72 dp pour ne pas avoir à
-// taper au clavier. Les valeurs restent modifiables au clavier en touchant le chiffre.
+// taper. Les valeurs restent modifiables au pavé en touchant le chiffre.
 @Composable
 fun GymModeContent(
     next: NextSet?,
     previous: Map<Long, List<PreviousSet>>,
     actions: GymActions,
+    keypad: SetKeypadState,
     onShowAll: () -> Unit,
     modifier: Modifier = Modifier,
     restTimer: @Composable () -> Unit
@@ -93,7 +79,6 @@ fun GymModeContent(
         verticalArrangement = Arrangement.spacedBy(16.dp),
         modifier = modifier
             .fillMaxSize()
-            .imePadding()
             .verticalScroll(rememberScrollState())
             .padding(16.dp)
     ) {
@@ -106,7 +91,7 @@ fun GymModeContent(
             )
         } else {
             // key : en passant à la série suivante, les champs repartent de ses valeurs.
-            key(next.set.id) { NextSetPanel(next, previous[next.exercise.exercise.id].orEmpty(), actions) }
+            key(next.set.id) { NextSetPanel(next, previous[next.exercise.exercise.id].orEmpty(), actions, keypad) }
         }
         LiftTextButton(
             text = stringResource(R.string.gym_show_all),
@@ -117,7 +102,7 @@ fun GymModeContent(
 }
 
 @Composable
-private fun NextSetPanel(next: NextSet, previous: List<PreviousSet>, actions: GymActions) {
+private fun NextSetPanel(next: NextSet, previous: List<PreviousSet>, actions: GymActions, keypad: SetKeypadState) {
     val exercise = next.exercise.exercise
     val set = next.set
     val types = next.exercise.sets.map { it.type }
@@ -143,7 +128,7 @@ private fun NextSetPanel(next: NextSet, previous: List<PreviousSet>, actions: Gy
             color = MaterialTheme.colorScheme.tertiary
         )
     }
-    ValueSteppers(set.id, set.values, exercise, actions)
+    ValueSteppers(set.id, set.values, exercise, actions, keypad)
 }
 
 // « Série 3 sur 4 », « Échauffement · 1 sur 4 ».
@@ -158,120 +143,100 @@ private fun setPosition(next: NextSet): String {
 }
 
 @Composable
-private fun ValueSteppers(setId: Long, values: SetValues, exercise: Exercise, actions: GymActions) {
+private fun ValueSteppers(
+    setId: Long,
+    values: SetValues,
+    exercise: Exercise,
+    actions: GymActions,
+    keypad: SetKeypadState
+) {
     val (firstTitle, secondTitle) = columnTitles(exercise)
+    val first = SetField(setId, FieldSlot.FIRST)
+    val second = SetField(setId, FieldSlot.SECOND)
+    val durationStepper = @Composable {
+        Stepper(
+            title = secondTitle,
+            value = values.durationSec,
+            spec = durationSpec(),
+            field = second,
+            keypad = keypad,
+            onStep = { steps -> actions.onStep(setId) { it.copy(durationSec = stepDuration(it.durationSec, steps)) } },
+            onValueChange = { actions.onDurationChange(setId, it) }
+        )
+    }
     when (exercise.trackingType) {
         TrackingType.WEIGHT_REPS, TrackingType.REPS -> {
             val allowNegative = exercise.trackingType == TrackingType.REPS
             val unit = LocalUnits.current.weight
             Stepper(
                 title = firstTitle.orEmpty(),
-                step = stringResource(
-                    R.string.value_with_unit,
-                    formatDecimal(unit.stepperStep),
-                    stringResource(unit.labelRes)
-                ),
+                value = values.weightKg,
+                spec = weightSpec(allowNegative),
+                field = first,
+                keypad = keypad,
                 onStep = { steps ->
                     actions.onStep(setId) { it.copy(weightKg = stepWeight(it.weightKg, steps, allowNegative, unit)) }
-                }
-            ) {
-                SetValueField(
-                    value = values.weightKg,
-                    format = { weightInput(it, unit) },
-                    filter = { filterDecimalInput(it, allowNegative) },
-                    parse = { parseWeightInput(it, unit) },
-                    onValueChange = { actions.onWeightChange(setId, it) },
-                    description = firstTitle.orEmpty(),
-                    keyboardType = if (allowNegative) KeyboardType.Text else KeyboardType.Decimal,
-                    width = BigFieldWidth,
-                    height = BigFieldHeight,
-                    textStyle = MaterialTheme.typography.displayMedium
-                )
-            }
-            RepsStepper(setId, values, secondTitle, actions)
+                },
+                onValueChange = { actions.onWeightChange(setId, it) }
+            )
+            Stepper(
+                title = secondTitle,
+                value = values.reps,
+                spec = repsSpec(),
+                field = second,
+                keypad = keypad,
+                onStep = { steps -> actions.onStep(setId) { it.copy(reps = stepReps(it.reps, steps)) } },
+                onValueChange = { actions.onRepsChange(setId, it) }
+            )
         }
-        TrackingType.DURATION -> DurationStepper(setId, values, secondTitle, actions)
+        TrackingType.DURATION -> durationStepper()
         TrackingType.DISTANCE -> {
             val unit = distanceUnitFor(exercise.category)
-            val stepLabel = formatDistance(distanceStepMeters(unit), unit) + " " + firstTitle.orEmpty()
             Stepper(
                 title = firstTitle.orEmpty(),
-                step = stepLabel,
+                value = values.distanceM,
+                spec = distanceSpec(unit),
+                field = first,
+                keypad = keypad,
                 onStep = { steps ->
                     actions.onStep(setId) { it.copy(distanceM = stepDistance(it.distanceM, steps, unit)) }
-                }
-            ) {
-                SetValueField(
-                    value = values.distanceM,
-                    format = { formatDistance(it, unit) },
-                    filter = { filterDecimalInput(it, allowNegative = false) },
-                    parse = { parseDistance(it, unit) },
-                    onValueChange = { actions.onDistanceChange(setId, it) },
-                    description = firstTitle.orEmpty(),
-                    keyboardType = KeyboardType.Decimal,
-                    width = BigFieldWidth,
-                    height = BigFieldHeight,
-                    textStyle = MaterialTheme.typography.displayMedium
-                )
-            }
-            DurationStepper(setId, values, secondTitle, actions)
+                },
+                onValueChange = { actions.onDistanceChange(setId, it) }
+            )
+            durationStepper()
         }
     }
 }
 
+// Valeur encadrée de deux gros boutons. Case ouverte au pavé : − et + passent par lui, pour que la case affiche la
+// nouvelle valeur (sinon elle gardait le texte tapé et les boutons semblaient sans effet).
 @Composable
-private fun RepsStepper(setId: Long, values: SetValues, title: String, actions: GymActions) {
-    Stepper(
-        title = title,
-        step = pluralStringResource(R.plurals.workout_previous_reps, REPS_STEP, REPS_STEP),
-        onStep = { steps -> actions.onStep(setId) { it.copy(reps = stepReps(it.reps, steps)) } }
-    ) {
-        SetValueField(
-            value = values.reps,
-            format = { it?.toString().orEmpty() },
-            filter = ::filterRepsInput,
-            parse = ::parseReps,
-            onValueChange = { actions.onRepsChange(setId, it) },
-            description = title,
-            keyboardType = KeyboardType.Number,
-            width = BigFieldWidth,
-            height = BigFieldHeight,
-            textStyle = MaterialTheme.typography.displayMedium
-        )
-    }
-}
-
-@Composable
-private fun DurationStepper(setId: Long, values: SetValues, title: String, actions: GymActions) {
-    Stepper(
-        title = title,
-        step = stringResource(R.string.duration_seconds, DURATION_STEP_SECONDS),
-        onStep = { steps -> actions.onStep(setId) { it.copy(durationSec = stepDuration(it.durationSec, steps)) } }
-    ) {
-        SetValueField(
-            value = values.durationSec,
-            format = ::formatDuration,
-            filter = ::filterDurationInput,
-            parse = ::parseDuration,
-            onValueChange = { actions.onDurationChange(setId, it) },
-            description = title,
-            keyboardType = KeyboardType.Text,
-            width = BigFieldWidth,
-            height = BigFieldHeight,
-            textStyle = MaterialTheme.typography.displayMedium
-        )
-    }
-}
-
-// Valeur encadrée de deux gros boutons. step : ce que fait un appui, lu par le lecteur d'écran (« Plus 2,5 kg »).
-@Composable
-private fun Stepper(title: String, step: String, onStep: (steps: Int) -> Unit, field: @Composable () -> Unit) {
+private fun <T> Stepper(
+    title: String,
+    value: T?,
+    spec: ValueSpec<T>,
+    field: SetField,
+    keypad: SetKeypadState,
+    onStep: (steps: Int) -> Unit,
+    onValueChange: (T?) -> Unit
+) {
+    val step = { steps: Int -> if (keypad.isEditing(field)) keypad.step(steps) else onStep(steps) }
     Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(4.dp)) {
         Text(title, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-            StepButton(R.drawable.ic_remove, stringResource(R.string.gym_decrease, step)) { onStep(-1) }
-            field()
-            StepButton(R.drawable.ic_add, stringResource(R.string.gym_increase, step)) { onStep(1) }
+            StepButton(R.drawable.ic_remove, stringResource(R.string.gym_decrease, spec.stepLabel)) { step(-1) }
+            SetValueField(
+                value = value,
+                spec = spec,
+                onValueChange = onValueChange,
+                field = field,
+                keypad = keypad,
+                description = title,
+                width = BigFieldWidth,
+                height = BigFieldHeight,
+                textStyle = MaterialTheme.typography.displayMedium
+            )
+            StepButton(R.drawable.ic_add, stringResource(R.string.gym_increase, spec.stepLabel)) { step(1) }
         }
     }
 }

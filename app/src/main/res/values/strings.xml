@@ -397,6 +397,11 @@
     <string name="gym_finish">Terminer</string>
     <string name="gym_all_done">Toutes les séries sont validées.</string>
     <string name="gym_show_all">Voir toute la séance</string>
+    <!-- Pavé numérique de saisie des séries (façon Strong). -->
+    <string name="keypad_close">Fermer le pavé</string>
+    <string name="keypad_erase">Effacer</string>
+    <string name="keypad_rpe">RPE</string>
+    <string name="keypad_next">Suivant</string>
     <string name="gym_decrease">Moins %1$s</string>
     <string name="gym_increase">Plus %1$s</string>
 

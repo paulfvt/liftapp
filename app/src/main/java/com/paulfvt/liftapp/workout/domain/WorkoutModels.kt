@@ -35,6 +35,9 @@ data class Workout(
     val rest: RestPeriod? = null
 )
 
+fun Workout.findSet(setId: Long): WorkoutSet? =
+    exercises.firstNotNullOfOrNull { item -> item.sets.firstOrNull { it.id == setId } }
+
 // Série faite lors d'une séance terminée, base du pré-remplissage et de la colonne « Précédent ».
 data class PreviousSet(val type: SetType, val values: SetValues)
 

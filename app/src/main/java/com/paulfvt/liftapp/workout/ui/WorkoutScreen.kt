@@ -1,5 +1,6 @@
 package com.paulfvt.liftapp.workout.ui
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -17,7 +18,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -42,6 +42,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
@@ -51,6 +52,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.painterResource
@@ -95,6 +97,7 @@ import com.paulfvt.liftapp.workout.domain.Workout
 import com.paulfvt.liftapp.workout.domain.WorkoutExercise
 import com.paulfvt.liftapp.workout.domain.bestWorkSet
 import com.paulfvt.liftapp.workout.domain.completedSetCount
+import com.paulfvt.liftapp.workout.domain.findSet
 import com.paulfvt.liftapp.workout.domain.formatDecimal
 import com.paulfvt.liftapp.workout.domain.formatDuration
 import com.paulfvt.liftapp.workout.domain.matchPrevious
@@ -173,6 +176,26 @@ private fun ActiveWorkout(
     )
     val elapsed = formatDuration(rememberElapsedSeconds(workout.startedAt))
     val next = workout.nextSet()
+    val keypad = remember { SetKeypadState() }
+    // Retour du téléphone : ferme d'abord le pavé. Le mode salle n'a pas les mêmes cases : il le ferme aussi.
+    BackHandler(enabled = keypad.isOpen, onBack = keypad::close)
+    LaunchedEffect(settings.gymMode) { keypad.close() }
+    val keypadBar = @Composable {
+        SetKeypad(
+            state = keypad,
+            onNext = {
+                // « Suivant » sur la dernière case d'une série la valide (décision du 2 novembre 2026).
+                keypad.moveNext(workout.exercises)?.let { setId ->
+                    if (workout.findSet(setId)?.isCompleted == false) viewModel.onToggleCompleted(setId)
+                }
+            },
+            onRpe = {
+                keypad.openField?.let { workout.findSet(it.setId) }?.let { set ->
+                    viewModel.openDialog(WorkoutDialog.Rpe(set.id, set.rpe))
+                }
+            }
+        )
+    }
     val restTimer: @Composable (large: Boolean, modifier: Modifier) -> Unit = { large, modifier ->
         workout.rest?.let { rest ->
             RestTimer(
@@ -226,25 +249,28 @@ private fun ActiveWorkout(
             )
         },
         bottomBar = {
-            Surface(tonalElevation = 3.dp) {
+            Surface(tonalElevation = 3.dp, modifier = Modifier.onSizeChanged { keypad.bottomBarHeight = it.height }) {
                 Column(Modifier.navigationBarsPadding()) {
+                    // Pendant la saisie, le pavé prend la place des boutons du bas ; le minuteur reste visible.
                     if (settings.gymMode) {
-                        GymBottomBar(
-                            hasNextSet = next != null,
-                            onComplete = { next?.let { viewModel.onToggleCompleted(it.set.id) } },
-                            onFinish = viewModel::onFinishClick
-                        )
+                        if (keypad.isOpen) {
+                            keypadBar()
+                        } else {
+                            GymBottomBar(
+                                hasNextSet = next != null,
+                                onComplete = { next?.let { viewModel.onToggleCompleted(it.set.id) } },
+                                onFinish = viewModel::onFinishClick
+                            )
+                        }
                     } else {
                         restTimer(false, Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp))
-                        FinishButton(viewModel::onFinishClick)
+                        if (keypad.isOpen) keypadBar() else FinishButton(viewModel::onFinishClick)
                     }
                 }
             }
         },
         snackbarHost = { SnackbarHost(snackbarHostState) }
     ) { padding ->
-        // consumeWindowInsets : la barre du bas (minuteur, bouton de fin) est déjà décomptée ; le imePadding de la
-        // liste n'ajoute que le reste du clavier, sans laisser de bloc vide au-dessus.
         Box(Modifier.padding(padding).consumeWindowInsets(padding)) {
             ActiveWorkoutContent(
                 workout,
@@ -252,6 +278,7 @@ private fun ActiveWorkout(
                 previousDates,
                 settings.gymMode,
                 next,
+                keypad,
                 viewModel,
                 onPickExercises,
                 restTimer
@@ -272,10 +299,14 @@ private fun ActiveWorkoutContent(
     previousDates: Map<Long, Instant>,
     isGymMode: Boolean,
     next: NextSet?,
+    keypad: SetKeypadState,
     viewModel: WorkoutViewModel,
     onPickExercises: (excludedIds: List<Long>, replace: Boolean) -> Unit,
     restTimer: @Composable (large: Boolean, modifier: Modifier) -> Unit
 ) {
+    // Série de la case ouverte retirée : le pavé se ferme.
+    val openSetId = keypad.openField?.setId
+    if (openSetId != null && workout.findSet(openSetId) == null) SideEffect { keypad.close() }
     if (isGymMode) {
         val gymActions = remember(viewModel) {
             GymActions(
@@ -290,11 +321,12 @@ private fun ActiveWorkoutContent(
             next = next,
             previous = previous,
             actions = gymActions,
+            keypad = keypad,
             onShowAll = { viewModel.onGymModeChange(false) },
             restTimer = { restTimer(true, Modifier) }
         )
     } else {
-        WorkoutContent(workout, previous, previousDates, viewModel, onPickExercises)
+        WorkoutContent(workout, previous, previousDates, keypad, viewModel, onPickExercises)
     }
 }
 
@@ -334,6 +366,7 @@ private fun WorkoutContent(
     workout: Workout,
     previous: Map<Long, List<PreviousSet>>,
     previousDates: Map<Long, Instant>,
+    keypad: SetKeypadState,
     viewModel: WorkoutViewModel,
     onPickExercises: (excludedIds: List<Long>, replace: Boolean) -> Unit,
     modifier: Modifier = Modifier
@@ -362,10 +395,11 @@ private fun WorkoutContent(
             onRemove = viewModel::onRemoveSet
         )
     }
+    // 1 : l'en-tête de la séance précède les exercices.
+    FollowOpenField(keypad, order.mapNotNull { byId[it] }, listState, firstIndex = 1)
     LazyColumn(
         state = listState,
-        // imePadding : le clavier ne cache pas la série en cours de saisie.
-        modifier = modifier.fillMaxSize().imePadding(),
+        modifier = modifier.fillMaxSize(),
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
@@ -433,7 +467,8 @@ private fun WorkoutContent(
                         viewModel.openDialog(WorkoutDialog.Rest(item.id, item.restSeconds ?: DEFAULT_REST_SECONDS))
                     },
                     onAddSet = { viewModel.onAddSet(item.id) },
-                    setActions = setActions
+                    setActions = setActions,
+                    keypad = keypad
                 )
             }
         }
@@ -465,7 +500,8 @@ private fun WorkoutExerciseCard(
     onEditNote: () -> Unit,
     onRestClick: () -> Unit,
     onAddSet: () -> Unit,
-    setActions: SetActions
+    setActions: SetActions,
+    keypad: SetKeypadState
 ) {
     val elevation by animateDpAsState(if (isDragging) 8.dp else 1.dp, label = "elevation")
     val moveUpLabel = stringResource(R.string.action_move_up)
@@ -546,6 +582,7 @@ private fun WorkoutExerciseCard(
                         exercise = item.exercise,
                         canRemove = item.sets.size > 1,
                         actions = setActions,
+                        keypad = keypad,
                         isCurrent = set.id == currentSetId
                     )
                 }

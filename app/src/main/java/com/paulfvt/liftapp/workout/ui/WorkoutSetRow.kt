@@ -8,42 +8,27 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.selection.toggleable
-import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
-import androidx.compose.ui.unit.sp
 import com.paulfvt.liftapp.R
 import com.paulfvt.liftapp.core.designsystem.component.MenuEntry
 import com.paulfvt.liftapp.core.designsystem.theme.LocalExtendedColors
@@ -53,22 +38,16 @@ import com.paulfvt.liftapp.core.model.TrackingType
 import com.paulfvt.liftapp.core.ui.LocalUnits
 import com.paulfvt.liftapp.core.ui.SetTypeButton
 import com.paulfvt.liftapp.core.ui.labelRes
-import com.paulfvt.liftapp.core.ui.parseWeightInput
 import com.paulfvt.liftapp.core.ui.setName
 import com.paulfvt.liftapp.core.ui.weightInput
+import com.paulfvt.liftapp.workout.domain.FieldSlot
 import com.paulfvt.liftapp.workout.domain.PreviousSet
-import com.paulfvt.liftapp.workout.domain.SetValues
+import com.paulfvt.liftapp.workout.domain.SetField
 import com.paulfvt.liftapp.workout.domain.WorkoutSet
 import com.paulfvt.liftapp.workout.domain.distanceUnitFor
-import com.paulfvt.liftapp.workout.domain.filterDecimalInput
-import com.paulfvt.liftapp.workout.domain.filterDurationInput
-import com.paulfvt.liftapp.workout.domain.filterRepsInput
 import com.paulfvt.liftapp.workout.domain.formatDecimal
 import com.paulfvt.liftapp.workout.domain.formatDistance
 import com.paulfvt.liftapp.workout.domain.formatDuration
-import com.paulfvt.liftapp.workout.domain.parseDistance
-import com.paulfvt.liftapp.workout.domain.parseDuration
-import com.paulfvt.liftapp.workout.domain.parseReps
 import java.util.Locale
 
 // Largeurs des colonnes d'une ligne de série, partagées avec l'en-tête pour que tout reste aligné.
@@ -167,6 +146,7 @@ fun WorkoutSetRow(
     exercise: Exercise,
     canRemove: Boolean,
     actions: SetActions,
+    keypad: SetKeypadState,
     mode: SetRowMode = SetRowMode.LIVE,
     isCurrent: Boolean = false
 ) {
@@ -230,7 +210,7 @@ fun WorkoutSetRow(
                 )
             }
         }
-        ValueFields(set, exercise, name, actions)
+        ValueFields(set, exercise, name, actions, keypad)
         if (isLive) {
             CompleteButton(
                 completed = set.isCompleted,
@@ -244,125 +224,71 @@ fun WorkoutSetRow(
 }
 
 @Composable
-private fun ValueFields(set: WorkoutSet, exercise: Exercise, name: String, actions: SetActions) {
+private fun ValueFields(
+    set: WorkoutSet,
+    exercise: Exercise,
+    name: String,
+    actions: SetActions,
+    keypad: SetKeypadState
+) {
     val values = set.values
-    val unit = LocalUnits.current.weight
     val (firstTitle, secondTitle) = columnTitles(exercise)
+    val first = SetField(set.id, FieldSlot.FIRST)
+    val second = SetField(set.id, FieldSlot.SECOND)
+    val firstDescription = stringResource(R.string.workout_field, name, firstTitle.orEmpty())
+    val secondDescription = stringResource(R.string.workout_field, name, secondTitle)
     when (exercise.trackingType) {
         TrackingType.WEIGHT_REPS, TrackingType.REPS -> {
             // Pour le poids du corps, le premier champ est le lest : négatif pour une assistance.
-            val allowNegative = exercise.trackingType == TrackingType.REPS
-            // Poids saisi dans l'unité choisie, enregistré en kilos.
             SetValueField(
                 value = values.weightKg,
-                format = { weightInput(it, unit) },
-                filter = { filterDecimalInput(it, allowNegative) },
-                parse = { parseWeightInput(it, unit) },
+                spec = weightSpec(allowNegative = exercise.trackingType == TrackingType.REPS),
                 onValueChange = { actions.onWeightChange(set.id, it) },
-                description = stringResource(R.string.workout_field, name, firstTitle.orEmpty()),
-                keyboardType = if (allowNegative) KeyboardType.Text else KeyboardType.Decimal,
+                field = first,
+                keypad = keypad,
+                description = firstDescription,
                 width = FirstFieldColumn
             )
-            RepsField(set, values, name, secondTitle, actions)
+            SetValueField(
+                value = values.reps,
+                spec = repsSpec(),
+                onValueChange = { actions.onRepsChange(set.id, it) },
+                field = second,
+                keypad = keypad,
+                description = secondDescription,
+                width = SecondFieldColumn
+            )
         }
-        TrackingType.DURATION -> DurationField(
-            set,
-            values,
-            stringResource(R.string.workout_field, name, secondTitle),
-            FirstFieldColumn + ColumnGap + SecondFieldColumn,
-            actions
+        TrackingType.DURATION -> SetValueField(
+            value = values.durationSec,
+            spec = durationSpec(),
+            onValueChange = { actions.onDurationChange(set.id, it) },
+            field = second,
+            keypad = keypad,
+            description = secondDescription,
+            width = FirstFieldColumn + ColumnGap + SecondFieldColumn
         )
         TrackingType.DISTANCE -> {
-            val unit = distanceUnitFor(exercise.category)
             SetValueField(
                 value = values.distanceM,
-                format = { formatDistance(it, unit) },
-                filter = { filterDecimalInput(it, allowNegative = false) },
-                parse = { parseDistance(it, unit) },
+                spec = distanceSpec(distanceUnitFor(exercise.category)),
                 onValueChange = { actions.onDistanceChange(set.id, it) },
-                description = stringResource(R.string.workout_field, name, firstTitle.orEmpty()),
-                keyboardType = KeyboardType.Decimal,
+                field = first,
+                keypad = keypad,
+                description = firstDescription,
                 width = FirstFieldColumn
             )
-            DurationField(
-                set,
-                values,
-                stringResource(R.string.workout_field, name, secondTitle),
-                SecondFieldColumn,
-                actions
+            SetValueField(
+                value = values.durationSec,
+                spec = durationSpec(),
+                onValueChange = { actions.onDurationChange(set.id, it) },
+                field = second,
+                keypad = keypad,
+                description = secondDescription,
+                width = SecondFieldColumn
             )
         }
     }
-}
-
-@Composable
-private fun RepsField(set: WorkoutSet, values: SetValues, name: String, title: String, actions: SetActions) {
-    SetValueField(
-        value = values.reps,
-        format = { it?.toString().orEmpty() },
-        filter = ::filterRepsInput,
-        parse = ::parseReps,
-        onValueChange = { actions.onRepsChange(set.id, it) },
-        description = stringResource(R.string.workout_field, name, title),
-        keyboardType = KeyboardType.Number,
-        width = SecondFieldColumn
-    )
-}
-
-@Composable
-private fun DurationField(set: WorkoutSet, values: SetValues, description: String, width: Dp, actions: SetActions) {
-    SetValueField(
-        value = values.durationSec,
-        format = ::formatDuration,
-        filter = ::filterDurationInput,
-        parse = ::parseDuration,
-        onValueChange = { actions.onDurationChange(set.id, it) },
-        description = description,
-        // Clavier texte : le pavé numérique de certains claviers n'a pas de « : ».
-        keyboardType = KeyboardType.Text,
-        width = width
-    )
-}
-
-// Champ de saisie compact en gros chiffres. Le texte tapé est gardé tel quel (« 82, » en cours de frappe).
-// Pendant la frappe, la base renvoie la valeur avec un temps de retard : le texte n'est donc resynchronisé avec la
-// valeur que lorsque le champ n'a pas le focus (pré-remplissage, exercice remplacé, fin de la saisie).
-@Composable
-internal fun <T> SetValueField(
-    value: T?,
-    format: (T?) -> String,
-    filter: (String) -> String,
-    parse: (String) -> T?,
-    onValueChange: (T?) -> Unit,
-    description: String,
-    keyboardType: KeyboardType,
-    width: Dp,
-    height: Dp = 44.dp,
-    textStyle: TextStyle = MaterialTheme.typography.headlineSmall.copy(fontSize = 20.sp)
-) {
-    var text by remember { mutableStateOf(format(value)) }
-    var isFocused by remember { mutableStateOf(false) }
-    LaunchedEffect(value, isFocused) {
-        if (!isFocused && parse(text) != value) text = format(value)
-    }
-    BasicTextField(
-        value = text,
-        onValueChange = { input ->
-            text = filter(input)
-            onValueChange(parse(text))
-        },
-        singleLine = true,
-        textStyle = textStyle.copy(textAlign = TextAlign.Center, color = MaterialTheme.colorScheme.onSurface),
-        cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
-        keyboardOptions = KeyboardOptions(keyboardType = keyboardType, imeAction = ImeAction.Done),
-        modifier = Modifier
-            .width(width)
-            .height(height)
-            .background(MaterialTheme.colorScheme.surfaceContainerHighest, MaterialTheme.shapes.small)
-            .onFocusChanged { isFocused = it.isFocused }
-            .semantics { contentDescription = description },
-        decorationBox = { field -> Box(contentAlignment = Alignment.Center) { field() } }
-    )
 }
 
 // Case de validation de 48 dp. Le lecteur d'écran l'annonce comme une case à cocher nommée d'après la série.
