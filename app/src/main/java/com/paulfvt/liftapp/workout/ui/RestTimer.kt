@@ -117,7 +117,8 @@ private fun CompactRestTimer(remaining: Int, actions: RestActions) {
     }
 }
 
-// Mode salle : titre, chiffres géants, puis −15 S, +30 S et PASSER en gros boutons.
+// Mode salle : titre, chiffres géants, puis −15 S, +30 S et PASSER en gros boutons. PASSER garde sa largeur, les deux
+// autres se partagent le reste : le mot tient en entier même sur un écran étroit.
 @Composable
 private fun LargeRestTimer(remaining: Int, actions: RestActions) {
     RestTitle()
@@ -145,8 +146,7 @@ private fun LargeRestTimer(remaining: Int, actions: RestActions) {
             text = stringResource(R.string.rest_skip),
             onClick = actions.onSkip,
             size = LiftButtonSize.Gym,
-            description = stringResource(R.string.rest_skip_description),
-            modifier = Modifier.weight(1f)
+            description = stringResource(R.string.rest_skip_description)
         )
     }
 }
