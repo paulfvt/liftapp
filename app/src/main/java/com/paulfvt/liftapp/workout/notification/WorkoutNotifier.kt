@@ -5,16 +5,16 @@ import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
-import android.content.ContentResolver
+import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.media.AudioAttributes
+import android.content.pm.ServiceInfo
 import android.os.Build
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.core.net.toUri
+import androidx.core.app.ServiceCompat
 import com.paulfvt.liftapp.MainActivity
 import com.paulfvt.liftapp.R
 import com.paulfvt.liftapp.core.domain.Units
@@ -33,11 +33,9 @@ import javax.inject.Singleton
 class WorkoutNotifier @Inject constructor(@ApplicationContext private val context: Context) {
     private val manager = NotificationManagerCompat.from(context)
 
-    // Deux canaux. « Séance en cours », sans son ni vibration : la notification change à chaque série.
-    // « Fin du repos » : le ding ding d'1 s (res/raw/rest_end_chime.wav, synthétisé pour l'app) joué avec l'usage
-    // « alarme », donc entendu même téléphone en vibreur ou en silencieux (décision du 1er novembre 2026), sans
-    // vibration (jouée par RestAlerter, pour pouvoir la couper depuis l'app). Le son d'un canal ne peut plus changer
-    // après sa création : l'ancien canal, au son de notification du téléphone, est supprimé.
+    // Un seul canal, « Séance en cours », sans son ni vibration : la notification change à chaque série. La fin du
+    // repos n'a plus de canal : son et vibration sont joués par l'app (RestAlertService), car Samsung coupait le son
+    // de la notification. Les anciens canaux « Fin du repos » sont supprimés.
     fun createChannels() {
         val workout = NotificationChannel(
             CHANNEL_ID,
@@ -50,52 +48,33 @@ class WorkoutNotifier @Inject constructor(@ApplicationContext private val contex
             setShowBadge(false)
             lockscreenVisibility = Notification.VISIBILITY_PUBLIC
         }
-        val restEnd = NotificationChannel(
-            REST_END_CHANNEL_ID,
-            context.getString(R.string.notification_channel_rest_end),
-            NotificationManager.IMPORTANCE_DEFAULT
-        ).apply {
-            description = context.getString(R.string.notification_channel_rest_end_description)
-            setSound(
-                "${ContentResolver.SCHEME_ANDROID_RESOURCE}://${context.packageName}/${R.raw.rest_end_chime}".toUri(),
-                AudioAttributes.Builder()
-                    .setUsage(AudioAttributes.USAGE_ALARM)
-                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                    .build()
-            )
-            enableVibration(false)
-            setShowBadge(false)
-            lockscreenVisibility = Notification.VISIBILITY_PUBLIC
-        }
         val system = context.getSystemService(NotificationManager::class.java)
-        system.deleteNotificationChannel(LEGACY_REST_END_CHANNEL_ID)
-        system.createNotificationChannels(listOf(workout, restEnd))
+        LEGACY_CHANNEL_IDS.forEach(system::deleteNotificationChannel)
+        system.createNotificationChannel(workout)
     }
 
-    // Son de fin de repos : notification brève qui disparaît d'elle-même après quelques secondes. Catégorie « alarme
-    // ou minuteur » : depuis Android 15, une notification d'une autre catégorie perd l'usage « alarme » de son canal
-    // et son son est coupé en vibreur (vérifié sur l'émulateur Android 16).
-    fun showRestEnd(notice: WorkoutNotice, units: Units) {
-        val next = notice.next
-        val notification = NotificationCompat.Builder(context, REST_END_CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_timer)
-            .setContentTitle(context.getString(R.string.notification_rest_end))
-            .setContentText(
-                next?.let {
-                    context.getString(
-                        R.string.notification_next,
-                        it.exercise.name,
-                        describeNextSet(context, it, units.weight)
-                    )
+    // Met RestAlertService au premier plan sur la notification de la séance, déjà affichée : elle ne change pas. Si
+    // elle ne l'est pas (notifications refusées), une notification minimale la remplace, qu'Android masquera alors.
+    fun startForeground(service: Service, restEndsAt: Instant?) {
+        val notification = manager.activeNotifications.firstOrNull { it.id == NOTIFICATION_ID }?.notification
+            ?: NotificationCompat.Builder(context, CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_timer)
+                .setContentTitle(context.getString(R.string.notification_rest))
+                .setSilent(true)
+                .setContentIntent(openWorkoutIntent())
+                .apply {
+                    if (restEndsAt != null) {
+                        setWhen(restEndsAt.toEpochMilli()).setUsesChronometer(true).setChronometerCountDown(true)
+                    }
                 }
-            )
-            .setCategory(NotificationCompat.CATEGORY_ALARM)
-            .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-            .setContentIntent(openWorkoutIntent())
-            .setAutoCancel(true)
-            .setTimeoutAfter(REST_END_TIMEOUT_MS)
-            .build()
-        post(REST_END_NOTIFICATION_ID, notification)
+                .build()
+        // « shortService » n'existe que depuis Android 14 ; avant, le service n'a pas de type à déclarer.
+        val type = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            ServiceInfo.FOREGROUND_SERVICE_TYPE_SHORT_SERVICE
+        } else {
+            0
+        }
+        ServiceCompat.startForeground(service, NOTIFICATION_ID, notification, type)
     }
 
     // Android 13+ : rien ne s'affiche sans la permission POST_NOTIFICATIONS.
@@ -103,10 +82,7 @@ class WorkoutNotifier @Inject constructor(@ApplicationContext private val contex
 
     fun show(notice: WorkoutNotice, now: Instant, units: Units) = post(NOTIFICATION_ID, build(notice, now, units))
 
-    fun cancel() {
-        manager.cancel(NOTIFICATION_ID)
-        manager.cancel(REST_END_NOTIFICATION_ID)
-    }
+    fun cancel() = manager.cancel(NOTIFICATION_ID)
 
     private fun hasPermission(): Boolean = Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU ||
         ActivityCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) ==
@@ -203,11 +179,8 @@ class WorkoutNotifier @Inject constructor(@ApplicationContext private val contex
 
     private companion object {
         const val CHANNEL_ID = "workout"
-        const val REST_END_CHANNEL_ID = "rest_end_chime"
-        const val LEGACY_REST_END_CHANNEL_ID = "rest_end"
+        val LEGACY_CHANNEL_IDS = listOf("rest_end", "rest_end_chime")
         const val NOTIFICATION_ID = 1
-        const val REST_END_NOTIFICATION_ID = 2
-        const val REST_END_TIMEOUT_MS = 10_000L
         const val REQUEST_OPEN = 0
         const val REQUEST_COMPLETE = 1
         const val REQUEST_ADD_REST = 2

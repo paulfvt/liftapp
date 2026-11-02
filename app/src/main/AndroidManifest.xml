@@ -8,6 +8,10 @@
     <!-- Alarme exacte de fin de repos : l'utilisateur l'accorde dans « Alarmes et rappels ». -->
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- Fin du repos : service de premier plan de quelques secondes (RestAlertService) pour vibrer et jouer le son
+         app quittée, et réveil du processeur le temps du décompte écran éteint. Permissions sans demande. -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <!-- Photos de progression prises dans l'app, demandée à la première photo. La caméra n'est pas exigée :
          l'app reste installable sur un appareil sans caméra (l'import depuis la galerie suffit alors). -->
     <uses-permission android:name="android.permission.CAMERA" />
@@ -39,6 +43,10 @@
         <receiver
             android:name=".workout.notification.WorkoutActionReceiver"
             android:exported="false" />
+        <service
+            android:name=".workout.notification.RestAlertService"
+            android:exported="false"
+            android:foregroundServiceType="shortService" />
 
         <!-- Widget d'écran d'accueil : exporté, car c'est Android (le lanceur) qui lui envoie ses mises à jour. -->
         <receiver

@@ -412,9 +412,6 @@
     <string name="notification_channel_workout">Séance en cours</string>
     <string name="notification_channel_workout_description">Série suivante et compte à rebours du repos, visibles écran verrouillé.</string>
     <string name="notification_rest">Repos</string>
-    <string name="notification_rest_end">Repos terminé</string>
-    <string name="notification_channel_rest_end">Fin du repos</string>
-    <string name="notification_channel_rest_end_description">Son joué à la fin du repos. La vibration se règle dans la séance.</string>
     <string name="notification_next">Ensuite : %1$s · %2$s</string>
     <string name="notification_all_done">Toutes les séries sont validées</string>
     <!-- « sur » n'est pas une unité : pas de pluriel ici. -->

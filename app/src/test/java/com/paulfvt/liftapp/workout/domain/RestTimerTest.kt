@@ -2,6 +2,7 @@ package com.paulfvt.liftapp.workout.domain
 
 import com.paulfvt.liftapp.core.model.SetType.WARMUP
 import com.paulfvt.liftapp.core.model.SetType.WORK
+import java.time.Duration
 import java.time.Instant
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -20,6 +21,17 @@ class RestTimerTest {
         assertEquals(listOf(500L, 200L, 800L, 1_000L), restEndVibration(1_500).toList())
         // Fin déjà passée : seule la vibration finale, tout de suite.
         assertEquals(listOf(0L, 1_000L), restEndVibration(-400).toList())
+    }
+
+    @Test
+    fun `the rest alert is due during the countdown and up to one minute late`() {
+        assertTrue(isRestAlertDue(Duration.ofSeconds(3)))
+        // Alarme un peu en avance : la marge d'une seconde la garde.
+        assertTrue(isRestAlertDue(Duration.ofMillis(3_900)))
+        assertTrue(isRestAlertDue(Duration.ZERO))
+        assertTrue(isRestAlertDue(Duration.ofSeconds(-60)))
+        assertFalse(isRestAlertDue(Duration.ofSeconds(5)))
+        assertFalse(isRestAlertDue(Duration.ofSeconds(-61)))
     }
 
     private val now = Instant.parse("2026-10-21T18:00:00Z")

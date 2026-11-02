@@ -14,6 +14,14 @@ const val REST_ALERT_LEAD_SECONDS = 3L
 private const val PULSE_MS = 200L
 private const val FINAL_VIBRATION_MS = 1_000L
 
+// Fenêtre où l'alerte de fin de repos est due, l'alarme sonnant 3 s avant la fin : pendant le décompte (avec 1 s de
+// marge pour une alarme en avance) et jusqu'à 1 min après la fin. Une alarme retardée de plusieurs minutes (sans
+// permission d'alarme exacte) ne doit pas sonner au milieu de la série suivante.
+private val ALERT_EARLIEST: Duration = Duration.ofSeconds(REST_ALERT_LEAD_SECONDS + 1)
+private val ALERT_LATEST: Duration = Duration.ofMinutes(1).negated()
+
+fun isRestAlertDue(untilEnd: Duration): Boolean = untilEnd <= ALERT_EARLIEST && untilEnd >= ALERT_LATEST
+
 // Minutages de la vibration à partir de maintenant, à la manière d'Android : pause, vibration, pause, vibration…
 // untilEndMs : temps restant avant la fin du repos. Une alarme en retard ne garde que les impulsions encore à venir ;
 // la vibration finale part tout de suite si la fin est déjà passée.

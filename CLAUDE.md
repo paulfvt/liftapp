@@ -90,6 +90,9 @@ En cas d'ambiguïté ou de point non couvert, pose la question au lieu d'invente
 - Minuteur de repos (21 octobre 2026) :
   - sans service de premier plan : notification avec compte à rebours dessiné par Android et alarme exacte
     (`SCHEDULE_EXACT_ALARM`) pour l'alerte de fin de repos ;
+  - (2 novembre 2026, écart avec le point précédent) l'alarme lance un service de premier plan de quelques secondes
+    (`shortService`) qui vibre et joue le son lui-même : sur le S25+, le son de la notification ne sortait jamais et
+    la vibration était coupée app quittée. Plus de canal de notification « Fin du repos » ;
   - valider une série lance le repos de son exercice (2 min par défaut, rien si 0 s), pas de repos après la dernière
     série de la séance ; −15 s, +30 s, Passer ;
   - son et vibration réglés dans le menu de la séance en attendant l'écran Réglages (phase 10) ;
