@@ -10,6 +10,8 @@ le 2 novembre 2026 (voir `CLAUDE.md`) ; un commit par point :
   en baissant la musique. Écart avec la décision du 21 octobre (pas de service), validé. Vérifié sur l'émulateur,
   app quittée et écran verrouillé, en vibreur : service autorisé (« ALARM_MANAGER_WHILE_IDLE »), vibration jouée,
   son lu en entier (44 100 échantillons). L'alarme part 0,5 s plus tôt pour ne pas perdre la première impulsion.
+  Confirmé sur le S25+ le 2 novembre 2026 (journaux : trois impulsions, son pile à la fin, app quittée validée par
+  le développeur). Puis, à sa demande, le son suit le volume multimédia au lieu de celui du réveil.
 - Mode salle : PASSER tient en entier (−15 s et +30 s se partagent le reste) ; les gros − et + agissent enfin sur la
   case ouverte (elle gardait le texte tapé et ignorait les appuis).
 - « Précédent » et pré-remplissage : seulement la dernière séance de ce template, rien s'il n'y a jamais été fait

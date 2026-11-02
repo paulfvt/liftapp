@@ -98,7 +98,8 @@ En cas d'ambiguïté ou de point non couvert, pose la question au lieu d'invente
     série de la séance ; −15 s, +30 s, Passer ;
   - son et vibration réglés dans le menu de la séance en attendant l'écran Réglages (phase 10) ;
   - (1er novembre 2026) vibration dès 3 s avant la fin, une impulsion par seconde, puis pendant le son ; son « ding
-    ding » d'1 s qui s'arrête seul, joué comme une alarme : entendu même en vibreur ou en silencieux ;
+    ding » d'1 s qui s'arrête seul, entendu même en vibreur ou en silencieux ; (2 novembre 2026) réglé par le volume
+    multimédia (celui de la musique, dans les écouteurs s'ils sont branchés) et non plus par celui du réveil ;
   - mode salle : interrupteur dans le menu de la séance, écran allumé, une série à la fois, gros boutons.
 - Records (21 octobre 2026) :
   - les séries dégressives comptent, seuls les échauffements sont exclus ; une série à 0 rep ne compte pas ;

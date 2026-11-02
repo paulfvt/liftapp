@@ -23,8 +23,9 @@ import kotlinx.coroutines.withTimeoutOrNull
 
 // Vibration et son de fin de repos, joués par l'app elle-même pendant que RestAlertService la tient au premier plan
 // (une app en arrière-plan n'a plus le droit de jouer un son, et Samsung coupait aussi sa vibration).
-// Usage « alarme » pour les deux : ils passent en vibreur et en silencieux (décision du 1er novembre 2026), le son
-// étant réglé par le volume des alarmes.
+// Les deux passent en vibreur et en silencieux (décision du 1er novembre 2026) : la vibration a l'usage « alarme »,
+// le son l'usage « multimédia », réglé par le volume de la musique et joué dans les écouteurs s'ils sont branchés
+// (décision du 2 novembre 2026 : le volume du réveil ne convenait pas).
 @Singleton
 class RestAlerter @Inject constructor(@ApplicationContext private val context: Context) {
     private val vibrator: Vibrator
@@ -43,8 +44,8 @@ class RestAlerter @Inject constructor(@ApplicationContext private val context: C
         .newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "LiftApp:restEnd")
         .apply { setReferenceCounted(false) }
 
-    private val alarmAttributes = AudioAttributes.Builder()
-        .setUsage(AudioAttributes.USAGE_ALARM)
+    private val chimeAttributes = AudioAttributes.Builder()
+        .setUsage(AudioAttributes.USAGE_MEDIA)
         .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
         .build()
 
@@ -57,7 +58,7 @@ class RestAlerter @Inject constructor(@ApplicationContext private val context: C
             vibrator.vibrate(effect, VibrationAttributes.createForUsage(VibrationAttributes.USAGE_ALARM))
         } else {
             @Suppress("DEPRECATION")
-            vibrator.vibrate(effect, alarmAttributes)
+            vibrator.vibrate(effect, AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_ALARM).build())
         }
     }
 
@@ -70,7 +71,7 @@ class RestAlerter @Inject constructor(@ApplicationContext private val context: C
         val player = MediaPlayer()
         return try {
             context.resources.openRawResourceFd(R.raw.rest_end_chime).use { player.setDataSource(it) }
-            player.setAudioAttributes(alarmAttributes)
+            player.setAudioAttributes(chimeAttributes)
             player.prepare()
             Chime(player)
         } catch (e: IOException) {
@@ -84,7 +85,7 @@ class RestAlerter @Inject constructor(@ApplicationContext private val context: C
         // La musique en cours baisse le temps du son puis reprend. Rend la main une fois le son terminé.
         suspend fun play() {
             val focus = AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK)
-                .setAudioAttributes(alarmAttributes)
+                .setAudioAttributes(chimeAttributes)
                 .build()
             audioManager.requestAudioFocus(focus)
             try {
