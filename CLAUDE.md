@@ -169,6 +169,26 @@ En cas d'ambiguïté ou de point non couvert, pose la question au lieu d'invente
   avec la clé de la version publique (`keystore.properties` et `C:/Users/paulf/keys/`, hors Git) joint aux Releases
   sous le nom `LiftApp.apk`. Toujours pas de Google Play. Le S25+ passe à cette version (sauvegarde, désinstallation,
   installation, restauration) ; ensuite, l'installer sur le téléphone avec `installRelease`, jamais `installDebug`.
+- Phase 12, nutrition (3 novembre 2026, maquettes sur le canevas « Nutrition LiftApp ») :
+  - barre du bas : Accueil · Nutrition · Séances · Progrès · Profil. Plus d'onglet Historique : dans Séances, une
+    seule page avec les templates puis l'historique en dessous ;
+  - hors ligne : table Ciqual de l'Anses (Licence Ouverte, à citer) et aliments créés par l'utilisateur ; pas de
+    code-barres ni d'Open Food Facts, l'app reste sans permission internet ;
+  - objectif calculé (Mifflin-St Jeor × niveau d'activité + écart de l'objectif) puis modifiable à la main ; historisé
+    comme l'objectif hebdo (un changement vaut dès le jour même, les jours passés gardent le leur) ;
+  - dépense réelle estimée d'après les repas et le poids : l'app propose un nouvel objectif, jamais appliqué sans
+    validation ;
+  - 4 repas fixes (petit-déjeuner, déjeuner, dîner, collations), quantités en grammes même en livres, portions
+    « 100 g » et « Dernière fois » (Ciqual ne donne pas de portions) ;
+  - activité ×1,2 / 1,375 / 1,55 / 1,725 / 1,9 ; sèche −500 kcal, maintien 0, prise de masse +300 kcal ;
+    protéines 2,0 g/kg, lipides 1,0 g/kg, glucides le reste, réglables par 0,1 g/kg ;
+  - dépense réelle sur 28 jours : au moins 21 jours notés et 4 pesées étalées sur 3 semaines, jours vides ignorés,
+    1 kg = 7 700 kcal, proposition seulement au-delà de 100 kcal d'écart ;
+  - « Copier hier » ajoute tous les aliments de la veille à la suite de ceux du jour ; un aliment personnel déjà noté
+    est masqué, jamais supprimé ;
+  - chaque aliment noté garde ses valeurs du moment ; un repas est rangé par jour du calendrier (fuseau du
+    téléphone), pas par instant ;
+  - hors V2 : vitamines et minéraux, eau, code-barres, nutrition sur le widget.
 
 ## Méthode de travail (section 7)
 

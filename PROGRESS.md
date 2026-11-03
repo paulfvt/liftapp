@@ -1,5 +1,21 @@
 # Avancement
 
+## Phase 12 — Nutrition (V2) : en cours
+
+Plan validé le 3 novembre 2026 (règles dans `CLAUDE.md`, maquettes sur le canevas « Nutrition LiftApp ») :
+1. Navigation : barre Accueil · Nutrition · Séances · Progrès · Profil, historique sous les templates.
+2. Base d'aliments : script `tools/nutrition/` (table Ciqual vers un fichier embarqué, importé au lancement comme le
+   catalogue), base en version 5 avec de nouvelles tables seulement, migration 4 → 5 testée.
+3. Calculs purs testés : besoins, objectif, macros, totaux du jour, recherche, dépense réelle.
+4. Écrans Journal du jour, Ajouter un aliment, Quantité (pavé des séances), favoris, récents, aliments créés,
+   « Mes repas », « Copier hier ». Test sur le téléphone.
+5. Mes besoins : objectif calculé, modifiable, historisé.
+6. Tendance : moyenne des calories, poids, dépense réelle estimée.
+7. Carte « Nutrition du jour » sur l'accueil, export CSV des repas, crédit Ciqual, README, politique de
+   confidentialité. Test sur le téléphone.
+
+Pas de nouvelle dépendance prévue.
+
 ## Phase 11 — Version publique sur GitHub : terminée le 3 novembre 2026
 
 Demande du développeur : un beau README et le dépôt public pour que d'autres puissent télécharger l'app. Tranché le
