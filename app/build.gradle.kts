@@ -10,8 +10,9 @@ plugins {
     alias(libs.plugins.ktlint)
 }
 
-// Clé d'envoi Google Play : chemin et mots de passe lus dans keystore.properties, ignoré par Git
-// (modèle : keystore.properties.example). Google signe ensuite l'app avec sa propre clé (Play App Signing).
+// Clé de la version publique (APK des Releases GitHub) : chemin et mots de passe lus dans keystore.properties, ignoré
+// par Git (modèle : keystore.properties.example). Toutes les versions doivent être signées avec la même clé : sans
+// elle, une mise à jour ne s'installe plus par-dessus la précédente.
 val keystorePropertiesFile: File = rootProject.file("keystore.properties")
 val keystoreProperties = Properties().apply {
     if (keystorePropertiesFile.exists()) keystorePropertiesFile.inputStream().use { load(it) }
@@ -24,18 +25,17 @@ android {
     defaultConfig {
         applicationId = "com.paulfvt.liftapp"
         minSdk = 26
-        // Niveau exigé par Google Play pour les nouvelles apps depuis août 2026.
-        // À revérifier au moment de la publication.
         targetSdk = 36
+        // À augmenter à chaque version publiée : Android refuse une mise à jour dont le versionCode n'est pas plus grand.
         versionCode = 1
-        versionName = "0.1.0"
+        versionName = "1.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     signingConfigs {
         if (keystorePropertiesFile.exists()) {
-            create("upload") {
+            create("release") {
                 storeFile = rootProject.file(keystoreProperties.getProperty("storeFile"))
                 storePassword = keystoreProperties.getProperty("storePassword")
                 keyAlias = keystoreProperties.getProperty("keyAlias")
@@ -47,8 +47,8 @@ android {
     buildTypes {
         release {
             // Sans keystore.properties (CI, autre PC), la release est signée avec la clé de debug pour pouvoir
-            // l'installer et la tester. Google Play refuse un bundle signé ainsi : il ne peut pas partir par erreur.
-            signingConfig = signingConfigs.findByName("upload") ?: signingConfigs.getByName("debug")
+            // l'installer et la tester. Un tel APK ne doit pas être publié : il ne s'installerait pas par-dessus.
+            signingConfig = signingConfigs.findByName("release") ?: signingConfigs.getByName("debug")
             isMinifyEnabled = true
             // Retire aussi les ressources inutilisées (images, textes) de l'APK final.
             isShrinkResources = true
