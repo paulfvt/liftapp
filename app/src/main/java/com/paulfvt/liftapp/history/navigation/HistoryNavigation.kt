@@ -22,7 +22,7 @@ data class WorkoutDetailRoute(val workoutId: Long)
 @Serializable
 data class WorkoutEditRoute(val workoutId: Long)
 
-// Sous-écrans de l'onglet Historique.
+// Sous-écrans de l'historique, dans le graphe de l'onglet Séances.
 fun NavGraphBuilder.historyScreens(navController: NavController) {
     composable<WorkoutDetailRoute> {
         WorkoutDetailScreen(

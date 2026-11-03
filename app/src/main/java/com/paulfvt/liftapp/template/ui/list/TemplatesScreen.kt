@@ -58,6 +58,10 @@ import com.paulfvt.liftapp.core.designsystem.component.LiftTextButton
 import com.paulfvt.liftapp.core.designsystem.component.MenuEntry
 import com.paulfvt.liftapp.core.designsystem.component.OverflowMenu
 import com.paulfvt.liftapp.core.designsystem.component.ScreenTitle
+import com.paulfvt.liftapp.history.domain.HistoryItem
+import com.paulfvt.liftapp.history.domain.MonthGroup
+import com.paulfvt.liftapp.history.ui.HistoryViewModel
+import com.paulfvt.liftapp.history.ui.historySection
 import com.paulfvt.liftapp.template.domain.TemplateFolder
 import com.paulfvt.liftapp.template.domain.TemplateLibrary
 import com.paulfvt.liftapp.template.domain.TemplateSummary
@@ -69,7 +73,8 @@ import com.paulfvt.liftapp.template.ui.NameDialog
 import sh.calvin.reorderable.ReorderableItem
 import sh.calvin.reorderable.rememberReorderableLazyListState
 
-// Onglet Séances : templates hors dossier, puis dossiers repliables avec leurs templates.
+// Onglet Séances : templates hors dossier, dossiers repliables avec leurs templates, puis l'historique en dessous
+// sur la même page (décision du 3 novembre 2026). scrollToHistory : demande de « Tout voir » sur l'accueil.
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TemplatesScreen(
@@ -77,9 +82,14 @@ fun TemplatesScreen(
     onCreateTemplate: (folderId: Long?) -> Unit,
     onOpenCatalog: () -> Unit,
     onOpenWorkout: () -> Unit,
-    viewModel: TemplatesViewModel = hiltViewModel()
+    onOpenWorkoutDetail: (Long) -> Unit,
+    scrollToHistory: Boolean,
+    onScrolledToHistory: () -> Unit,
+    viewModel: TemplatesViewModel = hiltViewModel(),
+    historyViewModel: HistoryViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val history by historyViewModel.uiState.collectAsStateWithLifecycle()
     LaunchedEffect(viewModel.isWorkoutStarted) {
         if (viewModel.isWorkoutStarted) {
             viewModel.onWorkoutOpened()
@@ -116,14 +126,17 @@ fun TemplatesScreen(
             )
         }
     ) { padding ->
-        when {
-            uiState.isLoading -> Unit
-            uiState.isEmpty -> EmptyTemplates(onStartEmpty = startEmpty, modifier = Modifier.padding(padding))
-            else -> TemplateList(
+        if (!uiState.isLoading && !history.isLoading) {
+            TemplateList(
                 library = uiState.library,
+                isEmpty = uiState.isEmpty,
+                months = history.months,
                 viewModel = viewModel,
                 onCreateTemplate = onCreateTemplate,
                 onStartEmpty = startEmpty,
+                onOpenWorkoutDetail = onOpenWorkoutDetail,
+                scrollToHistory = scrollToHistory,
+                onScrolledToHistory = onScrolledToHistory,
                 modifier = Modifier.padding(padding)
             )
         }
@@ -145,9 +158,14 @@ fun TemplatesScreen(
 @Composable
 private fun TemplateList(
     library: TemplateLibrary,
+    isEmpty: Boolean,
+    months: List<MonthGroup<HistoryItem>>,
     viewModel: TemplatesViewModel,
     onCreateTemplate: (folderId: Long?) -> Unit,
     onStartEmpty: () -> Unit,
+    onOpenWorkoutDetail: (Long) -> Unit,
+    scrollToHistory: Boolean,
+    onScrolledToHistory: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val haptics = LocalHapticFeedback.current
@@ -164,6 +182,16 @@ private fun TemplateList(
         haptics.performHapticFeedback(HapticFeedbackType.SegmentFrequentTick)
     }
     val hasFolders = localLibrary.folders.isNotEmpty()
+    // Position du titre de l'historique : un premier élément (« Démarrer une séance vide » ou l'explication), les
+    // templates hors dossier, puis chaque dossier avec ses templates s'il est déplié.
+    val historyIndex = 1 + localLibrary.unfiled.size +
+        localLibrary.folders.sumOf { section -> 1 + if (section.folder.id in collapsed) 0 else section.templates.size }
+    LaunchedEffect(scrollToHistory) {
+        if (scrollToHistory) {
+            listState.animateScrollToItem(historyIndex)
+            onScrolledToHistory()
+        }
+    }
 
     fun LazyListScope.templateItems(templates: List<TemplateSummary>) {
         itemsIndexed(templates, key = { _, template -> template.id }) { index, template ->
@@ -213,7 +241,11 @@ private fun TemplateList(
         contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 96.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        item(key = "start-empty") { StartEmptyButton(onStartEmpty, Modifier.fillMaxWidth()) }
+        if (isEmpty) {
+            item(key = "templates-empty") { EmptyTemplates(onStartEmpty) }
+        } else {
+            item(key = "start-empty") { StartEmptyButton(onStartEmpty, Modifier.fillMaxWidth()) }
+        }
         templateItems(localLibrary.unfiled)
         localLibrary.folders.forEachIndexed { index, section ->
             val folder = section.folder
@@ -242,6 +274,7 @@ private fun TemplateList(
             }
             if (expanded) templateItems(section.templates)
         }
+        historySection(months, onOpenWorkout = onOpenWorkoutDetail)
     }
 }
 
@@ -373,10 +406,11 @@ private fun StartEmptyButton(onClick: () -> Unit, modifier: Modifier = Modifier)
     )
 }
 
+// Sans template : explication et séance vide, au-dessus de l'historique.
 @Composable
 private fun EmptyTemplates(onStartEmpty: () -> Unit, modifier: Modifier = Modifier) {
     Column(
-        modifier = modifier.fillMaxSize().padding(32.dp),
+        modifier = modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 24.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp, Alignment.CenterVertically),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

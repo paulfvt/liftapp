@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Nutrition (phase 12, V2). -->
+<resources>
+    <string name="nutrition_soon_title">Le journal arrive bientôt</string>
+    <string name="nutrition_soon_text">Tu pourras noter tes repas et suivre tes calories et tes macros ici.</string>
+</resources>

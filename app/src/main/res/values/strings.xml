@@ -4,8 +4,8 @@
 
     <!-- Barre de navigation du bas -->
     <string name="nav_home">Accueil</string>
+    <string name="nav_nutrition">Nutrition</string>
     <string name="nav_templates">Séances</string>
-    <string name="nav_history">Historique</string>
     <string name="nav_progress">Progrès</string>
     <string name="nav_profile">Profil</string>
 
@@ -433,7 +433,8 @@
     <string name="value_percent">%1$s %%</string>
     <string name="error_date_in_future">Choisis une date passée.</string>
 
-    <!-- Historique -->
+    <!-- Historique (sous les templates de l'onglet Séances) -->
+    <string name="history_title">Historique</string>
     <string name="history_empty_title">Aucune séance pour l\'instant</string>
     <string name="history_empty_text">Tes séances terminées apparaîtront ici, avec leurs chiffres. Tu pourras les corriger après coup.</string>
     <plurals name="history_sets">

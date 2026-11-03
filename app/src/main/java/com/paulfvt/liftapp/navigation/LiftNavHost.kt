@@ -1,7 +1,9 @@
 package com.paulfvt.liftapp.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -10,8 +12,8 @@ import com.paulfvt.liftapp.exercise.navigation.ExerciseListRoute
 import com.paulfvt.liftapp.exercise.navigation.exerciseScreens
 import com.paulfvt.liftapp.history.navigation.WorkoutDetailRoute
 import com.paulfvt.liftapp.history.navigation.historyScreens
-import com.paulfvt.liftapp.history.ui.HistoryScreen
 import com.paulfvt.liftapp.home.ui.HomeScreen
+import com.paulfvt.liftapp.nutrition.ui.NutritionScreen
 import com.paulfvt.liftapp.profile.navigation.AboutRoute
 import com.paulfvt.liftapp.profile.navigation.MeasurementEntryRoute
 import com.paulfvt.liftapp.profile.navigation.MeasurementRoute
@@ -30,6 +32,15 @@ import com.paulfvt.liftapp.template.ui.list.TemplatesScreen
 import com.paulfvt.liftapp.workout.navigation.WorkoutRoute
 import com.paulfvt.liftapp.workout.navigation.workoutScreen
 
+// Clé du SavedStateHandle de TemplatesRoute : vrai tant que la liste doit descendre jusqu'à l'historique.
+private const val SCROLL_TO_HISTORY_KEY = "scroll_to_history"
+
+// « Tout voir » de l'accueil : ouvre l'onglet Séances et descend jusqu'à l'historique, sous les templates.
+private fun NavHostController.navigateToHistory() {
+    navigateToTopLevel(TopLevelDestination.TEMPLATES)
+    getBackStackEntry<TemplatesRoute>().savedStateHandle[SCROLL_TO_HISTORY_KEY] = true
+}
+
 // Graphe de navigation : un graphe imbriqué par onglet, plus la séance en cours à la racine.
 @Composable
 fun LiftNavHost(navController: NavHostController, modifier: Modifier = Modifier) {
@@ -43,26 +54,31 @@ fun LiftNavHost(navController: NavHostController, modifier: Modifier = Modifier)
                 HomeScreen(
                     onOpenWorkout = { navController.navigate(WorkoutRoute) { launchSingleTop = true } },
                     onOpenExercise = { id -> navController.navigate(ExerciseProgressRoute(id)) },
-                    onOpenHistory = { navController.navigateToTopLevel(TopLevelDestination.HISTORY) }
+                    onOpenHistory = navController::navigateToHistory
                 )
             }
         }
+        navigation<NutritionGraph>(startDestination = NutritionRoute) {
+            composable<NutritionRoute> { NutritionScreen() }
+        }
         navigation<TemplatesGraph>(startDestination = TemplatesRoute) {
-            composable<TemplatesRoute> {
+            composable<TemplatesRoute> { entry ->
+                // Demande de « Tout voir » sur l'accueil, déposée par navigateToHistory dans cette entrée.
+                val scrollToHistory by entry.savedStateHandle
+                    .getStateFlow(SCROLL_TO_HISTORY_KEY, false)
+                    .collectAsStateWithLifecycle()
                 TemplatesScreen(
                     onOpenTemplate = { id -> navController.navigate(TemplateEditRoute(templateId = id)) },
                     onCreateTemplate = { folderId -> navController.navigate(TemplateEditRoute(folderId = folderId)) },
                     onOpenCatalog = { navController.navigate(ExerciseListRoute) },
-                    onOpenWorkout = { navController.navigate(WorkoutRoute) { launchSingleTop = true } }
+                    onOpenWorkout = { navController.navigate(WorkoutRoute) { launchSingleTop = true } },
+                    onOpenWorkoutDetail = { id -> navController.navigate(WorkoutDetailRoute(id)) },
+                    scrollToHistory = scrollToHistory,
+                    onScrolledToHistory = { entry.savedStateHandle[SCROLL_TO_HISTORY_KEY] = false }
                 )
             }
             templateScreens(navController)
             exerciseScreens(navController)
-        }
-        navigation<HistoryGraph>(startDestination = HistoryRoute) {
-            composable<HistoryRoute> {
-                HistoryScreen(onOpenWorkout = { id -> navController.navigate(WorkoutDetailRoute(id)) })
-            }
             historyScreens(navController)
         }
         navigation<ProgressGraph>(startDestination = ProgressRoute) {
