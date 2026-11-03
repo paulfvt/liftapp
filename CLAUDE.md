@@ -165,6 +165,10 @@ En cas d'ambiguïté ou de point non couvert, pose la question au lieu d'invente
 - Pas de publication (31 octobre 2026, écart avec le cahier § 8 et la phase 11) : LiftApp reste une app personnelle,
   installée sur le S25+ sans passer par Google Play (ni compte développeur, ni test fermé). La phase 11 se réduit à
   la version release installée sur le téléphone ; son plan est à valider (voir `PROGRESS.md`).
+- Distribution sur GitHub (3 novembre 2026, écart avec le point précédent) : dépôt public sous licence MIT, APK signé
+  avec la clé de la version publique (`keystore.properties` et `C:/Users/paulf/keys/`, hors Git) joint aux Releases
+  sous le nom `LiftApp.apk`. Toujours pas de Google Play. Le S25+ passe à cette version (sauvegarde, désinstallation,
+  installation, restauration) ; ensuite, l'installer sur le téléphone avec `installRelease`, jamais `installDebug`.
 
 ## Méthode de travail (section 7)
 

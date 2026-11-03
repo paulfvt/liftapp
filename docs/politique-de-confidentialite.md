@@ -1,8 +1,9 @@
 # Politique de confidentialité de LiftApp
 
-Dernière mise à jour : 31 octobre 2026
+Dernière mise à jour : 3 novembre 2026
 
-LiftApp est une application Android gratuite de suivi de musculation, éditée par [NOM DU DÉVELOPPEUR].
+LiftApp est une application Android gratuite de suivi de musculation, développée par
+[paulfvt](https://github.com/paulfvt) et distribuée sur [GitHub](https://github.com/paulfvt/liftapp/releases).
 Elle fonctionne entièrement sur ton téléphone, sans compte et sans serveur.
 
 ## Données que l'application enregistre
@@ -94,4 +95,4 @@ en haut de page.
 
 ## Contact
 
-Pour toute question : [ADRESSE E-MAIL DE CONTACT].
+Pour toute question, ouvre une [issue sur GitHub](https://github.com/paulfvt/liftapp/issues).
