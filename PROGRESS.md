@@ -1,6 +1,6 @@
 # Avancement
 
-## Phase 11 — Version publique sur GitHub : publiée le 3 novembre 2026
+## Phase 11 — Version publique sur GitHub : terminée le 3 novembre 2026
 
 Demande du développeur : un beau README et le dépôt public pour que d'autres puissent télécharger l'app. Tranché le
 3 novembre 2026 : licence MIT, captures sur l'émulateur avec des données fictives, e-mail des commits laissé visible,
@@ -18,8 +18,10 @@ Fait, un commit par étape :
 - Dépôt rendu public, description et sujets ajoutés, release `v1.0.0` avec `LiftApp.apk` (25,6 Mo), lien de
   téléchargement du README vérifié.
 
-Reste : passer le S25+ de la version de test à la 1.0.0 (sauvegarde ZIP, désinstallation, installation,
-restauration). Ensuite, l'installer sur le téléphone avec `installRelease`.
+- S25+ passé à la 1.0.0 le 3 novembre 2026 : sauvegarde ZIP comparée table par table avec les données de l'app
+  (identique, base intègre), copie sur le PC (`Documents/LiftApp-sauvegardes`), désinstallation de la version de
+  test, installation, restauration validée par le développeur. Désormais, installer sur le téléphone avec
+  `installRelease`, jamais `installDebug` (autre signature : Android refuserait la mise à jour).
 
 ## Retours du test sur le téléphone (2 novembre 2026) : corrigés et validés sur le téléphone
 
