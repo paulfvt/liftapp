@@ -1,6 +1,27 @@
 # Avancement
 
-## Retours du test sur le téléphone (2 novembre 2026) : corrigés, nouveau test attendu
+## Phase 11 — Version publique sur GitHub : publiée le 3 novembre 2026
+
+Demande du développeur : un beau README et le dépôt public pour que d'autres puissent télécharger l'app. Tranché le
+3 novembre 2026 : licence MIT, captures sur l'émulateur avec des données fictives, e-mail des commits laissé visible,
+passage du S25+ à la version publique avec sauvegarde. Écart avec « Pas de publication » noté dans `CLAUDE.md`
+(GitHub seulement, toujours pas de Google Play).
+
+Fait, un commit par étape :
+- Clé de la version publique créée hors du dépôt (`C:/Users/paulf/keys/liftapp-release.jks`, mots de passe dans
+  `keystore.properties`, ignoré par Git), version 1.0.0. À sauvegarder ailleurs : sans elle, plus de mise à jour.
+- Release R8 vérifiée sur l'émulateur en suivant le chemin du développeur : sauvegarde depuis la version de test,
+  désinstallation, installation de la 1.0.0, restauration (séance en cours comprise), permissions, alarme app quittée
+  et écran verrouillé (service autorisé, vibration, son en entier), pavé, courbes, images du catalogue.
+- README (aperçu, fonctionnalités, installation de l'APK, vie privée, développeurs, crédits), licence MIT,
+  six captures dans `docs/screenshots/`, politique de confidentialité complétée.
+- Dépôt rendu public, description et sujets ajoutés, release `v1.0.0` avec `LiftApp.apk` (25,6 Mo), lien de
+  téléchargement du README vérifié.
+
+Reste : passer le S25+ de la version de test à la 1.0.0 (sauvegarde ZIP, désinstallation, installation,
+restauration). Ensuite, l'installer sur le téléphone avec `installRelease`.
+
+## Retours du test sur le téléphone (2 novembre 2026) : corrigés et validés sur le téléphone
 
 Deuxième série de retours du développeur, avec une capture de Strong en modèle pour la saisie. Questions tranchées
 le 2 novembre 2026 (voir `CLAUDE.md`) ; un commit par point :
@@ -95,7 +116,7 @@ Ni nouvelle dépendance, ni changement de schéma. Fichiers principaux : `home/u
 `HomeViewModel.kt`, `home/domain/Dashboard.kt`, `home/data/DashboardRepository.kt`, `workout/ui/WorkoutScreen.kt`,
 `WorkoutSetRow.kt`, `RestTimer.kt`, `core/designsystem/component/`, `strings.xml`.
 
-## Ensuite : phase 11 réduite à un usage personnel (plan proposé le 31 octobre 2026, à valider)
+## Phase 11 réduite à un usage personnel (plan du 31 octobre 2026, remplacé le 3 novembre par la version publique)
 
 Décidé le 31 octobre 2026 : pas de publication sur Google Play (le compte développeur est payant), l'app reste pour
 le développeur. Écart avec le cahier des charges (§ 8 et phase 11), noté dans `CLAUDE.md`. À lancer après la
