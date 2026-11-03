@@ -6,6 +6,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.paulfvt.liftapp.core.database.migration.MIGRATION_1_2
 import com.paulfvt.liftapp.core.database.migration.MIGRATION_2_3
 import com.paulfvt.liftapp.core.database.migration.MIGRATION_3_4
+import com.paulfvt.liftapp.core.database.migration.MIGRATION_4_5
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -128,6 +129,44 @@ class MigrationTest {
             assertEquals("Épaule", it.getString(3))
             assertTrue(it.isNull(4))
             assertTrue(it.isNull(5))
+        }
+    }
+
+    @Test
+    fun migration4To5AddsEmptyNutritionTablesAndKeepsTheRest() {
+        helper.createDatabase(TEST_DB, 4).use { db ->
+            db.execSQL(
+                "INSERT INTO workout (id, templateId, name, startedAt, endedAt, status, note) " +
+                    "VALUES (3, NULL, 'Jambes', 2000, 5000, 'FINISHED', NULL)"
+            )
+            db.execSQL("INSERT INTO weekly_goal (id, goal, effectiveFrom) VALUES (1, 4, 0)")
+        }
+
+        val db = helper.runMigrationsAndValidate(TEST_DB, 5, true, MIGRATION_4_5)
+
+        db.query("SELECT name, endedAt FROM workout WHERE id = 3").use {
+            assertTrue(it.moveToFirst())
+            assertEquals("Jambes", it.getString(0))
+            assertEquals(5000L, it.getLong(1))
+        }
+        db.query("SELECT goal FROM weekly_goal").use {
+            assertTrue(it.moveToFirst())
+            assertEquals(4, it.getInt(0))
+        }
+        listOf("food", "food_entry", "saved_meal", "saved_meal_item", "nutrition_goal").forEach { table ->
+            db.query("SELECT COUNT(*) FROM $table").use {
+                it.moveToFirst()
+                assertEquals(table, 0, it.getInt(0))
+            }
+        }
+        // Plusieurs aliments personnels (ciqualCode nul) malgré l'index unique.
+        db.execSQL(
+            "INSERT INTO food (ciqualCode, name, kcal, protein, carbs, fat, isFavorite, isHidden) " +
+                "VALUES (NULL, 'Skyr', 60, 10, 4, 0.2, 0, 0), (NULL, 'Whey', 380, 78, 6, 5, 0, 0)"
+        )
+        db.query("SELECT COUNT(*) FROM food WHERE ciqualCode IS NULL").use {
+            it.moveToFirst()
+            assertEquals(2, it.getInt(0))
         }
     }
 

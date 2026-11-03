@@ -8,6 +8,7 @@ import androidx.room.TypeConverters
 import com.paulfvt.liftapp.core.database.dao.ExerciseDao
 import com.paulfvt.liftapp.core.database.dao.MeasurementDao
 import com.paulfvt.liftapp.core.database.dao.MotivationDao
+import com.paulfvt.liftapp.core.database.dao.NutritionDao
 import com.paulfvt.liftapp.core.database.dao.PhotoDao
 import com.paulfvt.liftapp.core.database.dao.RecordDao
 import com.paulfvt.liftapp.core.database.dao.TemplateDao
@@ -16,9 +17,14 @@ import com.paulfvt.liftapp.core.database.entity.BadgeEntity
 import com.paulfvt.liftapp.core.database.entity.BodyMeasurementEntity
 import com.paulfvt.liftapp.core.database.entity.ExerciseEntity
 import com.paulfvt.liftapp.core.database.entity.ExerciseMuscleEntity
+import com.paulfvt.liftapp.core.database.entity.FoodEntity
+import com.paulfvt.liftapp.core.database.entity.FoodEntryEntity
 import com.paulfvt.liftapp.core.database.entity.GoalEntity
+import com.paulfvt.liftapp.core.database.entity.NutritionGoalEntity
 import com.paulfvt.liftapp.core.database.entity.PersonalRecordEntity
 import com.paulfvt.liftapp.core.database.entity.ProgressPhotoEntity
+import com.paulfvt.liftapp.core.database.entity.SavedMealEntity
+import com.paulfvt.liftapp.core.database.entity.SavedMealItemEntity
 import com.paulfvt.liftapp.core.database.entity.TemplateExerciseEntity
 import com.paulfvt.liftapp.core.database.entity.TemplateFolderEntity
 import com.paulfvt.liftapp.core.database.entity.TemplateSetEntity
@@ -31,7 +37,7 @@ import com.paulfvt.liftapp.core.database.migration.ALL_MIGRATIONS
 
 // Toute modification d'une entité impose d'augmenter cette version et d'écrire une migration testée.
 // Le schéma de chaque version est exporté dans app/schemas/ (exportSchema = true par défaut).
-const val DATABASE_VERSION = 4
+const val DATABASE_VERSION = 5
 
 @Database(
     version = DATABASE_VERSION,
@@ -50,7 +56,13 @@ const val DATABASE_VERSION = 4
         ProgressPhotoEntity::class,
         GoalEntity::class,
         WeeklyGoalEntity::class,
-        BadgeEntity::class
+        BadgeEntity::class,
+        // Version 5 : nutrition (phase 12).
+        FoodEntity::class,
+        FoodEntryEntity::class,
+        SavedMealEntity::class,
+        SavedMealItemEntity::class,
+        NutritionGoalEntity::class
     ]
 )
 @TypeConverters(Converters::class)
@@ -68,6 +80,8 @@ abstract class LiftDatabase : RoomDatabase() {
     abstract fun photoDao(): PhotoDao
 
     abstract fun motivationDao(): MotivationDao
+
+    abstract fun nutritionDao(): NutritionDao
 
     companion object {
         const val NAME = "lift.db"

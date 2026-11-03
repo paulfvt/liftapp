@@ -22,3 +22,6 @@ Thumbs.db
 
 # Cache du script de catalogue
 tools/catalog/.cache/
+
+# Cache du script de la base d'aliments (table Ciqual téléchargée)
+tools/nutrition/.cache/

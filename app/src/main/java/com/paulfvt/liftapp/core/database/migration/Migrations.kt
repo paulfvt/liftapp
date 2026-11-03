@@ -80,6 +80,54 @@ val MIGRATION_3_4 = object : Migration(3, 4) {
     }
 }
 
+// Version 5 : nutrition (phase 12). Nouvelles tables seulement, rien ne change dans les tables existantes. Les
+// instructions sont celles du schéma exporté (app/schemas/.../5.json). Les aliments de la table Ciqual sont ajoutés
+// ensuite par FoodImporter, comme le catalogue d'exercices.
+val MIGRATION_4_5 = object : Migration(4, 5) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL(
+            "CREATE TABLE IF NOT EXISTS `food` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                "`ciqualCode` INTEGER, `name` TEXT NOT NULL, `kcal` REAL NOT NULL, `protein` REAL NOT NULL, " +
+                "`carbs` REAL NOT NULL, `fat` REAL NOT NULL, `isFavorite` INTEGER NOT NULL, `isHidden` INTEGER NOT NULL)"
+        )
+        db.execSQL("CREATE UNIQUE INDEX IF NOT EXISTS `index_food_ciqualCode` ON `food` (`ciqualCode`)")
+        db.execSQL(
+            "CREATE TABLE IF NOT EXISTS `food_entry` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                "`date` INTEGER NOT NULL, `meal` TEXT NOT NULL, `foodId` INTEGER NOT NULL, `grams` REAL NOT NULL, " +
+                "`kcal` REAL NOT NULL, `protein` REAL NOT NULL, `carbs` REAL NOT NULL, `fat` REAL NOT NULL, " +
+                "`createdAt` INTEGER NOT NULL, " +
+                "FOREIGN KEY(`foodId`) REFERENCES `food`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )"
+        )
+        db.execSQL("CREATE INDEX IF NOT EXISTS `index_food_entry_date` ON `food_entry` (`date`)")
+        db.execSQL("CREATE INDEX IF NOT EXISTS `index_food_entry_foodId` ON `food_entry` (`foodId`)")
+        db.execSQL(
+            "CREATE TABLE IF NOT EXISTS `saved_meal` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                "`name` TEXT NOT NULL)"
+        )
+        db.execSQL(
+            "CREATE TABLE IF NOT EXISTS `saved_meal_item` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                "`savedMealId` INTEGER NOT NULL, `foodId` INTEGER NOT NULL, `grams` REAL NOT NULL, " +
+                "`sortOrder` INTEGER NOT NULL, " +
+                "FOREIGN KEY(`savedMealId`) REFERENCES `saved_meal`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE , " +
+                "FOREIGN KEY(`foodId`) REFERENCES `food`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )"
+        )
+        db.execSQL(
+            "CREATE INDEX IF NOT EXISTS `index_saved_meal_item_savedMealId` ON `saved_meal_item` (`savedMealId`)"
+        )
+        db.execSQL("CREATE INDEX IF NOT EXISTS `index_saved_meal_item_foodId` ON `saved_meal_item` (`foodId`)")
+        db.execSQL(
+            "CREATE TABLE IF NOT EXISTS `nutrition_goal` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                "`effectiveFrom` INTEGER NOT NULL, `kcal` INTEGER NOT NULL, `proteinGrams` INTEGER NOT NULL, " +
+                "`carbsGrams` INTEGER NOT NULL, `fatGrams` INTEGER NOT NULL, `activityLevel` TEXT NOT NULL, " +
+                "`objective` TEXT NOT NULL, `proteinPerKg` REAL NOT NULL, `fatPerKg` REAL NOT NULL, " +
+                "`isKcalManual` INTEGER NOT NULL)"
+        )
+        db.execSQL(
+            "CREATE UNIQUE INDEX IF NOT EXISTS `index_nutrition_goal_effectiveFrom` ON `nutrition_goal` (`effectiveFrom`)"
+        )
+    }
+}
+
 // Toutes les migrations, pour la base de l'app et pour la vérification d'une sauvegarde à restaurer. En fin de
 // fichier : les propriétés sont initialisées dans l'ordre, les migrations doivent déjà exister.
-val ALL_MIGRATIONS = arrayOf(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
+val ALL_MIGRATIONS = arrayOf(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5)

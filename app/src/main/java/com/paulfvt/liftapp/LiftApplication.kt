@@ -3,6 +3,7 @@ package com.paulfvt.liftapp
 import android.app.Application
 import com.paulfvt.liftapp.core.di.ApplicationScope
 import com.paulfvt.liftapp.exercise.data.CatalogImporter
+import com.paulfvt.liftapp.nutrition.data.FoodImporter
 import com.paulfvt.liftapp.settings.data.PendingRestore
 import com.paulfvt.liftapp.widget.WidgetUpdater
 import com.paulfvt.liftapp.workout.notification.WorkoutSessionSync
@@ -15,6 +16,8 @@ import kotlinx.coroutines.launch
 @HiltAndroidApp
 class LiftApplication : Application() {
     @Inject lateinit var catalogImporter: CatalogImporter
+
+    @Inject lateinit var foodImporter: FoodImporter
 
     @Inject @ApplicationScope
     lateinit var applicationScope: CoroutineScope
@@ -31,6 +34,7 @@ class LiftApplication : Application() {
         // En arrière-plan pour ne pas retarder l'ouverture de l'app. Les écrans observent la base
         // et se mettent à jour d'eux-mêmes quand l'import se termine.
         applicationScope.launch { catalogImporter.importIfNeeded() }
+        applicationScope.launch { foodImporter.importIfNeeded() }
         // Notification et alarme de la séance en cours, aussi quand l'app est démarrée par une alarme ou une action.
         workoutSessionSync.start()
         // Widget d'écran d'accueil redessiné à chaque changement de ses données.
