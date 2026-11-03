@@ -1,18 +1,11 @@
 package com.paulfvt.liftapp.workout.ui
 
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -20,7 +13,6 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.relocation.BringIntoViewRequester
 import androidx.compose.foundation.relocation.bringIntoViewRequester
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -35,9 +27,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.withFrameNanos
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
@@ -49,7 +39,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.paulfvt.liftapp.R
-import com.paulfvt.liftapp.core.designsystem.component.ButtonLabel
+import com.paulfvt.liftapp.core.designsystem.component.KeypadSideAction
+import com.paulfvt.liftapp.core.designsystem.component.NumericKeypad
 import com.paulfvt.liftapp.core.designsystem.component.hairlineBorder
 import com.paulfvt.liftapp.core.ui.LocalUnits
 import com.paulfvt.liftapp.core.ui.labelRes
@@ -343,120 +334,25 @@ internal fun <T> SetValueField(
 }
 
 private const val SELECTION_ALPHA = 0.35f
-private val KeyHeight = 52.dp
-private val KeyGap = 6.dp
 
-// Quatre rangées comme Strong : chiffres à gauche ; fermer, − +, RPE et SUIVANT à droite. onRpe null : pas de RPE.
+// Pavé de la séance : la touche de la troisième rangée ouvre le RPE, l'action principale est « Suivant ».
+// onRpe null : pas de RPE.
 @Composable
 fun SetKeypad(state: SetKeypadState, onNext: () -> Unit, onRpe: (() -> Unit)?, modifier: Modifier = Modifier) {
-    Column(
-        verticalArrangement = Arrangement.spacedBy(KeyGap),
-        modifier = modifier
-            .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.surfaceContainer)
-            .padding(horizontal = 8.dp, vertical = 8.dp)
-    ) {
-        KeyRow {
-            DigitKeys("123", state)
-            IconKey(R.drawable.ic_keyboard_hide, stringResource(R.string.keypad_close), onClick = state::close)
-        }
-        KeyRow {
-            DigitKeys("456", state)
-            StepKeys(state)
-        }
-        KeyRow {
-            DigitKeys("789", state)
-            SideKey(onClick = { onRpe?.invoke() }, enabled = onRpe != null) {
-                ButtonLabel(
-                    stringResource(R.string.keypad_rpe),
-                    description = stringResource(R.string.workout_rpe_menu)
-                )
-            }
-        }
-        KeyRow {
-            val corner = state.cornerKey.char
-            Key(onClick = { corner?.let(state::type) }, enabled = corner != null) {
-                Text(corner?.toString().orEmpty(), style = MaterialTheme.typography.headlineSmall)
-            }
-            DigitKeys("0", state)
-            Key(onClick = state::erase) {
-                Icon(painterResource(R.drawable.ic_backspace), stringResource(R.string.keypad_erase))
-            }
-            SideKey(onClick = onNext, color = MaterialTheme.colorScheme.primaryContainer) {
-                ButtonLabel(stringResource(R.string.keypad_next), color = MaterialTheme.colorScheme.onPrimaryContainer)
-            }
-        }
-    }
-}
-
-@Composable
-private fun KeyRow(content: @Composable RowScope.() -> Unit) {
-    Row(
-        horizontalArrangement = Arrangement.spacedBy(KeyGap),
-        modifier = Modifier.fillMaxWidth().height(KeyHeight),
-        content = content
+    NumericKeypad(
+        cornerKey = state.cornerKey.char,
+        stepLabel = state.stepLabel,
+        actionLabel = stringResource(R.string.keypad_next),
+        onType = state::type,
+        onErase = state::erase,
+        onStep = state::step,
+        onClose = state::close,
+        onAction = onNext,
+        modifier = modifier,
+        sideAction = KeypadSideAction(
+            label = stringResource(R.string.keypad_rpe),
+            description = stringResource(R.string.workout_rpe_menu),
+            onClick = onRpe
+        )
     )
 }
-
-@Composable
-private fun RowScope.DigitKeys(digits: String, state: SetKeypadState) {
-    digits.forEach { digit ->
-        Key(onClick = { state.type(digit) }) {
-            Text(digit.toString(), style = MaterialTheme.typography.headlineSmall)
-        }
-    }
-}
-
-// Touche de chiffre : sans fond, comme dans Strong, pour que la colonne de droite ressorte.
-@Composable
-private fun RowScope.Key(onClick: () -> Unit, enabled: Boolean = true, content: @Composable () -> Unit) {
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = Modifier
-            .weight(1f)
-            .fillMaxHeight()
-            .clickable(enabled = enabled, role = Role.Button, onClick = onClick)
-    ) { content() }
-}
-
-// Colonne de droite, un peu plus large : − et + y tiennent côte à côte avec 48 dp chacun.
-@Composable
-private fun RowScope.SideKey(
-    onClick: () -> Unit,
-    enabled: Boolean = true,
-    color: Color = MaterialTheme.colorScheme.surfaceContainerHighest,
-    content: @Composable () -> Unit
-) {
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = Modifier
-            .weight(SIDE_WEIGHT)
-            .fillMaxHeight()
-            .background(color, MaterialTheme.shapes.small)
-            .clickable(enabled = enabled, role = Role.Button, onClick = onClick)
-    ) { content() }
-}
-
-@Composable
-private fun RowScope.IconKey(@DrawableRes icon: Int, description: String, onClick: () -> Unit) {
-    SideKey(onClick = onClick) { Icon(painterResource(icon), description) }
-}
-
-@Composable
-private fun RowScope.StepKeys(state: SetKeypadState) {
-    Row(
-        modifier = Modifier
-            .weight(SIDE_WEIGHT)
-            .fillMaxHeight()
-            .background(MaterialTheme.colorScheme.surfaceContainerHighest, MaterialTheme.shapes.small)
-    ) {
-        Key(onClick = { state.step(-1) }) {
-            Icon(painterResource(R.drawable.ic_remove), stringResource(R.string.gym_decrease, state.stepLabel))
-        }
-        Key(onClick = { state.step(1) }) {
-            Icon(painterResource(R.drawable.ic_add), stringResource(R.string.gym_increase, state.stepLabel))
-        }
-    }
-}
-
-private const val SIDE_WEIGHT = 1.2f
