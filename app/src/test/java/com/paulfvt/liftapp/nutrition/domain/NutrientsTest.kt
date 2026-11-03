@@ -47,6 +47,21 @@ class NutrientsTest {
     }
 
     @Test
+    fun `minus and plus move by 10 g without going below 0 or above 5 kg`() {
+        assertEquals(190.0, stepGrams(180.0, 1), 0.0)
+        assertEquals(10.0, stepGrams(null, 1), 0.0)
+        assertEquals(0.0, stepGrams(5.0, -1), 0.0)
+        assertEquals(5_000.0, stepGrams(4_995.0, 1), 0.0)
+    }
+
+    @Test
+    fun `a saved meal adds up its items`() {
+        val food = Food(1, "Poulet", chicken, isCustom = false, isFavorite = false)
+        val meal = SavedMeal(1, "Midi", listOf(SavedMealItem(food, 100.0), SavedMealItem(food, 50.0)))
+        assertEquals(226.5, meal.total.kcal, 1e-9)
+    }
+
+    @Test
     fun `quantity must be more than 0 g and at most 5 kg`() {
         assertFalse(isValidGrams(null))
         assertFalse(isValidGrams(0.0))

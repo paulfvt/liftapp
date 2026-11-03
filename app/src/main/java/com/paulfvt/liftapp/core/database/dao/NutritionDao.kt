@@ -124,6 +124,10 @@ interface NutritionDao {
     @Query("SELECT * FROM saved_meal WHERE id = :id")
     suspend fun getSavedMeal(id: Long): SavedMealDetails?
 
+    // Aliments des repas enregistrés, masqués compris (un aliment personnel retiré reste dans ses repas).
+    @Query("SELECT * FROM food WHERE id IN (SELECT foodId FROM saved_meal_item)")
+    fun observeSavedMealFoods(): Flow<List<FoodEntity>>
+
     @Insert
     suspend fun insertSavedMeal(meal: SavedMealEntity): Long
 

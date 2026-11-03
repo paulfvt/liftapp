@@ -10,6 +10,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.paulfvt.liftapp.core.database.DATABASE_VERSION
 import com.paulfvt.liftapp.core.database.LiftDatabase
 import com.paulfvt.liftapp.core.database.entity.ProgressPhotoEntity
 import com.paulfvt.liftapp.core.database.entity.WorkoutEntity
@@ -161,7 +162,8 @@ class BackupDataTest {
                     output.putNextEntry(ZipEntry(entry.name))
                     val bytes = input.getInputStream(entry).use { it.readBytes() }
                     val content = if (entry.name == BackupLayout.MANIFEST) {
-                        String(bytes, Charsets.ISO_8859_1).replace("database=4", "database=99").toByteArray()
+                        val manifest = String(bytes, Charsets.ISO_8859_1)
+                        manifest.replace("database=$DATABASE_VERSION", "database=99").toByteArray()
                     } else {
                         bytes
                     }

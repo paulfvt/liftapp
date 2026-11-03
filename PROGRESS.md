@@ -2,6 +2,25 @@
 
 ## Phase 12 — Nutrition (V2) : en cours
 
+Étapes 1 à 5 faites le 3 novembre 2026, à tester sur le téléphone (le test prévu après l'étape 4 couvre aussi
+l'étape 5, pour que le journal ait déjà un objectif). Reste : étapes 6 et 7.
+
+Fait, un commit par étape :
+- Navigation : onglet Nutrition en deuxième, Séances au milieu ; l'historique est listé sous les templates (même
+  page), « Tout voir » de l'accueil y descend.
+- Base d'aliments : `tools/nutrition/build_foods.py` produit `assets/nutrition/foods.json` (3 092 aliments de la
+  table Ciqual 2020, 93 écartés faute de protéines, glucides ou lipides). Base en version 5, migration 4 → 5 testée,
+  import au lancement (`FoodImporter`).
+- Calculs (`nutrition/domain`, 29 tests) : besoins, macros, objectif historisé, recherche, dépense réelle, aliments
+  personnels.
+- Écrans : journal du jour (anneau des calories, barres des macros, 4 repas, « Copier hier », « Enregistrer ce
+  repas »), Ajouter un aliment (recherche, Récents, Favoris, Mes repas, Mes aliments), Quantité (pavé des séances,
+  ±10 g, « 100 g » et « Dernière fois », favori), création et modification d'un aliment, Mes besoins.
+- Vérifié sur l'émulateur, depuis la version 1.0.0 et ses données : passage en version 5 sans perte, recherche
+  (« poulet filet »), ajout de 180 g, objectif de prise de masse (3 030 kcal, 153 / 434 / 76 g comme les maquettes),
+  repas enregistré ajouté au dîner, aliment personnel créé puis ajouté.
+- 290 tests JVM et 51 tests instrumentés verts. Lint sans nouvel avertissement. Aucune nouvelle dépendance.
+
 Plan validé le 3 novembre 2026 (règles dans `CLAUDE.md`, maquettes sur le canevas « Nutrition LiftApp ») :
 1. Navigation : barre Accueil · Nutrition · Séances · Progrès · Profil, historique sous les templates.
 2. Base d'aliments : script `tools/nutrition/` (table Ciqual vers un fichier embarqué, importé au lancement comme le
@@ -562,6 +581,24 @@ Reportés en phase 10 (Réglages, cahier § 4.11) : unités lb et in, masquage d
   Hilt n'ouvre quoi que ce soit.
 - **Bouton rond du widget** : fait main (Box et Image teintée) ; le `CircleIconButton` de Glance affichait une coche
   minuscule.
+
+- **Table Ciqual** (phase 12) : version 2020, la plus récente trouvable automatiquement le 3 novembre 2026. Le site
+  ciqual.anses.fr était en maintenance et la version plus récente de recherche.data.gouv refuse les robots : le
+  script prend la copie déposée par l'Anses sur Zenodo (même fichier, empreinte SHA-256 vérifiée). Pour une autre
+  version : `python tools/nutrition/build_foods.py --source fichier.zip`, puis augmenter `FOODS_VERSION`.
+- **Lecture de la table** : le fichier des compositions n'est pas du XML valide (« < 0,5 » brut), d'où une lecture par
+  motifs. Protéines « N x facteur de Jones » (celles des étiquettes) ; « traces » = 0, « < x » = x / 2 ; énergie
+  manquante calculée avec les coefficients du règlement UE 1169/2011 (4, 4, 9, fibres 2, alcool 7).
+- **Journal** : `food_entry.date` est un jour du calendrier (LocalDate), pas un Instant : un repas appartient à une
+  journée. Chaque ligne copie les valeurs pour 100 g de l'aliment, les jours passés ne changent donc jamais.
+- **Recherche d'aliments** en mémoire, comme les exercices (3 100 noms) : mots dans le désordre, accents, « œ » et
+  pluriel ignorés. Le texte du champ est un état à part (`queryText`) : relié au calcul des résultats, hors du fil
+  principal, il perdait des lettres tapées vite (constaté sur l'émulateur).
+- **Pavé numérique** : `NumericKeypad` (core/designsystem) est partagé par la séance et la quantité d'un aliment.
+- **Couleurs des macros** : protéines en `primary`, lipides en `secondary`, glucides en bleu (`carbs` d'`ExtendedColors`,
+  `--macro-carbs` dans `design-system/styles.css`) ; le libellé est toujours écrit à côté.
+- **Mes besoins** : sans pesée, pas d'objectif (protéines et lipides sont par kg) ; sans sexe, date de naissance ou
+  taille, les calories se saisissent à la main. Les réglages sont gardés dans la ligne de `nutrition_goal`.
 
 ## Questions ouvertes
 - Aucune pour l'instant (choix des phases 7 et 10 tranchés le 31 octobre 2026).

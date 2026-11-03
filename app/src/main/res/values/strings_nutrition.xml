@@ -1,6 +1,164 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Nutrition (phase 12, V2). -->
 <resources>
-    <string name="nutrition_soon_title">Le journal arrive bientôt</string>
-    <string name="nutrition_soon_text">Tu pourras noter tes repas et suivre tes calories et tes macros ici.</string>
+    <!-- Repas -->
+    <string name="meal_breakfast">Petit-déjeuner</string>
+    <string name="meal_lunch">Déjeuner</string>
+    <string name="meal_dinner">Dîner</string>
+    <string name="meal_snacks">Collations</string>
+    <string name="nutrition_add_to_breakfast">Ajouter au petit-déjeuner</string>
+    <string name="nutrition_add_to_lunch">Ajouter au déjeuner</string>
+    <string name="nutrition_add_to_dinner">Ajouter au dîner</string>
+    <string name="nutrition_add_to_snacks">Ajouter aux collations</string>
+
+    <!-- Valeurs -->
+    <string name="nutrition_protein">Protéines</string>
+    <string name="nutrition_carbs">Glucides</string>
+    <string name="nutrition_fat">Lipides</string>
+    <string name="nutrition_kcal_short">Kcal</string>
+    <string name="nutrition_protein_short">Prot.</string>
+    <string name="nutrition_carbs_short">Gluc.</string>
+    <string name="nutrition_fat_short">Lip.</string>
+    <string name="nutrition_kcal">%1$s kcal</string>
+    <string name="nutrition_grams">%1$s g</string>
+    <string name="nutrition_unit_grams">g</string>
+    <string name="nutrition_macro_of_goal">%1$s / %2$s g</string>
+    <string name="nutrition_per_100g">%1$s kcal · P %2$s g · G %3$s g · L %4$s g</string>
+
+    <!-- Journal du jour -->
+    <string name="nutrition_today">Aujourd\'hui</string>
+    <string name="nutrition_yesterday">Hier</string>
+    <string name="nutrition_previous_day">Jour précédent</string>
+    <string name="nutrition_next_day">Jour suivant</string>
+    <string name="nutrition_kcal_left">kcal restantes</string>
+    <string name="nutrition_kcal_over">kcal en trop</string>
+    <string name="nutrition_kcal_eaten">kcal mangées</string>
+    <string name="nutrition_eaten_of_goal">%1$s mangées · objectif %2$s</string>
+    <string name="nutrition_no_goal">Pas encore d\'objectif</string>
+    <string name="nutrition_ring_description">%1$s kcal mangées sur %2$s</string>
+    <string name="nutrition_meals">Repas</string>
+    <string name="nutrition_meal_empty">Rien pour l\'instant.</string>
+    <string name="nutrition_copy_yesterday">Copier hier</string>
+    <string name="nutrition_copy_previous_day">Copier la veille</string>
+    <plurals name="nutrition_copied">
+        <item quantity="one">%d aliment copié</item>
+        <item quantity="other">%d aliments copiés</item>
+    </plurals>
+    <string name="nutrition_nothing_to_copy">Rien de noté la veille.</string>
+    <string name="nutrition_save_meal">Enregistrer ce repas</string>
+    <string name="nutrition_save_meal_title">Nom du repas</string>
+    <string name="nutrition_meal_saved">Repas enregistré dans « Mes repas »</string>
+    <string name="nutrition_entry_description">%1$s, %2$s, %3$s kcal</string>
+
+    <!-- Ajouter un aliment -->
+    <string name="nutrition_search_label">Rechercher un aliment</string>
+    <string name="nutrition_clear_search">Effacer la recherche</string>
+    <string name="nutrition_filter_all">Tout</string>
+    <string name="nutrition_filter_recent">Récents</string>
+    <string name="nutrition_filter_favorites">Favoris</string>
+    <string name="nutrition_filter_saved_meals">Mes repas</string>
+    <string name="nutrition_filter_custom">Mes aliments</string>
+    <string name="nutrition_per_100g_title">Aliments · pour 100 g</string>
+    <string name="nutrition_search_hint">Tape le nom d\'un aliment : poulet, riz, banane…</string>
+    <string name="nutrition_no_result">Aucun aliment trouvé. Tu peux le créer.</string>
+    <string name="nutrition_favorites_empty">Aucun favori. Touche l\'étoile d\'un aliment pour le retrouver ici.</string>
+    <string name="nutrition_custom_empty">Tu n\'as pas encore créé d\'aliment.</string>
+    <string name="nutrition_saved_meals_empty">Aucun repas enregistré. Dans le journal, le menu d\'un repas permet de l\'enregistrer.</string>
+    <plurals name="nutrition_saved_meal_summary">
+        <item quantity="one">%1$d aliment · %2$s kcal</item>
+        <item quantity="other">%1$d aliments · %2$s kcal</item>
+    </plurals>
+    <string name="nutrition_add_saved_meal">Ajouter %1$s</string>
+    <string name="nutrition_delete_saved_meal_title">Supprimer « %1$s » ?</string>
+    <string name="nutrition_delete_saved_meal_text">Le repas enregistré disparaît, les jours déjà notés ne changent pas.</string>
+    <string name="nutrition_create_food">Créer un aliment</string>
+    <string name="nutrition_ciqual_credit">Données Ciqual (Anses)</string>
+    <string name="nutrition_custom_food">Mon aliment</string>
+
+    <!-- Quantité -->
+    <string name="nutrition_quantity">Quantité</string>
+    <string name="nutrition_edit_quantity">Modifier la quantité</string>
+    <string name="nutrition_source_ciqual">Ciqual · %1$s kcal pour 100 g</string>
+    <string name="nutrition_source_custom">Mon aliment · %1$s kcal pour 100 g</string>
+    <string name="nutrition_portion_last">Dernière fois · %1$s g</string>
+    <string name="nutrition_remaining_after">Il te restera %1$s kcal ce jour-là.</string>
+    <string name="nutrition_over_after">Tu dépasseras ton objectif de %1$s kcal ce jour-là.</string>
+    <string name="nutrition_grams_invalid">Entre une quantité entre 0 et 5 000 g.</string>
+    <string name="nutrition_add">Ajouter</string>
+    <string name="nutrition_favorite_add">Ajouter aux favoris</string>
+    <string name="nutrition_favorite_remove">Retirer des favoris</string>
+    <string name="nutrition_remove_entry">Retirer du repas</string>
+    <string name="nutrition_edit_food">Modifier l\'aliment</string>
+
+    <!-- Créer ou modifier un aliment -->
+    <string name="nutrition_new_food">Nouvel aliment</string>
+    <string name="nutrition_food_name">Nom</string>
+    <string name="nutrition_food_values_hint">Valeurs pour 100 g, comme sur l\'étiquette.</string>
+    <string name="nutrition_food_kcal">Énergie (kcal)</string>
+    <string name="nutrition_food_protein">Protéines (g)</string>
+    <string name="nutrition_food_carbs">Glucides (g)</string>
+    <string name="nutrition_food_fat">Lipides (g)</string>
+    <string name="nutrition_food_edit_note">Les jours déjà notés gardent les anciennes valeurs.</string>
+    <string name="nutrition_error_name">Donne un nom à l\'aliment.</string>
+    <string name="nutrition_error_kcal">Entre une valeur entre 0 et 900 kcal.</string>
+    <string name="nutrition_error_grams_per_100g">Entre une valeur entre 0 et 100 g.</string>
+    <string name="nutrition_error_macros_sum">Protéines, glucides et lipides dépassent 100 g au total.</string>
+    <string name="nutrition_delete_food">Supprimer l\'aliment</string>
+    <string name="nutrition_delete_food_title">Supprimer « %1$s » ?</string>
+    <string name="nutrition_delete_food_text">Les repas déjà notés le gardent.</string>
+
+    <!-- Mes besoins -->
+    <string name="nutrition_needs_title">Mes besoins</string>
+    <string name="nutrition_set_goal">Définir mon objectif</string>
+    <string name="nutrition_needs_profile">Ton profil</string>
+    <string name="nutrition_needs_sex">Sexe</string>
+    <string name="nutrition_needs_age">Âge</string>
+    <string name="nutrition_needs_height">Taille</string>
+    <string name="nutrition_needs_weight">Poids</string>
+    <string name="nutrition_needs_missing">—</string>
+    <plurals name="nutrition_age_years">
+        <item quantity="one">%d an</item>
+        <item quantity="other">%d ans</item>
+    </plurals>
+    <string name="nutrition_needs_weight_date">Poids de ta dernière pesée, le %1$s.</string>
+    <string name="nutrition_needs_missing_weight">Il faut une pesée pour calculer tes protéines et tes lipides.</string>
+    <string name="nutrition_needs_add_weight">Ajouter une pesée</string>
+    <string name="nutrition_needs_missing_profile">Sexe, date de naissance ou taille manquent pour le calcul. Complète ton profil, ou entre tes calories à la main plus bas.</string>
+    <string name="nutrition_needs_edit_profile">Compléter mon profil</string>
+    <string name="nutrition_activity">Niveau d\'activité</string>
+    <string name="nutrition_activity_sedentary">Sédentaire</string>
+    <string name="nutrition_activity_sedentary_text">Travail assis, peu de marche · × 1,2</string>
+    <string name="nutrition_activity_light">Peu actif</string>
+    <string name="nutrition_activity_light_text">1 à 3 séances par semaine · × 1,375</string>
+    <string name="nutrition_activity_active">Actif</string>
+    <string name="nutrition_activity_active_text">3 à 5 séances par semaine · × 1,55</string>
+    <string name="nutrition_activity_very_active">Très actif</string>
+    <string name="nutrition_activity_very_active_text">6 ou 7 séances par semaine · × 1,725</string>
+    <string name="nutrition_activity_extreme">Extrêmement actif</string>
+    <string name="nutrition_activity_extreme_text">Entraînement intense et travail physique · × 1,9</string>
+    <string name="nutrition_objective">Objectif</string>
+    <string name="nutrition_objective_cut">Sèche</string>
+    <string name="nutrition_objective_maintain">Maintien</string>
+    <string name="nutrition_objective_bulk">Prise de masse</string>
+    <string name="nutrition_objective_cut_text">−500 kcal par jour, environ −0,5 kg par semaine.</string>
+    <string name="nutrition_objective_maintain_text">Autant que ce que tu dépenses.</string>
+    <string name="nutrition_objective_bulk_text">+300 kcal par jour, environ +1 kg par mois.</string>
+    <string name="nutrition_bmr">Métabolisme de base</string>
+    <string name="nutrition_bmr_formula">Formule de Mifflin-St Jeor</string>
+    <string name="nutrition_expenditure">Dépense de la journée</string>
+    <string name="nutrition_expenditure_detail">%1$s × %2$s</string>
+    <string name="nutrition_offset_detail">Écart quotidien</string>
+    <string name="nutrition_goal_label">Ton objectif</string>
+    <string name="nutrition_kcal_per_day">kcal / jour</string>
+    <string name="nutrition_manual_kcal">Calories par jour, à la main</string>
+    <string name="nutrition_manual_kcal_hint">Laisse vide pour garder le calcul.</string>
+    <string name="nutrition_manual_kcal_error">Entre une valeur entre 800 et 8 000 kcal.</string>
+    <string name="nutrition_reset_calculation">Revenir au calcul</string>
+    <string name="nutrition_split">Répartition</string>
+    <string name="nutrition_per_kg">%1$s g/kg</string>
+    <string name="nutrition_rest">le reste</string>
+    <string name="nutrition_decrease_per_kg">%1$s : moins 0,1 g par kg</string>
+    <string name="nutrition_increase_per_kg">%1$s : plus 0,1 g par kg</string>
+    <string name="nutrition_macros_inconsistent">Protéines et lipides dépassent l\'objectif : baisse-les ou augmente les calories.</string>
+    <string name="nutrition_needs_note">L\'objectif vaut à partir d\'aujourd\'hui, les jours passés gardent le leur.</string>
 </resources>

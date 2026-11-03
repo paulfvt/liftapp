@@ -13,7 +13,11 @@ import com.paulfvt.liftapp.exercise.navigation.exerciseScreens
 import com.paulfvt.liftapp.history.navigation.WorkoutDetailRoute
 import com.paulfvt.liftapp.history.navigation.historyScreens
 import com.paulfvt.liftapp.home.ui.HomeScreen
-import com.paulfvt.liftapp.nutrition.ui.NutritionScreen
+import com.paulfvt.liftapp.nutrition.navigation.FoodQuantityRoute
+import com.paulfvt.liftapp.nutrition.navigation.FoodSearchRoute
+import com.paulfvt.liftapp.nutrition.navigation.NutritionNeedsRoute
+import com.paulfvt.liftapp.nutrition.navigation.nutritionScreens
+import com.paulfvt.liftapp.nutrition.ui.JournalScreen
 import com.paulfvt.liftapp.profile.navigation.AboutRoute
 import com.paulfvt.liftapp.profile.navigation.MeasurementEntryRoute
 import com.paulfvt.liftapp.profile.navigation.MeasurementRoute
@@ -59,7 +63,20 @@ fun LiftNavHost(navController: NavHostController, modifier: Modifier = Modifier)
             }
         }
         navigation<NutritionGraph>(startDestination = NutritionRoute) {
-            composable<NutritionRoute> { NutritionScreen() }
+            composable<NutritionRoute> {
+                JournalScreen(
+                    onAddFood = { date, meal -> navController.navigate(FoodSearchRoute(date.toEpochDay(), meal.name)) },
+                    onOpenEntry = { entry ->
+                        navController.navigate(
+                            FoodQuantityRoute(entry.foodId, entry.date.toEpochDay(), entry.meal.name, entry.id)
+                        )
+                    },
+                    onOpenNeeds = { navController.navigate(NutritionNeedsRoute) }
+                )
+            }
+            nutritionScreens(navController, backToJournal = {
+                navController.popBackStack<NutritionRoute>(inclusive = false)
+            })
         }
         navigation<TemplatesGraph>(startDestination = TemplatesRoute) {
             composable<TemplatesRoute> { entry ->

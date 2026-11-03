@@ -26,7 +26,7 @@ En cas d'ambiguïté ou de point non couvert, pose la question au lieu d'invente
 - **Domaine** : calculs purs en Kotlin sans dépendance Android (1RM, records, streak, heatmap, projection, badges).
 - **Données** : DAO Room, repositories comme unique point d'accès aux données.
 - Packages par fonctionnalité sous `com.paulfvt.liftapp` : `home`, `template`, `workout`, `exercise`, `history`,
-  `progress`, `profile`, `widget`, plus `core` (partagé) et `navigation` (squelette de l'app).
+  `progress`, `profile`, `widget`, `nutrition` (V2), plus `core` (partagé) et `navigation` (squelette de l'app).
 
 ## Règles non négociables
 

@@ -47,7 +47,7 @@ fun WeeklyRing(done: Int, goal: Int, modifier: Modifier = Modifier, size: Dp = 1
         contentAlignment = Alignment.Center,
         modifier = modifier.size(size).clearAndSetSemantics { contentDescription = description }
     ) {
-        Canvas(Modifier.size(size)) { drawRing(fraction, track, bar) }
+        Canvas(Modifier.size(size)) { drawSignalRing(fraction, track, bar) }
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text("$done/$goal", style = MaterialTheme.typography.headlineLarge)
             Text(
@@ -61,7 +61,8 @@ fun WeeklyRing(done: Int, goal: Int, modifier: Modifier = Modifier, size: Dp = 1
 }
 
 // La lueur est le même arc repassé plus large et transparent : le flou n'est pas disponible avant Android 9.
-private fun DrawScope.drawRing(fraction: Float, track: Color, bar: Color) {
+// Partagé avec l'anneau des calories de la nutrition.
+internal fun DrawScope.drawSignalRing(fraction: Float, track: Color, bar: Color) {
     val stroke = size.minDimension * STROKE_RATIO
     // Marge pour que la lueur, plus large que le trait, ne soit pas coupée au bord.
     val inset = stroke * 1.2f

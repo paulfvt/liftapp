@@ -20,6 +20,7 @@
   --error:#FF8FAB;              --on-error:#5C0F27;
   --error-container:#8C1D3E;    --on-error-container:#FFD9E0;
   --success:#5BD98A;            --on-success:#00391B;          /* extension : séries validées */
+  --macro-carbs:#6FA8FF;                                        /* extension : glucides (nutrition) */
 
   --background:#0D0A0A;         --on-background:#F3EAE8;
   --surface:#0D0A0A;            --on-surface:#F3EAE8;
@@ -88,6 +89,7 @@
   --error:#A8174A;              --on-error:#FFFFFF;
   --error-container:#FFD9E0;    --on-error-container:#3E0016;
   --success:#196B3B;            --on-success:#FFFFFF;
+  --macro-carbs:#1F5FB8;
   --background:#FFF8F6;         --on-background:#221919;
   --surface:#FFF8F6;            --on-surface:#221919;
   --surface-variant:#F4DDD9;    --on-surface-variant:#554240;

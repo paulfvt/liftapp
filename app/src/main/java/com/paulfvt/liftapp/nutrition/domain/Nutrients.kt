@@ -49,7 +49,20 @@ fun mealsOf(entries: List<JournalEntry>): List<MealJournal> {
     return Meal.entries.map { meal -> MealJournal(meal, byMeal[meal].orEmpty()) }
 }
 
+// Repas enregistré (« Mes repas ») : aliments et quantités, ajoutés d'un coup avec les valeurs actuelles.
+data class SavedMealItem(val food: Food, val grams: Double) {
+    val nutrients: Nutrients get() = food.per100g.forGrams(grams)
+}
+
+data class SavedMeal(val id: Long, val name: String, val items: List<SavedMealItem>) {
+    val total: Nutrients get() = items.map { it.nutrients }.total()
+}
+
 // Quantité d'un aliment noté : plus de 0 g, 5 kg au plus (une faute de frappe plutôt qu'un repas au-delà).
 const val MAX_GRAMS = 5_000.0
+const val GRAMS_STEP = 10.0
 
 fun isValidGrams(grams: Double?): Boolean = grams != null && grams > 0 && grams <= MAX_GRAMS
+
+// Touches − et + du pavé : 10 g par appui, jamais sous 0 ni au-dessus de 5 kg.
+fun stepGrams(grams: Double?, steps: Int): Double = ((grams ?: 0.0) + steps * GRAMS_STEP).coerceIn(0.0, MAX_GRAMS)
