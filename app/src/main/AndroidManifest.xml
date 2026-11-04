@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Notification de séance (Android 13+), demandée à la première séance, jamais au lancement. -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
@@ -16,6 +17,9 @@
          l'app reste installable sur un appareil sans caméra (l'import depuis la galerie suffit alors). -->
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-feature android:name="android.hardware.camera.any" android:required="false" />
+    <!-- Aucun accès à internet : ML Kit (lecture des étiquettes) demande cette permission pour envoyer des statistiques
+         d'usage à Google ; elle est retirée ici, la lecture se fait entièrement sur le téléphone. -->
+    <uses-permission android:name="android.permission.INTERNET" tools:node="remove" />
 
     <application
         android:name=".LiftApplication"

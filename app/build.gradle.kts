@@ -56,6 +56,9 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            // Seulement les processeurs ARM des téléphones : le modèle de ML Kit pèse environ 4 Mo par type de
+            // processeur. La version debug garde aussi x86 et x86_64 pour l'émulateur.
+            ndk { abiFilters += listOf("arm64-v8a", "armeabi-v7a") }
         }
     }
 
@@ -117,6 +120,10 @@ dependencies {
     // Déverrouillage des photos par le visage, l'empreinte ou le verrouillage du téléphone (Apache 2.0), validé le
     // 21 octobre 2026. Dernière version stable : 1.1.0.
     implementation(libs.androidx.biometric)
+    // Lecture du tableau nutritionnel d'une photo (ML Kit, Google, gratuit mais non libre), validée le 5 novembre 2026.
+    // Version embarquée : le modèle est dans l'app, rien n'est téléchargé et tout marche hors ligne. Elle ajoute la
+    // permission internet (statistiques d'usage envoyées à Google), retirée dans AndroidManifest.xml.
+    implementation(libs.mlkit.text.recognition)
     // Widget d'écran d'accueil (Apache 2.0), validé le 28 octobre 2026 : un widget est dessiné par le lanceur, pas par
     // l'app ; Glance l'écrit comme du Compose puis le traduit en RemoteViews. glance-material3 reprend les couleurs du
     // thème ON AIR, en clair et en sombre.
