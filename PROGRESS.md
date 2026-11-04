@@ -35,6 +35,14 @@ Plan validé le 3 novembre 2026 (règles dans `CLAUDE.md`, maquettes sur le cane
 
 Pas de nouvelle dépendance prévue.
 
+Ajout validé le 5 novembre 2026, à faire avant l'étape 6 : photo de l'étiquette (règles dans `CLAUDE.md`).
+1. Lecture du tableau (calcul pur, testé) : lignes de texte et leur position → kcal, protéines, glucides, lipides
+   pour 100 g.
+2. ML Kit text-recognition embarqué (nouvelle dépendance validée), permission internet retirée du manifeste, release
+   limitée aux processeurs ARM des téléphones.
+3. « Créer un aliment » : « Prendre l'étiquette en photo » et « Choisir une image », champs remplis à vérifier.
+4. Crédits dans « À propos », README, politique de confidentialité ; test sur l'émulateur puis le téléphone.
+
 ## Phase 11 — Version publique sur GitHub : terminée le 3 novembre 2026
 
 Demande du développeur : un beau README et le dépôt public pour que d'autres puissent télécharger l'app. Tranché le

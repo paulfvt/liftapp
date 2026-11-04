@@ -189,6 +189,11 @@ En cas d'ambiguïté ou de point non couvert, pose la question au lieu d'invente
   - chaque aliment noté garde ses valeurs du moment ; un repas est rangé par jour du calendrier (fuseau du
     téléphone), pas par instant ;
   - hors V2 : vitamines et minéraux, eau, code-barres, nutrition sur le widget.
+- Photo de l'étiquette (5 novembre 2026) : « Créer un aliment » peut lire le tableau nutritionnel d'une photo (appareil
+  photo ou galerie) et remplir kcal, protéines, glucides et lipides pour 100 g, à vérifier avant d'enregistrer.
+  ML Kit text-recognition embarqué validé (Google, gratuit, non libre, hors ligne) ; la permission internet qu'il
+  ajoute est retirée du manifeste. La photo est effacée après lecture, jamais gardée ni sauvegardée. Valeurs
+  « par portion » seules : pas de conversion, saisie à la main ; « pour 100 ml » pris comme « pour 100 g ».
 
 ## Méthode de travail (section 7)
 
