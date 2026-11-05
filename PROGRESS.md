@@ -35,7 +35,10 @@ Plan validé le 3 novembre 2026 (règles dans `CLAUDE.md`, maquettes sur le cane
 
 Pas de nouvelle dépendance prévue.
 
-Ajout validé le 5 novembre 2026, à faire avant l'étape 6 : photo de l'étiquette (règles dans `CLAUDE.md`).
+Ajout validé le 5 novembre 2026, fait le même jour (à tester sur le téléphone) : photo de l'étiquette (règles dans
+`CLAUDE.md`). Vérifié sur l'émulateur avec deux tableaux d'étiquettes dessinés pour l'occasion (deux colonnes 100 g
+et portion, kJ et kcal sur deux rangées, « < 0,5 g ») : 4 valeurs sur 4 à chaque fois ; photo de l'appareil photo
+effacée après lecture ; envoi des statistiques de ML Kit en échec silencieux, sans plantage. 300 tests JVM verts.
 1. Lecture du tableau (calcul pur, testé) : lignes de texte et leur position → kcal, protéines, glucides, lipides
    pour 100 g.
 2. ML Kit text-recognition embarqué (nouvelle dépendance validée), permission internet retirée du manifeste, release
@@ -605,6 +608,13 @@ Reportés en phase 10 (Réglages, cahier § 4.11) : unités lb et in, masquage d
 - **Pavé numérique** : `NumericKeypad` (core/designsystem) est partagé par la séance et la quantité d'un aliment.
 - **Couleurs des macros** : protéines en `primary`, lipides en `secondary`, glucides en bleu (`carbs` d'`ExtendedColors`,
   `--macro-carbs` dans `design-system/styles.css`) ; le libellé est toujours écrit à côté.
+- **Lecture des étiquettes** : ML Kit rend des lignes et leur boîte ; `readNutritionLabel` associe chaque libellé
+  aux chiffres de sa rangée (tableaux lus en colonnes) et prend la première colonne, celle pour 100 g en Europe.
+  L'appareil photo d'Android (`TakePicture`) écrit dans `cache/label/` (FileProvider), effacé après lecture ; la
+  permission caméra est exigée avant, l'app la déclarant pour les photos de progression.
+- **ML Kit sans internet** : la bibliothèque ajoute la permission internet et programme l'envoi de statistiques
+  d'usage (datatransport) ; la permission est retirée du manifeste, l'envoi échoue sans bruit et se reprogramme.
+  Permissions finales identiques à la 1.0.0.
 - **Mes besoins** : sans pesée, pas d'objectif (protéines et lipides sont par kg) ; sans sexe, date de naissance ou
   taille, les calories se saisissent à la main. Les réglages sont gardés dans la ligne de `nutrition_goal`.
 
@@ -612,6 +622,8 @@ Reportés en phase 10 (Réglages, cahier § 4.11) : unités lb et in, masquage d
 - Aucune pour l'instant (choix des phases 7 et 10 tranchés le 31 octobre 2026).
 
 ## Problèmes connus
+- Release limitée à arm64-v8a et armeabi-v7a (modèle ML Kit d'environ 4 Mo par processeur) : lint signale
+  `ChromeOsAbiSupport`, l'APK ne s'installe pas sur un Chromebook Intel. Ajouter x86_64 si besoin (+4 Mo).
 - `connectedDebugAndroidTest` sur l'émulateur API 37 se termine sans erreur mais rapporte 0 test (2 novembre 2026).
   Les lancer à la main : `installDebug installDebugAndroidTest`, puis
   `adb shell am instrument -w com.paulfvt.liftapp.test/androidx.test.runner.AndroidJUnitRunner` (44 tests OK).

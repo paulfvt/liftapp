@@ -61,6 +61,12 @@ courbes, streak hebdomadaire et carte des muscles travaillés.
 - Carte du corps des muscles travaillés sur 7 jours, souvenir d'une séance passée, récap du mois à partager.
 - Mesures (poids, tours, masse grasse) et photos de progression protégées par un code ou ton empreinte.
 
+**Noter ce que tu manges**
+- Journal du jour : calories restantes, protéines, glucides et lipides, sur 4 repas.
+- 3 000 aliments de la table Ciqual de l'Anses, et tes propres aliments, remplis d'une photo de l'étiquette.
+- Récents, favoris, repas enregistrés à ajouter d'un coup, « Copier hier ».
+- Objectif calculé depuis ton profil et ta dernière pesée, ajustable à la main.
+
 **Tes données, chez toi**
 - Aucune connexion : l'app ne demande même pas l'accès à internet.
 - Sauvegarde complète dans un fichier ZIP, restauration sur un nouveau téléphone, export CSV lisible dans Excel.
@@ -129,6 +135,8 @@ adb shell am instrument -w com.paulfvt.liftapp.test/androidx.test.runner.Android
 
 - Catalogue d'exercices et images : [free-exercise-db](https://github.com/yuhonas/free-exercise-db) (Unlicense),
   traduit en français.
+- Aliments : [table Ciqual](https://ciqual.anses.fr) de l'Anses, version 2020 (Licence Ouverte).
+- Lecture des étiquettes : [ML Kit](https://developers.google.com/ml-kit) de Google, utilisé hors ligne.
 - Polices [Barlow](https://github.com/jpt/barlow) (SIL Open Font License 1.1).
 - Tracés de la carte du corps : [MuscleMap](https://github.com/Jsplice/MuscleMap) (MIT).
 - Icônes Material (Apache 2.0).

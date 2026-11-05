@@ -73,7 +73,6 @@
     <string name="nutrition_delete_saved_meal_text">Le repas enregistré disparaît, les jours déjà notés ne changent pas.</string>
     <string name="nutrition_create_food">Créer un aliment</string>
     <string name="nutrition_ciqual_credit">Données Ciqual (Anses)</string>
-    <string name="nutrition_custom_food">Mon aliment</string>
 
     <!-- Quantité -->
     <string name="nutrition_quantity">Quantité</string>
@@ -176,4 +175,12 @@
     <string name="nutrition_increase_per_kg">%1$s : plus 0,1 g par kg</string>
     <string name="nutrition_macros_inconsistent">Protéines et lipides dépassent l\'objectif : baisse-les ou augmente les calories.</string>
     <string name="nutrition_needs_note">L\'objectif vaut à partir d\'aujourd\'hui, les jours passés gardent le leur.</string>
+
+    <!-- Crédits (À propos) -->
+    <string name="about_credits_foods">Aliments</string>
+    <string name="credit_ciqual">Table Ciqual</string>
+    <string name="credit_ciqual_detail">Anses, table de composition nutritionnelle des aliments Ciqual, version du 7 juillet 2020 (Licence Ouverte). Valeurs pour 100 g ; les aliments sans protéines, glucides ou lipides connus sont écartés.</string>
+    <string name="about_credits_label_reading">Lecture des étiquettes</string>
+    <string name="credit_mlkit">ML Kit, reconnaissance de texte</string>
+    <string name="credit_mlkit_detail">De Google, selon les conditions d\'utilisation des API Google. Utilisé sur le téléphone, sans internet.</string>
 </resources>

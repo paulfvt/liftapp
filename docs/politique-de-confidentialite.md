@@ -1,6 +1,6 @@
 # Politique de confidentialité de LiftApp
 
-Dernière mise à jour : 3 novembre 2026
+Dernière mise à jour : 5 novembre 2026
 
 LiftApp est une application Android gratuite de suivi de musculation, développée par
 [paulfvt](https://github.com/paulfvt) et distribuée sur [GitHub](https://github.com/paulfvt/liftapp/releases).
@@ -15,6 +15,8 @@ L'application enregistre uniquement ce que tu y saisis :
 - ton profil, entièrement facultatif : prénom, taille, date de naissance, sexe ;
 - tes mesures : poids, tours (bras, poitrine, taille, hanches, cuisse, mollet), taux de masse grasse ;
 - tes photos de progression, prises dans l'application ou importées depuis ta galerie ;
+- ton journal alimentaire : aliments notés, quantités, repas enregistrés, aliments que tu crées, objectif de
+  calories et de macros ;
 - tes réglages (thème, unités, repos par défaut, son et vibration du minuteur, mode salle, masquage du poids et
   des photos, verrouillage des photos).
 
@@ -28,6 +30,10 @@ pas accès, et tes photos de progression n'apparaissent pas dans la galerie.
 - Pas de compte, pas de publicité, pas d'outil de mesure d'audience ni de suivi.
 - Le récap mensuel peut être partagé en image, seulement si tu appuies sur « Partager » : c'est toi qui choisis
   l'application qui la reçoit, dans le menu de partage d'Android. Rien d'autre n'est envoyé.
+- La lecture d'une étiquette (photo du tableau nutritionnel d'un produit) se fait entièrement sur le téléphone,
+  avec ML Kit de Google intégré à l'application. Cette bibliothèque prévoit d'envoyer des statistiques d'usage à
+  Google, mais l'application n'ayant pas accès à internet, rien ne part. La photo est effacée dès que les valeurs
+  sont lues ; une image choisie dans la galerie est seulement lue, jamais copiée.
 - Si tu poses le widget sur ton écran d'accueil, il y affiche ta semaine, ta prochaine séance, ton dernier record et
   ta séance en cours : toute personne qui voit ton écran d'accueil peut les lire. Ces informations restent sur le
   téléphone.
@@ -70,8 +76,8 @@ direct d'un téléphone à un autre (câble ou connexion sans fil entre les deux
 - **Notifications** : afficher la séance en cours et le compte à rebours du repos, même écran verrouillé.
 - **Alarmes exactes** : déclencher l'alerte de fin de repos à l'heure, même quand l'application est en arrière-plan.
 - **Vibreur** : faire vibrer le téléphone à la fin du repos, si tu l'as activé.
-- **Caméra** : prendre tes photos de progression dans l'application. Elle est demandée à ta première photo, jamais
-  avant, et n'est utilisée que sur l'écran de prise de photo.
+- **Caméra** : prendre tes photos de progression dans l'application, et photographier une étiquette pour remplir un
+  aliment. Elle est demandée à ta première photo, jamais avant, et n'est utilisée qu'à ce moment-là.
 - **Biométrie** : déverrouiller tes photos avec ton visage ou ton empreinte, si tu choisis cette option.
 
 Tu peux retirer ces autorisations à tout moment dans les paramètres Android ; l'application continue de fonctionner,

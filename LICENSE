@@ -21,6 +21,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 Third-party content keeps its own license: exercise catalog and images from
-free-exercise-db (Unlicense), Barlow fonts (SIL Open Font License 1.1), body map
-paths from MuscleMap (MIT), Material icons (Apache 2.0). The license texts ship
-in the app under « À propos ».
+free-exercise-db (Unlicense), food composition table Ciqual 2020 from Anses
+(Licence Ouverte / Open Licence), Barlow fonts (SIL Open Font License 1.1), body
+map paths from MuscleMap (MIT), Material icons (Apache 2.0). Label reading uses
+Google ML Kit (Google APIs Terms of Service). Credits and license texts ship in
+the app under « À propos ».
