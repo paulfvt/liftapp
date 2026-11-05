@@ -1,15 +1,25 @@
 package com.paulfvt.liftapp.nutrition.ui
 
+import android.Manifest
+import android.content.Context
+import android.content.pm.PackageManager
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -20,15 +30,24 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.paulfvt.liftapp.R
+import com.paulfvt.liftapp.core.designsystem.component.LiftOutlinedButton
 import com.paulfvt.liftapp.core.designsystem.component.LiftTextButton
 import com.paulfvt.liftapp.core.designsystem.component.SignalButton
 import com.paulfvt.liftapp.nutrition.domain.FoodDraftError
@@ -54,6 +73,18 @@ fun FoodEditScreen(
     }
     val draft = viewModel.draft
     val errors = viewModel.errors
+    val context = LocalContext.current
+    // Appareil photo d'Android : il écrit la photo dans le fichier temporaire de l'étiquette.
+    val camera = rememberLauncherForActivityResult(ActivityResultContracts.TakePicture(), viewModel::onLabelPhotoTaken)
+    var isCameraDenied by rememberSaveable { mutableStateOf(false) }
+    // L'app déclare la caméra (photos de progression) : Android exige alors la permission avant l'appareil photo.
+    val permission = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+        if (isGranted) camera.launch(viewModel.labelPhotoUri()) else isCameraDenied = true
+    }
+    // Sélecteur de photos d'Android : aucune permission, l'app ne voit que l'image choisie.
+    val picker = rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+        uri?.let(viewModel::onLabelImagePicked)
+    }
     Scaffold(
         topBar = {
             TopAppBar(
@@ -98,6 +129,21 @@ fun FoodEditScreen(
                 stringResource(R.string.nutrition_food_values_hint),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            LabelScanSection(
+                state = viewModel.scanState,
+                isCameraDenied = isCameraDenied,
+                onTakePhoto = {
+                    isCameraDenied = false
+                    if (context.hasCameraPermission()) {
+                        camera.launch(viewModel.labelPhotoUri())
+                    } else {
+                        permission.launch(Manifest.permission.CAMERA)
+                    }
+                },
+                onPickImage = {
+                    picker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+                }
             )
             NumberField(
                 draft.kcal,
@@ -194,3 +240,60 @@ private fun errorText(show: Boolean, @StringRes text: Int): (@Composable () -> U
 } else {
     null
 }
+
+// Photo de l'étiquette (décision du 5 novembre 2026) : boutons, puis où en est la lecture et ce qu'il faut vérifier.
+@Composable
+private fun LabelScanSection(
+    state: LabelScanState?,
+    isCameraDenied: Boolean,
+    onTakePhoto: () -> Unit,
+    onPickImage: () -> Unit
+) {
+    val isReading = state == LabelScanState.Reading
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            LiftOutlinedButton(
+                text = stringResource(R.string.nutrition_scan_photo),
+                onClick = onTakePhoto,
+                enabled = !isReading,
+                icon = R.drawable.ic_photo_camera
+            )
+            LiftTextButton(
+                text = stringResource(R.string.nutrition_scan_gallery),
+                onClick = onPickImage,
+                enabled = !isReading,
+                icon = R.drawable.ic_photo_library
+            )
+        }
+        if (isReading) {
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                CircularProgressIndicator(Modifier.size(20.dp), strokeWidth = 2.dp)
+                Text(stringResource(R.string.nutrition_scan_reading), style = MaterialTheme.typography.bodyMedium)
+            }
+        } else {
+            val message = when {
+                isCameraDenied -> stringResource(R.string.nutrition_scan_camera_denied)
+                state is LabelScanState.Found && state.count == LABEL_VALUES ->
+                    stringResource(R.string.nutrition_scan_all_found)
+                state is LabelScanState.Found ->
+                    pluralStringResource(R.plurals.nutrition_scan_partial, state.count, state.count)
+                state == LabelScanState.PerPortionOnly -> stringResource(R.string.nutrition_scan_per_portion)
+                state == LabelScanState.NothingFound -> stringResource(R.string.nutrition_scan_nothing)
+                state == LabelScanState.Failed -> stringResource(R.string.nutrition_scan_failed)
+                else -> stringResource(R.string.nutrition_scan_hint)
+            }
+            val isProblem = isCameraDenied || state != null && state !is LabelScanState.Found
+            Text(
+                message,
+                style = MaterialTheme.typography.bodyMedium,
+                color = if (isProblem) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        }
+    }
+}
+
+// Énergie, protéines, glucides et lipides.
+private const val LABEL_VALUES = 4
+
+private fun Context.hasCameraPermission(): Boolean =
+    ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED

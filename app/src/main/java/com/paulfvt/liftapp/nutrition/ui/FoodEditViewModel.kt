@@ -1,5 +1,7 @@
 package com.paulfvt.liftapp.nutrition.ui
 
+import android.net.Uri
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -7,6 +9,8 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
+import com.google.mlkit.common.MlKitException
+import com.paulfvt.liftapp.nutrition.data.LabelScanner
 import com.paulfvt.liftapp.nutrition.data.NutritionRepository
 import com.paulfvt.liftapp.nutrition.domain.FOOD_NAME_MAX_LENGTH
 import com.paulfvt.liftapp.nutrition.domain.FoodDraft
@@ -16,6 +20,7 @@ import com.paulfvt.liftapp.nutrition.domain.toDraft
 import com.paulfvt.liftapp.nutrition.navigation.FoodEditRoute
 import com.paulfvt.liftapp.workout.domain.filterDecimalInput
 import dagger.hilt.android.lifecycle.HiltViewModel
+import java.io.IOException
 import javax.inject.Inject
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -29,11 +34,25 @@ sealed interface FoodEditResult {
     data object Deleted : FoodEditResult
 }
 
-// Création ou modification d'un aliment personnel (valeurs pour 100 g).
+// Lecture d'une étiquette en cours ou terminée, pour le message affiché sous les boutons.
+sealed interface LabelScanState {
+    data object Reading : LabelScanState
+
+    data class Found(val count: Int) : LabelScanState
+
+    data object PerPortionOnly : LabelScanState
+
+    data object NothingFound : LabelScanState
+
+    data object Failed : LabelScanState
+}
+
+// Création ou modification d'un aliment personnel (valeurs pour 100 g), avec lecture possible de l'étiquette.
 @HiltViewModel
 class FoodEditViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    private val repository: NutritionRepository
+    private val repository: NutritionRepository,
+    private val scanner: LabelScanner
 ) : ViewModel() {
     private val foodId = savedStateHandle.toRoute<FoodEditRoute>().foodId
     val isEditing: Boolean = foodId != null
@@ -51,12 +70,49 @@ class FoodEditViewModel @Inject constructor(
     var isDeleteAsked by mutableStateOf(false)
         private set
 
+    var scanState by mutableStateOf<LabelScanState?>(null)
+        private set
+
     private var hasTriedToSave = false
     private var isSaving = false
 
     init {
         if (foodId != null) {
             viewModelScope.launch { repository.observeFood(foodId).first()?.let { draft = it.toDraft() } }
+        }
+    }
+
+    // Fichier que l'appareil photo d'Android remplit.
+    fun labelPhotoUri(): Uri = scanner.photoUri()
+
+    // Photo prise (ou annulée) : lue puis effacée, elle n'est jamais gardée.
+    fun onLabelPhotoTaken(isTaken: Boolean) {
+        if (isTaken) readLabel(scanner.photoUri(), isTemporary = true) else scanner.deletePhoto()
+    }
+
+    // Image choisie dans la galerie : seulement lue.
+    fun onLabelImagePicked(uri: Uri) = readLabel(uri, isTemporary = false)
+
+    private fun readLabel(uri: Uri, isTemporary: Boolean) {
+        scanState = LabelScanState.Reading
+        viewModelScope.launch {
+            scanState = try {
+                val reading = scanner.read(uri)
+                update { reading.applyTo(this) }
+                when {
+                    reading.perPortionOnly -> LabelScanState.PerPortionOnly
+                    reading.foundCount == 0 -> LabelScanState.NothingFound
+                    else -> LabelScanState.Found(reading.foundCount)
+                }
+            } catch (e: IOException) {
+                Log.w(TAG, "Étiquette illisible", e)
+                LabelScanState.Failed
+            } catch (e: MlKitException) {
+                Log.w(TAG, "Étiquette illisible", e)
+                LabelScanState.Failed
+            } finally {
+                if (isTemporary) scanner.deletePhoto()
+            }
         }
     }
 
@@ -108,4 +164,8 @@ class FoodEditViewModel @Inject constructor(
     }
 
     private fun decimal(value: String) = filterDecimalInput(value, allowNegative = false)
+
+    private companion object {
+        const val TAG = "FoodEditViewModel"
+    }
 }

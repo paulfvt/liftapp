@@ -107,6 +107,21 @@
     <string name="nutrition_delete_food_title">Supprimer « %1$s » ?</string>
     <string name="nutrition_delete_food_text">Les repas déjà notés le gardent.</string>
 
+    <!-- Photo de l'étiquette -->
+    <string name="nutrition_scan_photo">Photo de l\'étiquette</string>
+    <string name="nutrition_scan_gallery">Choisir une image</string>
+    <string name="nutrition_scan_hint">Photographie le tableau nutritionnel bien à plat : l\'app remplit les valeurs pour 100 g. La photo est effacée juste après.</string>
+    <string name="nutrition_scan_reading">Lecture de l\'étiquette…</string>
+    <string name="nutrition_scan_all_found">Valeurs lues sur l\'étiquette : vérifie-les avant d\'enregistrer.</string>
+    <plurals name="nutrition_scan_partial">
+        <item quantity="one">%d valeur lue sur 4 : vérifie-la et complète les autres.</item>
+        <item quantity="other">%d valeurs lues sur 4 : vérifie-les et complète les autres.</item>
+    </plurals>
+    <string name="nutrition_scan_per_portion">Cette étiquette ne donne que des valeurs par portion : entre les valeurs pour 100 g à la main.</string>
+    <string name="nutrition_scan_nothing">Aucune valeur trouvée. Reprends la photo bien à plat, sans reflet, ou entre les valeurs à la main.</string>
+    <string name="nutrition_scan_failed">Impossible de lire cette image.</string>
+    <string name="nutrition_scan_camera_denied">Sans l\'appareil photo, tu peux choisir une image dans la galerie.</string>
+
     <!-- Mes besoins -->
     <string name="nutrition_needs_title">Mes besoins</string>
     <string name="nutrition_set_goal">Définir mon objectif</string>
