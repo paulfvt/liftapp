@@ -27,9 +27,6 @@ import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
@@ -93,7 +90,6 @@ fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    var isGoalDialogOpen by rememberSaveable { mutableStateOf(false) }
     LaunchedEffect(viewModel.isWorkoutReady) {
         if (viewModel.isWorkoutReady) {
             onOpenWorkout()
@@ -121,8 +117,7 @@ fun HomeScreen(
                 WeekHero(
                     streak = dashboard.streak,
                     today = dashboard.today,
-                    trainedDays = dashboard.trainedDays,
-                    onEditGoal = { isGoalDialogOpen = true }
+                    trainedDays = dashboard.trainedDays
                 )
             }
             item(key = "next") {
@@ -152,17 +147,6 @@ fun HomeScreen(
                 }
             }
         }
-    }
-    val streak = uiState.dashboard?.streak
-    if (isGoalDialogOpen && streak != null) {
-        WeeklyGoalDialog(
-            currentGoal = streak.currentWeek.goal,
-            onConfirm = { goal ->
-                viewModel.onWeeklyGoalChange(goal)
-                isGoalDialogOpen = false
-            },
-            onDismiss = { isGoalDialogOpen = false }
-        )
     }
 }
 

@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.paulfvt.liftapp.home.data.Dashboard
 import com.paulfvt.liftapp.home.data.DashboardRepository
-import com.paulfvt.liftapp.progress.data.WeeklyGoalRepository
 import com.paulfvt.liftapp.workout.data.WorkoutRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -28,11 +27,8 @@ data class HomeUiState(
 
 // Accueil : la semaine, la prochaine séance, le dernier record et le souvenir.
 @HiltViewModel
-class HomeViewModel @Inject constructor(
-    dashboard: DashboardRepository,
-    private val workouts: WorkoutRepository,
-    private val weeklyGoals: WeeklyGoalRepository
-) : ViewModel() {
+class HomeViewModel @Inject constructor(dashboard: DashboardRepository, private val workouts: WorkoutRepository) :
+    ViewModel() {
     val uiState: StateFlow<HomeUiState> = combine(
         dashboard.observe(),
         workouts.observeInProgress().map { it?.name }.distinctUntilChanged()
@@ -59,10 +55,6 @@ class HomeViewModel @Inject constructor(
 
     fun onWorkoutOpened() {
         isWorkoutReady = false
-    }
-
-    fun onWeeklyGoalChange(goal: Int) {
-        viewModelScope.launch { weeklyGoals.changeGoal(goal) }
     }
 
     private companion object {
