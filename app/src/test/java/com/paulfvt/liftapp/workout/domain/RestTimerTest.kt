@@ -12,25 +12,32 @@ import org.junit.Test
 
 class RestTimerTest {
     @Test
-    fun `the vibration pulses during the last three seconds then lasts during the sound`() {
-        assertEquals(listOf(0L, 200L, 800L, 200L, 800L, 200L, 800L, 1_000L), restEndVibration(3_000).toList())
+    fun `the alert ticks at three, two and one second then ends with a long vibration`() {
+        val beats = restAlertBeats(Duration.ofMillis(3_400))
+        assertEquals(listOf(3L, 2L, 1L, 0L), beats.map { it.beforeEnd.seconds })
+        assertEquals(listOf(false, false, false, true), beats.map { it.isEnd })
+        assertEquals(listOf(200L, 200L, 200L, 1_000L), beats.map { it.vibrationMs })
     }
 
     @Test
-    fun `a late alarm keeps only the pulses still to come`() {
-        assertEquals(listOf(500L, 200L, 800L, 1_000L), restEndVibration(1_500).toList())
-        // Fin déjà passée : seule la vibration finale, tout de suite.
-        assertEquals(listOf(0L, 1_000L), restEndVibration(-400).toList())
+    fun `a late alarm keeps only the beats still to come`() {
+        assertEquals(listOf(1L, 0L), restAlertBeats(Duration.ofMillis(1_500)).map { it.beforeEnd.seconds })
+        // Pile à 3 s de la fin : le premier ding est gardé.
+        assertEquals(4, restAlertBeats(Duration.ofSeconds(3)).size)
+        // Fin déjà passée : seulement la fin, tout de suite.
+        assertEquals(listOf(true), restAlertBeats(Duration.ofMillis(-400)).map { it.isEnd })
     }
 
     @Test
-    fun `the rest alert is due during the countdown and up to one minute late`() {
-        assertTrue(isRestAlertDue(Duration.ofSeconds(3)))
+    fun `the rest alert is due from the alarm and up to one minute late`() {
+        // L'alarme sonne 5 s avant la fin, pour préparer les sons avant le premier ding.
+        assertEquals(Duration.ofSeconds(5), REST_ALARM_ADVANCE)
+        assertTrue(isRestAlertDue(REST_ALARM_ADVANCE))
         // Alarme un peu en avance : la marge d'une seconde la garde.
-        assertTrue(isRestAlertDue(Duration.ofMillis(3_900)))
+        assertTrue(isRestAlertDue(Duration.ofMillis(5_900)))
         assertTrue(isRestAlertDue(Duration.ZERO))
         assertTrue(isRestAlertDue(Duration.ofSeconds(-60)))
-        assertFalse(isRestAlertDue(Duration.ofSeconds(5)))
+        assertFalse(isRestAlertDue(Duration.ofSeconds(7)))
         assertFalse(isRestAlertDue(Duration.ofSeconds(-61)))
     }
 

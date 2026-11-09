@@ -8,36 +8,35 @@ const val REST_ADD_SECONDS = 30
 const val REST_REMOVE_SECONDS = 15
 private const val MILLIS_PER_SECOND = 1_000L
 
-// Fin de repos (décision du 1er novembre 2026) : la vibration commence 3 s avant la fin, une brève impulsion par
-// seconde, puis une vibration longue pendant le son de fin d'1 s.
-const val REST_ALERT_LEAD_SECONDS = 3L
+// Fin de repos (décisions du 1er et du 9 novembre 2026) : à 3, 2 et 1 s de la fin, un petit ding et une brève
+// impulsion ; à la fin, le ding ding d'1 s et une vibration longue.
+private const val REST_ALERT_LEAD_SECONDS = 3L
 private const val PULSE_MS = 200L
 private const val FINAL_VIBRATION_MS = 1_000L
 
-// Fenêtre où l'alerte de fin de repos est due, l'alarme sonnant 3 s avant la fin : pendant le décompte (avec 1 s de
-// marge pour une alarme en avance) et jusqu'à 1 min après la fin. Une alarme retardée de plusieurs minutes (sans
-// permission d'alarme exacte) ne doit pas sonner au milieu de la série suivante.
-private val ALERT_EARLIEST: Duration = Duration.ofSeconds(REST_ALERT_LEAD_SECONDS + 1)
+// L'alarme sonne 2 s avant le premier ding : le temps de lancer le service, de lire la base et de charger les sons
+// (plus d'1 s sur l'émulateur), pour que le premier ding parte à l'heure.
+val REST_ALARM_ADVANCE: Duration = Duration.ofSeconds(REST_ALERT_LEAD_SECONDS + 2)
+
+// Fenêtre où l'alerte de fin de repos est due : dès l'alarme (avec 1 s de marge pour une alarme en avance) et jusqu'à
+// 1 min après la fin. Une alarme retardée de plusieurs minutes (sans permission d'alarme exacte) ne doit pas sonner au
+// milieu de la série suivante.
+private val ALERT_EARLIEST: Duration = REST_ALARM_ADVANCE.plusSeconds(1)
 private val ALERT_LATEST: Duration = Duration.ofMinutes(1).negated()
 
 fun isRestAlertDue(untilEnd: Duration): Boolean = untilEnd <= ALERT_EARLIEST && untilEnd >= ALERT_LATEST
 
-// Minutages de la vibration à partir de maintenant, à la manière d'Android : pause, vibration, pause, vibration…
-// untilEndMs : temps restant avant la fin du repos. Une alarme en retard ne garde que les impulsions encore à venir ;
-// la vibration finale part tout de suite si la fin est déjà passée.
-fun restEndVibration(untilEndMs: Long): LongArray {
-    val timings = mutableListOf<Long>()
-    var cursor = 0L
-    (REST_ALERT_LEAD_SECONDS downTo 1L).map {
-        untilEndMs - it * MILLIS_PER_SECOND
-    }.filter { it >= 0 }.forEach { start ->
-        timings += start - cursor
-        timings += PULSE_MS
-        cursor = start + PULSE_MS
-    }
-    timings += maxOf(untilEndMs, cursor) - cursor
-    timings += FINAL_VIBRATION_MS
-    return timings.toLongArray()
+// Un temps fort de l'alerte, compté avant la fin du repos : un ding du décompte, ou la fin elle-même (beforeEnd nul).
+data class RestBeat(val beforeEnd: Duration) {
+    val isEnd: Boolean get() = beforeEnd.isZero
+    val vibrationMs: Long get() = if (isEnd) FINAL_VIBRATION_MS else PULSE_MS
+}
+
+// Temps forts encore à venir, untilEnd étant le temps restant avant la fin du repos. Une alarme en retard saute les
+// dings déjà passés ; la fin part tout de suite si elle est passée.
+fun restAlertBeats(untilEnd: Duration): List<RestBeat> {
+    val ticks = (REST_ALERT_LEAD_SECONDS downTo 1L).map { RestBeat(Duration.ofSeconds(it)) }
+    return ticks.filter { it.beforeEnd <= untilEnd } + RestBeat(Duration.ZERO)
 }
 
 // Repos en cours. Seules les deux bornes sont enregistrées : le temps restant se recalcule toujours à partir de

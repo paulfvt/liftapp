@@ -16,7 +16,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
-// Service de premier plan de quelques secondes, lancé par l'alarme 3 s avant la fin du repos (décision du
+// Service de premier plan de quelques secondes, lancé par l'alarme 5 s avant la fin du repos (décision du
 // 2 novembre 2026). Tant qu'il tourne, Android traite l'app comme active : elle peut vibrer et jouer le son même
 // quittée ou écran éteint. Type « shortService » : fait pour une tâche courte qui ne doit pas être interrompue, sans
 // permission à demander ; Android l'arrête de toute façon au bout de 3 minutes. Il s'attache à la notification de la
@@ -50,7 +50,7 @@ class RestAlertService : Service() {
         return START_NOT_STICKY
     }
 
-    // Délai de 3 minutes dépassé (ne devrait pas arriver, l'alerte dure 4 s) : Android exige un arrêt immédiat.
+    // Délai de 3 minutes dépassé (ne devrait pas arriver, l'alerte dure 6 s) : Android exige un arrêt immédiat.
     override fun onTimeout(startId: Int) = stop()
 
     override fun onTimeout(startId: Int, fgsType: Int) = stop()

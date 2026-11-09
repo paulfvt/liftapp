@@ -10,7 +10,7 @@ import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-// Reçoit l'alarme 3 s avant la fin du repos et confie l'alerte à RestAlertService : une alarme exacte fait partie des
+// Reçoit l'alarme 5 s avant la fin du repos et confie l'alerte à RestAlertService : une alarme exacte fait partie des
 // cas où Android permet de lancer un service de premier plan depuis l'arrière-plan.
 @AndroidEntryPoint
 class RestEndReceiver : BroadcastReceiver() {

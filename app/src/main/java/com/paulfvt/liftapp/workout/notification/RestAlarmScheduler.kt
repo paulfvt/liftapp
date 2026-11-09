@@ -6,14 +6,15 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.util.Log
-import com.paulfvt.liftapp.workout.domain.REST_ALERT_LEAD_SECONDS
+import com.paulfvt.liftapp.workout.domain.REST_ALARM_ADVANCE
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.time.Instant
 import javax.inject.Inject
 import javax.inject.Singleton
 
 // Alarme de fin de repos : réveille l'app pour l'alerte (vibration, son), même écran verrouillé et en veille. Elle
-// sonne un peu plus de 3 s avant la fin : la vibration commence là, le son part à la fin (RestAlertService).
+// sonne 5 s avant la fin pour tout préparer : le premier ding du décompte part à 3 s, le ding ding à la fin
+// (RestAlertService).
 // Exacte si l'utilisateur a autorisé « Alarmes et rappels » (pas accordé d'office depuis Android 14) ;
 // sinon inexacte, et Android peut alors la retarder.
 @Singleton
@@ -24,7 +25,7 @@ class RestAlarmScheduler @Inject constructor(@ApplicationContext private val con
 
     // Même PendingIntent à chaque fois : programmer une nouvelle fin remplace l'alarme précédente.
     fun schedule(endsAt: Instant) {
-        val trigger = endsAt.minusSeconds(REST_ALERT_LEAD_SECONDS).minusMillis(DELIVERY_MARGIN_MS).toEpochMilli()
+        val trigger = endsAt.minus(REST_ALARM_ADVANCE).toEpochMilli()
         try {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S || alarms.canScheduleExactAlarms()) {
                 alarms.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, trigger, pendingIntent())
@@ -49,9 +50,5 @@ class RestAlarmScheduler @Inject constructor(@ApplicationContext private val con
 
     private companion object {
         const val TAG = "RestAlarmScheduler"
-
-        // L'alarme, le lancement du service et la lecture de la base prennent quelques centaines de millisecondes :
-        // sans cette avance, la première impulsion du décompte serait perdue (vu sur l'émulateur).
-        const val DELIVERY_MARGIN_MS = 500L
     }
 }
