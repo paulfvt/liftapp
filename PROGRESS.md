@@ -46,6 +46,25 @@ effacée après lecture ; envoi des statistiques de ML Kit en échec silencieux,
 3. « Créer un aliment » : « Prendre l'étiquette en photo » et « Choisir une image », champs remplis à vérifier.
 4. Crédits dans « À propos », README, politique de confidentialité ; test sur l'émulateur puis le téléphone.
 
+## Retours du test sur le téléphone (9 novembre 2026) : corrigés, à tester sur le téléphone
+
+Retours du développeur, causes trouvées dans les journaux du S25+ ; un commit par point :
+- Scan de l'étiquette qui fermait l'app et widget bloqué en chargement : même cause, la version release seulement.
+  R8 en mode complet retirait le constructeur de classes que les bibliothèques créent par leur nom (les composants
+  de ML Kit, les « InputMerger » de WorkManager 2.7.1 amené par Glance) ; WorkManager ne lançait plus aucune tâche,
+  donc plus de session Glance. Deux règles dans `app/proguard-rules.pro`. Reproduit puis vérifié sur l'émulateur avec
+  une release R8 : étiquette lue (4 valeurs sur 4), widget affiché.
+- Vibration de fin de repos « absente » : Android l'avait bien jouée, mais l'annulait en entier quand le développeur
+  éteignait l'écran avec le bouton latéral pendant le décompte (« cancelled_by_screen_off », 5 repos sur 18 le
+  9 novembre, dans l'app comme depuis l'écran d'accueil). Chaque temps fort lance désormais sa propre vibration.
+- Petits dings du décompte : à 3, 2 et 1 s, un ding bref (`res/raw/rest_tick.wav`, produit par
+  `tools/sounds/build_rest_tick.py`, même timbre que le ding ding) avec l'impulsion ; à la fin, le ding ding et la
+  vibration longue. Sons préchargés avec `SoundPool` ; l'alarme sonne 5 s avant la fin pour les charger (plus d'1 s
+  sur l'émulateur). Vérifié sur l'émulateur, app quittée et bouton latéral pressé entre deux dings : quatre
+  vibrations jouées en entier à 1 s d'écart, quatre sons, musique baissée puis rendue.
+- Accueil : flamme et « STREAK » empilés avec « SEMAINES » à droite du chiffre ; plus de « Encore x séances » ni de
+  « Modifier l'objectif » (l'objectif se change dans les Réglages).
+
 ## Phase 11 — Version publique sur GitHub : terminée le 3 novembre 2026
 
 Demande du développeur : un beau README et le dépôt public pour que d'autres puissent télécharger l'app. Tranché le
@@ -617,6 +636,14 @@ Reportés en phase 10 (Réglages, cahier § 4.11) : unités lb et in, masquage d
   Permissions finales identiques à la 1.0.0.
 - **Mes besoins** : sans pesée, pas d'objectif (protéines et lipides sont par kg) ; sans sexe, date de naissance ou
   taille, les calories se saisissent à la main. Les réglages sont gardés dans la ligne de `nutrition_goal`.
+- **R8 en mode complet** (par défaut depuis AGP 8) : `-keep class X` ne garde plus le constructeur sans argument. Une
+  bibliothèque qui crée des classes par leur nom (manifeste, base de WorkManager) casse alors en release seulement,
+  sans erreur à la compilation. Toute fonction qui repose sur une bibliothèque se vérifie sur une release R8 avant
+  d'installer sur le téléphone (voir Problèmes connus pour l'émulateur).
+- **Alerte de fin de repos par temps forts** (9 novembre 2026) : `restAlertBeats` donne les temps forts encore à venir
+  (3, 2, 1 s, puis la fin) ; `RestEndAlert` relit la base avant chacun (repos passé ou prolongé : tout s'arrête) et
+  lance une vibration et un son par temps fort. Une seule vibration pour tout le décompte était annulée en entier à
+  l'extinction de l'écran.
 
 ## Questions ouvertes
 - Aucune pour l'instant (choix des phases 7 et 10 tranchés le 31 octobre 2026).
@@ -624,6 +651,8 @@ Reportés en phase 10 (Réglages, cahier § 4.11) : unités lb et in, masquage d
 ## Problèmes connus
 - Release limitée à arm64-v8a et armeabi-v7a (modèle ML Kit d'environ 4 Mo par processeur) : lint signale
   `ChromeOsAbiSupport`, l'APK ne s'installe pas sur un Chromebook Intel. Ajouter x86_64 si besoin (+4 Mo).
+  Pour essayer une release sur l'émulateur, ajouter x86_64 aux `abiFilters` le temps du test, sans le committer
+  (sinon le scan de l'étiquette plante faute de bibliothèque ML Kit pour ce processeur).
 - `connectedDebugAndroidTest` sur l'émulateur API 37 se termine sans erreur mais rapporte 0 test (2 novembre 2026).
   Les lancer à la main : `installDebug installDebugAndroidTest`, puis
   `adb shell am instrument -w com.paulfvt.liftapp.test/androidx.test.runner.AndroidJUnitRunner` (44 tests OK).

@@ -100,6 +100,8 @@ En cas d'ambiguïté ou de point non couvert, pose la question au lieu d'invente
   - (1er novembre 2026) vibration dès 3 s avant la fin, une impulsion par seconde, puis pendant le son ; son « ding
     ding » d'1 s qui s'arrête seul, entendu même en vibreur ou en silencieux ; (2 novembre 2026) réglé par le volume
     multimédia (celui de la musique, dans les écouteurs s'ils sont branchés) et non plus par celui du réveil ;
+  - (9 novembre 2026) petit ding à 3, 2 et 1 s avec chaque impulsion, puis le ding ding à la fin, app ouverte ou
+    quittée ; chaque temps fort a sa propre vibration (éteindre l'écran n'annule que celle en cours) ;
   - mode salle : interrupteur dans le menu de la séance, écran allumé, une série à la fois, gros boutons.
 - Records (21 octobre 2026) :
   - les séries dégressives comptent, seuls les échauffements sont exclus ; une série à 0 rep ne compte pas ;
@@ -136,6 +138,8 @@ En cas d'ambiguïté ou de point non couvert, pose la question au lieu d'invente
   - l'onglet Accueil revient en premier et l'app s'ouvre dessus ;
   - Accueil : semaine (anneau et streak), prochaine séance avec « Démarrer », dernier record, souvenir. Progrès garde
     la carte du corps, les objectifs, les badges, le récap et la liste des exercices ;
+  - (9 novembre 2026) flamme et « STREAK » empilés avec « SEMAINES » à droite du chiffre de la streak ; plus de
+    « Encore x séances » ni de « Modifier l'objectif » sur l'accueil, l'objectif se change dans les Réglages ;
   - « Démarrer » du widget lance la séance et ouvre l'app dessus ;
   - Glance 1.2.0 validé : `glance-appwidget` et `glance-material3` (couleurs du thème ON AIR).
 - Phase 10, réglages et données (28 octobre 2026) :
