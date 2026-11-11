@@ -97,15 +97,12 @@ interface WorkoutDao {
     )
     suspend fun performedSetsOf(exerciseIds: List<Long>, status: WorkoutStatus): List<ExercisePerformedSetRow>
 
-    // Débuts des séances d'un statut : objectif hebdomadaire, streak et badges de séances.
+    // Débuts des séances d'un statut : objectif hebdomadaire et streak.
     @Query("SELECT startedAt FROM workout WHERE status = :status ORDER BY startedAt")
     fun observeStartTimes(status: WorkoutStatus): Flow<List<Instant>>
 
     @Query("SELECT templateId, startedAt, endedAt FROM workout WHERE status = :status ORDER BY startedAt")
     fun observeSessions(status: WorkoutStatus): Flow<List<FinishedSessionRow>>
-
-    @Query("SELECT startedAt FROM workout WHERE status = :status ORDER BY startedAt")
-    suspend fun startTimes(status: WorkoutStatus): List<Instant>
 
     // Templates des séances d'un statut, du plus récemment utilisé au plus ancien (prochaine séance de l'accueil).
     @Query(

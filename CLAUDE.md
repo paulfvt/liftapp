@@ -23,7 +23,7 @@ En cas d'ambiguïté ou de point non couvert, pose la question au lieu d'invente
 ## Architecture (section 6)
 
 - **UI** : écrans Compose sans logique métier, un ViewModel par écran qui expose un `StateFlow` d'état.
-- **Domaine** : calculs purs en Kotlin sans dépendance Android (1RM, records, streak, heatmap, projection, badges).
+- **Domaine** : calculs purs en Kotlin sans dépendance Android (1RM, records, streak, heatmap, projection, nutrition).
 - **Données** : DAO Room, repositories comme unique point d'accès aux données.
 - Packages par fonctionnalité sous `com.paulfvt.liftapp` : `home`, `template`, `workout`, `exercise`, `history`,
   `progress`, `profile`, `widget`, `nutrition` (V2), plus `core` (partagé) et `navigation` (squelette de l'app).
@@ -72,7 +72,7 @@ En cas d'ambiguïté ou de point non couvert, pose la question au lieu d'invente
 - Semaine du lundi au dimanche, fuseau du téléphone. La semaine en cours ne casse jamais la streak.
   Une séance compte pour sa date de début.
 - Pas de célébration de record lors de la première séance sur un exercice.
-- Clubs 100/140/180 kg : charge réellement soulevée sur au moins une rep. Badges et paliers acquis définitivement.
+- Paliers d'objectifs acquis définitivement.
 - Photos : PIN propre à l'app, avec option visage ou empreinte. Exclues de la sauvegarde cloud Android.
 - Carte du corps : tracés SVG de Jsplice/MuscleMap (licence MIT, à citer dans « À propos »).
 - Templates (7 octobre 2026) : 3 séries par défaut, reps cibles facultatives (case vide), 2 min de repos par défaut,
@@ -121,23 +121,22 @@ En cas d'ambiguïté ou de point non couvert, pose la question au lieu d'invente
   depuis l'app ne reverrouillent pas. Code oublié sans verrouillage d'écran : explication seulement (confirmé le
   31 octobre 2026).
 - Phase 8, motivation (28 octobre 2026) :
-  - anneau, streak, carte du corps, souvenir, objectifs, badges et récap en haut de l'onglet Progrès tant que
-    l'accueil est masqué ; ils rejoignent l'accueil en phase 9 ;
+  - anneau, streak, carte du corps, souvenir, objectifs et récap en haut de l'onglet Progrès tant que l'accueil est
+    masqué ; ils rejoignent l'accueil en phase 9 ;
   - un changement d'objectif hebdo compte dès la semaine en cours, les semaines passées gardent le leur ;
-  - badges 4, 12 et 52 semaines : semaines d'affilée (la streak) ;
   - records célébrés et « battus » : charge max, 1RM estimé, meilleur volume d'une série ; sans charge : reps, lest,
     durée, distance. Pas les reps à une charge donnée ;
   - paliers : l'utilisateur saisit l'or, bronze et argent proposés à 1/3 et 2/3 de l'écart depuis son 1RM actuel,
     modifiables ;
-  - clubs : développé couché prise moyenne, large et powerlifting ; squat à la barre, complet et pieds écartés ;
-    soulevé de terre classique et sumo. Pas de Smith machine ;
+  - (11 novembre 2026, écart avec le cahier § 4.7) plus de badges ni de clubs 100/140/180 kg : le développeur ne
+    les trouvait pas utiles. Streak, paliers, records et récap restent. Table `badge` supprimée (schéma v6) ;
   - projection : au moins 6 séances étalées sur 4 semaines ou plus, la dernière il y a moins de 4 semaines ;
   - souvenir : toujours affiché, formulation neutre sans progrès ;
   - carte du corps : 7 jours glissants, cardio exclu.
 - Phase 9, tableau de bord et widget (28 octobre 2026) :
   - l'onglet Accueil revient en premier et l'app s'ouvre dessus ;
   - Accueil : semaine (anneau et streak), prochaine séance avec « Démarrer », dernier record, souvenir. Progrès garde
-    la carte du corps, les objectifs, les badges, le récap et la liste des exercices ;
+    la carte du corps, les objectifs, le récap et la liste des exercices ;
   - (9 novembre 2026) flamme et « STREAK » empilés avec « SEMAINES » à droite du chiffre de la streak ; plus de
     « Encore x séances » ni de « Modifier l'objectif » sur l'accueil, l'objectif se change dans les Réglages ;
   - « Démarrer » du widget lance la séance et ouvre l'app dessus ;

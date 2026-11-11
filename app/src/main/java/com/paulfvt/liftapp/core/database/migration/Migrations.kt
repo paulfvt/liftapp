@@ -128,6 +128,14 @@ val MIGRATION_4_5 = object : Migration(4, 5) {
     }
 }
 
+// Version 6 : plus de badges (décision du 11 novembre 2026). Les paliers d'objectifs, les records et la streak gardent
+// leurs propres tables.
+val MIGRATION_5_6 = object : Migration(5, 6) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL("DROP TABLE IF EXISTS `badge`")
+    }
+}
+
 // Toutes les migrations, pour la base de l'app et pour la vérification d'une sauvegarde à restaurer. En fin de
 // fichier : les propriétés sont initialisées dans l'ordre, les migrations doivent déjà exister.
-val ALL_MIGRATIONS = arrayOf(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5)
+val ALL_MIGRATIONS = arrayOf(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6)

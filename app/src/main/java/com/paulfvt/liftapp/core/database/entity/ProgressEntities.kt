@@ -64,7 +64,3 @@ data class WeeklyGoalEntity(
     val goal: Int,
     val effectiveFrom: LocalDate
 )
-
-// Un badge débloqué reste acquis, même si l'historique est modifié ensuite.
-@Entity(tableName = "badge")
-data class BadgeEntity(@PrimaryKey val code: String, val unlockedAt: Instant)

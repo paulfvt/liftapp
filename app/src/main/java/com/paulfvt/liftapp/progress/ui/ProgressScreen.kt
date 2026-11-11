@@ -17,9 +17,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -38,13 +35,12 @@ import com.paulfvt.liftapp.core.designsystem.component.SectionTitle
 import com.paulfvt.liftapp.core.ui.monthTitle
 import com.paulfvt.liftapp.core.ui.shortDay
 import com.paulfvt.liftapp.exercise.ui.ExerciseThumbnail
-import com.paulfvt.liftapp.progress.domain.Badge
 import com.paulfvt.liftapp.progress.domain.MonthlyRecap
 import com.paulfvt.liftapp.progress.domain.PerformedExercise
 import com.paulfvt.liftapp.progress.domain.metricsFor
 import java.time.YearMonth
 
-// Onglet Progrès : carte du corps, objectifs, badges et récap en haut, puis chaque exercice déjà fait avec son record
+// Onglet Progrès : carte du corps, objectifs et récap en haut, puis chaque exercice déjà fait avec son record
 // principal. La semaine et le souvenir sont sur l'accueil.
 // Un appui sur un exercice ouvre ses records et ses courbes.
 @OptIn(ExperimentalMaterial3Api::class)
@@ -55,7 +51,6 @@ fun ProgressScreen(
     viewModel: ProgressViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    var openBadge by rememberSaveable { mutableStateOf<Badge?>(null) }
     Scaffold(topBar = { TopAppBar(title = { ScreenTitle(stringResource(R.string.nav_progress)) }) }) { padding ->
         if (uiState.isLoading) return@Scaffold
         LazyColumn(
@@ -81,11 +76,6 @@ fun ProgressScreen(
                     }
                 }
             }
-            item(key = "badges") {
-                SectionBlock(stringResource(R.string.badges_title, uiState.badges.size, Badge.entries.size)) {
-                    BadgeGrid(uiState.badges, onBadgeClick = { openBadge = it })
-                }
-            }
             uiState.monthRecap?.let { recap ->
                 item(key = "recap") {
                     SectionBlock(stringResource(R.string.recap_title)) {
@@ -103,9 +93,6 @@ fun ProgressScreen(
                 PerformedExerciseCard(performed, onClick = { onOpenExercise(performed.exercise.id) })
             }
         }
-    }
-    openBadge?.let { badge ->
-        BadgeDialog(badge, uiState.badges[badge], onDismiss = { openBadge = null })
     }
 }
 

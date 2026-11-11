@@ -86,7 +86,7 @@ class WeeklyGoalsTest {
         val streak = weeklyStreak(starts, emptyList(), at("2026-10-06"), paris)
 
         assertEquals(1, streak.weeks)
-        assertEquals(listOf(LocalDate.parse("2026-09-28")), reachedWeeks(starts, emptyList(), paris).map { it.monday })
+        assertEquals(listOf(LocalDate.parse("2026-09-28")), reachedWeeks(starts, emptyList(), paris))
     }
 
     @Test
@@ -97,15 +97,9 @@ class WeeklyGoalsTest {
         val streak = weeklyStreak(starts, goals, at("2026-10-27"), paris)
 
         // La semaine du 12 octobre garde son objectif de 3 : seule celle du 19 compte.
-        assertEquals(listOf(LocalDate.parse("2026-10-19")), reachedWeeks(starts, goals, paris).map { it.monday })
+        assertEquals(listOf(LocalDate.parse("2026-10-19")), reachedWeeks(starts, goals, paris))
         assertEquals(1, streak.weeks)
         assertEquals(2, streak.currentWeek.goal)
-    }
-
-    @Test
-    fun `a reached week is dated by the session that reached it`() {
-        val starts = sessions("2026-10-19", "2026-10-21", "2026-10-23", "2026-10-25")
-        assertEquals(at("2026-10-23"), reachedWeeks(starts, emptyList(), paris).single().reachedAt)
     }
 
     @Test
@@ -119,7 +113,7 @@ class WeeklyGoalsTest {
     @Test
     fun `runs are consecutive reached weeks`() {
         val mondays = listOf("2026-09-07", "2026-09-14", "2026-09-28", "2026-10-05", "2026-10-12")
-        val runs = streakRuns(mondays.map { ReachedWeek(LocalDate.parse(it), at(it)) })
+        val runs = streakRuns(mondays.map { LocalDate.parse(it) })
         assertEquals(listOf(2, 3), runs.map { it.size })
     }
 }

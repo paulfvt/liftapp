@@ -10,7 +10,6 @@ import com.paulfvt.liftapp.exercise.data.ExerciseRepository
 import com.paulfvt.liftapp.exercise.domain.ExerciseDraft
 import com.paulfvt.liftapp.history.data.HistoryRepository
 import com.paulfvt.liftapp.history.domain.updateSetValues
-import com.paulfvt.liftapp.progress.domain.Badge
 import com.paulfvt.liftapp.progress.domain.ExerciseMetric
 import com.paulfvt.liftapp.progress.domain.GOAL_SINCE_ALWAYS
 import com.paulfvt.liftapp.progress.domain.GoalTier
@@ -40,7 +39,7 @@ private class TestClock(var now: Instant) : Clock() {
     override fun instant(): Instant = now
 }
 
-// Motivation de bout en bout sur une vraie base Room (en mémoire) : fin de séance, paliers, badges, objectif hebdo.
+// Motivation de bout en bout sur une vraie base Room (en mémoire) : fin de séance, paliers, objectif hebdo.
 @RunWith(AndroidJUnit4::class)
 class MotivationDataTest {
     private val context: Context = ApplicationProvider.getApplicationContext()
@@ -50,7 +49,6 @@ class MotivationDataTest {
     private lateinit var workouts: WorkoutRepository
     private lateinit var history: HistoryRepository
     private lateinit var goals: GoalRepository
-    private lateinit var badges: BadgeRepository
     private lateinit var weeklyGoals: WeeklyGoalRepository
 
     @Before
@@ -59,8 +57,7 @@ class MotivationDataTest {
         exercises = ExerciseRepository(database)
         val records = RecordRepository(database, exercises)
         goals = GoalRepository(database, exercises, clock)
-        badges = BadgeRepository(database, exercises)
-        val achievements = AchievementRepository(goals, badges)
+        val achievements = AchievementRepository(goals)
         workouts = WorkoutRepository(database, TemplateRepository(database), records, achievements, clock)
         history = HistoryRepository(database, records, achievements)
         weeklyGoals = WeeklyGoalRepository(database, clock)
@@ -92,18 +89,16 @@ class MotivationDataTest {
     }
 
     @Test
-    fun finishingAWorkoutReportsBrokenRecordsAndTheFirstBadge() = runTest {
+    fun finishingAWorkoutReportsBrokenRecords() = runTest {
         val bench = newExercise("Développé couché")
         val (_, first) = doWorkout(bench, 80.0 to 8)
         val (_, second) = doWorkout(bench, 85.0 to 8)
 
         assertTrue(first.records.isEmpty())
-        assertEquals(listOf(Badge.WORKOUTS_1), first.achievements.badges)
         assertEquals(
             setOf(ExerciseMetric.MAX_WEIGHT, ExerciseMetric.ESTIMATED_1RM, ExerciseMetric.VOLUME),
             second.records.map { it.recordBreak.metric }.toSet()
         )
-        assertTrue(second.achievements.badges.isEmpty())
     }
 
     @Test
@@ -122,17 +117,6 @@ class MotivationDataTest {
 
         val goal = goals.observeGoals().first().single()
         assertEquals(setOf(GoalTier.BRONZE), goal.reachedAt.keys)
-    }
-
-    @Test
-    fun badgesAreUnlockedOnceWithTheirHistoricalDate() = runTest {
-        val row = newExercise("Rowing")
-        val firstStart = clock.now
-        doWorkout(row, 60.0 to 10)
-
-        // Déjà débloqué en fin de séance : une nouvelle vérification ne trouve rien de neuf.
-        assertTrue(badges.refresh().isEmpty())
-        assertEquals(firstStart, badges.observeUnlocked().first()[Badge.WORKOUTS_1])
     }
 
     @Test

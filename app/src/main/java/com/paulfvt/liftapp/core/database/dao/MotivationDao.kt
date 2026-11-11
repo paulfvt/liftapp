@@ -5,12 +5,11 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.paulfvt.liftapp.core.database.entity.BadgeEntity
 import com.paulfvt.liftapp.core.database.entity.GoalEntity
 import com.paulfvt.liftapp.core.database.entity.WeeklyGoalEntity
 import kotlinx.coroutines.flow.Flow
 
-// Objectif hebdomadaire, objectifs à paliers et badges (phase 8). Les tables existent depuis la version 1 du schéma.
+// Objectif hebdomadaire et objectifs à paliers (phase 8). Les tables existent depuis la version 1 du schéma.
 @Dao
 interface MotivationDao {
     @Query("SELECT * FROM weekly_goal ORDER BY effectiveFrom")
@@ -40,14 +39,4 @@ interface MotivationDao {
 
     @Query("DELETE FROM goal WHERE id = :id")
     suspend fun deleteGoal(id: Long)
-
-    @Query("SELECT * FROM badge")
-    fun observeBadges(): Flow<List<BadgeEntity>>
-
-    @Query("SELECT * FROM badge")
-    suspend fun getBadges(): List<BadgeEntity>
-
-    // Un badge débloqué reste acquis avec sa date d'origine : IGNORE ne réécrit jamais une ligne existante.
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertBadges(badges: List<BadgeEntity>)
 }

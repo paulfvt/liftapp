@@ -57,7 +57,7 @@ courbes, streak hebdomadaire et carte des muscles travaillés.
 **Voir sa progression**
 - Records automatiques : 1RM estimé, charge max, meilleure série, avec une célébration quand tu les bats.
 - Courbes par exercice (1 mois à tout l'historique) et projection de ton 1RM à venir.
-- Objectifs à paliers bronze, argent et or, badges, clubs des 100, 140 et 180 kg.
+- Objectifs à paliers bronze, argent et or.
 - Carte du corps des muscles travaillés sur 7 jours, souvenir d'une séance passée, récap du mois à partager.
 - Mesures (poids, tours, masse grasse) et photos de progression protégées par un code ou ton empreinte.
 
@@ -98,7 +98,7 @@ ni compte, ni publicité, ni mesure d'audience. Le détail est dans la
 Flow · Vico · Glance · CameraX · Coil · Biometric · GitHub Actions.
 
 **Architecture** : trois couches recommandées par Android. Écrans Compose et ViewModels, domaine en Kotlin pur
-(records, streak, projection, badges, entièrement testé), données avec Room et des repositories. Les règles du projet
+(records, streak, projection, nutrition, entièrement testé), données avec Room et des repositories. Les règles du projet
 sont dans [CLAUDE.md](CLAUDE.md), l'avancement phase par phase dans [PROGRESS.md](PROGRESS.md).
 
 Ouvrir le dossier dans Android Studio et cliquer sur **Run**, ou en ligne de commande :

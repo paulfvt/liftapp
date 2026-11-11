@@ -31,24 +31,20 @@ data class WeekProgress(val monday: LocalDate, val sessions: Int, val goal: Int)
     val isReached: Boolean get() = sessions >= goal
 }
 
-// Semaine dont l'objectif est atteint, avec le début de la séance qui l'a atteint (date des badges de streak).
-data class ReachedWeek(val monday: LocalDate, val reachedAt: Instant)
+// Lundis des semaines dont l'objectif est atteint, dans l'ordre.
+fun reachedWeeks(sessionStarts: List<Instant>, goals: List<WeeklyGoal>, zone: ZoneId): List<LocalDate> =
+    sessionStarts.groupBy { weekOf(it, zone) }
+        .filter { (monday, starts) -> starts.size >= goalForWeek(goals, monday) }
+        .keys
+        .sorted()
 
-fun reachedWeeks(sessionStarts: List<Instant>, goals: List<WeeklyGoal>, zone: ZoneId): List<ReachedWeek> =
-    sessionStarts.sorted()
-        .groupBy { weekOf(it, zone) }
-        .mapNotNull { (monday, starts) ->
-            starts.getOrNull(goalForWeek(goals, monday) - 1)?.let { ReachedWeek(monday, it) }
-        }
-        .sortedBy { it.monday }
-
-// Suites de semaines consécutives dont l'objectif est atteint, dans l'ordre.
-fun streakRuns(reached: List<ReachedWeek>): List<List<ReachedWeek>> {
-    val runs = mutableListOf<MutableList<ReachedWeek>>()
-    reached.sortedBy { it.monday }.forEach { week ->
+// Suites de semaines consécutives dont l'objectif est atteint, dans l'ordre (une semaine = son lundi).
+fun streakRuns(reached: List<LocalDate>): List<List<LocalDate>> {
+    val runs = mutableListOf<MutableList<LocalDate>>()
+    reached.sorted().forEach { monday ->
         val run = runs.lastOrNull()
-        val continuesRun = run != null && run.last().monday.plusWeeks(1) == week.monday
-        if (continuesRun) run.add(week) else runs.add(mutableListOf(week))
+        val continuesRun = run != null && run.last().plusWeeks(1) == monday
+        if (continuesRun) run.add(monday) else runs.add(mutableListOf(monday))
     }
     return runs
 }
@@ -61,7 +57,7 @@ data class WeeklyStreak(val currentWeek: WeekProgress, val weeks: Int, val bestW
 fun weeklyStreak(sessionStarts: List<Instant>, goals: List<WeeklyGoal>, now: Instant, zone: ZoneId): WeeklyStreak {
     val thisMonday = weekOf(now, zone)
     val reached = reachedWeeks(sessionStarts, goals, zone)
-    val reachedMondays = reached.map { it.monday }.toSet()
+    val reachedMondays = reached.toSet()
     val current = WeekProgress(
         monday = thisMonday,
         sessions = sessionStarts.count { weekOf(it, zone) == thisMonday },
@@ -74,6 +70,6 @@ fun weeklyStreak(sessionStarts: List<Instant>, goals: List<WeeklyGoal>, now: Ins
         monday = monday.minusWeeks(1)
     }
     if (current.isReached) weeks++
-    val best = streakRuns(reached.filter { !it.monday.isAfter(thisMonday) }).maxOfOrNull { it.size } ?: 0
+    val best = streakRuns(reached.filter { !it.isAfter(thisMonday) }).maxOfOrNull { it.size } ?: 0
     return WeeklyStreak(current, weeks, maxOf(best, weeks))
 }

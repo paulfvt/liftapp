@@ -7,6 +7,7 @@ import com.paulfvt.liftapp.core.database.migration.MIGRATION_1_2
 import com.paulfvt.liftapp.core.database.migration.MIGRATION_2_3
 import com.paulfvt.liftapp.core.database.migration.MIGRATION_3_4
 import com.paulfvt.liftapp.core.database.migration.MIGRATION_4_5
+import com.paulfvt.liftapp.core.database.migration.MIGRATION_5_6
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -167,6 +168,33 @@ class MigrationTest {
         db.query("SELECT COUNT(*) FROM food WHERE ciqualCode IS NULL").use {
             it.moveToFirst()
             assertEquals(2, it.getInt(0))
+        }
+    }
+
+    @Test
+    fun migration5To6DropsBadgesAndKeepsTheRest() {
+        helper.createDatabase(TEST_DB, 5).use { db ->
+            db.execSQL("INSERT INTO badge (code, unlockedAt) VALUES ('WORKOUTS_1', 2000)")
+            db.execSQL(
+                "INSERT INTO workout (id, templateId, name, startedAt, endedAt, status, note, restStartedAt, " +
+                    "restEndsAt) VALUES (3, NULL, 'Jambes', 2000, 5000, 'FINISHED', NULL, NULL, NULL)"
+            )
+            db.execSQL("INSERT INTO weekly_goal (id, goal, effectiveFrom) VALUES (1, 4, 0)")
+        }
+
+        val db = helper.runMigrationsAndValidate(TEST_DB, 6, true, MIGRATION_5_6)
+
+        db.query("SELECT COUNT(*) FROM sqlite_master WHERE type = 'table' AND name = 'badge'").use {
+            it.moveToFirst()
+            assertEquals(0, it.getInt(0))
+        }
+        db.query("SELECT name FROM workout WHERE id = 3").use {
+            assertTrue(it.moveToFirst())
+            assertEquals("Jambes", it.getString(0))
+        }
+        db.query("SELECT goal FROM weekly_goal").use {
+            assertTrue(it.moveToFirst())
+            assertEquals(4, it.getInt(0))
         }
     }
 

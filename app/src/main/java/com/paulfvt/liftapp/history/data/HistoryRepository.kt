@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 // Séances terminées : historique, modification et suppression. Chaque modification recalcule les records des
-// exercices touchés, dans la même transaction, puis vérifie paliers et badges.
+// exercices touchés, dans la même transaction, puis vérifie les paliers.
 @Singleton
 class HistoryRepository @Inject constructor(
     private val database: LiftDatabase,
@@ -85,7 +85,7 @@ class HistoryRepository @Inject constructor(
             )
         }
         records.recompute(before + edited.exercises.map { it.exercise.id })
-        // Une séance corrigée à la hausse peut atteindre un palier ou débloquer un badge (acquis pour toujours).
+        // Une séance corrigée à la hausse peut atteindre un palier (acquis pour toujours).
         achievements.refresh()
         Unit
     }

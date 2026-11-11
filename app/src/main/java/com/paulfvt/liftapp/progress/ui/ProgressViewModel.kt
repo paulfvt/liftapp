@@ -5,12 +5,10 @@ import androidx.lifecycle.viewModelScope
 import com.paulfvt.liftapp.core.model.Exercise
 import com.paulfvt.liftapp.core.model.Muscle
 import com.paulfvt.liftapp.profile.data.ProfileRepository
-import com.paulfvt.liftapp.progress.data.BadgeRepository
 import com.paulfvt.liftapp.progress.data.BodyMapRepository
 import com.paulfvt.liftapp.progress.data.GoalRepository
 import com.paulfvt.liftapp.progress.data.MotivationRepository
 import com.paulfvt.liftapp.progress.data.RecordRepository
-import com.paulfvt.liftapp.progress.domain.Badge
 import com.paulfvt.liftapp.progress.domain.ExerciseHistory
 import com.paulfvt.liftapp.progress.domain.GoalStatus
 import com.paulfvt.liftapp.progress.domain.MonthlyRecap
@@ -21,7 +19,6 @@ import com.paulfvt.liftapp.progress.domain.monthlyRecap
 import com.paulfvt.liftapp.progress.domain.muscleSets
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.time.Clock
-import java.time.Instant
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.ZoneId
@@ -40,7 +37,6 @@ data class ProgressUiState(
     val muscleSets: Map<Muscle, Double> = emptyMap(),
     val monthRecap: MonthlyRecap? = null,
     val goals: List<ExerciseGoal> = emptyList(),
-    val badges: Map<Badge, Instant> = emptyMap(),
     val bodyFigures: List<BodyFigure> = emptyList(),
     val exercises: List<PerformedExercise> = emptyList()
 )
@@ -55,8 +51,7 @@ private data class HistoryState(
     val goals: List<ExerciseGoal>
 )
 
-// Onglet Progrès : carte du corps, objectifs, badges et récap du mois, puis les exercices déjà faits, le plus récent
-// d'abord.
+// Onglet Progrès : carte du corps, objectifs et récap du mois, puis les exercices déjà faits, le plus récent d'abord.
 @HiltViewModel
 class ProgressViewModel @Inject constructor(
     records: RecordRepository,
@@ -64,7 +59,6 @@ class ProgressViewModel @Inject constructor(
     profiles: ProfileRepository,
     bodyMaps: BodyMapRepository,
     goals: GoalRepository,
-    badges: BadgeRepository,
     private val clock: Clock
 ) : ViewModel() {
     private val zone: ZoneId get() = ZoneId.systemDefault()
@@ -85,15 +79,13 @@ class ProgressViewModel @Inject constructor(
     val uiState: StateFlow<ProgressUiState> = combine(
         historyState,
         bodyFigures,
-        badges.observeUnlocked(),
         records.observePerformedExercises()
-    ) { history, figures, unlocked, exercises ->
+    ) { history, figures, exercises ->
         ProgressUiState(
             isLoading = false,
             muscleSets = history.muscleSets,
             monthRecap = history.monthRecap,
             goals = history.goals,
-            badges = unlocked,
             bodyFigures = figures,
             exercises = exercises
         )

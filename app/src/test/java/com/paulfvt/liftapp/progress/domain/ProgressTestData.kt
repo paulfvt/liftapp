@@ -11,7 +11,7 @@ import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
 
-// Données de test partagées par les calculs de motivation (carte du corps, souvenirs, récap, badges).
+// Données de test partagées par les calculs de motivation (carte du corps, souvenirs, récap).
 
 val PARIS: ZoneId = ZoneId.of("Europe/Paris")
 
