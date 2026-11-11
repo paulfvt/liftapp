@@ -178,6 +178,7 @@
     <string name="home_no_trained_day">Aucune séance cette semaine</string>
     <string name="home_live_workout">Séance en cours</string>
     <string name="home_latest_record">Dernier record</string>
+    <string name="home_nutrition_today">Nutrition du jour</string>
     <string name="home_no_template">Crée ton premier template dans l\'onglet Séances, ou lance une séance vide.</string>
 
     <!-- Widget (phase 9) -->

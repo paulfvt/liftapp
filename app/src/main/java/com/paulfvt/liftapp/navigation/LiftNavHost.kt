@@ -59,7 +59,8 @@ fun LiftNavHost(navController: NavHostController, modifier: Modifier = Modifier)
                 HomeScreen(
                     onOpenWorkout = { navController.navigate(WorkoutRoute) { launchSingleTop = true } },
                     onOpenExercise = { id -> navController.navigate(ExerciseProgressRoute(id)) },
-                    onOpenHistory = navController::navigateToHistory
+                    onOpenHistory = navController::navigateToHistory,
+                    onOpenNutrition = { navController.navigateToTopLevel(TopLevelDestination.NUTRITION) }
                 )
             }
         }

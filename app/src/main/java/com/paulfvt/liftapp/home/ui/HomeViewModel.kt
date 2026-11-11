@@ -7,8 +7,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.paulfvt.liftapp.home.data.Dashboard
 import com.paulfvt.liftapp.home.data.DashboardRepository
+import com.paulfvt.liftapp.nutrition.data.NutritionRepository
+import com.paulfvt.liftapp.nutrition.domain.Nutrients
+import com.paulfvt.liftapp.nutrition.domain.NutritionTarget
+import com.paulfvt.liftapp.nutrition.domain.goalOn
+import com.paulfvt.liftapp.nutrition.domain.total
 import com.paulfvt.liftapp.workout.data.WorkoutRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import java.time.Clock
+import java.time.LocalDate
+import java.time.ZoneId
 import javax.inject.Inject
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -19,21 +27,38 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 // liveWorkoutName : nom de la séance en cours, null sinon. La carte « Prochaine séance » propose alors de la reprendre.
+// nutrition : la carte « Nutrition du jour », absente tant que la nutrition ne sert pas (rien noté, aucun objectif).
 data class HomeUiState(
     val isLoading: Boolean = true,
     val dashboard: Dashboard? = null,
-    val liveWorkoutName: String? = null
+    val liveWorkoutName: String? = null,
+    val nutrition: NutritionToday? = null
 )
 
-// Accueil : la semaine, la prochaine séance, le dernier record et le souvenir.
+// Ce qui est noté aujourd'hui et l'objectif du jour (null sans objectif).
+data class NutritionToday(val total: Nutrients, val goal: NutritionTarget?)
+
+// Accueil : la semaine, la prochaine séance, la nutrition du jour, le dernier record et le souvenir.
 @HiltViewModel
-class HomeViewModel @Inject constructor(dashboard: DashboardRepository, private val workouts: WorkoutRepository) :
-    ViewModel() {
+class HomeViewModel @Inject constructor(
+    dashboard: DashboardRepository,
+    private val workouts: WorkoutRepository,
+    nutrition: NutritionRepository,
+    clock: Clock
+) : ViewModel() {
+    private val today = LocalDate.now(clock.withZone(ZoneId.systemDefault()))
+
+    private val nutritionToday = combine(nutrition.observeDay(today), nutrition.observeGoals()) { entries, goals ->
+        val goal = goalOn(today, goals)?.target
+        if (entries.isEmpty() && goal == null) null else NutritionToday(entries.map { it.nutrients }.total(), goal)
+    }
+
     val uiState: StateFlow<HomeUiState> = combine(
         dashboard.observe(),
-        workouts.observeInProgress().map { it?.name }.distinctUntilChanged()
-    ) { board, liveName ->
-        HomeUiState(isLoading = false, dashboard = board, liveWorkoutName = liveName)
+        workouts.observeInProgress().map { it?.name }.distinctUntilChanged(),
+        nutritionToday
+    ) { board, liveName, nutritionCard ->
+        HomeUiState(isLoading = false, dashboard = board, liveWorkoutName = liveName, nutrition = nutritionCard)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(STOP_TIMEOUT_MS), HomeUiState())
 
     // Vrai une fois la séance créée (ou déjà en cours) : l'écran l'ouvre puis appelle onWorkoutOpened.

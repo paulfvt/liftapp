@@ -100,9 +100,11 @@ fun fatColor(): Color = MaterialTheme.colorScheme.secondary
 
 private const val FILL_DURATION_MS = 600
 
-// Anneau des calories, dessiné comme l'anneau hebdomadaire : au centre, ce qui reste (ou le dépassement).
+// Anneau des calories, dessiné comme l'anneau hebdomadaire : au centre, ce qui reste (ou le dépassement). Plus petit
+// que 128 dp (carte de l'accueil), le chiffre rapetisse et la légende perd « kcal » pour tenir dans l'anneau.
 @Composable
 fun CalorieRing(eatenKcal: Double, goalKcal: Int, modifier: Modifier = Modifier, size: Dp = 128.dp) {
+    val isCompact = size < 128.dp
     val fraction by animateFloatAsState(
         targetValue = if (goalKcal > 0) (eatenKcal / goalKcal).toFloat().coerceIn(0f, 1f) else 0f,
         animationSpec = tween(FILL_DURATION_MS),
@@ -117,15 +119,18 @@ fun CalorieRing(eatenKcal: Double, goalKcal: Int, modifier: Modifier = Modifier,
     ) + ", " + wholeNumber(abs(remaining).toDouble()) + " " + centerLabel
     val track = MaterialTheme.colorScheme.surfaceContainerHighest
     val bar = MaterialTheme.colorScheme.primaryContainer
+    val numberStyle = if (isCompact) MaterialTheme.typography.headlineSmall else MaterialTheme.typography.headlineLarge
+    val isOver = remaining < 0
+    val shortLabel = stringResource(if (isOver) R.string.nutrition_over_short else R.string.nutrition_left_short)
     Box(
         contentAlignment = Alignment.Center,
         modifier = modifier.size(size).clearAndSetSemantics { contentDescription = description }
     ) {
         Canvas(Modifier.size(size)) { drawSignalRing(fraction, track, bar) }
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(wholeNumber(abs(remaining).toDouble()), style = MaterialTheme.typography.headlineLarge)
+            Text(wholeNumber(abs(remaining).toDouble()), style = numberStyle)
             Text(
-                centerLabel.uppercase(Locale.FRENCH),
+                (if (isCompact) shortLabel else centerLabel).uppercase(Locale.FRENCH),
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )

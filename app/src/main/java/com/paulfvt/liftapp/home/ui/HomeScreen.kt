@@ -87,6 +87,7 @@ fun HomeScreen(
     onOpenWorkout: () -> Unit,
     onOpenExercise: (Long) -> Unit,
     onOpenHistory: () -> Unit,
+    onOpenNutrition: () -> Unit,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -128,6 +129,13 @@ fun HomeScreen(
                     lastDuration = dashboard.nextLastDuration,
                     onStart = { templateId -> viewModel.start(templateId, emptyName) }
                 )
+            }
+            uiState.nutrition?.let { nutrition ->
+                item(key = "nutrition") {
+                    SectionBlock(stringResource(R.string.home_nutrition_today)) {
+                        NutritionTodayCard(nutrition, onClick = onOpenNutrition)
+                    }
+                }
             }
             item(key = "weekStats") {
                 WeekStatsSection(dashboard.weekStats, onSeeAll = onOpenHistory)

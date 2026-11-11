@@ -32,6 +32,8 @@
     <string name="nutrition_next_day">Jour suivant</string>
     <string name="nutrition_kcal_left">kcal restantes</string>
     <string name="nutrition_kcal_over">kcal en trop</string>
+    <string name="nutrition_left_short">restantes</string>
+    <string name="nutrition_over_short">en trop</string>
     <string name="nutrition_kcal_eaten">kcal mangées</string>
     <string name="nutrition_eaten_of_goal">%1$s mangées · objectif %2$s</string>
     <string name="nutrition_no_goal">Pas encore d\'objectif</string>
