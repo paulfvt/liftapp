@@ -64,6 +64,7 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInWindow
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.liveRegion
@@ -251,7 +252,7 @@ private fun ValuesSheet(result: LabelReading, isPerPortionOnly: Boolean, onUse: 
                     modifier = Modifier.weight(1f)
                 )
                 Text(
-                    stringResource(R.string.nutrition_scan_found, result.foundCount),
+                    pluralStringResource(R.plurals.nutrition_scan_found, result.foundCount, result.foundCount),
                     style = MaterialTheme.typography.labelLarge,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite }

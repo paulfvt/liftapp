@@ -45,8 +45,6 @@ import com.paulfvt.liftapp.core.model.MeasurementType
 import com.paulfvt.liftapp.core.ui.LocalUnits
 import com.paulfvt.liftapp.nutrition.domain.CalorieWeek
 import com.paulfvt.liftapp.nutrition.domain.ExpenditureEstimate
-import com.paulfvt.liftapp.nutrition.domain.MIN_LOGGED_DAYS
-import com.paulfvt.liftapp.nutrition.domain.MIN_WEIGH_INS
 import com.paulfvt.liftapp.nutrition.domain.NutritionGoal
 import com.paulfvt.liftapp.nutrition.domain.WeightTrend
 import com.paulfvt.liftapp.profile.domain.toDisplay
@@ -185,7 +183,8 @@ private fun CalorieBars(week: CalorieWeek) {
     val bar = MaterialTheme.colorScheme.primary
     val today = MaterialTheme.colorScheme.secondaryContainer
     val goalLine = MaterialTheme.colorScheme.outline
-    val locale = Locale.getDefault()
+    // L'interface n'existe qu'en français : jours de la semaine en français, quelle que soit la langue du téléphone.
+    val locale = Locale.FRENCH
     val description = stringResource(
         R.string.nutrition_trend_chart_description,
         week.days.joinToString(", ") { day ->
@@ -299,10 +298,12 @@ private fun ExpenditureCard(
             is ExpenditureEstimate.NotEnoughData -> Text(
                 stringResource(
                     R.string.nutrition_trend_not_enough,
-                    MIN_LOGGED_DAYS,
-                    estimate.loggedDays,
-                    MIN_WEIGH_INS,
-                    estimate.weighIns
+                    pluralStringResource(
+                        R.plurals.nutrition_trend_logged_days,
+                        estimate.loggedDays,
+                        estimate.loggedDays
+                    ),
+                    pluralStringResource(R.plurals.nutrition_trend_weigh_ins, estimate.weighIns, estimate.weighIns)
                 ),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
