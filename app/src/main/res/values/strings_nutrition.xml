@@ -106,10 +106,20 @@
     <string name="nutrition_delete_food_title">Supprimer « %1$s » ?</string>
     <string name="nutrition_delete_food_text">Les repas déjà notés le gardent.</string>
 
-    <!-- Photo de l'étiquette -->
-    <string name="nutrition_scan_photo">Photo de l\'étiquette</string>
+    <!-- Lecture de l'étiquette : scan en direct ou image de la galerie -->
+    <string name="nutrition_scan_live">Scanner l\'étiquette</string>
     <string name="nutrition_scan_gallery">Choisir une image</string>
-    <string name="nutrition_scan_hint">Photographie le tableau nutritionnel bien à plat : l\'app remplit les valeurs pour 100 g. La photo est effacée juste après.</string>
+    <string name="nutrition_scan_hint">Scanne le tableau nutritionnel ou choisis une photo : l\'app remplit les valeurs pour 100 g, sans rien garder.</string>
+    <string name="nutrition_scan_frame_title">Cadre le tableau nutritionnel</string>
+    <string name="nutrition_scan_frame_text">Les valeurs s\'affichent dès qu\'elles sont lues.</string>
+    <string name="nutrition_scan_live_status">Lecture en cours · tiens le téléphone immobile</string>
+    <string name="nutrition_scan_values_title">Valeurs pour 100 g</string>
+    <string name="nutrition_scan_found">%1$d sur 4</string>
+    <string name="nutrition_scan_searching">Recherche…</string>
+    <string name="nutrition_scan_use">Utiliser ces valeurs</string>
+    <string name="nutrition_scan_pick_instead">Choisir une image plutôt</string>
+    <string name="nutrition_scan_torch">Lampe</string>
+    <string name="nutrition_energy">Énergie</string>
     <string name="nutrition_scan_reading">Lecture de l\'étiquette…</string>
     <string name="nutrition_scan_all_found">Valeurs lues sur l\'étiquette : vérifie-les avant d\'enregistrer.</string>
     <plurals name="nutrition_scan_partial">
@@ -117,9 +127,9 @@
         <item quantity="other">%d valeurs lues sur 4 : vérifie-les et complète les autres.</item>
     </plurals>
     <string name="nutrition_scan_per_portion">Cette étiquette ne donne que des valeurs par portion : entre les valeurs pour 100 g à la main.</string>
-    <string name="nutrition_scan_nothing">Aucune valeur trouvée. Reprends la photo bien à plat, sans reflet, ou entre les valeurs à la main.</string>
+    <string name="nutrition_scan_nothing">Aucune valeur trouvée. Essaie le scan en direct, ou entre les valeurs à la main.</string>
     <string name="nutrition_scan_failed">Impossible de lire cette image.</string>
-    <string name="nutrition_scan_camera_denied">Sans l\'appareil photo, tu peux choisir une image dans la galerie.</string>
+    <string name="nutrition_scan_camera_denied">Sans la caméra, tu peux choisir une image dans la galerie.</string>
 
     <!-- Contrôle des calories après une lecture d'étiquette -->
     <string name="nutrition_check_title">Les calories ne collent pas</string>

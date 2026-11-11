@@ -3,7 +3,6 @@ package com.paulfvt.liftapp.profile.ui
 import android.Manifest
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.provider.Settings
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -72,6 +71,7 @@ import com.paulfvt.liftapp.R
 import com.paulfvt.liftapp.core.designsystem.component.LiftButtonSize
 import com.paulfvt.liftapp.core.designsystem.component.LiftOutlinedButton
 import com.paulfvt.liftapp.core.designsystem.component.SignalButton
+import com.paulfvt.liftapp.core.ui.hasCameraPermission
 import java.io.File
 
 private const val PORTRAIT_RATIO = 3f / 4f
@@ -314,9 +314,6 @@ private fun BindCamera(camera: CameraUseCases, useFrontCamera: Boolean) {
         onDispose { provider?.unbindAll() }
     }
 }
-
-private fun Context.hasCameraPermission(): Boolean =
-    ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
 
 private fun Context.openAppSettings() {
     startActivity(

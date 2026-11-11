@@ -1,8 +1,6 @@
 package com.paulfvt.liftapp.nutrition.ui
 
 import android.Manifest
-import android.content.Context
-import android.content.pm.PackageManager
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -46,7 +44,6 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import androidx.core.content.ContextCompat
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.paulfvt.liftapp.R
 import com.paulfvt.liftapp.core.designsystem.component.LiftCard
@@ -54,6 +51,7 @@ import com.paulfvt.liftapp.core.designsystem.component.LiftOutlinedButton
 import com.paulfvt.liftapp.core.designsystem.component.LiftTextButton
 import com.paulfvt.liftapp.core.designsystem.component.LiftTonalButton
 import com.paulfvt.liftapp.core.designsystem.component.SignalButton
+import com.paulfvt.liftapp.core.ui.hasCameraPermission
 import com.paulfvt.liftapp.nutrition.domain.EnergyMismatch
 import com.paulfvt.liftapp.nutrition.domain.FoodDraft
 import com.paulfvt.liftapp.nutrition.domain.FoodDraftError
@@ -70,6 +68,7 @@ fun FoodEditScreen(
     onCreated: (Long) -> Unit,
     onSaved: () -> Unit,
     onDeleted: () -> Unit,
+    onScanLabel: () -> Unit,
     viewModel: FoodEditViewModel = hiltViewModel()
 ) {
     LaunchedEffect(viewModel.result) {
@@ -83,12 +82,10 @@ fun FoodEditScreen(
     val draft = viewModel.draft
     val errors = viewModel.errors
     val context = LocalContext.current
-    // Appareil photo d'Android : il écrit la photo dans le fichier temporaire de l'étiquette.
-    val camera = rememberLauncherForActivityResult(ActivityResultContracts.TakePicture(), viewModel::onLabelPhotoTaken)
     var isCameraDenied by rememberSaveable { mutableStateOf(false) }
-    // L'app déclare la caméra (photos de progression) : Android exige alors la permission avant l'appareil photo.
+    // Le scan en direct a besoin de la caméra : la permission est demandée au premier scan.
     val permission = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-        if (isGranted) camera.launch(viewModel.labelPhotoUri()) else isCameraDenied = true
+        if (isGranted) onScanLabel() else isCameraDenied = true
     }
     // Sélecteur de photos d'Android : aucune permission, l'app ne voit que l'image choisie.
     val picker = rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
@@ -142,13 +139,9 @@ fun FoodEditScreen(
             LabelScanSection(
                 state = viewModel.scanState,
                 isCameraDenied = isCameraDenied,
-                onTakePhoto = {
+                onScan = {
                     isCameraDenied = false
-                    if (context.hasCameraPermission()) {
-                        camera.launch(viewModel.labelPhotoUri())
-                    } else {
-                        permission.launch(Manifest.permission.CAMERA)
-                    }
+                    if (context.hasCameraPermission()) onScanLabel() else permission.launch(Manifest.permission.CAMERA)
                 },
                 onPickImage = {
                     picker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
@@ -253,20 +246,21 @@ private fun errorText(show: Boolean, @StringRes text: Int): (@Composable () -> U
     null
 }
 
-// Photo de l'étiquette (décision du 5 novembre 2026) : boutons, puis où en est la lecture et ce qu'il faut vérifier.
+// Lecture de l'étiquette (décisions du 5 et du 11 novembre 2026) : scan en direct ou image de la galerie, puis où en
+// est la lecture et ce qu'il faut vérifier.
 @Composable
 private fun LabelScanSection(
     state: LabelScanState?,
     isCameraDenied: Boolean,
-    onTakePhoto: () -> Unit,
+    onScan: () -> Unit,
     onPickImage: () -> Unit
 ) {
     val isReading = state == LabelScanState.Reading
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             LiftOutlinedButton(
-                text = stringResource(R.string.nutrition_scan_photo),
-                onClick = onTakePhoto,
+                text = stringResource(R.string.nutrition_scan_live),
+                onClick = onScan,
                 enabled = !isReading,
                 icon = R.drawable.ic_photo_camera
             )
@@ -378,6 +372,3 @@ private val LabelField.nameRes: Int
 
 // Énergie, protéines, glucides et lipides.
 private const val LABEL_VALUES = 4
-
-private fun Context.hasCameraPermission(): Boolean =
-    ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED

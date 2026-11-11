@@ -5,9 +5,11 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import com.paulfvt.liftapp.core.model.MeasurementType
+import com.paulfvt.liftapp.nutrition.domain.LabelReading
 import com.paulfvt.liftapp.nutrition.ui.FoodEditScreen
 import com.paulfvt.liftapp.nutrition.ui.FoodQuantityScreen
 import com.paulfvt.liftapp.nutrition.ui.FoodSearchScreen
+import com.paulfvt.liftapp.nutrition.ui.LabelScanScreen
 import com.paulfvt.liftapp.nutrition.ui.NeedsScreen
 import com.paulfvt.liftapp.profile.navigation.MeasurementEntryRoute
 import com.paulfvt.liftapp.profile.navigation.ProfileEditRoute
@@ -31,6 +33,24 @@ data class FoodEditRoute(val foodId: Long? = null, val date: Long? = null, val m
 // « Mes besoins » : objectif de calories et de macros.
 @Serializable
 data object NutritionNeedsRoute
+
+// Scan en direct de l'étiquette, ouvert depuis la création d'un aliment.
+@Serializable
+data object LabelScanRoute
+
+// Ce que le scan rend à l'écran de l'aliment, dans le SavedStateHandle de son entrée de navigation (même mécanisme que
+// le choix d'exercices) : les valeurs lues, ou l'adresse de l'image choisie à la place.
+const val LABEL_VALUES_KEY = "labelValues"
+const val LABEL_IMAGE_KEY = "labelImage"
+
+// Le SavedStateHandle ne garde que des types simples : les valeurs passent en tableau, NaN pour une valeur non lue.
+fun LabelReading.toValues(): DoubleArray =
+    listOf(kcal, protein, carbs, fat, fiber).map { it ?: Double.NaN }.toDoubleArray()
+
+fun labelReadingOf(values: DoubleArray): LabelReading {
+    val (kcal, protein, carbs, fat, fiber) = values.map { value -> value.takeUnless { it.isNaN() } }
+    return LabelReading(kcal = kcal, protein = protein, carbs = carbs, fat = fat, fiber = fiber)
+}
 
 // Sous-écrans de l'onglet Nutrition. backToJournal : revient au journal en fermant la recherche et la quantité.
 fun NavGraphBuilder.nutritionScreens(navController: NavController, backToJournal: () -> Unit) {
@@ -73,7 +93,21 @@ fun NavGraphBuilder.nutritionScreens(navController: NavController, backToJournal
             },
             onSaved = navController::popBackStack,
             // Aliment supprimé : sa quantité, ouverte en dessous, n'a plus de sens.
-            onDeleted = { if (!navController.popBackStack<FoodSearchRoute>(inclusive = false)) backToJournal() }
+            onDeleted = { if (!navController.popBackStack<FoodSearchRoute>(inclusive = false)) backToJournal() },
+            onScanLabel = { navController.navigate(LabelScanRoute) }
+        )
+    }
+    composable<LabelScanRoute> {
+        LabelScanScreen(
+            onClose = navController::popBackStack,
+            onUse = { reading ->
+                navController.previousBackStackEntry?.savedStateHandle?.set(LABEL_VALUES_KEY, reading.toValues())
+                navController.popBackStack()
+            },
+            onPickImage = { uri ->
+                navController.previousBackStackEntry?.savedStateHandle?.set(LABEL_IMAGE_KEY, uri.toString())
+                navController.popBackStack()
+            }
         )
     }
 }

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Fichiers que l'app peut confier à une autre app : le dossier share/ du cache (image du récap mensuel, menu de
-     partage) et label/ (photo d'une étiquette, prise par l'appareil photo puis effacée après lecture). -->
+     partage). -->
 <paths>
     <cache-path name="share" path="share/" />
-    <cache-path name="label" path="label/" />
 </paths>
