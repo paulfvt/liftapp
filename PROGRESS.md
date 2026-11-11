@@ -1,9 +1,9 @@
 # Avancement
 
-## Phase 12 — Nutrition (V2) : en cours
+## Phase 12 — Nutrition (V2) : code terminé le 11 novembre 2026, à tester sur le téléphone
 
-Étapes 1 à 5 faites le 3 novembre 2026, à tester sur le téléphone (le test prévu après l'étape 4 couvre aussi
-l'étape 5, pour que le journal ait déjà un objectif). Reste : étapes 6 et 7.
+Étapes 1 à 5 faites le 3 novembre 2026, étapes 6 et 7 le 11 novembre (voir « Retours du 11 novembre » plus bas).
+Reste : le test du développeur sur le S25+, puis les captures du README.
 
 Fait, un commit par étape :
 - Navigation : onglet Nutrition en deuxième, Séances au milieu ; l'historique est listé sous les templates (même
@@ -45,6 +45,26 @@ effacée après lecture ; envoi des statistiques de ML Kit en échec silencieux,
    limitée aux processeurs ARM des téléphones.
 3. « Créer un aliment » : « Prendre l'étiquette en photo » et « Choisir une image », champs remplis à vérifier.
 4. Crédits dans « À propos », README, politique de confidentialité ; test sur l'émulateur puis le téléphone.
+
+## Retours du 11 novembre 2026 et fin de la phase 12 : à tester sur le téléphone
+
+Retours du développeur (séances validées, « rien à redire ») et plan validé le même jour après les maquettes 5 à 8 du
+canevas « Nutrition LiftApp ». Un commit par point :
+- Badges et clubs 100/140/180 kg retirés (écart avec le cahier § 4.7, noté dans `CLAUDE.md`). Streak, paliers,
+  records et récap restent. Base en version 6 : la migration 5 → 6 supprime la table `badge`, testée.
+- Lecture d'étiquette plus fiable : photo redressée selon l'inclinaison des lignes (cause probable des ratés : une
+  rangée large d'une photo penchée tombait sur la rangée voisine), liste des ingrédients ignorée, sous-rangées
+  coupées, « Énergie (kJ/kcal) 1520/362 », confusions de lecture corrigées. Carte « Les calories ne collent pas »
+  avec la correction quand un seul chiffre explique l'écart.
+- Scan en direct : caméra de l'app (CameraX, déjà validé) avec un cadre, vote sur les dernières images, lampe. Plus
+  de photo par l'appareil photo d'Android ni de dossier `label/` dans le FileProvider. Aucune nouvelle dépendance.
+- Étape 6, Tendance (bouton du journal) : semaine de calories et protéines, poids des 4 semaines, dépense réelle et
+  objectif proposé.
+- Étape 7 : carte « Nutrition du jour » sur l'accueil, export CSV des repas, README et politique de confidentialité.
+- Recettes maison : idée proposée, mise de côté par le développeur.
+
+À tester sur le téléphone : scan en direct sur de vrais paquets (sans reflet, avec la lampe), la carte de contrôle
+des calories, la Tendance avec les vraies données, la carte de l'accueil, l'export des repas dans Excel.
 
 ## Retours du test sur le téléphone (9 novembre 2026) : corrigés, à tester sur le téléphone
 

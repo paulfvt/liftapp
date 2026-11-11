@@ -30,10 +30,10 @@ pas accès, et tes photos de progression n'apparaissent pas dans la galerie.
 - Pas de compte, pas de publicité, pas d'outil de mesure d'audience ni de suivi.
 - Le récap mensuel peut être partagé en image, seulement si tu appuies sur « Partager » : c'est toi qui choisis
   l'application qui la reçoit, dans le menu de partage d'Android. Rien d'autre n'est envoyé.
-- La lecture d'une étiquette (photo du tableau nutritionnel d'un produit) se fait entièrement sur le téléphone,
-  avec ML Kit de Google intégré à l'application. Cette bibliothèque prévoit d'envoyer des statistiques d'usage à
-  Google, mais l'application n'ayant pas accès à internet, rien ne part. La photo est effacée dès que les valeurs
-  sont lues ; une image choisie dans la galerie est seulement lue, jamais copiée.
+- La lecture d'une étiquette (tableau nutritionnel d'un produit) se fait entièrement sur le téléphone, avec ML Kit
+  de Google intégré à l'application. Cette bibliothèque prévoit d'envoyer des statistiques d'usage à Google, mais
+  l'application n'ayant pas accès à internet, rien ne part. Pendant le scan, les images de la caméra sont lues au fur
+  et à mesure et jamais enregistrées ; une image choisie dans la galerie est seulement lue, jamais copiée.
 - Si tu poses le widget sur ton écran d'accueil, il y affiche ta semaine, ta prochaine séance, ton dernier record et
   ta séance en cours : toute personne qui voit ton écran d'accueil peut les lire. Ces informations restent sur le
   téléphone.
@@ -49,8 +49,9 @@ pas accès, et tes photos de progression n'apparaissent pas dans la galerie.
 
 ## Export et sauvegarde
 
-Depuis les réglages, tu peux exporter ton historique et tes mesures en fichiers CSV (lisibles dans Excel), et
-sauvegarder toutes tes données dans un fichier ZIP pour les restaurer plus tard, par exemple sur un nouveau téléphone.
+Depuis les réglages, tu peux exporter ton historique, tes mesures et tes repas en fichiers CSV (lisibles dans
+Excel), et sauvegarder toutes tes données dans un fichier ZIP pour les restaurer plus tard, par exemple sur un nouveau
+téléphone.
 
 - C'est toi qui choisis où chaque fichier est enregistré, avec le sélecteur de fichiers d'Android (mémoire du
   téléphone, carte SD, service de stockage en ligne installé sur le téléphone). L'application n'a besoin d'aucune
@@ -76,8 +77,9 @@ direct d'un téléphone à un autre (câble ou connexion sans fil entre les deux
 - **Notifications** : afficher la séance en cours et le compte à rebours du repos, même écran verrouillé.
 - **Alarmes exactes** : déclencher l'alerte de fin de repos à l'heure, même quand l'application est en arrière-plan.
 - **Vibreur** : faire vibrer le téléphone à la fin du repos, si tu l'as activé.
-- **Caméra** : prendre tes photos de progression dans l'application, et photographier une étiquette pour remplir un
-  aliment. Elle est demandée à ta première photo, jamais avant, et n'est utilisée qu'à ce moment-là.
+- **Caméra** : prendre tes photos de progression dans l'application, et scanner une étiquette pour remplir un
+  aliment. Elle est demandée à ta première photo ou à ton premier scan, jamais avant, et n'est utilisée qu'à ce
+  moment-là.
 - **Biométrie** : déverrouiller tes photos avec ton visage ou ton empreinte, si tu choisis cette option.
 
 Tu peux retirer ces autorisations à tout moment dans les paramètres Android ; l'application continue de fonctionner,

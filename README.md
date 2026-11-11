@@ -63,9 +63,10 @@ courbes, streak hebdomadaire et carte des muscles travaillés.
 
 **Noter ce que tu manges**
 - Journal du jour : calories restantes, protéines, glucides et lipides, sur 4 repas.
-- 3 000 aliments de la table Ciqual de l'Anses, et tes propres aliments, remplis d'une photo de l'étiquette.
+- 3 000 aliments de la table Ciqual de l'Anses, et tes propres aliments, remplis en scannant l'étiquette.
 - Récents, favoris, repas enregistrés à ajouter d'un coup, « Copier hier ».
 - Objectif calculé depuis ton profil et ta dernière pesée, ajustable à la main.
+- Tendance : calories de la semaine, courbe du poids et dépense réelle estimée, qui ajuste ton objectif.
 
 **Tes données, chez toi**
 - Aucune connexion : l'app ne demande même pas l'accès à internet.
