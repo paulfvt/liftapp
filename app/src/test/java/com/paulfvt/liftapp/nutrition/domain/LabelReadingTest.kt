@@ -1,6 +1,10 @@
 package com.paulfvt.liftapp.nutrition.domain
 
+import kotlin.math.cos
+import kotlin.math.roundToInt
+import kotlin.math.sin
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -28,7 +32,7 @@ class LabelReadingTest {
                 "Sel 0,02 g"
             )
         )
-        assertEquals(LabelReading(kcal = 362.0, protein = 13.0, carbs = 58.0, fat = 6.5), reading)
+        assertEquals(LabelReading(kcal = 362.0, protein = 13.0, carbs = 58.0, fat = 6.5, fiber = 9.0), reading)
     }
 
     @Test
@@ -52,6 +56,113 @@ class LabelReadingTest {
             )
         )
         assertEquals(LabelReading(kcal = 362.0, protein = 10.5, carbs = 58.0, fat = 6.5), reading)
+    }
+
+    // Les mêmes lignes sur une photo penchée de `degrees` : chaque centre tourne autour de l'origine.
+    private fun tilted(degrees: Double, lines: List<TextLine>): List<TextLine> {
+        val radians = Math.toRadians(degrees)
+        return lines.map { line ->
+            val x = (line.left + line.right) / 2.0
+            val y = (line.top + line.bottom) / 2.0
+            val newX = x * cos(radians) - y * sin(radians)
+            val newY = x * sin(radians) + y * cos(radians)
+            val halfWidth = (line.right - line.left) / 2.0
+            val halfHeight = (line.bottom - line.top) / 2.0
+            TextLine(
+                line.text,
+                (newX - halfWidth).roundToInt(),
+                (newY - halfHeight).roundToInt(),
+                (newX + halfWidth).roundToInt(),
+                (newY + halfHeight).roundToInt(),
+                degrees.toFloat()
+            )
+        }
+    }
+
+    private val columns = listOf(
+        line("Pour 100 g", 400, 60, 150),
+        line("Énergie", 20, 100, 150),
+        line("1520 kJ / 362 kcal", 400, 100, 180),
+        line("Protéines", 20, 140, 150),
+        line("10,5 g", 400, 140, 80),
+        line("Glucides", 20, 180, 150),
+        line("58 g", 400, 180, 80),
+        line("Lipides", 20, 220, 150),
+        line("6,5 g", 400, 220, 80)
+    )
+
+    @Test
+    fun `a tilted photo is straightened before matching rows`() {
+        // Penchée de 5° : sans redressement, le chiffre des protéines semblait sur la rangée des glucides.
+        val expected = LabelReading(kcal = 362.0, protein = 10.5, carbs = 58.0, fat = 6.5)
+        assertEquals(expected, readNutritionLabel(tilted(5.0, columns)))
+        assertEquals(expected, readNutritionLabel(tilted(-4.0, columns)))
+    }
+
+    @Test
+    fun `the ingredient list is not read as the table`() {
+        val reading = readNutritionLabel(
+            rows(
+                "Ingrédients : flocons d'avoine 58 %, sucre, matière grasse de palme 6 g, protéines de lait, sel.",
+                "protéines de lait 3 g, arôme.",
+                "matière grasse (2 g), sel.",
+                "Valeurs nutritionnelles pour 100 g",
+                "Énergie 1520 kJ / 362 kcal",
+                "Matières grasses 6,5 g",
+                "Glucides 58 g",
+                "Protéines 13 g"
+            )
+        )
+        assertEquals(LabelReading(kcal = 362.0, protein = 13.0, carbs = 58.0, fat = 6.5), reading)
+    }
+
+    @Test
+    fun `energy units announced by the label are used for bare numbers`() {
+        assertEquals(362.0, readNutritionLabel(rows("pour 100 g", "Énergie (kJ/kcal) 1520/362")).kcal!!, 0.0)
+        assertEquals(362.0, readNutritionLabel(rows("pour 100 g", "Valeur énergétique (kcal) 362")).kcal!!, 0.0)
+        assertEquals(363.0, readNutritionLabel(rows("pour 100 g", "Énergie (kJ) 1520")).kcal!!, 0.0)
+    }
+
+    @Test
+    fun `a sub-row stuck to its row is cut off`() {
+        val reading = readNutritionLabel(
+            rows(
+                "pour 100 g",
+                "Glucides 58 g dont sucres 5 g",
+                "Matières grasses 6,5 g dont acides gras saturés 1,2 g",
+                "dont matières grasses saturées 1,2 g"
+            )
+        )
+        assertEquals(58.0, reading.carbs!!, 0.0)
+        assertEquals(6.5, reading.fat!!, 0.0)
+    }
+
+    @Test
+    fun `common misreadings are fixed`() {
+        val reading = readNutritionLabel(
+            rows("pour 100 g", "Énergie 1520 kJ / 362 kcai", "Protéines 139", "Lipides O,5 g", "Glucides l8 g")
+        )
+        // « kcai » pour kcal, « 13g » lu « 139 » (plus de 100 g est impossible), O pour zéro, l pour un 1.
+        assertEquals(LabelReading(kcal = 362.0, protein = 13.0, carbs = 18.0, fat = 0.5), reading)
+    }
+
+    @Test
+    fun `more than 900 kcal are kJ read with the wrong unit`() {
+        assertEquals(363.0, readNutritionLabel(rows("pour 100 g", "Énergie 1520 kcal")).kcal!!, 0.0)
+    }
+
+    @Test
+    fun `fibres are read to check the calories but not counted as a value`() {
+        val reading = readNutritionLabel(rows("pour 100 g", "Fibres alimentaires 9 g"))
+        assertEquals(9.0, reading.fiber!!, 0.0)
+        assertEquals(0, reading.foundCount)
+    }
+
+    @Test
+    fun `a misread 100 g header still counts as per 100 g`() {
+        val reading = readNutritionLabel(rows("Pour 1009", "Par portion (30 g)", "Protéines 13 g 3,9 g"))
+        assertFalse(reading.perPortionOnly)
+        assertEquals(13.0, reading.protein!!, 0.0)
     }
 
     @Test

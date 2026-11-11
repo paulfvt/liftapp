@@ -12,13 +12,17 @@ import androidx.navigation.toRoute
 import com.google.mlkit.common.MlKitException
 import com.paulfvt.liftapp.nutrition.data.LabelScanner
 import com.paulfvt.liftapp.nutrition.data.NutritionRepository
+import com.paulfvt.liftapp.nutrition.domain.EnergyMismatch
 import com.paulfvt.liftapp.nutrition.domain.FOOD_NAME_MAX_LENGTH
 import com.paulfvt.liftapp.nutrition.domain.FoodDraft
 import com.paulfvt.liftapp.nutrition.domain.FoodDraftError
+import com.paulfvt.liftapp.nutrition.domain.LabelField
+import com.paulfvt.liftapp.nutrition.domain.energyMismatch
 import com.paulfvt.liftapp.nutrition.domain.errors
 import com.paulfvt.liftapp.nutrition.domain.toDraft
 import com.paulfvt.liftapp.nutrition.navigation.FoodEditRoute
 import com.paulfvt.liftapp.workout.domain.filterDecimalInput
+import com.paulfvt.liftapp.workout.domain.formatDecimal
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.io.IOException
 import javax.inject.Inject
@@ -73,6 +77,14 @@ class FoodEditViewModel @Inject constructor(
     var scanState by mutableStateOf<LabelScanState?>(null)
         private set
 
+    // Fibres de la dernière étiquette lue, pour le contrôle des calories (2 kcal par gramme).
+    private var labelFiber = 0.0
+
+    // Après une lecture d'étiquette : calories qui ne collent pas avec les macros. Recalculé à chaque correction, la
+    // carte disparaît dès que les valeurs collent.
+    val energyMismatch: EnergyMismatch?
+        get() = if (scanState is LabelScanState.Found) draft.energyMismatch(labelFiber) else null
+
     private var hasTriedToSave = false
     private var isSaving = false
 
@@ -98,6 +110,7 @@ class FoodEditViewModel @Inject constructor(
         viewModelScope.launch {
             scanState = try {
                 val reading = scanner.read(uri)
+                labelFiber = reading.fiber ?: 0.0
                 update { reading.applyTo(this) }
                 when {
                     reading.perPortionOnly -> LabelScanState.PerPortionOnly
@@ -112,6 +125,21 @@ class FoodEditViewModel @Inject constructor(
                 LabelScanState.Failed
             } finally {
                 if (isTemporary) scanner.deletePhoto()
+            }
+        }
+    }
+
+    // Met la valeur qui explique l'écart de calories à la place du chiffre mal lu.
+    fun applyEnergySuggestion() {
+        val mismatch = energyMismatch ?: return
+        val value = formatDecimal(mismatch.suggestion ?: return)
+        update {
+            when (mismatch.suspect) {
+                LabelField.ENERGY -> copy(kcal = value)
+                LabelField.PROTEIN -> copy(protein = value)
+                LabelField.CARBS -> copy(carbs = value)
+                LabelField.FAT -> copy(fat = value)
+                null -> this
             }
         }
     }

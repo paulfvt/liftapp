@@ -7,6 +7,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
@@ -19,6 +20,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -47,11 +49,18 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.paulfvt.liftapp.R
+import com.paulfvt.liftapp.core.designsystem.component.LiftCard
 import com.paulfvt.liftapp.core.designsystem.component.LiftOutlinedButton
 import com.paulfvt.liftapp.core.designsystem.component.LiftTextButton
+import com.paulfvt.liftapp.core.designsystem.component.LiftTonalButton
 import com.paulfvt.liftapp.core.designsystem.component.SignalButton
+import com.paulfvt.liftapp.nutrition.domain.EnergyMismatch
+import com.paulfvt.liftapp.nutrition.domain.FoodDraft
 import com.paulfvt.liftapp.nutrition.domain.FoodDraftError
+import com.paulfvt.liftapp.nutrition.domain.LabelField
 import com.paulfvt.liftapp.template.ui.ConfirmDeleteDialog
+import com.paulfvt.liftapp.workout.domain.formatDecimal
+import kotlin.math.roundToInt
 
 // Aliment personnel : nom et valeurs pour 100 g, comme sur l'étiquette d'un produit.
 @OptIn(ExperimentalMaterial3Api::class)
@@ -174,6 +183,9 @@ fun FoodEditScreen(
                 R.string.nutrition_error_grams_per_100g,
                 imeAction = ImeAction.Done
             )
+            viewModel.energyMismatch?.let { mismatch ->
+                EnergyMismatchCard(mismatch, draft, onApply = viewModel::applyEnergySuggestion)
+            }
             if (FoodDraftError.MACROS_OVER_100G in errors) {
                 Text(
                     stringResource(R.string.nutrition_error_macros_sum),
@@ -291,6 +303,78 @@ private fun LabelScanSection(
         }
     }
 }
+
+// Calories qui ne collent pas avec les macros après une lecture d'étiquette : la valeur sans doute mal lue et, quand
+// une seule correction explique l'écart, cette correction en un appui.
+@Composable
+private fun EnergyMismatchCard(mismatch: EnergyMismatch, draft: FoodDraft, onApply: () -> Unit) {
+    val expected = formatDecimal(mismatch.expectedKcal.roundToInt().toDouble())
+    val suggestion = mismatch.suggestion?.let(::formatDecimal)
+    val field = mismatch.suspect
+    val text = when {
+        field == null || suggestion == null -> stringResource(R.string.nutrition_check_unknown, expected, draft.kcal)
+        field == LabelField.ENERGY -> stringResource(R.string.nutrition_check_energy, expected, draft.kcal, suggestion)
+        else -> stringResource(
+            R.string.nutrition_check_macro,
+            draft.textOf(field),
+            stringResource(field.nameRes),
+            expected,
+            draft.kcal,
+            suggestion
+        )
+    }
+    LiftCard(
+        colors = CardDefaults.elevatedCardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerHigh),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.tertiary),
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.padding(16.dp)) {
+            Icon(
+                painterResource(R.drawable.ic_info),
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.tertiary
+            )
+            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                Text(stringResource(R.string.nutrition_check_title), style = MaterialTheme.typography.titleSmall)
+                Text(
+                    text,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                if (field != null && suggestion != null) {
+                    LiftTonalButton(
+                        text = stringResource(
+                            if (field == LabelField.ENERGY) {
+                                R.string.nutrition_check_apply_kcal
+                            } else {
+                                R.string.nutrition_check_apply_grams
+                            },
+                            suggestion
+                        ),
+                        onClick = onApply,
+                        modifier = Modifier.padding(top = 4.dp)
+                    )
+                }
+            }
+        }
+    }
+}
+
+private fun FoodDraft.textOf(field: LabelField): String = when (field) {
+    LabelField.ENERGY -> kcal
+    LabelField.PROTEIN -> protein
+    LabelField.CARBS -> carbs
+    LabelField.FAT -> fat
+}
+
+@get:StringRes
+private val LabelField.nameRes: Int
+    get() = when (this) {
+        LabelField.ENERGY -> R.string.nutrition_food_kcal
+        LabelField.PROTEIN -> R.string.nutrition_check_protein
+        LabelField.CARBS -> R.string.nutrition_check_carbs
+        LabelField.FAT -> R.string.nutrition_check_fat
+    }
 
 // Énergie, protéines, glucides et lipides.
 private const val LABEL_VALUES = 4

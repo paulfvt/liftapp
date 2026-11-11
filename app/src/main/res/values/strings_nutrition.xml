@@ -121,6 +121,17 @@
     <string name="nutrition_scan_failed">Impossible de lire cette image.</string>
     <string name="nutrition_scan_camera_denied">Sans l\'appareil photo, tu peux choisir une image dans la galerie.</string>
 
+    <!-- Contrôle des calories après une lecture d'étiquette -->
+    <string name="nutrition_check_title">Les calories ne collent pas</string>
+    <string name="nutrition_check_macro">Avec %1$s g de %2$s, l\'aliment ferait environ %3$s kcal, pas %4$s. Avec %5$s g, tout colle.</string>
+    <string name="nutrition_check_energy">Avec ces macros, l\'aliment ferait environ %1$s kcal, pas %2$s : ce chiffre est peut-être en kJ, soit %3$s kcal.</string>
+    <string name="nutrition_check_unknown">Avec ces macros, l\'aliment ferait environ %1$s kcal, pas %2$s. Vérifie les valeurs sur l\'étiquette.</string>
+    <string name="nutrition_check_apply_grams">Mettre %1$s g</string>
+    <string name="nutrition_check_apply_kcal">Mettre %1$s kcal</string>
+    <string name="nutrition_check_protein">protéines</string>
+    <string name="nutrition_check_carbs">glucides</string>
+    <string name="nutrition_check_fat">lipides</string>
+
     <!-- Mes besoins -->
     <string name="nutrition_needs_title">Mes besoins</string>
     <string name="nutrition_set_goal">Définir mon objectif</string>

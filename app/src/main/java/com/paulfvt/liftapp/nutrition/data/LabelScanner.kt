@@ -7,7 +7,6 @@ import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 import com.paulfvt.liftapp.nutrition.domain.LabelReading
-import com.paulfvt.liftapp.nutrition.domain.TextLine
 import com.paulfvt.liftapp.nutrition.domain.readNutritionLabel
 import com.paulfvt.liftapp.profile.data.decodeUpright
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -39,10 +38,7 @@ class LabelScanner @Inject constructor(@param:ApplicationContext private val con
                 .addOnSuccessListener { continuation.resume(it) }
                 .addOnFailureListener { continuation.resumeWithException(it) }
         }
-        val lines = text.textBlocks.flatMap { it.lines }.mapNotNull { line ->
-            line.boundingBox?.let { box -> TextLine(line.text, box.left, box.top, box.right, box.bottom) }
-        }
-        readNutritionLabel(lines)
+        readNutritionLabel(text.toTextLines())
     }
 
     // La photo de l'appareil photo ne sert qu'à la lecture : elle est effacée aussitôt après.
@@ -54,7 +50,8 @@ class LabelScanner @Inject constructor(@param:ApplicationContext private val con
         const val LABEL_DIRECTORY = "label"
         const val PHOTO_NAME = "label.jpg"
 
-        // Assez pour lire les petits caractères d'un tableau, sans charger une photo de 50 Mpx en mémoire.
-        const val MAX_SIDE = 2048
+        // Assez pour lire les petits caractères d'un tableau photographié avec tout le paquet (2 048 ne suffisait pas
+        // toujours), sans charger une photo de 50 Mpx en mémoire.
+        const val MAX_SIDE = 3072
     }
 }
