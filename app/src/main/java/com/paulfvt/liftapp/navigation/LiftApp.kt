@@ -28,6 +28,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.paulfvt.liftapp.history.navigation.WorkoutEditRoute
 import com.paulfvt.liftapp.nutrition.navigation.FoodQuantityRoute
+import com.paulfvt.liftapp.nutrition.navigation.LabelScanRoute
 import com.paulfvt.liftapp.onboarding.ui.WelcomeScreen
 import com.paulfvt.liftapp.profile.navigation.PhotoCaptureRoute
 import com.paulfvt.liftapp.workout.navigation.WorkoutRoute
@@ -64,14 +65,16 @@ private fun MainContent(openWorkoutRequest: Int, viewModel: LiftAppViewModel) {
         }
     }
 
-    // La séance en cours, la modification d'une séance passée et la prise de photo sont en plein écran : pas de
-    // barre du bas sur elles, ni sur le catalogue ouvert depuis une séance. La quantité d'un aliment non plus : son
-    // pavé numérique occupe le bas de l'écran.
+    // La séance en cours, la modification d'une séance passée, la prise de photo et le scan d'une étiquette sont en
+    // plein écran : pas de barre du bas sur eux, ni sur le catalogue ouvert depuis une séance. La quantité d'un aliment
+    // non plus : son pavé numérique occupe le bas de l'écran.
     val previousDestination = navController.previousBackStackEntry?.destination
     val isOnWorkout = listOf(WorkoutRoute::class, WorkoutEditRoute::class).any { route ->
         currentDestination?.hasRoute(route) == true || previousDestination?.hasRoute(route) == true
     } ||
-        listOf(PhotoCaptureRoute::class, FoodQuantityRoute::class).any { currentDestination?.hasRoute(it) == true }
+        listOf(PhotoCaptureRoute::class, FoodQuantityRoute::class, LabelScanRoute::class).any { route ->
+            currentDestination?.hasRoute(route) == true
+        }
 
     // Les écrans gèrent eux-mêmes la barre d'état (via leur TopAppBar) : ce Scaffold ne réserve que la place
     // de la barre du bas, sinon la marge du haut serait appliquée deux fois.
