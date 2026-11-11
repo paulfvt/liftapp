@@ -63,6 +63,11 @@ canevas « Nutrition LiftApp ». Un commit par point :
 - Étape 7 : carte « Nutrition du jour » sur l'accueil, export CSV des repas, README et politique de confidentialité.
 - Recettes maison : idée proposée, mise de côté par le développeur.
 
+Vérifié sur l'émulateur (version debug) : 51 tests instrumentés verts, dont la migration 5 → 6 ; Progrès sans
+badges ; Tendance ; carte de l'accueil avec et sans objectif ; scan en direct ouvert après la permission, en plein
+écran ; étiquette de la galerie lue (4 valeurs) ; carte de contrôle avec « Mettre 8,4 g » ; export des repas lu tel
+quel. 317 tests JVM verts, lint sans nouvel avertissement.
+
 À tester sur le téléphone : scan en direct sur de vrais paquets (sans reflet, avec la lampe), la carte de contrôle
 des calories, la Tendance avec les vraies données, la carte de l'accueil, l'export des repas dans Excel.
 
