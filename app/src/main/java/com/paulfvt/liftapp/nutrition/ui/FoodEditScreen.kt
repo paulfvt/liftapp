@@ -52,13 +52,13 @@ import com.paulfvt.liftapp.core.designsystem.component.LiftTextButton
 import com.paulfvt.liftapp.core.designsystem.component.LiftTonalButton
 import com.paulfvt.liftapp.core.designsystem.component.SignalButton
 import com.paulfvt.liftapp.core.ui.hasCameraPermission
+import com.paulfvt.liftapp.core.ui.wholeNumber
 import com.paulfvt.liftapp.nutrition.domain.EnergyMismatch
 import com.paulfvt.liftapp.nutrition.domain.FoodDraft
 import com.paulfvt.liftapp.nutrition.domain.FoodDraftError
 import com.paulfvt.liftapp.nutrition.domain.LabelField
 import com.paulfvt.liftapp.template.ui.ConfirmDeleteDialog
 import com.paulfvt.liftapp.workout.domain.formatDecimal
-import kotlin.math.roundToInt
 
 // Aliment personnel : nom et valeurs pour 100 g, comme sur l'étiquette d'un produit.
 @OptIn(ExperimentalMaterial3Api::class)
@@ -302,7 +302,8 @@ private fun LabelScanSection(
 // une seule correction explique l'écart, cette correction en un appui.
 @Composable
 private fun EnergyMismatchCard(mismatch: EnergyMismatch, draft: FoodDraft, onApply: () -> Unit) {
-    val expected = formatDecimal(mismatch.expectedKcal.roundToInt().toDouble())
+    // « 1 053 » : espace des milliers, comme les autres calories de l'app.
+    val expected = wholeNumber(mismatch.expectedKcal)
     val suggestion = mismatch.suggestion?.let(::formatDecimal)
     val field = mismatch.suspect
     val text = when {
