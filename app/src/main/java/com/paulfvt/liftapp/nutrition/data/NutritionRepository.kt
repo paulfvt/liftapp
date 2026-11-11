@@ -129,6 +129,9 @@ class NutritionRepository @Inject constructor(private val database: LiftDatabase
             rows.map { DailyNutrients(it.date, Nutrients(it.kcal, it.protein, it.carbs, it.fat)) }
         }
 
+    // Tout le journal, pour l'export CSV des repas.
+    suspend fun getAllEntries(): List<JournalEntry> = dao.getAllEntries().map { it.toDomain() }
+
     // --- Repas enregistrés ---
 
     fun observeSavedMeals(): Flow<List<SavedMeal>> =

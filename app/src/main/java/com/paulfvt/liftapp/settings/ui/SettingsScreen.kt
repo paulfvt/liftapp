@@ -162,6 +162,7 @@ fun SettingsScreen(onBack: () -> Unit, viewModel: SettingsViewModel = hiltViewMo
                 restoreCandidate = restoreCandidate,
                 onExportHistory = viewModel::exportHistory,
                 onExportMeasurements = viewModel::exportMeasurements,
+                onExportMeals = viewModel::exportMeals,
                 onCreateBackup = viewModel::createBackup,
                 onInspectBackup = viewModel::inspectBackup,
                 onConfirmRestore = viewModel::confirmRestore,
@@ -226,6 +227,8 @@ private fun dataMessageText(message: DataMessage): String = when (message) {
         pluralStringResource(R.plurals.csv_history_exported, message.workoutCount, message.workoutCount)
     is DataMessage.MeasurementsExported ->
         pluralStringResource(R.plurals.csv_measurements_exported, message.measurementCount, message.measurementCount)
+    is DataMessage.MealsExported ->
+        pluralStringResource(R.plurals.csv_meals_exported, message.entryCount, message.entryCount)
     DataMessage.ExportFailed -> stringResource(R.string.csv_export_failed)
     DataMessage.BackupCreated -> stringResource(R.string.backup_created)
     DataMessage.BackupFailed -> stringResource(R.string.backup_failed)

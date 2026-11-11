@@ -4,9 +4,12 @@ import com.paulfvt.liftapp.core.domain.LengthUnit
 import com.paulfvt.liftapp.core.domain.Units
 import com.paulfvt.liftapp.core.domain.WeightUnit
 import com.paulfvt.liftapp.core.model.BodyFatMethod
+import com.paulfvt.liftapp.core.model.Meal
 import com.paulfvt.liftapp.core.model.MeasurementType
 import com.paulfvt.liftapp.core.model.SetType
 import com.paulfvt.liftapp.core.model.TrackingType
+import com.paulfvt.liftapp.nutrition.domain.JournalEntry
+import com.paulfvt.liftapp.nutrition.domain.Nutrients
 import com.paulfvt.liftapp.profile.domain.BodyMeasurement
 import com.paulfvt.liftapp.workout.domain.SetValues
 import com.paulfvt.liftapp.workout.domain.Workout
@@ -15,6 +18,7 @@ import com.paulfvt.liftapp.workout.domain.WorkoutSet
 import com.paulfvt.liftapp.workout.domain.exercise
 import com.paulfvt.liftapp.workout.domain.set
 import java.time.Instant
+import java.time.LocalDate
 import java.time.ZoneId
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -156,5 +160,29 @@ class CsvExportTest {
     @Test
     fun `an empty history gives no line`() {
         assertTrue(historyCsvRows(emptyList(), WeightUnit.KG, paris, typeLabel).isEmpty())
+    }
+
+    private fun entry(id: Long, date: String, meal: Meal, name: String, grams: Double, per100g: Nutrients) =
+        JournalEntry(id, LocalDate.parse(date), meal, foodId = id, foodName = name, grams = grams, per100g = per100g)
+
+    @Test
+    fun `meal rows follow the journal with values for the quantity eaten`() {
+        val chicken = Nutrients(kcal = 151.0, protein = 31.0, carbs = 0.0, fat = 2.9)
+        val oats = Nutrients(kcal = 370.0, protein = 13.5, carbs = 58.7, fat = 7.0)
+        val rows = mealCsvRows(
+            listOf(
+                entry(1, "2026-11-02", Meal.LUNCH, "Poulet, filet, cuit", 180.0, chicken),
+                entry(2, "2026-11-02", Meal.BREAKFAST, "=Flocons d'avoine", 80.0, oats),
+                entry(3, "2026-11-01", Meal.SNACKS, "Flocons d'avoine", 40.0, oats)
+            )
+        ) { it.name.lowercase() }
+        assertEquals(
+            listOf(
+                listOf("01/11/2026", "snacks", "Flocons d'avoine", "40", "148", "5,4", "23,5", "2,8"),
+                listOf("02/11/2026", "breakfast", "'=Flocons d'avoine", "80", "296", "10,8", "47", "5,6"),
+                listOf("02/11/2026", "lunch", "Poulet, filet, cuit", "180", "272", "55,8", "0", "5,2")
+            ),
+            rows
+        )
     }
 }

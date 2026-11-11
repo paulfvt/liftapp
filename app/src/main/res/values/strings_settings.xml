@@ -23,9 +23,12 @@
     <string name="settings_export_history_summary">Fichier CSV pour Excel, une ligne par série</string>
     <string name="settings_export_measurements">Exporter les mesures</string>
     <string name="settings_export_measurements_summary">Fichier CSV pour Excel, une ligne par mesure</string>
+    <string name="settings_export_meals">Exporter les repas</string>
+    <string name="settings_export_meals_summary">Fichier CSV pour Excel, une ligne par aliment noté</string>
     <!-- Nom proposé dans le sélecteur de fichiers, %1$s : date du jour (2026-10-31). -->
     <string name="csv_history_file_name">liftapp-historique-%1$s.csv</string>
     <string name="csv_measurements_file_name">liftapp-mesures-%1$s.csv</string>
+    <string name="csv_meals_file_name">liftapp-repas-%1$s.csv</string>
     <plurals name="csv_history_exported">
         <item quantity="one">%d séance exportée</item>
         <item quantity="other">%d séances exportées</item>
@@ -33,6 +36,10 @@
     <plurals name="csv_measurements_exported">
         <item quantity="one">%d mesure exportée</item>
         <item quantity="other">%d mesures exportées</item>
+    </plurals>
+    <plurals name="csv_meals_exported">
+        <item quantity="one">%d aliment noté exporté</item>
+        <item quantity="other">%d aliments notés exportés</item>
     </plurals>
     <string name="settings_backup">Sauvegarder toutes les données</string>
     <string name="settings_backup_summary">Fichier ZIP à garder hors du téléphone, pour tout retrouver sur un nouveau</string>
@@ -76,4 +83,11 @@
     <string name="csv_value">Valeur</string>
     <string name="csv_unit">Unité</string>
     <string name="csv_method">Méthode</string>
+    <string name="csv_meal">Repas</string>
+    <string name="csv_food">Aliment</string>
+    <string name="csv_grams">Quantité (g)</string>
+    <string name="csv_kcal">Énergie (kcal)</string>
+    <string name="csv_protein">Protéines (g)</string>
+    <string name="csv_carbs">Glucides (g)</string>
+    <string name="csv_fat">Lipides (g)</string>
 </resources>

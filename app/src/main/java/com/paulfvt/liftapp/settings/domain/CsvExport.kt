@@ -4,9 +4,11 @@ import com.paulfvt.liftapp.core.domain.Units
 import com.paulfvt.liftapp.core.domain.WeightUnit
 import com.paulfvt.liftapp.core.domain.inputValue
 import com.paulfvt.liftapp.core.model.BodyFatMethod
+import com.paulfvt.liftapp.core.model.Meal
 import com.paulfvt.liftapp.core.model.MeasurementType
 import com.paulfvt.liftapp.core.model.SetType
 import com.paulfvt.liftapp.core.model.TrackingType
+import com.paulfvt.liftapp.nutrition.domain.JournalEntry
 import com.paulfvt.liftapp.profile.domain.BodyMeasurement
 import com.paulfvt.liftapp.profile.domain.toDisplay
 import com.paulfvt.liftapp.workout.domain.SetValues
@@ -14,6 +16,7 @@ import com.paulfvt.liftapp.workout.domain.Workout
 import com.paulfvt.liftapp.workout.domain.formatDecimal
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
+import kotlin.math.roundToInt
 
 // Export CSV (cahier § 4.11) au format d'Excel en français (décision du 28 octobre 2026) : point-virgule entre les
 // colonnes, virgule décimale, dates en jj/mm/aaaa. Les en-têtes, traduits, viennent des ressources.
@@ -27,6 +30,7 @@ private const val LINE_END = "\r\n"
 private const val BYTE_ORDER_MARK = "\uFEFF"
 
 private val DATE = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+private const val TENTHS = 10.0
 private val TIME = DateTimeFormatter.ofPattern("HH:mm")
 
 // Débuts qu'un tableur prendrait pour une formule (« =SOMME(…) ») dans un texte saisi par l'utilisateur.
@@ -108,3 +112,23 @@ fun measurementCsvRows(
         measurement.method?.let(labels.method).orEmpty()
     )
 }
+
+// Repas : une ligne par aliment noté, jour par jour et repas par repas, dans l'ordre de saisie. Colonnes : date, repas,
+// aliment, quantité en grammes (même en livres, décision du 3 novembre 2026), puis kcal, protéines, glucides et lipides
+// de cette quantité, avec les valeurs gardées par l'aliment noté le jour de la saisie.
+fun mealCsvRows(entries: List<JournalEntry>, mealLabel: (Meal) -> String): List<List<String>> =
+    entries.sortedWith(compareBy({ it.date }, { it.meal.ordinal })).map { entry ->
+        val values = entry.nutrients
+        listOf(
+            DATE.format(entry.date),
+            mealLabel(entry.meal),
+            csvText(entry.foodName),
+            formatDecimal(tenth(entry.grams)),
+            formatDecimal(values.kcal.roundToInt().toDouble()),
+            formatDecimal(tenth(values.protein)),
+            formatDecimal(tenth(values.carbs)),
+            formatDecimal(tenth(values.fat))
+        )
+    }
+
+private fun tenth(value: Double): Double = (value * TENTHS).roundToInt() / TENTHS

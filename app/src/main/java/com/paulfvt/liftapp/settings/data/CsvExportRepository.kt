@@ -5,11 +5,14 @@ import android.net.Uri
 import com.paulfvt.liftapp.R
 import com.paulfvt.liftapp.core.ui.labelRes
 import com.paulfvt.liftapp.history.data.HistoryRepository
+import com.paulfvt.liftapp.nutrition.data.NutritionRepository
+import com.paulfvt.liftapp.nutrition.ui.labelRes
 import com.paulfvt.liftapp.profile.data.MeasurementRepository
 import com.paulfvt.liftapp.profile.ui.unitRes
 import com.paulfvt.liftapp.settings.domain.MeasurementCsvLabels
 import com.paulfvt.liftapp.settings.domain.csvDocument
 import com.paulfvt.liftapp.settings.domain.historyCsvRows
+import com.paulfvt.liftapp.settings.domain.mealCsvRows
 import com.paulfvt.liftapp.settings.domain.measurementCsvRows
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.FileNotFoundException
@@ -20,13 +23,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
 
-// Export CSV de l'historique et des mesures dans un fichier choisi par l'utilisateur avec le sélecteur d'Android
-// (aucune permission de stockage n'est nécessaire). Les nombres renvoyés servent au message de confirmation.
+// Export CSV de l'historique, des mesures et des repas dans un fichier choisi par l'utilisateur avec le sélecteur
+// d'Android (aucune permission de stockage n'est nécessaire). Les nombres renvoyés servent au message de confirmation.
 @Singleton
 class CsvExportRepository @Inject constructor(
     @ApplicationContext private val context: Context,
     private val history: HistoryRepository,
     private val measurements: MeasurementRepository,
+    private val nutrition: NutritionRepository,
     private val appSettings: AppSettingsRepository
 ) {
     // Renvoie le nombre de séances exportées.
@@ -71,6 +75,24 @@ class CsvExportRepository @Inject constructor(
             method = { resources.getString(it.labelRes) }
         )
         write(target, csvDocument(header, measurementCsvRows(entries, units, ZoneId.systemDefault(), labels)))
+        return entries.size
+    }
+
+    // Renvoie le nombre d'aliments notés exportés.
+    suspend fun exportMeals(target: Uri): Int {
+        val entries = nutrition.getAllEntries()
+        val resources = context.resources
+        val header = listOf(
+            R.string.csv_date,
+            R.string.csv_meal,
+            R.string.csv_food,
+            R.string.csv_grams,
+            R.string.csv_kcal,
+            R.string.csv_protein,
+            R.string.csv_carbs,
+            R.string.csv_fat
+        ).map(resources::getString)
+        write(target, csvDocument(header, mealCsvRows(entries) { resources.getString(it.labelRes()) }))
         return entries.size
     }
 

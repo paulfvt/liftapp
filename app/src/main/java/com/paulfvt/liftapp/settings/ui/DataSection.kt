@@ -47,6 +47,7 @@ fun DataSection(
     restoreCandidate: BackupInfo?,
     onExportHistory: (Uri) -> Unit,
     onExportMeasurements: (Uri) -> Unit,
+    onExportMeals: (Uri) -> Unit,
     onCreateBackup: (Uri, Boolean) -> Unit,
     onInspectBackup: (Uri) -> Unit,
     onConfirmRestore: () -> Unit,
@@ -61,6 +62,9 @@ fun DataSection(
     val measurementExport = rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument(CSV_MIME_TYPE)) {
         it?.let(onExportMeasurements)
     }
+    val mealExport = rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument(CSV_MIME_TYPE)) {
+        it?.let(onExportMeals)
+    }
     val backupTarget = rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument(ZIP_MIME_TYPE)) {
         it?.let { uri -> onCreateBackup(uri, includePhotos) }
     }
@@ -70,6 +74,7 @@ fun DataSection(
     val date = today.toString()
     val historyFileName = stringResource(R.string.csv_history_file_name, date)
     val measurementFileName = stringResource(R.string.csv_measurements_file_name, date)
+    val mealFileName = stringResource(R.string.csv_meals_file_name, date)
     val backupFileName = stringResource(R.string.backup_file_name, date)
     val workingDescription = stringResource(R.string.data_working)
 
@@ -93,6 +98,12 @@ fun DataSection(
                 supporting = stringResource(R.string.settings_export_measurements_summary),
                 enabled = !isWorking,
                 onClick = { measurementExport.launch(measurementFileName) }
+            )
+            ActionRow(
+                label = stringResource(R.string.settings_export_meals),
+                supporting = stringResource(R.string.settings_export_meals_summary),
+                enabled = !isWorking,
+                onClick = { mealExport.launch(mealFileName) }
             )
             ActionRow(
                 label = stringResource(R.string.settings_backup),

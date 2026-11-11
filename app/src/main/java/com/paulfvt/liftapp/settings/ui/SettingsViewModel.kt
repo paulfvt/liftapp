@@ -49,6 +49,8 @@ sealed interface DataMessage {
 
     data class MeasurementsExported(val measurementCount: Int) : DataMessage
 
+    data class MealsExported(val entryCount: Int) : DataMessage
+
     data object ExportFailed : DataMessage
 
     data object BackupCreated : DataMessage
@@ -117,6 +119,10 @@ class SettingsViewModel @Inject constructor(
 
     fun exportMeasurements(target: Uri) = work(DataMessage.ExportFailed) {
         DataMessage.MeasurementsExported(csvExport.exportMeasurements(target))
+    }
+
+    fun exportMeals(target: Uri) = work(DataMessage.ExportFailed) {
+        DataMessage.MealsExported(csvExport.exportMeals(target))
     }
 
     fun createBackup(target: Uri, includePhotos: Boolean) = work(DataMessage.BackupFailed) {
