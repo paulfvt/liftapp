@@ -9,8 +9,8 @@ import com.paulfvt.liftapp.core.database.entity.NutritionGoalEntity
 import com.paulfvt.liftapp.core.database.entity.SavedMealDetails
 import com.paulfvt.liftapp.core.database.entity.SavedMealEntity
 import com.paulfvt.liftapp.core.database.entity.SavedMealItemEntity
-import com.paulfvt.liftapp.core.domain.DailyValue
 import com.paulfvt.liftapp.core.model.Meal
+import com.paulfvt.liftapp.nutrition.domain.DailyNutrients
 import com.paulfvt.liftapp.nutrition.domain.Food
 import com.paulfvt.liftapp.nutrition.domain.FoodDraft
 import com.paulfvt.liftapp.nutrition.domain.GoalSettings
@@ -123,9 +123,11 @@ class NutritionRepository @Inject constructor(private val database: LiftDatabase
         previous.size
     }
 
-    // Calories de chaque jour noté de la période, pour la tendance et la dépense réelle.
-    fun observeDailyKcal(from: LocalDate, to: LocalDate): Flow<List<DailyValue>> =
-        dao.observeDailyNutrients(from, to).map { rows -> rows.map { DailyValue(it.date, it.kcal) } }
+    // Calories et macros de chaque jour noté de la période, pour la tendance et la dépense réelle.
+    fun observeDailyNutrients(from: LocalDate, to: LocalDate): Flow<List<DailyNutrients>> =
+        dao.observeDailyNutrients(from, to).map { rows ->
+            rows.map { DailyNutrients(it.date, Nutrients(it.kcal, it.protein, it.carbs, it.fat)) }
+        }
 
     // --- Repas enregistrés ---
 

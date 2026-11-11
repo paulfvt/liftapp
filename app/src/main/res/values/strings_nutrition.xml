@@ -158,6 +158,32 @@
     <string name="nutrition_needs_weight_date">Poids de ta dernière pesée, le %1$s.</string>
     <string name="nutrition_needs_missing_weight">Il faut une pesée pour calculer tes protéines et tes lipides.</string>
     <string name="nutrition_needs_add_weight">Ajouter une pesée</string>
+
+    <!-- Tendance -->
+    <string name="nutrition_trend_title">Tendance</string>
+    <string name="nutrition_trend_calories_title">Calories · 7 derniers jours</string>
+    <string name="nutrition_trend_average">kcal par jour en moyenne</string>
+    <string name="nutrition_trend_average_goal">kcal par jour en moyenne · objectif %1$s</string>
+    <string name="nutrition_trend_no_day">Aucun jour terminé noté ces 7 derniers jours.</string>
+    <plurals name="nutrition_trend_protein">
+        <item quantity="one">Protéines atteintes %1$d jour sur %2$d</item>
+        <item quantity="other">Protéines atteintes %1$d jours sur %2$d</item>
+    </plurals>
+    <string name="nutrition_trend_chart_description">Calories des 7 derniers jours : %1$s</string>
+    <string name="nutrition_trend_weight_title">Poids · 4 semaines</string>
+    <string name="nutrition_trend_weight_empty">Pèse-toi au moins deux fois en 4 semaines pour voir ta tendance.</string>
+    <string name="nutrition_trend_weight_change">%1$s sur la période, soit %2$s par semaine</string>
+    <string name="nutrition_trend_weight_description">Poids des 4 dernières semaines, de %1$s à %2$s</string>
+    <string name="nutrition_trend_line">Tendance</string>
+    <string name="nutrition_trend_expenditure_title">Dépense réelle estimée</string>
+    <string name="nutrition_trend_per_day">kcal par jour</string>
+    <string name="nutrition_trend_formula">kcal par jour (formule : %1$s)</string>
+    <string name="nutrition_trend_basis">D\'après tes repas et ton poids des 4 dernières semaines.</string>
+    <string name="nutrition_trend_not_enough">Il faut au moins %1$d jours notés sur les 4 dernières semaines (tu en as %2$d) et %3$d pesées étalées sur 3 semaines (tu en as %4$d).</string>
+    <string name="nutrition_trend_proposal_offset">Pour garder ton écart de %1$s kcal, ton objectif passerait à %2$s kcal.</string>
+    <string name="nutrition_trend_proposal_maintain">Pour garder ton poids, ton objectif passerait à %1$s kcal.</string>
+    <string name="nutrition_trend_apply">Passer à %1$s</string>
+    <string name="nutrition_trend_later">Plus tard</string>
     <string name="nutrition_needs_missing_profile">Sexe, date de naissance ou taille manquent pour le calcul. Complète ton profil, ou entre tes calories à la main plus bas.</string>
     <string name="nutrition_needs_edit_profile">Compléter mon profil</string>
     <string name="nutrition_activity">Niveau d\'activité</string>

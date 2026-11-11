@@ -11,6 +11,7 @@ import com.paulfvt.liftapp.nutrition.ui.FoodQuantityScreen
 import com.paulfvt.liftapp.nutrition.ui.FoodSearchScreen
 import com.paulfvt.liftapp.nutrition.ui.LabelScanScreen
 import com.paulfvt.liftapp.nutrition.ui.NeedsScreen
+import com.paulfvt.liftapp.nutrition.ui.TrendScreen
 import com.paulfvt.liftapp.profile.navigation.MeasurementEntryRoute
 import com.paulfvt.liftapp.profile.navigation.ProfileEditRoute
 import kotlinx.serialization.Serializable
@@ -33,6 +34,10 @@ data class FoodEditRoute(val foodId: Long? = null, val date: Long? = null, val m
 // « Mes besoins » : objectif de calories et de macros.
 @Serializable
 data object NutritionNeedsRoute
+
+// Tendance : semaine de calories, poids, dépense réelle estimée.
+@Serializable
+data object NutritionTrendRoute
 
 // Scan en direct de l'étiquette, ouvert depuis la création d'un aliment.
 @Serializable
@@ -67,6 +72,12 @@ fun NavGraphBuilder.nutritionScreens(navController: NavController, backToJournal
         NeedsScreen(
             onBack = navController::popBackStack,
             onEditProfile = { navController.navigate(ProfileEditRoute) },
+            onAddWeight = { navController.navigate(MeasurementEntryRoute(MeasurementType.BODY_WEIGHT.name)) }
+        )
+    }
+    composable<NutritionTrendRoute> {
+        TrendScreen(
+            onBack = navController::popBackStack,
             onAddWeight = { navController.navigate(MeasurementEntryRoute(MeasurementType.BODY_WEIGHT.name)) }
         )
     }

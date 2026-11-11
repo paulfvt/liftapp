@@ -16,6 +16,7 @@ import com.paulfvt.liftapp.home.ui.HomeScreen
 import com.paulfvt.liftapp.nutrition.navigation.FoodQuantityRoute
 import com.paulfvt.liftapp.nutrition.navigation.FoodSearchRoute
 import com.paulfvt.liftapp.nutrition.navigation.NutritionNeedsRoute
+import com.paulfvt.liftapp.nutrition.navigation.NutritionTrendRoute
 import com.paulfvt.liftapp.nutrition.navigation.nutritionScreens
 import com.paulfvt.liftapp.nutrition.ui.JournalScreen
 import com.paulfvt.liftapp.profile.navigation.AboutRoute
@@ -71,7 +72,8 @@ fun LiftNavHost(navController: NavHostController, modifier: Modifier = Modifier)
                             FoodQuantityRoute(entry.foodId, entry.date.toEpochDay(), entry.meal.name, entry.id)
                         )
                     },
-                    onOpenNeeds = { navController.navigate(NutritionNeedsRoute) }
+                    onOpenNeeds = { navController.navigate(NutritionNeedsRoute) },
+                    onOpenTrend = { navController.navigate(NutritionTrendRoute) }
                 )
             }
             nutritionScreens(navController, backToJournal = {

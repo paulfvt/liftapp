@@ -62,6 +62,7 @@ fun JournalScreen(
     onAddFood: (date: LocalDate, meal: Meal) -> Unit,
     onOpenEntry: (JournalEntry) -> Unit,
     onOpenNeeds: () -> Unit,
+    onOpenTrend: () -> Unit,
     viewModel: JournalViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -87,6 +88,9 @@ fun JournalScreen(
             TopAppBar(
                 title = { ScreenTitle(stringResource(R.string.nav_nutrition)) },
                 actions = {
+                    IconButton(onClick = onOpenTrend) {
+                        Icon(painterResource(R.drawable.ic_trending_up), stringResource(R.string.nutrition_trend_title))
+                    }
                     IconButton(onClick = onOpenNeeds) {
                         Icon(painterResource(R.drawable.ic_flag), stringResource(R.string.nutrition_needs_title))
                     }

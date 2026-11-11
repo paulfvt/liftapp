@@ -41,7 +41,7 @@ fun estimateExpenditure(today: LocalDate, intakes: List<DailyValue>, weights: Li
         return ExpenditureEstimate.NotEnoughData(logged.size, weighIns.size, span)
     }
     val averageIntake = logged.map { it.value }.average()
-    val slopePerDay = slope(weighIns.map { ChronoUnit.DAYS.between(from, it.date).toDouble() to it.value })
+    val slopePerDay = leastSquaresSlope(weighIns.map { ChronoUnit.DAYS.between(from, it.date).toDouble() to it.value })
     val expenditure = averageIntake - slopePerDay * KCAL_PER_KG
     return ExpenditureEstimate.Ready(
         kcalPerDay = (expenditure / 10).roundToInt() * 10,
@@ -56,14 +56,4 @@ fun estimateExpenditure(today: LocalDate, intakes: List<DailyValue>, weights: Li
 fun proposedGoalKcal(estimate: ExpenditureEstimate.Ready, goal: NutritionGoal): Int? {
     if (abs(estimate.kcalPerDay - goal.impliedExpenditure) <= PROPOSAL_THRESHOLD_KCAL) return null
     return (estimate.kcalPerDay + goal.settings.objective.kcalOffset).coerceIn(GOAL_KCAL_RANGE)
-}
-
-// Pente de la droite des moindres carrés (kg par jour) : moins sensible qu'un simple écart entre la première et la
-// dernière pesée aux variations d'un jour à l'autre (eau, repas salé…).
-private fun slope(points: List<Pair<Double, Double>>): Double {
-    val meanX = points.map { it.first }.average()
-    val meanY = points.map { it.second }.average()
-    val numerator = points.sumOf { (x, y) -> (x - meanX) * (y - meanY) }
-    val denominator = points.sumOf { (x, _) -> (x - meanX) * (x - meanX) }
-    return if (denominator == 0.0) 0.0 else numerator / denominator
 }
