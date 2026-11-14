@@ -1,5 +1,10 @@
 package com.paulfvt.liftapp.nutrition.navigation
 
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.core.net.toUri
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
@@ -7,6 +12,7 @@ import androidx.navigation.toRoute
 import com.paulfvt.liftapp.core.model.MeasurementType
 import com.paulfvt.liftapp.nutrition.domain.LabelReading
 import com.paulfvt.liftapp.nutrition.ui.FoodEditScreen
+import com.paulfvt.liftapp.nutrition.ui.FoodEditViewModel
 import com.paulfvt.liftapp.nutrition.ui.FoodQuantityScreen
 import com.paulfvt.liftapp.nutrition.ui.FoodSearchScreen
 import com.paulfvt.liftapp.nutrition.ui.LabelScanScreen
@@ -90,7 +96,30 @@ fun NavGraphBuilder.nutritionScreens(navController: NavController, backToJournal
     }
     composable<FoodEditRoute> { entry ->
         val route = entry.toRoute<FoodEditRoute>()
+        val viewModel: FoodEditViewModel = hiltViewModel()
+        // Ce que le scan rend en se fermant arrive dans le SavedStateHandle de cette entrée de navigation, qui n'est pas
+        // celui du ViewModel : on le relève ici, puis on l'efface pour ne pas le resservir (même mécanisme que le choix
+        // d'exercices). Le relever dans le ViewModel laissait les cases vides (11 novembre 2026).
+        val scannedValues by entry.savedStateHandle
+            .getStateFlow<DoubleArray?>(LABEL_VALUES_KEY, null)
+            .collectAsStateWithLifecycle()
+        val pickedImage by entry.savedStateHandle
+            .getStateFlow<String?>(LABEL_IMAGE_KEY, null)
+            .collectAsStateWithLifecycle()
+        LaunchedEffect(scannedValues) {
+            scannedValues?.let { values ->
+                entry.savedStateHandle[LABEL_VALUES_KEY] = null
+                viewModel.onLabelRead(labelReadingOf(values))
+            }
+        }
+        LaunchedEffect(pickedImage) {
+            pickedImage?.let { uri ->
+                entry.savedStateHandle[LABEL_IMAGE_KEY] = null
+                viewModel.onLabelImagePicked(uri.toUri())
+            }
+        }
         FoodEditScreen(
+            viewModel = viewModel,
             onBack = navController::popBackStack,
             onCreated = { foodId ->
                 // Créé depuis la recherche d'un repas : on enchaîne sur sa quantité, la création quitte la pile.

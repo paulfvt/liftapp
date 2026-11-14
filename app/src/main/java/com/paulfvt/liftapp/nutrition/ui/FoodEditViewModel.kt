@@ -5,7 +5,6 @@ import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.core.net.toUri
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -23,15 +22,11 @@ import com.paulfvt.liftapp.nutrition.domain.energyMismatch
 import com.paulfvt.liftapp.nutrition.domain.errors
 import com.paulfvt.liftapp.nutrition.domain.toDraft
 import com.paulfvt.liftapp.nutrition.navigation.FoodEditRoute
-import com.paulfvt.liftapp.nutrition.navigation.LABEL_IMAGE_KEY
-import com.paulfvt.liftapp.nutrition.navigation.LABEL_VALUES_KEY
-import com.paulfvt.liftapp.nutrition.navigation.labelReadingOf
 import com.paulfvt.liftapp.workout.domain.filterDecimalInput
 import com.paulfvt.liftapp.workout.domain.formatDecimal
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.io.IOException
 import javax.inject.Inject
-import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
@@ -60,7 +55,7 @@ sealed interface LabelScanState {
 // Création ou modification d'un aliment personnel (valeurs pour 100 g), avec lecture possible de l'étiquette.
 @HiltViewModel
 class FoodEditViewModel @Inject constructor(
-    private val savedStateHandle: SavedStateHandle,
+    savedStateHandle: SavedStateHandle,
     private val repository: NutritionRepository,
     private val scanner: LabelScanner
 ) : ViewModel() {
@@ -98,20 +93,6 @@ class FoodEditViewModel @Inject constructor(
         if (foodId != null) {
             viewModelScope.launch { repository.observeFood(foodId).first()?.let { draft = it.toDraft() } }
         }
-        // Ce que le scan en direct rend en se fermant (voir LabelScanRoute) : les valeurs retenues, ou une image
-        // choisie à la place. Effacé aussitôt lu, pour ne pas resservir après une rotation.
-        viewModelScope.launch {
-            savedStateHandle.getStateFlow<DoubleArray?>(LABEL_VALUES_KEY, null).filterNotNull().collect { values ->
-                savedStateHandle[LABEL_VALUES_KEY] = null
-                onLabelRead(labelReadingOf(values))
-            }
-        }
-        viewModelScope.launch {
-            savedStateHandle.getStateFlow<String?>(LABEL_IMAGE_KEY, null).filterNotNull().collect { uri ->
-                savedStateHandle[LABEL_IMAGE_KEY] = null
-                onLabelImagePicked(uri.toUri())
-            }
-        }
     }
 
     // Image choisie dans la galerie : seulement lue.
@@ -130,7 +111,8 @@ class FoodEditViewModel @Inject constructor(
         }
     }
 
-    private fun onLabelRead(reading: LabelReading) {
+    // Valeurs lues sur une image de la galerie ou rendues par le scan en direct en se fermant.
+    fun onLabelRead(reading: LabelReading) {
         labelFiber = reading.fiber ?: 0.0
         update { reading.applyTo(this) }
         scanState = when {
