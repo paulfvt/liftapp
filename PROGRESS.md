@@ -6,9 +6,9 @@
 Version release avec les corrections du 12 novembre installée sur le S25+ le 14 novembre 2026.
 Reste : le test du développeur sur le S25+ (surtout « Utiliser ces valeurs » du scan), puis les captures du README.
 
-GitHub : rien n'est poussé depuis la phase 11 (`f502baf`). Le dépôt public, son README et la Release `LiftApp.apk`
-montrent encore la version 1.0.0, sans la nutrition. À la publication : pousser `main`, monter `versionName`
-(toujours 1.0.0) et remplacer l'APK de la Release, seulement sur demande du développeur.
+GitHub : `main` poussé le 14 novembre 2026 (code et docs à jour). La Release `LiftApp.apk` et `versionName` restent
+à la version 1.0.0, sans la nutrition : pour une nouvelle Release, monter `versionName` et remplacer l'APK, seulement
+sur demande du développeur.
 
 Fait, un commit par étape :
 - Navigation : onglet Nutrition en deuxième, Séances au milieu ; l'historique est listé sous les templates (même
