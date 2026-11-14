@@ -36,7 +36,7 @@ fun macrosKcal(protein: Double, carbs: Double, fat: Double, fiber: Double = 0.0)
 // unique ; si plusieurs valeurs pourraient être en cause, l'app ne devine pas.
 fun energyMismatch(kcal: Double, protein: Double, carbs: Double, fat: Double, fiber: Double = 0.0): EnergyMismatch? {
     val expected = macrosKcal(protein, carbs, fat, fiber)
-    if (isConsistent(kcal, expected)) return null
+    if (isEnergyConsistent(kcal, expected)) return null
     val repairs = buildList {
         misreadings(protein).forEach { add(Repair(LabelField.PROTEIN, it, kcal, macrosKcal(it, carbs, fat, fiber))) }
         misreadings(carbs).forEach { add(Repair(LabelField.CARBS, it, kcal, macrosKcal(protein, it, fat, fiber))) }
@@ -44,7 +44,7 @@ fun energyMismatch(kcal: Double, protein: Double, carbs: Double, fat: Double, fi
         // kJ pris pour des kcal.
         val fromKj = (kcal / KJ_PER_KCAL).roundToInt().toDouble()
         add(Repair(LabelField.ENERGY, fromKj, fromKj, expected))
-    }.filter { isConsistent(it.kcal, it.expectedKcal) }
+    }.filter { isEnergyConsistent(it.kcal, it.expectedKcal) }
     val field = repairs.map { it.field }.distinct().singleOrNull()
         ?: return EnergyMismatch(expected)
     val best = repairs.minBy { abs(it.kcal - it.expectedKcal) }
@@ -62,7 +62,8 @@ fun FoodDraft.energyMismatch(fiber: Double = 0.0): EnergyMismatch? {
 
 private class Repair(val field: LabelField, val value: Double, val kcal: Double, val expectedKcal: Double)
 
-private fun isConsistent(kcal: Double, expected: Double): Boolean =
+// Calories annoncées qui collent avec celles des macros, à la tolérance près. Sert aussi au vote du scan en direct.
+internal fun isEnergyConsistent(kcal: Double, expected: Double): Boolean =
     abs(kcal - expected) <= maxOf(TOLERANCE_MIN_KCAL, kcal * TOLERANCE_RATIO)
 
 // Ce qu'un chiffre de macro serait sans les erreurs de lecture courantes : virgule perdue ou en trop, « g » final lu

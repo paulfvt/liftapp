@@ -26,12 +26,30 @@ class LabelVotesTest {
     @Test
     fun `the most recent value wins a tie`() {
         val result = votes(
-            LabelReading(fat = 1.8),
-            LabelReading(fat = 18.0),
-            LabelReading(fat = 1.8),
-            LabelReading(fat = 18.0)
+            LabelReading(fat = 7.0),
+            LabelReading(fat = 7.5),
+            LabelReading(fat = 7.0),
+            LabelReading(fat = 7.5)
         ).result
-        assertEquals(18.0, result.fat!!, 0.0)
+        assertEquals(7.5, result.fat!!, 0.0)
+    }
+
+    @Test
+    fun `a comma lost on some images still gives the value with its comma`() {
+        // « 5,8 » lu « 58 » deux fois sur trois : sans calories pour trancher, la virgule gagne.
+        val result = votes(LabelReading(fat = 58.0), LabelReading(fat = 5.8), LabelReading(fat = 58.0)).result
+        assertEquals(5.8, result.fat!!, 0.0)
+    }
+
+    @Test
+    fun `calories decide between a value and the same without its comma`() {
+        fun reading(fat: Double) = LabelReading(kcal = 250.0, protein = 10.0, carbs = 35.0, fat = fat)
+        // 5,8 g de lipides : 40 + 140 + 52 = 232 kcal, ça colle ; 58 g en ferait 702.
+        assertEquals(5.8, votes(reading(58.0), reading(58.0), reading(5.8)).result.fat!!, 0.0)
+
+        fun cereal(carbs: Double) = LabelReading(kcal = 362.0, protein = 13.0, carbs = carbs, fat = 6.5)
+        // Ici, c'est 58 g de glucides qui colle : une virgule ajoutée par erreur ne gagne pas.
+        assertEquals(58.0, votes(cereal(58.0), cereal(5.8), cereal(5.8)).result.carbs!!, 0.0)
     }
 
     @Test
