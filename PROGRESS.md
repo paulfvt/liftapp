@@ -3,7 +3,12 @@
 ## Phase 12 — Nutrition (V2) : code terminé le 11 novembre 2026, à tester sur le téléphone
 
 Étapes 1 à 5 faites le 3 novembre 2026, étapes 6 et 7 le 11 novembre (voir « Retours du 11 novembre » plus bas).
-Reste : le test du développeur sur le S25+, puis les captures du README.
+Version release avec les corrections du 12 novembre installée sur le S25+ le 14 novembre 2026.
+Reste : le test du développeur sur le S25+ (surtout « Utiliser ces valeurs » du scan), puis les captures du README.
+
+GitHub : rien n'est poussé depuis la phase 11 (`f502baf`). Le dépôt public, son README et la Release `LiftApp.apk`
+montrent encore la version 1.0.0, sans la nutrition. À la publication : pousser `main`, monter `versionName`
+(toujours 1.0.0) et remplacer l'APK de la Release, seulement sur demande du développeur.
 
 Fait, un commit par étape :
 - Navigation : onglet Nutrition en deuxième, Séances au milieu ; l'historique est listé sous les templates (même
@@ -690,6 +695,13 @@ Reportés en phase 10 (Réglages, cahier § 4.11) : unités lb et in, masquage d
 - Aucune pour l'instant (choix des phases 7 et 10 tranchés le 31 octobre 2026).
 
 ## Problèmes connus
+- Émulateur saturé (11 novembre 2026) : affichage et clavier à près de 100 % du processeur, l'app ne répond plus
+  pendant une saisie (ANR dans le clavier, pas dans le code de l'app). Le relancer avec
+  `emulator -avd Medium_Phone_API_37.0 -no-snapshot-load -gpu host`.
+- Les pluriels suivent la langue du téléphone : l'émulateur, en anglais, écrit « 0 jours notés », le S25+ en français
+  « 0 jour noté ». Ce n'est pas un bug de l'app.
+- Le scan en direct ne se teste pas sur l'émulateur (sa fausse caméra ne montre aucune étiquette) : le parcours
+  « Utiliser ces valeurs » se vérifie sur le téléphone ; « Choisir une image plutôt » passe par le même mécanisme.
 - Release limitée à arm64-v8a et armeabi-v7a (modèle ML Kit d'environ 4 Mo par processeur) : lint signale
   `ChromeOsAbiSupport`, l'APK ne s'installe pas sur un Chromebook Intel. Ajouter x86_64 si besoin (+4 Mo).
   Pour essayer une release sur l'émulateur, ajouter x86_64 aux `abiFilters` le temps du test, sans le committer
