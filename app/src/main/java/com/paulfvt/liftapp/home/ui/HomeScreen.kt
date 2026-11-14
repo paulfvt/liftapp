@@ -76,6 +76,7 @@ import com.paulfvt.liftapp.progress.ui.FlashbackCard
 import com.paulfvt.liftapp.progress.ui.formatMetric
 import com.paulfvt.liftapp.progress.ui.recordLabelRes
 import com.paulfvt.liftapp.template.domain.TemplateSummary
+import com.paulfvt.liftapp.template.ui.list.TemplatePreviewSheet
 import java.time.Duration
 import java.time.LocalDate
 import java.util.Locale
@@ -88,6 +89,7 @@ fun HomeScreen(
     onOpenExercise: (Long) -> Unit,
     onOpenHistory: () -> Unit,
     onOpenNutrition: () -> Unit,
+    onOpenTemplate: (Long) -> Unit,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -122,17 +124,22 @@ fun HomeScreen(
                 )
             }
             item(key = "next") {
-                NextSessionCard(
-                    liveWorkoutName = uiState.liveWorkoutName,
-                    template = dashboard.nextTemplate,
-                    folderName = dashboard.nextFolderName,
-                    lastDuration = dashboard.nextLastDuration,
-                    onStart = { templateId -> viewModel.start(templateId, emptyName) }
-                )
+                val isLive = uiState.liveWorkoutName != null
+                val title = if (isLive) R.string.home_live_workout else R.string.home_next_session
+                SectionBlock(stringResource(title), isAccent = true) {
+                    NextSessionCard(
+                        liveWorkoutName = uiState.liveWorkoutName,
+                        template = dashboard.nextTemplate,
+                        folderName = dashboard.nextFolderName,
+                        lastDuration = dashboard.nextLastDuration,
+                        onOpenTemplate = viewModel::openPreview,
+                        onStart = { templateId -> viewModel.start(templateId, emptyName) }
+                    )
+                }
             }
             uiState.nutrition?.let { nutrition ->
                 item(key = "nutrition") {
-                    SectionBlock(stringResource(R.string.home_nutrition_today)) {
+                    SectionBlock(stringResource(R.string.home_nutrition_today), isAccent = true) {
                         NutritionTodayCard(nutrition, onClick = onOpenNutrition)
                     }
                 }
@@ -155,6 +162,18 @@ fun HomeScreen(
                 }
             }
         }
+    }
+    // Même aperçu que dans l'onglet Séances : exercices et séries, « Démarrer » et « Modifier ».
+    viewModel.preview?.let { preview ->
+        TemplatePreviewSheet(
+            preview = preview,
+            onStart = { viewModel.start(preview.templateId, emptyName) },
+            onEdit = {
+                viewModel.closePreview()
+                onOpenTemplate(preview.templateId)
+            },
+            onDismiss = viewModel::closePreview
+        )
     }
 }
 
@@ -234,27 +253,41 @@ private const val WASH_HEIGHT = 0.7f
 private const val WASH_TOP_OFFSET = 0.1f
 private const val WASH_FADE = 0.6f
 
-// Carte de la prochaine séance (maquette ON AIR) : libellé rouge et dossier, nom en grand, « 5 exercices · 18 séries
-// · ~ 1 h 05 », puces des premiers exercices, puis « DÉMARRER ». Une séance en cours se reprend à la place ; sans
-// template, une séance vide est proposée. onStart(null) lance ou reprend une séance vide.
+// Carte de la prochaine séance (maquette ON AIR), sous son titre rouge : dossier, nom en grand, « 5 exercices
+// · 18 séries · ~ 1 h 05 », puces des premiers exercices, puis « DÉMARRER ». Un appui sur la carte ouvre l'aperçu du
+// template (12 novembre 2026). Une séance en cours se reprend à la place ; sans template, une séance vide est proposée.
+// onStart(null) lance ou reprend une séance vide.
 @Composable
 private fun NextSessionCard(
     liveWorkoutName: String?,
     template: TemplateSummary?,
     folderName: String?,
     lastDuration: Duration?,
+    onOpenTemplate: (Long) -> Unit,
     onStart: (Long?) -> Unit
 ) {
-    LiftCard(modifier = Modifier.fillMaxWidth()) {
+    val onClick: (() -> Unit)? = when {
+        liveWorkoutName != null -> { -> onStart(null) }
+        template != null -> { -> onOpenTemplate(template.id) }
+        else -> null
+    }
+    LiftCard(onClick = onClick, modifier = Modifier.fillMaxWidth()) {
         Column(modifier = Modifier.padding(16.dp)) {
             when {
                 liveWorkoutName != null -> {
-                    CardLabel(stringResource(R.string.home_live_workout))
                     CardTitle(liveWorkoutName)
                     PrimaryButton(stringResource(R.string.workout_resume), onClick = { onStart(null) })
                 }
                 template != null -> {
-                    CardLabel(stringResource(R.string.home_next_session), trailing = folderName)
+                    folderName?.let {
+                        Text(
+                            it,
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    }
                     CardTitle(template.name)
                     Text(
                         nextSessionSummary(template, lastDuration),
@@ -265,39 +298,14 @@ private fun NextSessionCard(
                     PrimaryButton(stringResource(R.string.template_preview_start), onClick = { onStart(template.id) })
                 }
                 else -> {
-                    CardLabel(stringResource(R.string.home_next_session))
                     Text(
                         stringResource(R.string.home_no_template),
                         style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.padding(top = 8.dp)
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                     PrimaryButton(stringResource(R.string.workout_start_empty), onClick = { onStart(null) })
                 }
             }
-        }
-    }
-}
-
-// Libellé en petites capitales rouges, avec à droite une précision (le dossier du template).
-@Composable
-private fun CardLabel(text: String, trailing: String? = null) {
-    Row(verticalAlignment = Alignment.CenterVertically) {
-        Text(
-            text.uppercase(Locale.FRENCH),
-            style = MaterialTheme.typography.labelMedium.copy(letterSpacing = 0.08.em),
-            color = MaterialTheme.colorScheme.primary,
-            modifier = Modifier.weight(1f)
-        )
-        trailing?.let {
-            Text(
-                it,
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                modifier = Modifier.padding(start = 8.dp)
-            )
         }
     }
 }
@@ -310,7 +318,7 @@ private fun CardTitle(text: String) {
         style = MaterialTheme.typography.headlineMedium,
         maxLines = 2,
         overflow = TextOverflow.Ellipsis,
-        modifier = Modifier.padding(top = 6.dp).semantics { contentDescription = text }
+        modifier = Modifier.semantics { contentDescription = text }
     )
 }
 

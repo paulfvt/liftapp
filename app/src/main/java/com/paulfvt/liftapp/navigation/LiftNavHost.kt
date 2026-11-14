@@ -60,7 +60,8 @@ fun LiftNavHost(navController: NavHostController, modifier: Modifier = Modifier)
                     onOpenWorkout = { navController.navigate(WorkoutRoute) { launchSingleTop = true } },
                     onOpenExercise = { id -> navController.navigate(ExerciseProgressRoute(id)) },
                     onOpenHistory = navController::navigateToHistory,
-                    onOpenNutrition = { navController.navigateToTopLevel(TopLevelDestination.NUTRITION) }
+                    onOpenNutrition = { navController.navigateToTopLevel(TopLevelDestination.NUTRITION) },
+                    onOpenTemplate = { id -> navController.navigate(TemplateEditRoute(templateId = id)) }
                 )
             }
         }

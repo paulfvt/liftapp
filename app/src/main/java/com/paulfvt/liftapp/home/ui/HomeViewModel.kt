@@ -12,6 +12,8 @@ import com.paulfvt.liftapp.nutrition.domain.Nutrients
 import com.paulfvt.liftapp.nutrition.domain.NutritionTarget
 import com.paulfvt.liftapp.nutrition.domain.goalOn
 import com.paulfvt.liftapp.nutrition.domain.total
+import com.paulfvt.liftapp.template.data.TemplateRepository
+import com.paulfvt.liftapp.template.ui.list.TemplatePreview
 import com.paulfvt.liftapp.workout.data.WorkoutRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.time.Clock
@@ -44,6 +46,7 @@ class HomeViewModel @Inject constructor(
     dashboard: DashboardRepository,
     private val workouts: WorkoutRepository,
     nutrition: NutritionRepository,
+    private val templates: TemplateRepository,
     clock: Clock
 ) : ViewModel() {
     private val today = LocalDate.now(clock.withZone(ZoneId.systemDefault()))
@@ -61,6 +64,18 @@ class HomeViewModel @Inject constructor(
         HomeUiState(isLoading = false, dashboard = board, liveWorkoutName = liveName, nutrition = nutritionCard)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(STOP_TIMEOUT_MS), HomeUiState())
 
+    // Aperçu du template ouvert d'un appui sur la carte de la prochaine séance (même volet que l'onglet Séances).
+    var preview by mutableStateOf<TemplatePreview?>(null)
+        private set
+
+    fun openPreview(templateId: Long) {
+        viewModelScope.launch { templates.getDraft(templateId)?.let { preview = TemplatePreview(templateId, it) } }
+    }
+
+    fun closePreview() {
+        preview = null
+    }
+
     // Vrai une fois la séance créée (ou déjà en cours) : l'écran l'ouvre puis appelle onWorkoutOpened.
     var isWorkoutReady by mutableStateOf(false)
         private set
@@ -72,6 +87,7 @@ class HomeViewModel @Inject constructor(
     fun start(templateId: Long?, emptyName: String) {
         if (isStarting) return
         isStarting = true
+        preview = null
         viewModelScope.launch {
             isWorkoutReady = workouts.startOrResume(templateId, emptyName)
             isStarting = false
