@@ -46,6 +46,22 @@ effacée après lecture ; envoi des statistiques de ML Kit en échec silencieux,
 3. « Créer un aliment » : « Prendre l'étiquette en photo » et « Choisir une image », champs remplis à vérifier.
 4. Crédits dans « À propos », README, politique de confidentialité ; test sur l'émulateur puis le téléphone.
 
+## Retours du 12 novembre 2026 : corrigés, à tester sur le téléphone
+
+Retours du développeur après le test sur le S25+ (scan, Tendance et accueil) ; un commit par point :
+- Bug : « Utiliser ces valeurs » laissait les cases de l'aliment vides. Le scan déposait ses valeurs dans le
+  SavedStateHandle de l'entrée de navigation, mais l'écran les attendait dans celui de son ViewModel, un autre objet.
+  Elles sont relevées dans la navigation, comme le choix d'exercices. Même défaut corrigé pour « Choisir une image
+  plutôt ». Les essais du 11 novembre n'avaient pas couvert ce parcours (la fausse caméra de l'émulateur ne lit rien).
+- Virgules perdues sur certaines images (« 5,8 » lu « 58 ») : les deux lectures votent ensemble, les calories
+  tranchent, sinon la version à virgule gagne.
+- Accueil : titres rouges pour la prochaine séance et la nutrition, titre de la séance sorti de la carte, carte
+  cliquable vers l'aperçu du template.
+
+Vérifié sur l'émulateur : « Choisir une image plutôt » depuis le scan remplit les 4 cases (même mécanisme que
+« Utiliser ces valeurs ») ; titres rouges en thème clair ; carte de la séance qui ouvre l'aperçu, « Démarrer » de
+l'aperçu qui lance la séance, puis « SÉANCE EN COURS » avec « Reprendre ». Commande de la CI verte.
+
 ## Retours du 11 novembre 2026 et fin de la phase 12 : à tester sur le téléphone
 
 Retours du développeur (séances validées, « rien à redire ») et plan validé le même jour après les maquettes 5 à 8 du

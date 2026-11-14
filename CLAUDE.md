@@ -201,6 +201,8 @@ En cas d'ambiguïté ou de point non couvert, pose la question au lieu d'invente
   - scan en direct avec la caméra de l'app et un cadre ; une valeur est retenue quand deux lectures concordent (vote
     sur les 12 dernières images), la plus récente en cas d'égalité ; aucune image n'est enregistrée ; lampe ;
     « Choisir une image » (galerie) reste, lue jusqu'à 3 072 px ;
+  - (12 novembre 2026) une macro lue avec et sans sa virgule (« 5,8 » et « 58 ») : les deux lectures votent ensemble,
+    les calories tranchent, sinon la version à virgule gagne (la lecture perd des virgules, n'en invente presque pas) ;
   - photo redressée selon l'inclinaison des lignes ; liste des ingrédients et sous-rangées ignorées ; confusions
     courantes corrigées (kcai, O pour 0, « 13g » lu « 139 ») ;
   - après une lecture, contrôle des calories : 4 kcal/g de protéines et de glucides, 9 de lipides, 2 de fibres, écart
@@ -212,6 +214,9 @@ En cas d'ambiguïté ou de point non couvert, pose la question au lieu d'invente
     dépense réelle et objectif proposé, « Plus tard » le replie jusqu'à la prochaine ouverture ;
   - accueil : carte « Nutrition du jour » sous la prochaine séance, seulement si un objectif existe ou si quelque
     chose est noté aujourd'hui ;
+  - (12 novembre 2026) accueil : « PROCHAINE SÉANCE » (ou « SÉANCE EN COURS ») sort de la carte et devient un titre de
+    section ; ce titre et « NUTRITION DU JOUR » en rouge, les autres titres restent gris ; un appui sur la carte de la
+    séance ouvre l'aperçu du template (même volet que l'onglet Séances), « Démarrer » lance toujours la séance ;
   - export CSV des repas : une ligne par aliment noté ;
   - recettes maison : idée mise de côté par le développeur.
 
