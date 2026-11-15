@@ -24,19 +24,24 @@
 
 LiftApp est une app Android gratuite de suivi de musculation, inspirée de Strong et Hevy. Pas de compte, pas de
 pub, pas d'abonnement : tout reste sur ton téléphone. Elle mise sur une progression visible et motivante : records,
-courbes, streak hebdomadaire et carte des muscles travaillés.
+courbes, streak hebdomadaire et carte des muscles travaillés. Elle note aussi ce que tu manges, toujours hors ligne.
 
 ## Aperçu
 
 <p align="center">
-  <img src="docs/screenshots/accueil.png" alt="Accueil : semaine en cours, streak et prochaine séance" width="260">
+  <img src="docs/screenshots/accueil.png" alt="Accueil : semaine en cours, streak, prochaine séance et nutrition du jour" width="260">
   <img src="docs/screenshots/seance.png" alt="Séance en cours avec le pavé numérique et le minuteur de repos" width="260">
   <img src="docs/screenshots/mode-salle.png" alt="Mode salle : grand minuteur et gros boutons" width="260">
 </p>
 <p align="center">
-  <img src="docs/screenshots/progression.png" alt="Courbe du 1RM estimé au squat et projection" width="260">
-  <img src="docs/screenshots/carte-muscles.png" alt="Carte des muscles travaillés ces 7 derniers jours" width="260">
-  <img src="docs/screenshots/historique.png" alt="Historique des séances, mois par mois" width="260">
+  <img src="docs/screenshots/journal.png" alt="Journal du jour : calories restantes, macros et repas" width="260">
+  <img src="docs/screenshots/etiquette.png" alt="Nouvel aliment rempli en lisant son étiquette" width="260">
+  <img src="docs/screenshots/tendance.png" alt="Tendance : calories de la semaine et courbe du poids" width="260">
+</p>
+<p align="center">
+  <img src="docs/screenshots/progression.png" alt="Courbe du 1RM estimé au développé couché et projection" width="260">
+  <img src="docs/screenshots/carte-muscles.png" alt="Carte des muscles travaillés sur 7 jours et objectif à paliers" width="260">
+  <img src="docs/screenshots/seances.png" alt="Templates rangés en dossiers et historique des séances" width="260">
 </p>
 
 ## Fonctionnalités

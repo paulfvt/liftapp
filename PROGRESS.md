@@ -1,10 +1,15 @@
 # Avancement
 
-## Phase 12 — Nutrition (V2) : testée sur le téléphone le 15 novembre 2026, version 1.1.0 publiée
+## Phase 12 — Nutrition (V2) : terminée le 15 novembre 2026, version 1.1.0 publiée
 
 Étapes 1 à 5 faites le 3 novembre 2026, étapes 6 et 7 le 11 novembre (voir « Retours du 11 novembre » plus bas).
 Version release avec les corrections du 12 novembre installée sur le S25+ le 14 novembre 2026, testée par le
-développeur le 15 novembre : bonne. Reste : les captures du README.
+développeur le 15 novembre : bonne.
+
+Captures du README refaites le 15 novembre (9 au lieu de 6, dont journal, étiquette et Tendance ; plus d'ancienne
+barre du bas ni de badges) avec `tools/play-store/seed_demo_data.py`, mis à jour pour la base v6 : séances, repas et
+pesées datés à partir du jour des captures, procédure en tête du script. Défaut vu au passage, corrigé après la
+1.1.0 : la Tendance écrivait « 2700 » au lieu de « 2 700 ».
 
 GitHub : version 1.1.0 (`versionCode` 2) publiée le 15 novembre 2026, release `v1.1.0` avec `LiftApp.apk`,
 nutrition comprise. Prochaine version : augmenter `versionCode` et `versionName`, seulement sur demande du
