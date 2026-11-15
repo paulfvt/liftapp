@@ -1,14 +1,14 @@
 # Avancement
 
-## Phase 12 — Nutrition (V2) : code terminé le 11 novembre 2026, à tester sur le téléphone
+## Phase 12 — Nutrition (V2) : testée sur le téléphone le 15 novembre 2026, version 1.1.0 publiée
 
 Étapes 1 à 5 faites le 3 novembre 2026, étapes 6 et 7 le 11 novembre (voir « Retours du 11 novembre » plus bas).
-Version release avec les corrections du 12 novembre installée sur le S25+ le 14 novembre 2026.
-Reste : le test du développeur sur le S25+ (surtout « Utiliser ces valeurs » du scan), puis les captures du README.
+Version release avec les corrections du 12 novembre installée sur le S25+ le 14 novembre 2026, testée par le
+développeur le 15 novembre : bonne. Reste : les captures du README.
 
-GitHub : `main` poussé le 14 novembre 2026 (code et docs à jour). La Release `LiftApp.apk` et `versionName` restent
-à la version 1.0.0, sans la nutrition : pour une nouvelle Release, monter `versionName` et remplacer l'APK, seulement
-sur demande du développeur.
+GitHub : version 1.1.0 (`versionCode` 2) publiée le 15 novembre 2026, release `v1.1.0` avec `LiftApp.apk`,
+nutrition comprise. Prochaine version : augmenter `versionCode` et `versionName`, seulement sur demande du
+développeur.
 
 Fait, un commit par étape :
 - Navigation : onglet Nutrition en deuxième, Séances au milieu ; l'historique est listé sous les templates (même
@@ -51,7 +51,7 @@ effacée après lecture ; envoi des statistiques de ML Kit en échec silencieux,
 3. « Créer un aliment » : « Prendre l'étiquette en photo » et « Choisir une image », champs remplis à vérifier.
 4. Crédits dans « À propos », README, politique de confidentialité ; test sur l'émulateur puis le téléphone.
 
-## Retours du 12 novembre 2026 : corrigés, à tester sur le téléphone
+## Retours du 12 novembre 2026 : corrigés et validés sur le téléphone le 15 novembre
 
 Retours du développeur après le test sur le S25+ (scan, Tendance et accueil) ; un commit par point :
 - Bug : « Utiliser ces valeurs » laissait les cases de l'aliment vides. Le scan déposait ses valeurs dans le
@@ -67,7 +67,7 @@ Vérifié sur l'émulateur : « Choisir une image plutôt » depuis le scan remp
 « Utiliser ces valeurs ») ; titres rouges en thème clair ; carte de la séance qui ouvre l'aperçu, « Démarrer » de
 l'aperçu qui lance la séance, puis « SÉANCE EN COURS » avec « Reprendre ». Commande de la CI verte.
 
-## Retours du 11 novembre 2026 et fin de la phase 12 : à tester sur le téléphone
+## Retours du 11 novembre 2026 et fin de la phase 12 : testés sur le téléphone le 12 novembre
 
 Retours du développeur (séances validées, « rien à redire ») et plan validé le même jour après les maquettes 5 à 8 du
 canevas « Nutrition LiftApp ». Un commit par point :
@@ -89,8 +89,9 @@ badges ; Tendance ; carte de l'accueil avec et sans objectif ; scan en direct ou
 écran ; étiquette de la galerie lue (4 valeurs) ; carte de contrôle avec « Mettre 8,4 g » ; export des repas lu tel
 quel. 317 tests JVM verts, lint sans nouvel avertissement.
 
-À tester sur le téléphone : scan en direct sur de vrais paquets (sans reflet, avec la lampe), la carte de contrôle
-des calories, la Tendance avec les vraies données, la carte de l'accueil, l'export des repas dans Excel.
+Testés sur le téléphone le 12 novembre (retours plus haut) : scan en direct sur de vrais paquets, Tendance avec les
+vraies données, carte de l'accueil. Pas confirmés par le développeur : la carte de contrôle des calories et l'export
+des repas dans Excel.
 
 ## Retours du test sur le téléphone (9 novembre 2026) : corrigés, à tester sur le téléphone
 

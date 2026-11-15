@@ -27,8 +27,8 @@ android {
         minSdk = 26
         targetSdk = 36
         // À augmenter à chaque version publiée : Android refuse une mise à jour dont le versionCode n'est pas plus grand.
-        versionCode = 1
-        versionName = "1.0.0"
+        versionCode = 2
+        versionName = "1.1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
