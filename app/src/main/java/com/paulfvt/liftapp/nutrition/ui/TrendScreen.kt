@@ -43,6 +43,7 @@ import com.paulfvt.liftapp.core.designsystem.theme.LocalExtendedColors
 import com.paulfvt.liftapp.core.domain.DailyValue
 import com.paulfvt.liftapp.core.model.MeasurementType
 import com.paulfvt.liftapp.core.ui.LocalUnits
+import com.paulfvt.liftapp.core.ui.wholeNumber
 import com.paulfvt.liftapp.nutrition.domain.CalorieWeek
 import com.paulfvt.liftapp.nutrition.domain.ExpenditureEstimate
 import com.paulfvt.liftapp.nutrition.domain.NutritionGoal
@@ -52,12 +53,10 @@ import com.paulfvt.liftapp.profile.ui.changeText
 import com.paulfvt.liftapp.profile.ui.measureText
 import com.paulfvt.liftapp.profile.ui.rememberMeasureFormatter
 import com.paulfvt.liftapp.progress.ui.ProgressChart
-import com.paulfvt.liftapp.workout.domain.formatDecimal
 import java.time.format.TextStyle
 import java.time.temporal.ChronoUnit
 import java.util.Locale
 import kotlin.math.abs
-import kotlin.math.roundToInt
 
 // Marge au-dessus de la plus haute barre (ou de l'objectif), pour que rien ne touche le haut du graphique.
 private const val BAR_HEADROOM = 1.1
@@ -146,9 +145,9 @@ private fun CaloriesCard(week: CalorieWeek) {
             )
         } else {
             BigValue(
-                formatDecimal(average.toDouble()),
+                wholeNumber(average.toDouble()),
                 week.goalKcal?.let {
-                    stringResource(R.string.nutrition_trend_average_goal, formatDecimal(it.toDouble()))
+                    stringResource(R.string.nutrition_trend_average_goal, wholeNumber(it.toDouble()))
                 }
                     ?: stringResource(R.string.nutrition_trend_average)
             )
@@ -189,7 +188,7 @@ private fun CalorieBars(week: CalorieWeek) {
         R.string.nutrition_trend_chart_description,
         week.days.joinToString(", ") { day ->
             day.date.dayOfWeek.getDisplayName(TextStyle.FULL, locale) + " " +
-                formatDecimal(day.kcal.roundToInt().toDouble())
+                wholeNumber(day.kcal)
         }
     )
     val top = maxOf(week.goalKcal?.toDouble() ?: 0.0, week.days.maxOf { it.kcal }).takeIf { it > 0 } ?: 1.0
@@ -310,11 +309,11 @@ private fun ExpenditureCard(
             )
             is ExpenditureEstimate.Ready -> {
                 BigValue(
-                    formatDecimal(estimate.kcalPerDay.toDouble()),
+                    wholeNumber(estimate.kcalPerDay.toDouble()),
                     goal?.let {
                         stringResource(
                             R.string.nutrition_trend_formula,
-                            formatDecimal(it.impliedExpenditure.toDouble())
+                            wholeNumber(it.impliedExpenditure.toDouble())
                         )
                     } ?: stringResource(R.string.nutrition_trend_per_day)
                 )
@@ -325,7 +324,7 @@ private fun ExpenditureCard(
                 )
                 if (proposedKcal != null && goal != null) {
                     val offset = goal.settings.objective.kcalOffset
-                    val kcal = formatDecimal(proposedKcal.toDouble())
+                    val kcal = wholeNumber(proposedKcal.toDouble())
                     Text(
                         if (offset == 0) {
                             stringResource(R.string.nutrition_trend_proposal_maintain, kcal)
