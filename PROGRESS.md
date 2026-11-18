@@ -1,5 +1,18 @@
 # Avancement
 
+## Retours du 18 novembre 2026 : faits, à tester sur le téléphone
+
+Un commit par point, vérifiés sur l'émulateur réglé comme le S25+ (1080 × 2340, 450 dpi), police à 100 % et 115 % :
+- Raccourci à gauche des trois points de la séance : haltère pour le mode salle, liste pour revenir à la vue
+  d'ensemble. Entrée « Mode salle » du menu et bouton « Voir toute la séance » retirés.
+- Mode salle sans défilement : minuteur à 96 sp et boutons de 56 dp, boutons − et + et cases de 64 dp, nom de
+  l'exercice sur 2 lignes au plus. Le défilement reste seulement en secours pour une police très agrandie.
+- Pas des boutons − et + du poids : 1,25 kg (2,5 lb en livres), en mode salle et sur le pavé.
+- Point ouvert : un record de charge à 81,25 kg s'affiche « 81,5 kg » (arrondi d'affichage au demi-kilo du
+  6 octobre), à trancher avec le développeur.
+
+Commande de la CI verte, lint sans nouvel avertissement, aucune nouvelle dépendance.
+
 ## Phase 12 — Nutrition (V2) : terminée le 15 novembre 2026, version 1.1.0 publiée
 
 Étapes 1 à 5 faites le 3 novembre 2026, étapes 6 et 7 le 11 novembre (voir « Retours du 11 novembre » plus bas).

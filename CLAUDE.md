@@ -102,7 +102,10 @@ En cas d'ambiguïté ou de point non couvert, pose la question au lieu d'invente
     multimédia (celui de la musique, dans les écouteurs s'ils sont branchés) et non plus par celui du réveil ;
   - (9 novembre 2026) petit ding à 3, 2 et 1 s avec chaque impulsion, puis le ding ding à la fin, app ouverte ou
     quittée ; chaque temps fort a sa propre vibration (éteindre l'écran n'annule que celle en cours) ;
-  - mode salle : interrupteur dans le menu de la séance, écran allumé, une série à la fois, gros boutons.
+  - mode salle : écran allumé, une série à la fois, gros boutons ; (18 novembre 2026) raccourci à gauche des trois
+    points (haltère pour y passer, liste pour revenir à la vue d'ensemble), plus d'entrée dans le menu ni de bouton
+    « Voir toute la séance » ; tout tient sans défiler, minuteur compris ;
+  - (18 novembre 2026) boutons − et + du poids (mode salle et pavé) par 1,25 kg, ou 2,5 lb.
 - Records (21 octobre 2026) :
   - les séries dégressives comptent, seuls les échauffements sont exclus ; une série à 0 rep ne compte pas ;
   - 1RM d'Epley de 2 à 12 reps, une série à 1 rep vaut son poids ;
@@ -219,6 +222,9 @@ En cas d'ambiguïté ou de point non couvert, pose la question au lieu d'invente
     séance ouvre l'aperçu du template (même volet que l'onglet Séances), « Démarrer » lance toujours la séance ;
   - export CSV des repas : une ligne par aliment noté ;
   - recettes maison : idée mise de côté par le développeur.
+- Compte et connexion Google (18 novembre 2026) : rien pour l'instant. Le développeur se réserve de l'ajouter s'il
+  commercialise l'app sur le Play Store et l'App Store (ce serait un écart avec le cahier : permission internet,
+  et backend selon l'option choisie).
 
 ## Méthode de travail (section 7)
 
