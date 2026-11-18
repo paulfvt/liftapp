@@ -7,11 +7,11 @@ import kotlin.math.roundToLong
 // Unités choisies dans les réglages. Tout est stocké en métrique (kg, cm) ; la conversion et l'arrondi n'ont lieu
 // qu'à l'affichage et à la saisie. Le nom des constantes est enregistré dans les réglages : ne pas les renommer.
 //
-// displayStep : arrondi d'affichage des valeurs calculées (records, 1RM), 0,5 kg ou 1,25 lb (décision du
-// 6 octobre 2026). stepperStep : pas des boutons − et + du mode salle et du pavé, 1,25 kg (demande du 18 novembre
+// displayStep : arrondi d'affichage des valeurs calculées (records, 1RM), 0,25 kg (18 novembre 2026, pour qu'une
+// charge faite par pas de 1,25 kg se lise telle quelle) ou 1,25 lb (décision du 6 octobre 2026). stepperStep : pas des boutons − et + du mode salle et du pavé, 1,25 kg (demande du 18 novembre
 // 2026) ou son équivalent courant en livres, 2,5 lb.
 enum class WeightUnit(val kgPerUnit: Double, val displayStep: Double, val stepperStep: Double) {
-    KG(1.0, 0.5, 1.25),
+    KG(1.0, 0.25, 1.25),
     LB(0.45359237, 1.25, 2.5)
 }
 
@@ -29,7 +29,7 @@ fun WeightUnit.toKg(value: Double): Double = value * kgPerUnit
 // Valeur déjà dans l'unité, arrondie au pas d'affichage.
 fun WeightUnit.roundToStep(value: Double): Double = (value / displayStep).roundToLong() * displayStep
 
-// Valeur calculée telle qu'affichée : 116,5 kg ou 257,5 lb.
+// Valeur calculée telle qu'affichée : 116,75 kg ou 257,5 lb.
 fun WeightUnit.displayValue(kg: Double): Double = roundToStep(fromKg(kg))
 
 // Valeur d'un champ de saisie ou d'une série faite : telle quelle en kilos (81,25 reste 81,25), au dixième en livres

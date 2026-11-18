@@ -19,8 +19,10 @@ class UnitsTest {
     }
 
     @Test
-    fun `computed values are rounded to half a kilo or a pound and a quarter`() {
-        assertEquals(116.5, WeightUnit.KG.displayValue(116.67), 0.0)
+    fun `computed values are rounded to a quarter of a kilo or a pound and a quarter`() {
+        assertEquals(116.75, WeightUnit.KG.displayValue(116.67), 0.0)
+        assertEquals(81.25, WeightUnit.KG.displayValue(81.25), 0.0)
+        assertEquals(116.5, WeightUnit.KG.displayValue(116.55), 0.0)
         // 116,67 kg = 257,22 lb → 257,5 lb (pas de 1,25 lb).
         assertEquals(257.5, WeightUnit.LB.displayValue(116.67), 0.0)
         assertEquals(220.0, WeightUnit.LB.displayValue(100.0), 0.0)
