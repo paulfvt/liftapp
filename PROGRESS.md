@@ -1,6 +1,9 @@
 # Avancement
 
-## Retours du 18 novembre 2026 : faits, à tester sur le téléphone
+## Retours du 18 novembre 2026 : testés sur le téléphone, version 1.1.1 publiée
+
+Installés sur le S25+ et validés par le développeur le 18 novembre 2026. Release `v1.1.1` (`versionCode` 3) avec
+`LiftApp.apk` publiée sur GitHub le même jour.
 
 Un commit par point, vérifiés sur l'émulateur réglé comme le S25+ (1080 × 2340, 450 dpi), police à 100 % et 115 % :
 - Raccourci à gauche des trois points de la séance : haltère pour le mode salle, liste pour revenir à la vue
