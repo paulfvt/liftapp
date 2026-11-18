@@ -386,7 +386,8 @@
     <string name="setting_off">Désactivé</string>
 
     <!-- Mode salle -->
-    <string name="workout_gym_mode">Mode salle</string>
+    <string name="workout_show_gym_mode">Passer en mode salle</string>
+    <string name="workout_show_overview">Revenir à la vue d\'ensemble</string>
     <string name="gym_previous">Précédent : %1$s</string>
     <plurals name="gym_target">
         <item quantity="one">Objectif : %d rep</item>
@@ -396,7 +397,6 @@
     <string name="gym_complete">Valider la série</string>
     <string name="gym_finish">Terminer</string>
     <string name="gym_all_done">Toutes les séries sont validées.</string>
-    <string name="gym_show_all">Voir toute la séance</string>
     <!-- Pavé numérique de saisie des séries (façon Strong). -->
     <string name="keypad_close">Fermer le pavé</string>
     <string name="keypad_erase">Effacer</string>

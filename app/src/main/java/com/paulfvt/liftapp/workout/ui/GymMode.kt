@@ -29,7 +29,6 @@ import androidx.compose.ui.unit.dp
 import com.paulfvt.liftapp.R
 import com.paulfvt.liftapp.core.designsystem.component.LiftButtonSize
 import com.paulfvt.liftapp.core.designsystem.component.LiftOutlinedButton
-import com.paulfvt.liftapp.core.designsystem.component.LiftTextButton
 import com.paulfvt.liftapp.core.designsystem.component.SignalButton
 import com.paulfvt.liftapp.core.model.Exercise
 import com.paulfvt.liftapp.core.model.SetType
@@ -69,7 +68,6 @@ fun GymModeContent(
     previous: Map<Long, List<PreviousSet>>,
     actions: GymActions,
     keypad: SetKeypadState,
-    onShowAll: () -> Unit,
     modifier: Modifier = Modifier,
     restTimer: @Composable () -> Unit
 ) {
@@ -93,11 +91,6 @@ fun GymModeContent(
             // key : en passant à la série suivante, les champs repartent de ses valeurs.
             key(next.set.id) { NextSetPanel(next, previous[next.exercise.exercise.id].orEmpty(), actions, keypad) }
         }
-        LiftTextButton(
-            text = stringResource(R.string.gym_show_all),
-            onClick = onShowAll,
-            modifier = Modifier.heightIn(min = 48.dp)
-        )
     }
 }
 

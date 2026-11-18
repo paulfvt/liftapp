@@ -223,17 +223,13 @@ private fun ActiveWorkout(
                 },
                 title = { OnAirBadge(stringResource(R.string.workout_live_with_time, elapsed)) },
                 actions = {
+                    GymModeToggle(settings.gymMode) { viewModel.onGymModeChange(!settings.gymMode) }
                     OverflowMenu(
                         listOf(
                             MenuEntry(R.string.action_rename, R.drawable.ic_edit) {
                                 viewModel.openDialog(WorkoutDialog.Rename)
                             },
                             MenuEntry(R.string.workout_note) { viewModel.openDialog(WorkoutDialog.Note) },
-                            MenuEntry(
-                                R.string.workout_gym_mode,
-                                R.drawable.ic_fitness_center,
-                                isChecked = settings.gymMode
-                            ) { viewModel.onGymModeChange(!settings.gymMode) },
                             MenuEntry(R.string.workout_rest_sound, isChecked = settings.restSound) {
                                 viewModel.onRestSoundChange(!settings.restSound)
                             },
@@ -322,11 +318,22 @@ private fun ActiveWorkoutContent(
             previous = previous,
             actions = gymActions,
             keypad = keypad,
-            onShowAll = { viewModel.onGymModeChange(false) },
             restTimer = { restTimer(true, Modifier) }
         )
     } else {
         WorkoutContent(workout, previous, previousDates, keypad, viewModel, onPickExercises)
+    }
+}
+
+// Raccourci à gauche des trois points : haltère pour passer en mode salle, liste pour revenir à la vue d'ensemble.
+@Composable
+private fun GymModeToggle(isGymMode: Boolean, onClick: () -> Unit) {
+    IconButton(onClick = onClick) {
+        if (isGymMode) {
+            Icon(painterResource(R.drawable.ic_view_list), stringResource(R.string.workout_show_overview))
+        } else {
+            Icon(painterResource(R.drawable.ic_fitness_center), stringResource(R.string.workout_show_gym_mode))
+        }
     }
 }
 
