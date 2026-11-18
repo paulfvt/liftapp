@@ -70,7 +70,7 @@ fun RestTimer(
             .border(1.dp, amber, shape)
             .padding(
                 if (large) {
-                    PaddingValues(horizontal = 24.dp, vertical = 16.dp)
+                    PaddingValues(horizontal = 24.dp, vertical = 12.dp)
                 } else {
                     PaddingValues(start = 16.dp, end = 4.dp, top = 8.dp, bottom = 8.dp)
                 }
@@ -117,12 +117,13 @@ private fun CompactRestTimer(remaining: Int, actions: RestActions) {
     }
 }
 
-// Mode salle : titre, chiffres géants, puis −15 S, +30 S et PASSER en gros boutons. PASSER garde sa largeur, les deux
+// Mode salle : titre, chiffres géants, puis −15 S, +30 S et PASSER en gros boutons. Un peu moins grands que les
+// boutons du bas (56 dp au lieu de 72) pour que tout l'écran tienne sans défiler pendant le repos. PASSER garde sa largeur, les deux
 // autres se partagent le reste : le mot tient en entier même sur un écran étroit.
 @Composable
 private fun LargeRestTimer(remaining: Int, actions: RestActions) {
     RestTitle()
-    RestTime(remaining, fontSize = 112.sp)
+    RestTime(remaining, fontSize = 96.sp)
     Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
         RestButton(
             text = stringResource(R.string.rest_remove, REST_REMOVE_SECONDS),
@@ -131,21 +132,21 @@ private fun LargeRestTimer(remaining: Int, actions: RestActions) {
                 REST_REMOVE_SECONDS,
                 REST_REMOVE_SECONDS
             ),
-            size = LiftButtonSize.Gym,
+            size = LiftButtonSize.Large,
             onClick = actions.onRemove,
             modifier = Modifier.weight(1f)
         )
         RestButton(
             text = stringResource(R.string.rest_add, REST_ADD_SECONDS),
             description = pluralStringResource(R.plurals.rest_add_description, REST_ADD_SECONDS, REST_ADD_SECONDS),
-            size = LiftButtonSize.Gym,
+            size = LiftButtonSize.Large,
             onClick = actions.onAdd,
             modifier = Modifier.weight(1f)
         )
         LiftTextButton(
             text = stringResource(R.string.rest_skip),
             onClick = actions.onSkip,
-            size = LiftButtonSize.Gym,
+            size = LiftButtonSize.Large,
             description = stringResource(R.string.rest_skip_description)
         )
     }

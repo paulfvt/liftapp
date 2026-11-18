@@ -25,6 +25,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.paulfvt.liftapp.R
 import com.paulfvt.liftapp.core.designsystem.component.LiftButtonSize
@@ -46,9 +47,10 @@ import com.paulfvt.liftapp.workout.domain.stepDuration
 import com.paulfvt.liftapp.workout.domain.stepReps
 import com.paulfvt.liftapp.workout.domain.stepWeight
 
-private val StepButtonSize = 72.dp
-private val BigFieldWidth = 132.dp
-private val BigFieldHeight = 72.dp
+// Tailles réduites le 18 novembre 2026 pour que le minuteur, la série et les deux valeurs tiennent sans défiler.
+private val StepButtonSize = 64.dp
+private val BigFieldWidth = 124.dp
+private val BigFieldHeight = 64.dp
 private val BigButtonHeight = 72.dp
 
 // Actions de saisie du mode salle. onStep applique un changement aux valeurs en base (boutons − et +).
@@ -74,11 +76,12 @@ fun GymModeContent(
     KeepScreenOn()
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(16.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
+        // Le défilement ne sert qu'en filet de sécurité (police système très agrandie) : normalement tout tient.
         modifier = modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
-            .padding(16.dp)
+            .padding(horizontal = 16.dp, vertical = 12.dp)
     ) {
         restTimer()
         if (next == null) {
@@ -100,11 +103,13 @@ private fun NextSetPanel(next: NextSet, previous: List<PreviousSet>, actions: Gy
     val set = next.set
     val types = next.exercise.sets.map { it.type }
     val matched = matchPrevious(types, previous)[next.position - 1]
-    Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(8.dp)) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(4.dp)) {
         Text(
             exercise.name.uppercase(),
-            style = MaterialTheme.typography.headlineLarge,
-            textAlign = TextAlign.Center
+            style = MaterialTheme.typography.headlineMedium,
+            textAlign = TextAlign.Center,
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis
         )
         Text(
             setPosition(next),
