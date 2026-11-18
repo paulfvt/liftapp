@@ -8,26 +8,26 @@ import org.junit.Test
 
 class SteppersTest {
     @Test
-    fun `weight moves by 2,5 kg and an empty field starts from zero`() {
-        assertEquals(85.0, stepWeight(82.5, 1, allowNegative = false), 0.0)
-        assertEquals(80.0, stepWeight(82.5, -1, allowNegative = false), 0.0)
-        assertEquals(2.5, stepWeight(null, 1, allowNegative = false), 0.0)
+    fun `weight moves by 1,25 kg and an empty field starts from zero`() {
+        assertEquals(83.75, stepWeight(82.5, 1, allowNegative = false), 0.0)
+        assertEquals(81.25, stepWeight(82.5, -1, allowNegative = false), 0.0)
+        assertEquals(1.25, stepWeight(null, 1, allowNegative = false), 0.0)
     }
 
     @Test
     fun `a load never goes below zero but a bodyweight extra load can become an assistance`() {
         assertEquals(0.0, stepWeight(1.0, -1, allowNegative = false), 0.0)
         assertEquals(0.0, stepWeight(null, -1, allowNegative = false), 0.0)
-        assertEquals(-2.5, stepWeight(null, -1, allowNegative = true), 0.0)
-        assertEquals(-12.5, stepWeight(-10.0, -1, allowNegative = true), 0.0)
+        assertEquals(-1.25, stepWeight(null, -1, allowNegative = true), 0.0)
+        assertEquals(-11.25, stepWeight(-10.0, -1, allowNegative = true), 0.0)
     }
 
     @Test
     fun `weights keep clean decimals`() {
         var weight = 0.0
-        repeat(33) { weight = stepWeight(weight, 1, allowNegative = false) }
+        repeat(66) { weight = stepWeight(weight, 1, allowNegative = false) }
         assertEquals(82.5, weight, 0.0)
-        assertEquals(83.7, stepWeight(81.2, 1, allowNegative = false), 0.0)
+        assertEquals(82.45, stepWeight(81.2, 1, allowNegative = false), 0.0)
     }
 
     @Test
@@ -53,12 +53,12 @@ class SteppersTest {
     }
 
     @Test
-    fun `in pounds the step is five pounds and lands on round values`() {
+    fun `in pounds the step is 2,5 pounds and lands on round values`() {
         val start = WeightUnit.LB.toKg(225.0)
         val next = stepWeight(start, 1, allowNegative = false, unit = WeightUnit.LB)
-        assertEquals(230.0, WeightUnit.LB.inputValue(next), 0.0)
+        assertEquals(227.5, WeightUnit.LB.inputValue(next), 0.0)
         assertEquals(
-            WeightUnit.LB.toKg(220.0),
+            WeightUnit.LB.toKg(222.5),
             stepWeight(start, -1, allowNegative = false, unit = WeightUnit.LB),
             1e-9
         )

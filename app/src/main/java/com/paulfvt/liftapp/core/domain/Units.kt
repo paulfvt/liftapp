@@ -8,10 +8,11 @@ import kotlin.math.roundToLong
 // qu'à l'affichage et à la saisie. Le nom des constantes est enregistré dans les réglages : ne pas les renommer.
 //
 // displayStep : arrondi d'affichage des valeurs calculées (records, 1RM), 0,5 kg ou 1,25 lb (décision du
-// 6 octobre 2026). stepperStep : pas des boutons − et + du mode salle, la plus petite paire de disques courante.
+// 6 octobre 2026). stepperStep : pas des boutons − et + du mode salle et du pavé, 1,25 kg (demande du 18 novembre
+// 2026) ou son équivalent courant en livres, 2,5 lb.
 enum class WeightUnit(val kgPerUnit: Double, val displayStep: Double, val stepperStep: Double) {
-    KG(1.0, 0.5, 2.5),
-    LB(0.45359237, 1.25, 5.0)
+    KG(1.0, 0.5, 1.25),
+    LB(0.45359237, 1.25, 2.5)
 }
 
 enum class LengthUnit(val cmPerUnit: Double) {

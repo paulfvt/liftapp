@@ -31,7 +31,7 @@ class KeypadSideAction(val label: String, val description: String, val onClick: 
 
 // Pavé numérique façon Strong (décision du 2 novembre 2026), partagé par la séance et la nutrition : chiffres à
 // gauche ; fermer, − et +, la touche facultative et l'action principale à droite. cornerKey : touche en bas à gauche
-// (virgule, deux-points ou rien). stepLabel : ce que font − et +, lu par le lecteur d'écran (« 2,5 kg »).
+// (virgule, deux-points ou rien). stepLabel : ce que font − et +, lu par le lecteur d'écran (« 1,25 kg »).
 @Composable
 fun NumericKeypad(
     cornerKey: Char?,

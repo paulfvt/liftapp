@@ -6,7 +6,7 @@ import com.paulfvt.liftapp.core.domain.toKg
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-// Pas des boutons − et + du mode salle. Poids : WeightUnit.stepperStep (2,5 kg ou 5 lb).
+// Pas des boutons − et + du mode salle. Poids : WeightUnit.stepperStep (1,25 kg ou 2,5 lb).
 const val REPS_STEP = 1
 const val DURATION_STEP_SECONDS = 15
 const val KILOMETER_STEP_METERS = 100.0
@@ -14,7 +14,7 @@ const val METER_STEP_METERS = 5.0
 private const val MAX_REPS = 999
 private const val DECIMALS = 2
 
-// Poids après un appui, en kilos. Le calcul se fait dans l'unité affichée (225 lb + 5 lb = 230 lb tout rond), puis
+// Poids après un appui, en kilos. Le calcul se fait dans l'unité affichée (225 lb + 2,5 lb = 227,5 lb tout rond), puis
 // revient en kilos. Un champ vide part de 0. Le lest d'un exercice au poids du corps peut devenir négatif
 // (assistance) ; une charge, jamais. Arrondi à 2 décimales pour éviter les 82,49999 des nombres à virgule.
 fun stepWeight(currentKg: Double?, steps: Int, allowNegative: Boolean, unit: WeightUnit = WeightUnit.KG): Double {

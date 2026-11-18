@@ -87,7 +87,7 @@ class ValueSpec<T>(
     val filter: (String) -> String,
     val parse: (String) -> T?,
     val step: (T?, Int) -> T?,
-    // Ce que fait un appui sur − ou +, lu par le lecteur d'écran (« Plus 2,5 kg »).
+    // Ce que fait un appui sur − ou +, lu par le lecteur d'écran (« Plus 1,25 kg »).
     val stepLabel: String,
     val cornerKey: CornerKey
 )

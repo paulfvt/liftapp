@@ -297,7 +297,7 @@ class WorkoutDataTest {
         }
         workouts.changeSetValues(set.id) { it.copy(reps = stepReps(it.reps, 1)) }
 
-        assertEquals(SetValues(weightKg = 7.5, reps = 1), inProgress().exercises.single().sets.first().values)
+        assertEquals(SetValues(weightKg = 3.75, reps = 1), inProgress().exercises.single().sets.first().values)
     }
 
     @Test
