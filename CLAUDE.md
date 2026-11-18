@@ -56,7 +56,8 @@ En cas d'ambiguïté ou de point non couvert, pose la question au lieu d'invente
 - Catalogue free-exercise-db (Unlicense), traduit en français, images incluses.
 - Exercices au poids du corps : `weightKg` = charge ajoutée (négative = assistance). Le poids du corps n'entre ni dans
   le tonnage ni dans le 1RM.
-- Arrondi d'affichage : pas de 0,5 kg en kilos, 1,25 lb en livres.
+- Arrondi d'affichage : pas de 0,5 kg en kilos, 1,25 lb en livres. (18 novembre 2026) Records et 1RM au 0,25 kg ;
+  paliers proposés et projection restent au demi-kilo.
 - Pas de superset en V1.
 - Types de série : échauffement, travail, dégressive (pas de type « échec »). Les échauffements sont affichés mais
   exclus des records et des statistiques.

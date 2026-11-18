@@ -8,8 +8,8 @@ Un commit par point, vérifiés sur l'émulateur réglé comme le S25+ (1080 × 
 - Mode salle sans défilement : minuteur à 96 sp et boutons de 56 dp, boutons − et + et cases de 64 dp, nom de
   l'exercice sur 2 lignes au plus. Le défilement reste seulement en secours pour une police très agrandie.
 - Pas des boutons − et + du poids : 1,25 kg (2,5 lb en livres), en mode salle et sur le pavé.
-- Point ouvert : un record de charge à 81,25 kg s'affiche « 81,5 kg » (arrondi d'affichage au demi-kilo du
-  6 octobre), à trancher avec le développeur.
+- Records et 1RM affichés au 0,25 kg (81,25 kg ne s'affiche plus « 81,5 kg »), choix du développeur ; paliers
+  proposés et projection restent au demi-kilo.
 
 Commande de la CI verte, lint sans nouvel avertissement, aucune nouvelle dépendance.
 
